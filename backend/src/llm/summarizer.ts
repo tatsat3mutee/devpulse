@@ -1,0 +1,60 @@
+import { askLLM, hasLLMKey } from "./client.js";
+
+interface ItemToSummarize {
+  id: number;
+  title: string;
+  description: string | null;
+  platform: string;
+}
+
+/**
+ * Batch-summarize items via LLM into concise 1–2 sentence descriptions.
+ * Returns map of itemId → summary. Skips if no LLM key.
+ */
+export async function summarizeItems(
+  items: ItemToSummarize[]
+): Promise<Map<number, string>> {
+  const results = new Map<number, string>();
+  if (!hasLLMKey() || items.length === 0) return results;
+
+  const BATCH = 10;
+  for (let i = 0; i < items.length; i += BATCH) {
+    const batch = items.slice(i, i + BATCH);
+    try {
+      const listing = batch
+        .map(
+          (it, idx) =>
+            `[${idx + 1}] "${it.title}" (${it.platform})${
+              it.description ? `: ${it.description.slice(0, 200)}` : ""
+            }`
+        )
+        .join("\n");
+
+      const { text } = await askLLM(
+        [
+          {
+            role: "system",
+            content:
+              "You summarize AI/ML content. For each item return a concise 1-2 sentence summary explaining why it matters. Return ONLY a JSON array of strings, same order as input. No markdown fences.",
+          },
+          {
+            role: "user",
+            content: `Summarize each:\n${listing}`,
+          },
+        ],
+        { temperature: 0.2, maxTokens: 2000 }
+      );
+
+      const jsonMatch = text.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        const summaries: string[] = JSON.parse(jsonMatch[0]);
+        batch.forEach((it, idx) => {
+          if (summaries[idx]) results.set(it.id, summaries[idx]);
+        });
+      }
+    } catch (err) {
+      console.error("  ⚠️ Summarization batch failed:", err);
+    }
+  }
+  return results;
+}
