@@ -91,6 +91,13 @@ export async function classifyItems(
 // ── Keyword fallback (no LLM needed) ────────────────────────────────
 
 const KEYWORD_MAP: Record<string, string[]> = {
+  // ── New portal topics (specific → must match before broad) ──
+  "context-engineering": ["context engineering", "context window", "context design", "context management", "optimal context", "context budget", "context length"],
+  "vibe-coding": ["vibe coding", "vibe-coding", "vibe code", "prompt-to-app", "natural language coding", "ai-generated app", "bolt.new", "v0.dev", "lovable.dev"],
+  "agentic-patterns": ["agentic pattern", "agentic design", "agent loop", "react pattern", "plan and execute", "multi-agent", "agent orchestrat", "agent framework", "crewai", "autogen"],
+  "ai-evals": ["ai eval", "evaluation harness", "benchmark", "red team", "model assessment", "inspect ai", "lm-eval", "eval framework", "ai testing"],
+  "copilot-updates": ["copilot update", "copilot changelog", "copilot release", "copilot feature", "copilot preview"],
+  // ── Core topics ──
   rag: ["rag", "retrieval-augmented", "retrieval augmented"],
   "agentic-ai": ["agent", "agentic", "tool use", "multi-step", "ai agent"],
   "claude-code": ["claude code", "claude-code"],
@@ -132,7 +139,6 @@ const KEYWORD_MAP: Record<string, string[]> = {
   "project-ideas": ["project idea", "side project", "portfolio", "beginner project", "hackathon", "build a"],
   // New portal topics
   "vscode-updates": ["vs code", "vscode", "visual studio code", "vscode release", "vscode extension"],
-  "copilot-updates": ["copilot update", "copilot changelog", "copilot release", "copilot feature", "copilot preview"],
   "ai-tutorials": ["tutorial", "how to", "walkthrough", "step by step", "beginner guide", "learn ai"],
   "copilot-skills-agents": ["copilot skill", "copilot agent", "agent mode", ".agent.md", "custom agent", "copilot extensib"],
   "mcp-servers": ["mcp server", "mcp integration", "model context protocol server"],

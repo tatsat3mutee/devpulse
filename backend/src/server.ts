@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import path from "path";
+import { fileURLToPath } from "url";
 import itemsRouter from "./routes/items.js";
 import topicsRouter from "./routes/topics.js";
 import sourcesRouter from "./routes/sources.js";
@@ -28,7 +29,8 @@ app.get("/api/health", (_req, res) => {
 });
 
 // Serve frontend build in production
-const frontendDist = path.join(import.meta.dir, "../../frontend/dist");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const frontendDist = path.join(__dirname, "../../frontend/dist");
 app.use(express.static(frontendDist));
 app.get("*", (_req, res) => {
   res.sendFile(path.join(frontendDist, "index.html"));
