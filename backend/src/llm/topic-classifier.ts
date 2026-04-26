@@ -91,6 +91,10 @@ export async function classifyItems(
 // ── Keyword fallback (no LLM needed) ────────────────────────────────
 
 const KEYWORD_MAP: Record<string, string[]> = {
+  // ── Cloud AI topics ──
+  "azure-ai": ["azure openai", "azure ai", "azure cognitive", "azure ai studio", "azure ml", "azure machine learning"],
+  "aws-ai": ["aws bedrock", "amazon bedrock", "sagemaker", "amazon q", "aws ai", "codewhisperer"],
+  "cloud-ai": ["cloud ai", "cloud ml", "cloud gpu", "vertex ai", "google cloud ai"],
   // ── New portal topics (specific → must match before broad) ──
   "context-engineering": ["context engineering", "context window", "context design", "context management", "optimal context", "context budget", "context length"],
   "vibe-coding": ["vibe coding", "vibe-coding", "vibe code", "prompt-to-app", "natural language coding", "ai-generated app", "bolt.new", "v0.dev", "lovable.dev"],

@@ -27,6 +27,7 @@ function GuideList() {
     { value: "vscode", label: "VS Code", icon: "⚡" },
     { value: "mcp", label: "MCP", icon: "🔌" },
     { value: "ai-tools", label: "AI Tools", icon: "🏗️" },
+    { value: "cloud", label: "Cloud", icon: "☁️" },
   ];
 
   const difficultyColor: Record<string, string> = {

@@ -4,7 +4,7 @@ import { api, Item, Topic } from "../lib/api";
 import FeedItem from "../components/FeedItem";
 import { timeAgo, stripHtml } from "../lib/utils";
 
-type Tab = "all" | "copilot" | "claude" | "models" | "devtools" | "community" | "context" | "vibe";
+type Tab = "all" | "copilot" | "claude" | "models" | "devtools" | "community" | "context" | "vibe" | "cloud";
 
 const DEV_TOOLS = [
   {
@@ -132,6 +132,37 @@ const DEV_TOOLS = [
     url: "https://www.guardrailsai.com",
     tag: "Safety",
   },
+  // — Cloud AI —
+  {
+    name: "Azure AI Studio",
+    icon: "☁️",
+    color: "from-blue-600 to-cyan-500",
+    tagline: "Microsoft's unified AI platform",
+    desc: "Build, evaluate, and deploy AI models with Azure OpenAI, prompt flow, model catalog, and integrated RAG with Azure AI Search.",
+    features: ["Azure OpenAI", "Prompt Flow", "Model Catalog", "AI Search"],
+    url: "https://ai.azure.com",
+    tag: "Cloud AI",
+  },
+  {
+    name: "AWS Bedrock",
+    icon: "🟧",
+    color: "from-orange-500 to-yellow-500",
+    tagline: "Foundation models on AWS",
+    desc: "Managed access to Claude, Llama, Mistral, and Titan models. Build RAG with Knowledge Bases, agents with tool use, and fine-tune on your data.",
+    features: ["Multi-model", "Knowledge Bases", "Agents", "Guardrails"],
+    url: "https://aws.amazon.com/bedrock/",
+    tag: "Cloud AI",
+  },
+  {
+    name: "Karpathy nanoGPT",
+    icon: "🧠",
+    color: "from-gray-700 to-slate-600",
+    tagline: "GPT training from scratch",
+    desc: "Andrej Karpathy's minimal GPT implementation — ~300 lines of PyTorch. Learn transformer architecture by building and training your own language model.",
+    features: ["300 lines", "GPT-2 repro", "Educational", "PyTorch"],
+    url: "https://github.com/karpathy/nanoGPT",
+    tag: "Education",
+  },
 ];
 
 const TAB_TOPICS: Record<Tab, string[]> = {
@@ -166,6 +197,10 @@ const TAB_TOPICS: Record<Tab, string[]> = {
     "general", "interview-prep", "project-ideas", "spring-ai",
     "computer-vision", "nlp", "ai-safety", "ai-hardware",
     "ai-industry-news", "ai-startups",
+  ],
+  cloud: [
+    "azure-ai", "aws-ai", "cloud-ai", "microsoft",
+    "spring-ai",
   ],
 };
 
@@ -206,6 +241,7 @@ export default function DevHubPage() {
     { key: "vibe", label: "Vibe · Agents", icon: "🎨" },
     { key: "devtools", label: "Dev Tools", icon: "🛠️" },
     { key: "community", label: "Community", icon: "💬" },
+    { key: "cloud", label: "Cloud AI", icon: "☁️" },
   ];
 
   // Filter topics for current tab

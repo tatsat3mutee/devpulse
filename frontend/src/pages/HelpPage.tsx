@@ -8,10 +8,10 @@ import { Link } from "react-router-dom";
 const QUICK_ACTIONS = [
   { icon: "🏠", label: "Dashboard", desc: "See what's trending today", path: "/" },
   { icon: "📡", label: "Feed", desc: "Browse 674+ AI items", path: "/feed" },
-  { icon: "📖", label: "Guides", desc: "11 in-depth learning guides", path: "/knowledge" },
-  { icon: "🛠️", label: "Dev Hub", desc: "14 AI developer tools", path: "/devhub" },
+  { icon: "📖", label: "Guides", desc: "19 in-depth learning guides", path: "/knowledge" },
+  { icon: "🛠️", label: "Dev Hub", desc: "17 AI developer tools", path: "/devhub" },
   { icon: "🎯", label: "Learning Paths", desc: "Career roadmaps & roles", path: "/learn" },
-  { icon: "🗂️", label: "Topics", desc: "46 curated AI topics", path: "/topics" },
+  { icon: "🗂️", label: "Topics", desc: "49 curated AI topics", path: "/topics" },
 ];
 
 const POPULAR_SEARCHES = [
@@ -50,7 +50,7 @@ const FAQ: { q: string; a: string; link?: { label: string; path: string } }[] = 
   },
   {
     q: "What topics are available?",
-    a: "46 topics including: Context Engineering, RAG, Agentic Patterns, Vibe Coding, GitHub Copilot, Fine-tuning, AI Safety, Prompt Engineering, AI Evals, and many more.",
+    a: "49 topics including: Context Engineering, RAG, Agentic Patterns, Vibe Coding, GitHub Copilot, Fine-tuning, AI Safety, Prompt Engineering, AI Evals, Azure AI, AWS AI, Cloud AI, and many more.",
     link: { label: "View All Topics", path: "/topics" },
   },
 ];
@@ -85,9 +85,9 @@ const SEARCH_INDEX: SearchResult[] = [
   // Pages
   { title: "Dashboard", desc: "Trending topics & activity overview", path: "/", type: "page" },
   { title: "Feed", desc: "674+ items from 7 platforms", path: "/feed", type: "page" },
-  { title: "Topics", desc: "46 curated AI topics", path: "/topics", type: "page" },
-  { title: "Dev Hub", desc: "14 essential AI tools", path: "/devhub", type: "page" },
-  { title: "Knowledge", desc: "11 in-depth guides", path: "/knowledge", type: "page" },
+  { title: "Topics", desc: "49 curated AI topics", path: "/topics", type: "page" },
+  { title: "Dev Hub", desc: "17 essential AI tools", path: "/devhub", type: "page" },
+  { title: "Knowledge", desc: "19 in-depth guides", path: "/knowledge", type: "page" },
   { title: "Videos", desc: "AI tutorials & talks", path: "/videos", type: "page" },
   { title: "Sources", desc: "75 active data sources", path: "/sources", type: "page" },
   { title: "Learning Paths", desc: "Career roadmaps & AI roles", path: "/learn", type: "page" },
@@ -103,6 +103,14 @@ const SEARCH_INDEX: SearchResult[] = [
   { title: "Vibe Coding", desc: "AI-assisted rapid prototyping", path: "/knowledge/vibe-coding", type: "guide" },
   { title: "Agentic Patterns", desc: "Tool use, ReAct, planning patterns", path: "/knowledge/agentic-patterns", type: "guide" },
   { title: "AI Safety & Guardrails", desc: "Red teaming, RLHF, prompt injection defense", path: "/knowledge/ai-safety-guardrails", type: "guide" },
+  { title: "Claude Code Guide", desc: "Terminal AI assistant, agentic loops, CLAUDE.md", path: "/knowledge/claude-code-guide", type: "guide" },
+  { title: "LLM Fine-Tuning", desc: "LoRA, QLoRA, PEFT, custom model training", path: "/knowledge/llm-fine-tuning", type: "guide" },
+  { title: "RAG & Vectorless RAG", desc: "Retrieval, vector search, hybrid search, Graph RAG", path: "/knowledge/rag-guide", type: "guide" },
+  { title: "Awesome Copilot", desc: "Skills, agents, plugins, custom instructions", path: "/knowledge/awesome-copilot-guide", type: "guide" },
+  { title: "Azure AI Services", desc: "Azure OpenAI, AI Studio, Cognitive Services", path: "/knowledge/azure-ai-services", type: "guide" },
+  { title: "AWS AI & Bedrock", desc: "Bedrock, SageMaker, Amazon Q Developer", path: "/knowledge/aws-ai-bedrock", type: "guide" },
+  { title: "Karpathy AI from Scratch", desc: "nanoGPT, micrograd, neural nets from first principles", path: "/knowledge/karpathy-ai-from-scratch", type: "guide" },
+  { title: "Spring Boot + Azure AI", desc: "Spring AI, Azure OpenAI, Java cloud AI", path: "/knowledge/spring-boot-azure-ai", type: "guide" },
   // Topics (selected)
   { title: "RAG", desc: "Retrieval-Augmented Generation", path: "/topic/rag", type: "topic" },
   { title: "GitHub Copilot", desc: "AI pair programming", path: "/topic/github-copilot", type: "topic" },
