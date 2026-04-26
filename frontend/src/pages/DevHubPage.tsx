@@ -47,16 +47,7 @@ const DEV_TOOLS = [
     url: "https://openrouter.ai",
     tag: "API Gateway",
   },
-  {
-    name: "OpenCode",
-    icon: "⚡",
-    color: "from-cyan-500 to-blue-500",
-    tagline: "Open-source terminal AI assistant",
-    desc: "Terminal-native coding agent. Connects to any LLM provider — OpenRouter, Anthropic, OpenAI, local models via Ollama.",
-    features: ["Open source", "Any provider", "LSP integration", "Custom tools"],
-    url: "https://github.com/opencode-ai/opencode",
-    tag: "CLI · OSS",
-  },
+
   {
     name: "Hugging Face",
     icon: "🤗",

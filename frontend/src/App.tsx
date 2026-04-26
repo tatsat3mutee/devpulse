@@ -89,7 +89,7 @@ export default function App() {
           ))}
         </nav>
         <div className="p-4 border-t border-gray-100 text-[10px] text-gray-400">
-          DevPulse v2.0 · AI Developer Portal
+          DevPulse · AI Developer Portal
         </div>
       </aside>
 
@@ -135,6 +135,11 @@ export default function App() {
             <Route path="/help" element={<HelpPage />} />
           </Routes>
         </div>
+
+        {/* Footer */}
+        <footer className="mt-12 border-t border-gray-200 py-6 text-center text-xs text-gray-400">
+          Built by <span className="text-gray-600 font-medium">Tatsat Pandey</span> · Powered by AI
+        </footer>
       </main>
     </div>
   );
