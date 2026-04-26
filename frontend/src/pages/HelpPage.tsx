@@ -135,10 +135,10 @@ function search(query: string): SearchResult[] {
 }
 
 const TYPE_BADGE: Record<string, { bg: string; text: string; label: string }> = {
-  page: { bg: "bg-blue-50", text: "text-blue-600", label: "Page" },
-  guide: { bg: "bg-green-50", text: "text-green-600", label: "Guide" },
-  topic: { bg: "bg-purple-50", text: "text-purple-600", label: "Topic" },
-  tool: { bg: "bg-amber-50", text: "text-amber-600", label: "Tool" },
+  page: { bg: "bg-accent-soft", text: "text-accent", label: "Page" },
+  guide: { bg: "bg-accent-soft", text: "text-accent", label: "Guide" },
+  topic: { bg: "bg-paper", text: "text-ink-soft", label: "Topic" },
+  tool: { bg: "bg-paper", text: "text-ink-muted", label: "Tool" },
 };
 
 /* ═══════════════════════════════════════════════════════════
@@ -153,170 +153,136 @@ export default function HelpPage() {
 
   return (
     <div className="pb-8">
-      {/* ── Hero Search ── */}
-      <div className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-slate-900 to-indigo-950 p-6 sm:p-8">
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 30% 40%, rgba(99,102,241,0.3) 0%, transparent 50%), " +
-              "radial-gradient(circle at 70% 70%, rgba(59,130,246,0.3) 0%, transparent 50%)",
-          }}
-        />
-        <div className="relative max-w-2xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <span className="text-3xl">💡</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white mb-2 tracking-tight">
-            How can we help?
-          </h1>
-          <p className="text-sm text-gray-400 mb-5">
-            Search DevPulse guides, topics, tools, and pages
-          </p>
+      <header className="mb-8 pb-5 border-b border-line">
+        <div className="eyebrow mb-2">Help</div>
+        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+          How can we <span className="italic text-ink-soft">help?</span>
+        </h1>
+        <p className="text-ink-muted text-[14px] mb-5">
+          Search DevPulse guides, topics, tools, and pages.
+        </p>
 
-          {/* Search bar */}
-          <div className="relative">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
-            </div>
-            <input
-              ref={inputRef}
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for guides, topics, tools..."
-              className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 backdrop-blur-sm transition-all"
-            />
-            {query && (
-              <button
-                onClick={() => { setQuery(""); inputRef.current?.focus(); }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-xs"
-              >
-                ✕
-              </button>
-            )}
+        <div className="relative max-w-2xl">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-faint">
+            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.75" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
           </div>
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search guides, topics, tools…"
+            className="w-full pl-9 pr-9 py-2.5 rounded-md bg-surface border border-line text-ink placeholder:text-ink-faint text-[13.5px] focus:outline-none focus:border-ink/40 focus:ring-2 focus:ring-ink/5 transition-all"
+          />
+          {query && (
+            <button
+              onClick={() => { setQuery(""); inputRef.current?.focus(); }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-faint hover:text-ink text-[12px]"
+            >
+              ✕
+            </button>
+          )}
 
-          {/* Search Results */}
           {results.length > 0 && (
-            <div className="mt-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl overflow-hidden text-left">
+            <div className="absolute top-full mt-1 w-full bg-surface border border-line rounded-md shadow-cardHover overflow-hidden z-10">
               {results.map((r) => {
                 const badge = TYPE_BADGE[r.type];
                 return (
                   <Link
                     key={r.path}
                     to={r.path}
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition-colors border-b border-white/10 last:border-b-0"
+                    className="flex items-center gap-3 px-3 py-2.5 hover:bg-paper transition-colors border-b border-line last:border-b-0"
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium text-white truncate">{r.title}</div>
-                      <div className="text-[11px] text-gray-400 truncate">{r.desc}</div>
+                      <div className="text-[13px] font-medium text-ink truncate">{r.title}</div>
+                      <div className="text-[11px] text-ink-muted truncate">{r.desc}</div>
                     </div>
-                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${badge.bg} ${badge.text}`}>
+                    <span className="text-[10px] uppercase tracking-wider font-mono text-ink-faint">
                       {badge.label}
                     </span>
-                    <span className="text-gray-500 text-sm">→</span>
+                    <span className="text-ink-faint text-[12px]">→</span>
                   </Link>
                 );
               })}
             </div>
           )}
           {query.trim() && results.length === 0 && (
-            <div className="mt-3 text-sm text-gray-400">
-              No results for "<span className="text-white">{query}</span>". Try a different search term.
+            <div className="mt-2 text-[12px] text-ink-muted">
+              No results for "<span className="text-ink">{query}</span>".
             </div>
           )}
         </div>
-      </div>
+      </header>
 
       {/* ── Quick Actions ── */}
-      <section className="mb-8">
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span className="w-8 h-px bg-gray-300" />
-          Quick Access
-          <span className="flex-1 h-px bg-gray-300" />
-        </h2>
+      <section className="mb-10">
+        <div className="eyebrow mb-3">Quick access</div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
           {QUICK_ACTIONS.map((a) => (
             <Link
               key={a.path}
               to={a.path}
-              className="group p-3 rounded-xl bg-white border border-gray-100 hover:border-blue-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
+              className="group p-3 rounded-lg bg-surface border border-line hover:border-ink/30 hover:shadow-card transition-all"
             >
-              <div className="text-2xl mb-1.5">{a.icon}</div>
-              <div className="text-xs font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+              <div className="text-[13px] font-medium text-ink group-hover:text-accent transition-colors">
                 {a.label}
               </div>
-              <div className="text-[9px] text-gray-400 mt-0.5">{a.desc}</div>
+              <div className="text-[10.5px] text-ink-muted mt-1 leading-tight">{a.desc}</div>
             </Link>
           ))}
         </div>
       </section>
 
       {/* ── Popular Searches ── */}
-      <section className="mb-8">
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span className="w-8 h-px bg-gray-300" />
-          Popular Questions
-          <span className="flex-1 h-px bg-gray-300" />
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <section className="mb-10">
+        <div className="eyebrow mb-3">Popular questions</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
           {POPULAR_SEARCHES.map((s) => (
             <Link
               key={s.path}
               to={s.path}
-              className="flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-100 hover:border-blue-200 hover:shadow-sm transition-all group"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-md hover:bg-paper transition-colors group"
             >
-              <span className="text-blue-400 group-hover:text-blue-600 transition-colors">
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.3-4.3" />
-                </svg>
-              </span>
-              <span className="text-xs text-gray-700 group-hover:text-blue-600 transition-colors font-medium">
+              <span className="text-ink-faint group-hover:text-accent transition-colors text-[12px]">→</span>
+              <span className="text-[13px] text-ink-soft group-hover:text-ink transition-colors flex-1">
                 {s.q}
               </span>
-              <span className="ml-auto text-gray-300 group-hover:text-blue-400 text-sm">→</span>
             </Link>
           ))}
         </div>
       </section>
 
       {/* ── FAQ ── */}
-      <section className="mb-8">
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span className="w-8 h-px bg-gray-300" />
-          Frequently Asked Questions
-          <span className="flex-1 h-px bg-gray-300" />
-        </h2>
-        <div className="space-y-1.5">
+      <section className="mb-10">
+        <div className="eyebrow mb-3">Frequently asked</div>
+        <div className="divide-y divide-line bg-surface border border-line rounded-lg overflow-hidden">
           {FAQ.map((f, i) => (
-            <div key={i} className="rounded-xl bg-white border border-gray-100 overflow-hidden">
+            <div key={i}>
               <button
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-paper transition-colors"
               >
-                <span className="text-sm font-medium text-gray-800">{f.q}</span>
+                <span className="text-[13.5px] font-medium text-ink">{f.q}</span>
                 <span
-                  className={`text-gray-400 transition-transform duration-200 text-xs ${
+                  className={`text-ink-faint transition-transform duration-200 text-[12px] ${
                     openFaq === i ? "rotate-180" : ""
                   }`}
                 >
-                  ▼
+                  ⌄
                 </span>
               </button>
               {openFaq === i && (
-                <div className="px-4 pb-4 border-t border-gray-50">
-                  <p className="text-xs text-gray-600 leading-relaxed mt-3">{f.a}</p>
+                <div className="px-4 pb-4 -mt-1">
+                  <p className="text-[12.5px] text-ink-soft leading-relaxed">{f.a}</p>
                   {f.link && (
                     <Link
                       to={f.link.path}
-                      className="inline-flex items-center gap-1 mt-2 text-[11px] text-blue-600 hover:text-blue-800 font-medium hover:underline"
+                      className="inline-flex items-center gap-1 mt-2 text-[12px] text-accent hover:underline font-medium"
                     >
-                      {f.link.label} <span>→</span>
+                      {f.link.label} →
                     </Link>
                   )}
                 </div>
@@ -327,119 +293,97 @@ export default function HelpPage() {
       </section>
 
       {/* ── AI Resources + Shortcuts ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
-        {/* External AI Resources */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
         <div>
-          <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-            <span className="w-8 h-px bg-gray-300" />
-            AI Documentation & Resources
-            <span className="flex-1 h-px bg-gray-300" />
-          </h2>
-          <div className="space-y-1.5">
+          <div className="eyebrow mb-3">External docs</div>
+          <div className="divide-y divide-line bg-surface border border-line rounded-lg overflow-hidden">
             {AI_RESOURCES.map((r) => (
               <a
                 key={r.url}
                 href={r.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-xl bg-white border border-gray-100 hover:border-blue-200 hover:shadow-sm transition-all group"
+                className="flex items-center gap-3 px-4 py-2.5 hover:bg-paper transition-colors group"
               >
-                <span className="text-xl">{r.icon}</span>
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                  <div className="text-[13px] font-medium text-ink group-hover:text-accent transition-colors">
                     {r.title}
                   </div>
-                  <div className="text-[10px] text-gray-400">{r.desc}</div>
+                  <div className="text-[11px] text-ink-muted">{r.desc}</div>
                 </div>
-                <span className="text-gray-300 group-hover:text-blue-400 text-[10px]">↗</span>
+                <span className="text-ink-faint group-hover:text-accent text-[12px]">↗</span>
               </a>
             ))}
           </div>
         </div>
 
-        {/* Keyboard Shortcuts & Tips */}
         <div>
-          <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-            <span className="w-8 h-px bg-gray-300" />
-            Tips & Shortcuts
-            <span className="flex-1 h-px bg-gray-300" />
-          </h2>
-          <div className="rounded-xl bg-white border border-gray-100 p-4">
-            <div className="space-y-3">
+          <div className="eyebrow mb-3">Tips &amp; shortcuts</div>
+          <div className="bg-surface border border-line rounded-lg p-4">
+            <div className="space-y-2.5 mb-5">
               {KEYBOARD_SHORTCUTS.map((s, i) => (
                 <div key={i} className="flex items-center justify-between">
                   <div className="flex gap-1">
                     {s.keys.map((k) => (
                       <kbd
                         key={k}
-                        className="px-2 py-0.5 rounded bg-gray-100 border border-gray-200 text-[10px] font-mono text-gray-600"
+                        className="px-1.5 py-0.5 rounded bg-paper border border-line text-[10.5px] font-mono text-ink-soft"
                       >
                         {k}
                       </kbd>
                     ))}
                   </div>
-                  <span className="text-[11px] text-gray-500">{s.desc}</span>
+                  <span className="text-[11.5px] text-ink-muted">{s.desc}</span>
                 </div>
               ))}
             </div>
 
-            <div className="mt-5 pt-4 border-t border-gray-100">
-              <h3 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">
-                Pro Tips
-              </h3>
+            <div className="pt-4 border-t border-line">
+              <div className="eyebrow mb-2">Pro tips</div>
               <ul className="space-y-1.5">
-                <li className="text-[11px] text-gray-600 flex items-start gap-1.5">
-                  <span className="text-blue-400 mt-0.5">•</span>
-                  Use the Feed page to filter by platform (arXiv, GitHub, Reddit, HN)
-                </li>
-                <li className="text-[11px] text-gray-600 flex items-start gap-1.5">
-                  <span className="text-blue-400 mt-0.5">•</span>
-                  Click any topic badge to see all related items
-                </li>
-                <li className="text-[11px] text-gray-600 flex items-start gap-1.5">
-                  <span className="text-blue-400 mt-0.5">•</span>
-                  Knowledge guides have copy-paste code snippets
-                </li>
-                <li className="text-[11px] text-gray-600 flex items-start gap-1.5">
-                  <span className="text-blue-400 mt-0.5">•</span>
-                  Dev Hub cards link directly to official docs
-                </li>
-                <li className="text-[11px] text-gray-600 flex items-start gap-1.5">
-                  <span className="text-blue-400 mt-0.5">•</span>
-                  Learning Paths have 3-phase roadmaps for each AI career role
-                </li>
+                {[
+                  "Use the Feed page to filter by platform (arXiv, GitHub, Reddit, HN)",
+                  "Click any topic badge to see all related items",
+                  "Knowledge guides have copy-paste code snippets",
+                  "Dev Hub cards link directly to official docs",
+                  "Learning Paths have 3-phase roadmaps for each AI career role",
+                ].map((t, i) => (
+                  <li key={i} className="text-[12px] text-ink-soft flex items-start gap-2 leading-relaxed">
+                    <span className="text-ink-faint mt-1.5">-</span>
+                    {t}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Bottom CTA ── */}
-      <div className="rounded-2xl bg-gradient-to-r from-gray-900 to-slate-900 p-6 text-center">
-        <p className="text-white font-bold text-sm mb-1">Still have questions?</p>
-        <p className="text-gray-400 text-xs mb-4">
-          DevPulse is open source. Check the guides or explore the codebase.
+      <div className="border-t border-line pt-8 text-center">
+        <p className="display text-[24px] text-ink mb-1">Still have questions?</p>
+        <p className="text-ink-muted text-[13px] mb-5 max-w-md mx-auto">
+          DevPulse is open source. Read the guides, then explore the codebase.
         </p>
         <div className="flex gap-2 justify-center flex-wrap">
           <Link
             to="/knowledge"
-            className="px-5 py-2.5 rounded-full bg-blue-600 text-white text-xs font-bold hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/25"
+            className="px-4 py-2 rounded-md bg-ink text-paper text-[12.5px] font-medium hover:bg-ink-soft transition-colors"
           >
-            📖 Read the Guides
+            Read the guides
           </Link>
           <Link
             to="/learn"
-            className="px-5 py-2.5 rounded-full bg-white/10 text-white text-xs font-bold hover:bg-white/20 transition-colors border border-white/20"
+            className="px-4 py-2 rounded-md bg-surface border border-line text-ink-soft text-[12.5px] font-medium hover:border-ink/30 hover:text-ink transition-colors"
           >
-            🎯 Learning Paths
+            Learning paths
           </Link>
           <a
             href="https://github.com/tatsat3mutee/devpulse"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2.5 rounded-full bg-white/10 text-white text-xs font-bold hover:bg-white/20 transition-colors border border-white/20"
+            className="px-4 py-2 rounded-md bg-surface border border-line text-ink-soft text-[12.5px] font-medium hover:border-ink/30 hover:text-ink transition-colors"
           >
-            🐙 GitHub Repo
+            GitHub repo
           </a>
         </div>
       </div>

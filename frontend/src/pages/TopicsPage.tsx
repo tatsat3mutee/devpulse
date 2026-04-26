@@ -15,53 +15,89 @@ export default function TopicsPage() {
 
   const withItems = topics.filter((t) => t.item_count > 0);
   const empty = topics.filter((t) => t.item_count === 0);
+  const totalItems = withItems.reduce((s, t) => s + t.item_count, 0);
+
+  // Group by category for editorial layout
+  const byCategory = withItems.reduce((acc, t) => {
+    (acc[t.category] = acc[t.category] || []).push(t);
+    return acc;
+  }, {} as Record<string, Topic[]>);
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-1">Topics</h1>
-      <p className="text-gray-500 mb-6 text-sm">
-        {topics.length} topics · {withItems.reduce((s, t) => s + t.item_count, 0)} items tracked
-      </p>
+      <header className="mb-10 pb-5 border-b border-line">
+        <div className="eyebrow mb-2">Index</div>
+        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+          {topics.length} topics, <span className="italic text-ink-soft">tracked closely.</span>
+        </h1>
+        <p className="text-ink-muted text-[14px]">
+          {totalItems.toLocaleString()} items across {Object.keys(byCategory).length} categories.
+        </p>
+      </header>
 
-      {/* Active topics grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {withItems.map((t) => (
-          <Link
-            key={t.id}
-            to={`/topic/${t.slug}`}
-            className="block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-gray-300 transition-all"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <span
-                className="w-3 h-3 rounded-full flex-shrink-0"
-                style={{ backgroundColor: t.category_color }}
-              />
-              <span className="font-semibold text-sm truncate">{t.name}</span>
-              <span className="ml-auto text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
-                {t.item_count}
-              </span>
-            </div>
-            <p className="text-xs text-gray-500 line-clamp-2 mb-2">
-              {t.description}
-            </p>
-            <div className="flex items-center justify-between text-xs text-gray-400">
-              <span className="px-1.5 py-0.5 rounded bg-gray-50">{t.category}</span>
-              {t.latest_item_at && <span>{timeAgo(t.latest_item_at)}</span>}
-            </div>
-          </Link>
-        ))}
+      <div className="space-y-10">
+        {Object.entries(byCategory)
+          .sort(([, a], [, b]) =>
+            b.reduce((s, t) => s + t.item_count, 0) - a.reduce((s, t) => s + t.item_count, 0)
+          )
+          .map(([category, list]) => (
+            <section key={category}>
+              <div className="eyebrow mb-3 flex items-center gap-2">
+                <span
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ backgroundColor: list[0].category_color }}
+                />
+                {category}
+                <span className="text-ink-faint normal-case tracking-normal">
+                  · {list.length} topics
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                {list
+                  .sort((a, b) => b.item_count - a.item_count)
+                  .map((t) => (
+                    <Link
+                      key={t.id}
+                      to={`/topic/${t.slug}`}
+                      className="group block bg-surface rounded-lg border border-line p-4 hover:border-ink/30 hover:shadow-card transition-all"
+                    >
+                      <div className="flex items-start justify-between mb-1.5 gap-3">
+                        <h3 className="font-medium text-[14px] text-ink leading-snug group-hover:text-accent transition-colors min-w-0 truncate">
+                          {t.name}
+                        </h3>
+                        <span className="text-[11px] font-mono text-ink-faint shrink-0">
+                          {t.item_count}
+                        </span>
+                      </div>
+                      {t.description && (
+                        <p className="text-[12.5px] text-ink-muted line-clamp-2 mb-2 leading-relaxed">
+                          {t.description}
+                        </p>
+                      )}
+                      {t.latest_item_at && (
+                        <span className="text-[10.5px] uppercase tracking-wider text-ink-faint">
+                          updated {timeAgo(t.latest_item_at)}
+                        </span>
+                      )}
+                    </Link>
+                  ))}
+              </div>
+            </section>
+          ))}
       </div>
 
-      {/* Empty topics (collapsed) */}
       {empty.length > 0 && (
-        <details className="text-sm text-gray-400">
-          <summary className="cursor-pointer hover:text-gray-600">
-            {empty.length} topics with no items yet
+        <details className="mt-12 pt-5 border-t border-line text-[12px] text-ink-faint">
+          <summary className="cursor-pointer hover:text-ink transition-colors">
+            {empty.length} topics still waiting for content
           </summary>
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className="flex flex-wrap gap-1.5 mt-3">
             {empty.map((t) => (
-              <span key={t.id} className="px-2 py-1 rounded bg-gray-100 text-gray-500 text-xs">
-                {t.name}
+              <span
+                key={t.id}
+                className="text-[11px] text-ink-muted font-mono"
+              >
+                #{t.slug}
               </span>
             ))}
           </div>
@@ -74,13 +110,17 @@ export default function TopicsPage() {
 function Skeleton() {
   return (
     <div className="animate-pulse">
-      <div className="h-8 bg-gray-200 rounded w-32 mb-2" />
-      <div className="h-4 bg-gray-100 rounded w-48 mb-6" />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="h-28 bg-gray-100 rounded-xl" />
+      <div className="mb-10 pb-5 border-b border-line">
+        <div className="h-3 w-20 bg-line rounded mb-3" />
+        <div className="h-10 w-2/3 bg-line/70 rounded mb-3" />
+        <div className="h-4 w-48 bg-line/60 rounded" />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+        {Array.from({ length: 9 }).map((_, i) => (
+          <div key={i} className="h-24 bg-surface border border-line rounded-lg" />
         ))}
       </div>
     </div>
   );
 }
+

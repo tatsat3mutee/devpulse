@@ -256,148 +256,128 @@ export default function DevHubPage() {
 
   return (
     <div>
-      {/* Header */}
-      <div className="mb-5">
-        <h1 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
-          <span>🛠️</span> Dev Hub
+      <header className="mb-8 pb-5 border-b border-line">
+        <div className="eyebrow mb-2">Tooling</div>
+        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+          The AI builder's <span className="italic text-ink-soft">workshop.</span>
         </h1>
-        <p className="text-gray-400 text-xs sm:text-sm mt-1">
-          Copilot · Claude · Codex · v0 · bolt.new · CrewAI · LangSmith · all AI dev tools in one place
+        <p className="text-ink-muted text-[14px] max-w-2xl">
+          Copilot, Claude Code, Cursor, v0, bolt.new, CrewAI — every tool worth
+          a serious developer's time, in one place.
         </p>
-      </div>
+      </header>
 
-      {/* Developer Tools Spotlight */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+      <div className="eyebrow mb-3">Tools · {DEV_TOOLS.length}</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 mb-10">
         {DEV_TOOLS.map((tool) => (
           <a
             key={tool.name}
             href={tool.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white hover:shadow-md hover:border-gray-300 transition-all"
+            className="group relative bg-surface rounded-lg border border-line p-4 hover:border-ink/30 hover:shadow-card transition-all"
           >
-            <div className={`h-1.5 bg-gradient-to-r ${tool.color}`} />
-            <div className="p-4">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">{tool.icon}</span>
-                  <h3 className="font-semibold text-sm text-gray-900">{tool.name}</h3>
-                </div>
-                <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">
-                  {tool.tag}
-                </span>
-              </div>
-              <p className="text-xs text-gray-500 font-medium mb-1">{tool.tagline}</p>
-              <p className="text-[11px] text-gray-400 leading-relaxed mb-3">{tool.desc}</p>
-              <div className="flex flex-wrap gap-1">
-                {tool.features.map((f) => (
-                  <span
-                    key={f}
-                    className="text-[10px] px-1.5 py-0.5 rounded bg-gray-50 text-gray-500 border border-gray-100"
-                  >
-                    {f}
-                  </span>
-                ))}
-              </div>
+            <div className="flex items-start justify-between mb-1.5 gap-3">
+              <h3 className="font-medium text-[14px] text-ink group-hover:text-accent transition-colors min-w-0 truncate">
+                {tool.name}
+              </h3>
+              <span className="text-[10px] font-mono text-ink-faint uppercase tracking-wider shrink-0">
+                {tool.tag}
+              </span>
             </div>
-            <span className="absolute top-3 right-3 text-gray-300 group-hover:text-gray-500 transition-colors text-xs">↗</span>
+            <p className="text-[12.5px] text-ink-soft leading-snug mb-1">{tool.tagline}</p>
+            <p className="text-[12px] text-ink-muted leading-relaxed mb-3 line-clamp-2">{tool.desc}</p>
+            <div className="flex flex-wrap gap-1">
+              {tool.features.slice(0, 4).map((f) => (
+                <span
+                  key={f}
+                  className="text-[10px] px-1.5 py-0.5 rounded font-mono text-ink-muted bg-paper border border-line"
+                >
+                  {f}
+                </span>
+              ))}
+            </div>
           </a>
         ))}
       </div>
 
-      {/* Quick topic pills */}
       {filteredTopics.length > 0 && (
         <div className="flex gap-1.5 mb-4 flex-wrap">
           {filteredTopics.map((t) => (
             <Link
               key={t.id}
               to={`/topic/${t.slug}`}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-gray-200 text-[11px] font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-paper border border-line text-[11px] font-medium text-ink-soft hover:border-ink/30 hover:text-ink transition-colors"
             >
               <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: t.category_color }} />
               {t.name}
-              <span className="text-gray-400">({t.item_count})</span>
+              <span className="text-ink-faint font-mono">{t.item_count}</span>
             </Link>
           ))}
         </div>
       )}
 
-      {/* Tabs */}
-      <div className="flex gap-0.5 mb-5 border-b border-gray-200 pb-2 overflow-x-auto no-scrollbar">
+      <div className="flex gap-3 mb-6 border-b border-line overflow-x-auto no-scrollbar">
         {tabs.map((t) => (
           <button
             key={t.key}
             onClick={() => setTab(t.key)}
-            className={`flex items-center gap-1 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-t transition-colors whitespace-nowrap ${
+            className={`px-1 pb-2.5 text-[12px] uppercase tracking-wider font-medium border-b transition-colors whitespace-nowrap ${
               tab === t.key
-                ? "text-blue-700 border-b-2 border-blue-700"
-                : "text-gray-400 hover:text-gray-600"
+                ? "text-ink border-ink"
+                : "text-ink-faint border-transparent hover:text-ink-soft"
             }`}
           >
-            <span>{t.icon}</span>
             {t.label}
           </button>
         ))}
       </div>
 
       {loading ? (
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-24 bg-gray-100 rounded-xl animate-pulse" />
+            <div key={i} className="h-24 bg-surface border border-line rounded-lg animate-pulse" />
           ))}
         </div>
       ) : items.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
-          <p className="text-4xl mb-3">📋</p>
-          <p className="text-lg mb-1">No updates yet</p>
-          <p className="text-sm">Fetch new data from the Sources page to see updates here</p>
+        <div className="text-center py-20">
+          <p className="display text-[28px] text-ink-soft mb-1">Nothing fresh on this tab.</p>
+          <p className="text-[13.5px] text-ink-muted">Trigger a fetch from the Sources page.</p>
         </div>
       ) : (
-        <div className="space-y-6">
-          {/* Changelog / Articles section */}
+        <div className="space-y-8">
           {articles.length > 0 && (
             <div>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
-                📰 Latest Updates & Articles
-              </h2>
-              <div className="space-y-2">
+              <div className="eyebrow mb-3">Updates &amp; articles</div>
+              <div className="divide-y divide-line bg-surface border border-line rounded-lg overflow-hidden">
                 {articles.slice(0, 15).map((item) => (
                   <div
                     key={item.id}
                     onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
-                    className="flex items-start gap-3 bg-white rounded-lg border border-gray-200 px-4 py-3 hover:border-gray-300 hover:shadow-sm transition-all cursor-pointer group"
+                    className="flex items-start gap-3 px-4 py-3 hover:bg-paper transition-colors cursor-pointer group"
                   >
-                    <div className="w-1 h-10 rounded-full bg-blue-400 flex-shrink-0 mt-0.5" />
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors line-clamp-1">
+                      <h3 className="text-[13.5px] font-medium text-ink group-hover:text-accent transition-colors line-clamp-1">
                         {item.title}
                       </h3>
-                      <div className="flex items-center gap-2 text-xs text-gray-400 mt-0.5">
-                        <span className="font-medium text-gray-500">{item.source_name || item.platform}</span>
+                      <div className="flex items-center gap-2 text-[11px] text-ink-faint mt-1 uppercase tracking-wider">
+                        <span className="text-ink-muted">{item.source_name || item.platform}</span>
                         <span>·</span>
                         <span>{timeAgo(item.published_at)}</span>
-                        {item.author && (
-                          <>
-                            <span>·</span>
-                            <span>{item.author}</span>
-                          </>
-                        )}
+                        {item.author && (<><span>·</span><span className="normal-case tracking-normal">{item.author}</span></>)}
                       </div>
                     </div>
-                    <span className="text-gray-300 group-hover:text-gray-500 transition-colors text-xs">↗</span>
+                    <span className="text-ink-faint group-hover:text-accent transition-colors text-[12px]">↗</span>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Other content (repos, social, papers) */}
           {other.length > 0 && (
             <div>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
-                💬 Community & Repos
-              </h2>
-              <div className="space-y-3">
+              <div className="eyebrow mb-3">Community &amp; repos</div>
+              <div className="space-y-2.5">
                 {other.slice(0, 20).map((item) => (
                   <FeedItem key={item.id} item={item} showTopic />
                 ))}

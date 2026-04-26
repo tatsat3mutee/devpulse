@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { api, Item, TopicDetail } from "../lib/api";
+import { api, TopicDetail } from "../lib/api";
 import FeedItem from "../components/FeedItem";
+import Icon from "../components/Icon";
 
 export default function TopicDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -21,10 +22,12 @@ export default function TopicDetailPage() {
   if (loading || !data) {
     return (
       <div className="animate-pulse">
-        <div className="h-6 bg-gray-200 rounded w-48 mb-4" />
-        <div className="space-y-3">
+        <div className="h-3 w-24 bg-line rounded mb-4" />
+        <div className="h-10 w-2/3 bg-line/70 rounded mb-3" />
+        <div className="h-4 w-1/2 bg-line/60 rounded mb-8" />
+        <div className="space-y-2.5">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-28 bg-gray-100 rounded-xl" />
+            <div key={i} className="h-24 bg-surface border border-line rounded-lg" />
           ))}
         </div>
       </div>
@@ -36,82 +39,86 @@ export default function TopicDetailPage() {
   return (
     <div>
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm text-gray-400 mb-5">
-        <Link to="/" className="hover:text-gray-700 transition-colors">Topics</Link>
-        <span>/</span>
-        <span className="text-gray-700 font-medium">{data.name}</span>
-      </div>
+      <Link
+        to="/topics"
+        className="inline-flex items-center gap-1.5 text-[12px] text-ink-muted hover:text-ink mb-4 transition-colors"
+      >
+        <Icon name="arrow-left" size={12} />
+        All topics
+      </Link>
 
-      {/* Topic header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-3 mb-1.5">
+      {/* Header */}
+      <header className="mb-8 pb-5 border-b border-line">
+        <div className="eyebrow mb-2 flex items-center gap-1.5">
           <span
-            className="w-3.5 h-3.5 rounded-full flex-shrink-0"
+            className="w-1.5 h-1.5 rounded-full"
             style={{ backgroundColor: data.category_color }}
           />
-          <h1 className="text-2xl font-bold">{data.name}</h1>
-          <span className="text-xs px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-500 font-medium">
-            {data.category}
-          </span>
+          {data.category}
         </div>
-        <p className="text-gray-400 text-sm ml-6">{data.description}</p>
-      </div>
+        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+          {data.name}
+        </h1>
+        {data.description && (
+          <p className="text-ink-muted text-[14px] max-w-2xl leading-relaxed">
+            {data.description}
+          </p>
+        )}
+      </header>
 
-      {/* Type filter tabs */}
-      <div className="flex items-center gap-2 mb-5">
+      {/* Filters */}
+      <div className="flex flex-wrap items-center gap-2 mb-6">
         <button
           onClick={() => setTypeFilter("")}
-          className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
+          className={`px-2.5 py-1 text-[11.5px] uppercase tracking-wider font-medium rounded transition-colors ${
             !typeFilter
-              ? "bg-gray-900 text-white"
-              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              ? "bg-ink text-paper"
+              : "text-ink-muted hover:text-ink border border-line bg-surface"
           }`}
         >
-          All {totalCount}
+          All <span className="ml-1 font-mono opacity-70">{totalCount}</span>
         </button>
         {(data.type_counts || []).map((tc) => (
           <button
             key={tc.type}
             onClick={() => setTypeFilter(tc.type)}
-            className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors capitalize ${
+            className={`px-2.5 py-1 text-[11.5px] uppercase tracking-wider font-medium rounded transition-colors capitalize ${
               typeFilter === tc.type
-                ? "bg-gray-900 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-ink text-paper"
+                : "text-ink-muted hover:text-ink border border-line bg-surface"
             }`}
           >
-            {tc.type.charAt(0).toUpperCase() + tc.type.slice(1)} ({tc.count})
+            {tc.type} <span className="ml-1 font-mono opacity-70">{tc.count}</span>
           </button>
         ))}
 
-        {/* Sort */}
-        <div className="ml-auto flex gap-1 bg-gray-100 rounded-lg p-0.5">
+        <div className="ml-auto flex gap-px bg-paper border border-line rounded-md p-0.5">
           <button
             onClick={() => setSort("top")}
-            className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-              sort === "top" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500"
+            className={`px-3 py-1 text-[11.5px] font-medium uppercase tracking-wider rounded transition-colors ${
+              sort === "top" ? "bg-ink text-paper" : "text-ink-muted hover:text-ink"
             }`}
           >
             Top
           </button>
           <button
             onClick={() => setSort("recent")}
-            className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-              sort === "recent" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500"
+            className={`px-3 py-1 text-[11.5px] font-medium uppercase tracking-wider rounded transition-colors ${
+              sort === "recent" ? "bg-ink text-paper" : "text-ink-muted hover:text-ink"
             }`}
           >
-            Recent
+            New
           </button>
         </div>
       </div>
 
-      {/* Items list */}
       {data.items.length === 0 ? (
-        <div className="text-center py-16 text-gray-400">
-          <p className="text-lg mb-1">No items yet</p>
-          <p className="text-sm">Items will appear after the next fetch cycle</p>
+        <div className="text-center py-20">
+          <p className="display text-[28px] text-ink-soft mb-1">Quiet on this topic.</p>
+          <p className="text-[13.5px] text-ink-muted">Items will appear after the next fetch cycle.</p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {data.items.map((item) => (
             <FeedItem key={item.id} item={item} />
           ))}
@@ -120,3 +127,4 @@ export default function TopicDetailPage() {
     </div>
   );
 }
+

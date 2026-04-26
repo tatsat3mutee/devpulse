@@ -18,7 +18,9 @@ export async function summarizeItems(
   if (!hasLLMKey() || items.length === 0) return results;
 
   const BATCH = 10;
+  let llmDead = false;
   for (let i = 0; i < items.length; i += BATCH) {
+    if (llmDead) break; // every provider exhausted; stop attempting
     const batch = items.slice(i, i + BATCH);
     try {
       const listing = batch
@@ -52,8 +54,16 @@ export async function summarizeItems(
           if (summaries[idx]) results.set(it.id, summaries[idx]);
         });
       }
-    } catch (err) {
-      console.error("  ⚠️ Summarization batch failed:", err);
+    } catch (err: any) {
+      const status = err?.status as number | undefined;
+      const msg = String(err?.message || "");
+      const rateLimited = status === 429 || /quota|rate limit|blocked for/i.test(msg);
+      if (rateLimited) {
+        console.warn(`  ⚠️  Summarization disabled this run — all LLMs rate limited (${msg.slice(0, 120)})`);
+        llmDead = true;
+      } else {
+        console.error("  ⚠️ Summarization batch failed:", msg);
+      }
     }
   }
   return results;

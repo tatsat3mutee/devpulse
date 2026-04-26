@@ -1,10 +1,11 @@
 import Pool from "pg";
 
+const dbUrl = process.env.DATABASE_URL ?? "postgresql://postgres:postgres@localhost:5432/ai_pulse";
+const isLocal = dbUrl.includes("localhost") || dbUrl.includes("127.0.0.1");
+
 const pool = new Pool.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL?.startsWith("postgresql")
-    ? { rejectUnauthorized: false }
-    : undefined,
+  connectionString: dbUrl,
+  ssl: isLocal ? false : { rejectUnauthorized: false },
 });
 
 // Test connection on startup

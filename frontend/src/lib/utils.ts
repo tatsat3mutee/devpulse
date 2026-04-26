@@ -67,15 +67,28 @@ export function engagementText(
   }
 }
 
-/** Type badge colors */
+/** Type badge dot color (subtle) */
+export function typeDotColor(type: string): string {
+  const map: Record<string, string> = {
+    paper: "bg-sky-500",
+    repo: "bg-emerald-500",
+    social: "bg-violet-500",
+    news: "bg-amber-500",
+    article: "bg-teal-500",
+    video: "bg-rose-500",
+  };
+  return map[type] || "bg-ink-faint";
+}
+
+/** Type badge colors (legacy) */
 export function typeBadgeColor(type: string): string {
   const map: Record<string, string> = {
-    paper: "bg-blue-100 text-blue-700",
-    repo: "bg-green-100 text-green-700",
-    social: "bg-purple-100 text-purple-700",
-    news: "bg-orange-100 text-orange-700",
-    article: "bg-teal-100 text-teal-700",
-    video: "bg-red-100 text-red-700",
+    paper: "bg-sky-50 text-sky-700 border-sky-100",
+    repo: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    social: "bg-violet-50 text-violet-700 border-violet-100",
+    news: "bg-amber-50 text-amber-800 border-amber-100",
+    article: "bg-teal-50 text-teal-700 border-teal-100",
+    video: "bg-rose-50 text-rose-700 border-rose-100",
   };
-  return map[type] || "bg-gray-100 text-gray-700";
+  return map[type] || "bg-paper text-ink-soft border-line";
 }

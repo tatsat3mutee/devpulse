@@ -199,109 +199,74 @@ export default function LearnPage() {
 
   return (
     <div className="pb-8">
-      {/* ── Hero ── */}
-      <div className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 via-indigo-950 to-blue-950 p-6 sm:p-8">
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 50%, rgba(99,102,241,0.3) 0%, transparent 50%), " +
-              "radial-gradient(circle at 80% 20%, rgba(59,130,246,0.3) 0%, transparent 50%), " +
-              "radial-gradient(circle at 60% 80%, rgba(139,92,246,0.2) 0%, transparent 50%)",
-          }}
-        />
-        <div className="relative">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
-              v2.0
-            </span>
-            <span className="text-xs text-gray-400">Your AI learning companion</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white mb-2 tracking-tight">
-            Learning Paths
-          </h1>
-          <p className="text-sm sm:text-base text-gray-300 max-w-2xl leading-relaxed">
-            Pick your role. Follow the roadmap. Use DevPulse daily to stay ahead.
-            <span className="text-blue-400"> From zero to production AI engineer.</span>
-          </p>
-          {/* Stats ribbon */}
-          <div className="flex gap-4 sm:gap-6 mt-5">
-            {[
-              { n: "6", l: "Career Paths" },
-              { n: "46", l: "Topics" },
-              { n: "11", l: "Guides" },
-              { n: "14", l: "Dev Tools" },
-              { n: "75", l: "Sources" },
-            ].map((s) => (
-              <div key={s.l} className="text-center">
-                <div className="text-lg sm:text-xl font-black text-white">{s.n}</div>
-                <div className="text-[10px] text-gray-400 uppercase tracking-wider">{s.l}</div>
-              </div>
-            ))}
-          </div>
+      <header className="mb-8 pb-5 border-b border-line">
+        <div className="eyebrow mb-2">Learn</div>
+        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+          From zero to <span className="italic text-ink-soft">production AI engineer.</span>
+        </h1>
+        <p className="text-ink-muted text-[14px] max-w-2xl mb-5">
+          Pick a role. Follow the roadmap. Use DevPulse daily to stay current.
+        </p>
+        <div className="flex flex-wrap gap-x-8 gap-y-2">
+          {[
+            { n: "6", l: "Career paths" },
+            { n: "46", l: "Topics" },
+            { n: "11", l: "Guides" },
+            { n: "14", l: "Tools" },
+            { n: "75", l: "Sources" },
+          ].map((s) => (
+            <div key={s.l}>
+              <div className="display text-[20px] text-ink">{s.n}</div>
+              <div className="eyebrow mt-1">{s.l}</div>
+            </div>
+          ))}
         </div>
-      </div>
+      </header>
 
-      {/* ── Portal Navigation Orbit ── */}
-      <section className="mb-8">
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span className="w-8 h-px bg-gray-300" />
-          Navigate DevPulse
-          <span className="flex-1 h-px bg-gray-300" />
-        </h2>
+      <section className="mb-10">
+        <div className="eyebrow mb-3">Navigate</div>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
           {PORTAL_MAP.map((s) => (
             <Link
               key={s.path}
               to={s.path}
-              className="group relative p-3 rounded-xl bg-white border border-gray-100 hover:border-blue-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+              className="group block p-3 rounded-lg bg-surface border border-line hover:border-ink/30 hover:shadow-card transition-all"
             >
-              <div className="text-2xl mb-1.5">{s.icon}</div>
-              <div className="text-xs font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+              <div className="text-[13px] font-medium text-ink group-hover:text-accent transition-colors">
                 {s.title}
               </div>
-              <div className="text-[9px] text-gray-400 leading-tight mt-0.5">{s.desc}</div>
-              <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-gray-200 group-hover:bg-blue-400 transition-colors" />
+              <div className="text-[10.5px] text-ink-muted leading-tight mt-1">{s.desc}</div>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* ── Learning Journey Flow ── */}
       <section className="mb-10">
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span className="w-8 h-px bg-gray-300" />
-          Your Learning Journey
-          <span className="flex-1 h-px bg-gray-300" />
-        </h2>
+        <div className="eyebrow mb-3">The journey</div>
         <div className="relative">
-          {/* Vertical gradient line */}
-          <div className="absolute left-[23px] top-8 bottom-8 w-0.5 bg-gradient-to-b from-blue-400 via-purple-400 to-green-400 hidden sm:block" />
-
-          <div className="space-y-0">
+          <div className="absolute left-[15px] top-3 bottom-3 w-px bg-line hidden sm:block" />
+          <div className="space-y-1">
             {JOURNEY_STEPS.map((step, i) => {
               const inner = (
-                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white border border-gray-100 hover:border-gray-200 hover:shadow-md transition-all group">
-                  <div className="relative flex-shrink-0">
-                    <div
-                      className={`w-11 h-11 rounded-full ${COLOR_BG[step.color]} ring-4 ${COLOR_RING[step.color]} flex items-center justify-center text-lg shadow-sm`}
-                    >
-                      {step.icon}
+                <div className="group flex items-start gap-4 p-3 rounded-lg hover:bg-paper transition-colors">
+                  <div className="relative shrink-0 z-10">
+                    <div className="w-7 h-7 rounded-full bg-surface border border-line flex items-center justify-center text-[11px] font-mono text-ink-soft group-hover:border-accent group-hover:text-accent transition-colors">
+                      {String(i + 1).padStart(2, "0")}
                     </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <div className="flex-1 min-w-0 pt-0.5">
+                    <div className="flex items-baseline gap-2 flex-wrap">
+                      <span className="display text-[17px] text-ink group-hover:text-accent transition-colors">
                         {step.title}
                       </span>
-                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">
+                      <span className="text-[10px] uppercase tracking-wider text-ink-faint font-mono">
                         {step.phase}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500 mt-0.5">{step.desc}</p>
+                    <p className="text-[12.5px] text-ink-muted mt-1 leading-relaxed">{step.desc}</p>
                   </div>
                   {step.path && (
-                    <span className="text-gray-300 group-hover:text-blue-400 transition-colors text-sm">
+                    <span className="text-ink-faint group-hover:text-accent transition-colors text-[14px] pt-0.5">
                       →
                     </span>
                   )}
@@ -319,24 +284,18 @@ export default function LearnPage() {
         </div>
       </section>
 
-      {/* ── Career Role Selector ── */}
       <section className="mb-10">
-        <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span className="w-8 h-px bg-gray-300" />
-          Choose Your AI Career Path
-          <span className="flex-1 h-px bg-gray-300" />
-        </h2>
+        <div className="eyebrow mb-3">Choose a path</div>
 
-        {/* Role Tabs */}
-        <div className="flex gap-1.5 mb-5 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+        <div className="flex gap-1.5 mb-6 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
           {ROLES.map((r) => (
             <button
               key={r.key}
               onClick={() => setActiveRole(r.key)}
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+              className={`px-3 py-1.5 rounded-md text-[12px] uppercase tracking-wider font-medium whitespace-nowrap transition-all ${
                 activeRole === r.key
-                  ? "bg-gray-900 text-white shadow-lg scale-105"
-                  : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 hover:shadow-sm"
+                  ? "bg-ink text-paper"
+                  : "bg-surface text-ink-soft border border-line hover:border-ink/30 hover:text-ink"
               }`}
             >
               <span>{r.icon}</span>
@@ -345,36 +304,32 @@ export default function LearnPage() {
           ))}
         </div>
 
-        {/* Active Role Card */}
-        <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm">
-          {/* Gradient Header */}
-          <div className={`bg-gradient-to-r ${role.gradient} p-5 sm:p-6`}>
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-3xl">{role.icon}</span>
-                  <div>
-                    <h3 className="text-xl font-black text-white">{role.title}</h3>
-                    <p className="text-xs text-white/70">{role.tagline}</p>
-                  </div>
-                </div>
-                <p className="text-sm text-white/90 mt-3 max-w-xl leading-relaxed">{role.desc}</p>
+        <article className="rounded-lg border border-line bg-surface overflow-hidden">
+          <div className="p-6 border-b border-line">
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div className="flex-1 min-w-[260px]">
+                <div className="eyebrow mb-2">{role.tagline}</div>
+                <h3 className="display text-[26px] sm:text-[30px] text-ink leading-snug">
+                  {role.title}
+                </h3>
+                <p className="text-[13.5px] text-ink-soft mt-2 max-w-xl leading-relaxed">{role.desc}</p>
               </div>
-              <div className="hidden sm:flex flex-col gap-1 items-end">
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/20 text-white">
-                  {role.salary}
-                </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/20 text-white">
-                  Demand: {role.demand}
-                </span>
+              <div className="flex flex-col gap-3 items-end shrink-0 text-right">
+                <div>
+                  <div className="eyebrow">Salary</div>
+                  <div className="text-[13px] font-mono text-ink mt-0.5">{role.salary}</div>
+                </div>
+                <div>
+                  <div className="eyebrow">Demand</div>
+                  <div className="text-[13px] font-mono text-accent mt-0.5">{role.demand}</div>
+                </div>
               </div>
             </div>
-            {/* Skills */}
-            <div className="flex flex-wrap gap-1.5 mt-4">
+            <div className="flex flex-wrap gap-1.5 mt-5">
               {role.skills.map((s) => (
                 <span
                   key={s}
-                  className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm"
+                  className="text-[10.5px] font-mono px-2 py-0.5 rounded text-ink-muted bg-paper border border-line"
                 >
                   {s}
                 </span>
@@ -382,128 +337,108 @@ export default function LearnPage() {
             </div>
           </div>
 
-          {/* Body */}
-          <div className="p-5 sm:p-6">
-            {/* 3-Phase Roadmap */}
-            <div className="mb-6">
-              <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                Roadmap
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="p-6">
+            <div className="mb-8">
+              <div className="eyebrow mb-4">Roadmap · {role.journey.length} phases</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {role.journey.map((phase, pi) => (
-                  <div key={phase.phase} className="relative">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div
-                        className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white ${
-                          pi === 0 ? "bg-blue-500" : pi === 1 ? "bg-purple-500" : "bg-green-500"
-                        }`}
-                      >
-                        {pi + 1}
-                      </div>
-                      <span className="text-xs font-bold text-gray-800">{phase.phase}</span>
+                  <div
+                    key={phase.phase}
+                    className="rounded-lg border border-line bg-paper/60 p-4 relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-accent/20" />
+                    <div className="flex items-center gap-2.5 mb-3 pb-3 border-b border-line/60">
+                      <span className="w-6 h-6 rounded-full bg-accent/10 text-accent flex items-center justify-center text-[10px] font-mono font-medium">
+                        {String(pi + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-[14px] font-medium text-ink tracking-tight">{phase.phase}</span>
                     </div>
-                    <div className="ml-3 border-l-2 border-dashed border-gray-200 pl-3 space-y-1.5">
+                    <ul className="space-y-2.5">
                       {phase.items.map((item, ii) => (
-                        <div key={ii} className="flex items-start gap-1.5">
-                          <span className="w-1 h-1 rounded-full bg-gray-400 mt-1.5 flex-shrink-0" />
-                          <span className="text-[11px] text-gray-600 leading-relaxed">{item}</span>
-                        </div>
+                        <li key={ii} className="flex items-start gap-2.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent/30 mt-[7px] shrink-0" />
+                          <span className="text-[12.5px] text-ink-soft leading-relaxed">{item}</span>
+                        </li>
                       ))}
-                    </div>
-                    {pi < 2 && (
-                      <div className="hidden sm:block absolute top-3 -right-2 text-gray-300 text-sm">
-                        →
-                      </div>
-                    )}
+                    </ul>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* DevPulse Integration Panels */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {/* Topics */}
-              <div className="p-3 rounded-xl bg-blue-50/50 border border-blue-100">
-                <div className="text-[10px] font-bold text-blue-600 uppercase tracking-wider mb-2 flex items-center gap-1">
-                  <span>📡</span> Follow These Topics
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 pt-6 border-t border-line">
+              <div>
+                <div className="eyebrow mb-2">Topics to follow</div>
                 <div className="flex flex-wrap gap-1">
                   {role.topics.map((slug) => (
                     <Link
                       key={slug}
                       to={`/topic/${slug}`}
-                      className="text-[10px] px-2 py-0.5 rounded-full bg-white text-blue-700 border border-blue-200 hover:bg-blue-100 hover:border-blue-300 transition-all font-medium"
+                      className="text-[11px] px-2 py-0.5 rounded font-mono text-ink-soft bg-paper border border-line hover:border-ink/30 hover:text-ink transition-colors"
                     >
-                      {slug.replace(/-/g, " ")}
+                      #{slug}
                     </Link>
                   ))}
                 </div>
               </div>
-              {/* Guides */}
-              <div className="p-3 rounded-xl bg-green-50/50 border border-green-100">
-                <div className="text-[10px] font-bold text-green-700 uppercase tracking-wider mb-2 flex items-center gap-1">
-                  <span>📖</span> Read These Guides
-                </div>
-                <div className="flex flex-wrap gap-1">
+              <div>
+                <div className="eyebrow mb-2">Guides to read</div>
+                <div className="flex flex-col gap-1.5">
                   {role.guides.map((slug) => (
                     <Link
                       key={slug}
                       to={`/knowledge/${slug}`}
-                      className="text-[10px] px-2 py-0.5 rounded-full bg-white text-green-700 border border-green-200 hover:bg-green-100 hover:border-green-300 transition-all font-medium"
+                      className="text-[12.5px] text-ink-soft hover:text-accent transition-colors"
                     >
-                      {slug.replace(/-/g, " ")}
+                      → {slug.replace(/-/g, " ")}
                     </Link>
                   ))}
                 </div>
               </div>
-              {/* External Links */}
-              <div className="p-3 rounded-xl bg-purple-50/50 border border-purple-100">
-                <div className="text-[10px] font-bold text-purple-600 uppercase tracking-wider mb-2 flex items-center gap-1">
-                  <span>🔗</span> Learn More
-                </div>
-                <div className="flex flex-col gap-1">
+              <div>
+                <div className="eyebrow mb-2">Learn more</div>
+                <div className="flex flex-col gap-1.5">
                   {role.extLinks.map((link) => (
                     <a
                       key={link.url}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[10px] text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1 hover:underline"
+                      className="text-[12.5px] text-ink-soft hover:text-accent transition-colors"
                     >
-                      <span className="text-[8px]">↗</span> {link.label}
+                      ↗ {link.label}
                     </a>
                   ))}
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </article>
       </section>
 
-      {/* ── Bottom CTA ── */}
-      <div className="rounded-2xl bg-gradient-to-r from-gray-900 to-indigo-950 p-6 text-center">
-        <p className="text-white font-bold text-sm mb-1">Ready to start your AI journey?</p>
-        <p className="text-gray-400 text-xs mb-4">
-          DevPulse aggregates AI news from 7+ platforms daily. Your one-stop AI developer hub.
+      <div className="border-t border-line pt-8 text-center">
+        <p className="display text-[24px] text-ink mb-1">Ready to start your AI journey?</p>
+        <p className="text-ink-muted text-[13px] mb-5 max-w-md mx-auto">
+          DevPulse aggregates AI signal from seven platforms daily. Your one-stop AI developer hub.
         </p>
         <div className="flex gap-2 justify-center flex-wrap">
           <Link
             to="/knowledge"
-            className="px-5 py-2.5 rounded-full bg-blue-600 text-white text-xs font-bold hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/25"
+            className="px-4 py-2 rounded-md bg-ink text-paper text-[12.5px] font-medium hover:bg-ink-soft transition-colors"
           >
-            📖 Start with Guides
+            Start with guides
           </Link>
           <Link
             to="/devhub"
-            className="px-5 py-2.5 rounded-full bg-white/10 text-white text-xs font-bold hover:bg-white/20 transition-colors border border-white/20"
+            className="px-4 py-2 rounded-md bg-surface border border-line text-ink-soft text-[12.5px] font-medium hover:border-ink/30 hover:text-ink transition-colors"
           >
-            🛠️ Explore Dev Hub
+            Explore Dev Hub
           </Link>
           <Link
             to="/feed"
-            className="px-5 py-2.5 rounded-full bg-white/10 text-white text-xs font-bold hover:bg-white/20 transition-colors border border-white/20"
+            className="px-4 py-2 rounded-md bg-surface border border-line text-ink-soft text-[12.5px] font-medium hover:border-ink/30 hover:text-ink transition-colors"
           >
-            📡 Browse Feed
+            Browse feed
           </Link>
         </div>
       </div>

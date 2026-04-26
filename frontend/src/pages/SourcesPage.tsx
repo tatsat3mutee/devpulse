@@ -26,7 +26,6 @@ export default function SourcesPage() {
     try {
       const stats = await api.triggerFetch(fetcherKey);
       setLastFetch(stats);
-      // Reload sources to get updated last_fetched
       const fresh = await api.getSources();
       setSources(fresh);
     } catch (err) {
@@ -37,9 +36,10 @@ export default function SourcesPage() {
 
   if (loading) {
     return (
-      <div className="animate-pulse space-y-3">
+      <div className="animate-pulse space-y-2.5">
+        <div className="h-10 w-1/2 bg-line/70 rounded mb-4" />
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="h-14 bg-gray-100 rounded-lg" />
+          <div key={i} className="h-12 bg-surface border border-line rounded-md" />
         ))}
       </div>
     );
@@ -55,99 +55,95 @@ export default function SourcesPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
+      <header className="mb-8 pb-5 border-b border-line flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold">Sources</h1>
-          <p className="text-gray-500 text-sm">
-            {sources.filter((s) => s.is_active).length} active /{" "}
+          <div className="eyebrow mb-2">Pipeline</div>
+          <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Sources</h1>
+          <p className="text-ink-muted text-[14px]">
+            <span className="text-ink font-medium">{sources.filter((s) => s.is_active).length}</span> active
+            <span className="text-ink-faint mx-1.5">/</span>
             {sources.length} total
           </p>
         </div>
         <button
           onClick={() => handleFetch()}
           disabled={!!fetching}
-          className="px-4 py-2 bg-gray-900 text-white text-sm rounded-lg hover:bg-gray-800 disabled:opacity-50 transition-colors"
+          className="px-4 py-2 bg-ink text-paper text-[13px] font-medium rounded-md hover:bg-ink-soft disabled:opacity-50 transition-colors inline-flex items-center gap-2 self-start"
         >
-          {fetching === "all" ? "Fetching…" : "⚡ Fetch All Now"}
+          {fetching === "all" ? "Fetching…" : "Fetch all sources now"}
         </button>
-      </div>
+      </header>
 
-      {/* Last fetch result */}
       {lastFetch && (
-        <div className="mb-4 p-3 rounded-lg bg-green-50 border border-green-200 text-sm">
-          <strong>Fetch complete:</strong> {lastFetch.sourcesProcessed} sources
-          processed, {lastFetch.itemsFetched} fetched,{" "}
-          <strong>{lastFetch.itemsInserted} new items</strong>
+        <div className="mb-6 p-3 rounded-md bg-accent-soft border border-accent/20 text-[13px] text-accent">
+          <strong className="font-medium">Done.</strong>{" "}
+          {lastFetch.sourcesProcessed} sources · {lastFetch.itemsFetched} fetched ·{" "}
+          <strong className="font-medium">{lastFetch.itemsInserted} new</strong>
           {lastFetch.errors.length > 0 && (
-            <div className="mt-1 text-red-600">
+            <div className="mt-1.5 text-rose-600">
               Errors: {lastFetch.errors.join("; ")}
             </div>
           )}
         </div>
       )}
 
-      {/* Sources by platform */}
-      <div className="space-y-6">
+      <div className="space-y-8">
         {Object.entries(grouped)
           .sort(([a], [b]) => a.localeCompare(b))
           .map(([platform, srcs]) => (
-            <div key={platform}>
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="font-semibold text-sm text-gray-700">
-                  {platform} ({srcs.length})
-                </h2>
+            <section key={platform}>
+              <div className="flex items-end justify-between mb-3 pb-2 border-b border-line">
+                <div>
+                  <div className="eyebrow">{srcs.length} feed{srcs.length === 1 ? "" : "s"}</div>
+                  <h2 className="display text-[20px] text-ink leading-none">{platform}</h2>
+                </div>
                 <button
                   onClick={() => handleFetch(srcs[0].fetcher_key)}
                   disabled={!!fetching}
-                  className="text-xs px-2 py-0.5 rounded border border-gray-300 hover:bg-gray-100 disabled:opacity-30"
+                  className="text-[11.5px] uppercase tracking-wider px-2.5 py-1 rounded border border-line text-ink-soft hover:border-ink/30 hover:text-ink disabled:opacity-30 transition-colors"
                 >
                   {fetching === srcs[0].fetcher_key ? "…" : "Fetch"}
                 </button>
               </div>
-              <div className="space-y-1">
+              <div className="divide-y divide-line bg-surface border border-line rounded-md overflow-hidden">
                 {srcs.map((src) => (
                   <div
                     key={src.id}
-                    className="flex items-center gap-3 px-3 py-2 bg-white rounded-lg border border-gray-100 hover:border-gray-200"
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-paper transition-colors"
                   >
-                    {/* Toggle */}
                     <button
                       onClick={() => handleToggle(src)}
-                      className={`w-9 h-5 rounded-full transition-colors relative ${
-                        src.is_active ? "bg-green-500" : "bg-gray-300"
+                      className={`w-9 h-5 rounded-full transition-colors relative shrink-0 ${
+                        src.is_active ? "bg-accent" : "bg-line"
                       }`}
+                      aria-label={src.is_active ? "Deactivate" : "Activate"}
                     >
                       <span
-                        className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${
+                        className={`absolute top-0.5 w-4 h-4 bg-surface rounded-full shadow-sm transition-transform ${
                           src.is_active ? "left-[18px]" : "left-0.5"
                         }`}
                       />
                     </button>
-
-                    {/* Name */}
                     <span
-                      className={`text-sm flex-1 ${
-                        src.is_active ? "text-gray-800" : "text-gray-400"
+                      className={`text-[13.5px] flex-1 min-w-0 truncate ${
+                        src.is_active ? "text-ink" : "text-ink-faint"
                       }`}
                     >
                       {src.name}
                     </span>
-
-                    {/* Item count */}
-                    <span className="text-xs text-gray-400 w-16 text-right">
+                    <span className="text-[11px] text-ink-faint font-mono w-16 text-right">
                       {src.item_count} items
                     </span>
-
-                    {/* Last fetched */}
-                    <span className="text-xs text-gray-400 w-20 text-right">
+                    <span className="text-[11px] text-ink-faint w-20 text-right">
                       {src.last_fetched ? timeAgo(src.last_fetched) : "never"}
                     </span>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
           ))}
       </div>
     </div>
   );
 }
+

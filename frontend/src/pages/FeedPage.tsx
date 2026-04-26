@@ -48,127 +48,114 @@ export default function FeedPage() {
 
   return (
     <div>
-      {/* Header */}
-      <div className="mb-5">
-        <h1 className="text-2xl font-bold">Feed</h1>
-        <p className="text-gray-400 text-sm">Chronological feed of all AI developments</p>
-      </div>
+      <header className="mb-8 pb-4 border-b border-line">
+        <div className="eyebrow mb-2">Stream</div>
+        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">The full feed</h1>
+        <p className="text-ink-muted text-[14px] max-w-xl">
+          Everything we've pulled, in chronological or popularity order. Filter, search, dive in.
+        </p>
+      </header>
 
-      {/* Type tabs + sort toggle */}
-      <div className="flex items-center justify-between mb-4 border-b border-gray-200 pb-2">
-        <div className="flex gap-1">
-          {TYPES.map((t) => (
+      {/* Filters bar */}
+      <div className="flex flex-col gap-4 mb-6">
+        <div className="flex items-center justify-between border-b border-line">
+          <div className="flex gap-1 -mb-px overflow-x-auto">
+            {TYPES.map((t) => (
+              <button
+                key={t.value}
+                onClick={() => setType(t.value)}
+                className={`px-3 py-2 text-[13px] font-medium border-b-2 transition-colors whitespace-nowrap ${
+                  type === t.value
+                    ? "text-ink border-ink"
+                    : "text-ink-muted border-transparent hover:text-ink"
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex gap-px bg-paper border border-line rounded-md p-0.5 ml-2 shrink-0">
             <button
-              key={t.value}
-              onClick={() => setType(t.value)}
-              className={`px-3 py-1.5 text-sm font-medium rounded-t transition-colors ${
-                type === t.value
-                  ? "text-gray-900 border-b-2 border-gray-900"
-                  : "text-gray-400 hover:text-gray-600"
+              onClick={() => setSort("top")}
+              className={`px-3 py-1 text-[11.5px] font-medium uppercase tracking-wider rounded transition-colors ${
+                sort === "top" ? "bg-ink text-paper" : "text-ink-muted hover:text-ink"
               }`}
             >
-              {t.label}
+              Top
             </button>
-          ))}
+            <button
+              onClick={() => setSort("recent")}
+              className={`px-3 py-1 text-[11.5px] font-medium uppercase tracking-wider rounded transition-colors ${
+                sort === "recent" ? "bg-ink text-paper" : "text-ink-muted hover:text-ink"
+              }`}
+            >
+              New
+            </button>
+          </div>
         </div>
-        <div className="flex gap-1 bg-gray-100 rounded-lg p-0.5">
-          <button
-            onClick={() => setSort("top")}
-            className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-              sort === "top" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500"
-            }`}
+
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="relative flex-1 min-w-[220px] max-w-md">
+            <input
+              type="text"
+              placeholder="Search papers, repos, posts…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-3 pr-3 py-2 text-[13.5px] rounded-md border border-line bg-surface text-ink placeholder:text-ink-faint focus:outline-none focus:border-ink/40 focus:ring-2 focus:ring-ink/5"
+            />
+          </div>
+          <select
+            value={platform}
+            onChange={(e) => setPlatform(e.target.value)}
+            className="text-[13px] px-3 py-2 rounded-md border border-line bg-surface text-ink-soft focus:outline-none focus:border-ink/40"
           >
-            Top
-          </button>
-          <button
-            onClick={() => setSort("recent")}
-            className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
-              sort === "recent" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500"
-            }`}
-          >
-            Recent
-          </button>
+            {PLATFORMS.map(p => (
+              <option key={p} value={p}>{p || "All sources"}</option>
+            ))}
+          </select>
+          <span className="ml-auto text-[11.5px] text-ink-faint font-mono">
+            {items.length} / {total}
+          </span>
         </div>
       </div>
 
-      {/* Search + platform filter + count */}
-      <div className="flex items-center gap-3 mb-4">
-        <div className="relative flex-1 max-w-md">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
-          <input
-            type="text"
-            placeholder="Search content..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
-          />
-        </div>
-        <select
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          className="text-sm px-3 py-2 rounded-lg border border-gray-200 bg-white text-gray-600"
-        >
-          <option value="">All Types</option>
-          <option value="paper">Papers</option>
-          <option value="repo">Repos</option>
-          <option value="social">Social</option>
-          <option value="news">News</option>
-        </select>
-        <select
-          value={platform}
-          onChange={(e) => setPlatform(e.target.value)}
-          className="text-sm px-3 py-2 rounded-lg border border-gray-200 bg-white text-gray-600"
-        >
-          {PLATFORMS.map(p => (
-            <option key={p} value={p}>{p || "All Platforms"}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Count */}
-      <p className="text-xs text-gray-400 mb-3">
-        Showing {items.length} of {total} items
-      </p>
-
-      {/* Items */}
       {loading ? (
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-28 bg-white rounded-xl border border-gray-100 animate-pulse" />
+            <div key={i} className="h-28 bg-surface border border-line rounded-lg animate-pulse" />
           ))}
         </div>
       ) : items.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
-          <p className="text-lg mb-1">No items found</p>
-          <p className="text-sm">
-            {search ? "Try a different search" : "Trigger a fetch from Sources page"}
+        <div className="text-center py-20">
+          <p className="display text-[28px] text-ink-soft mb-1">Nothing here yet.</p>
+          <p className="text-[13.5px] text-ink-muted">
+            {search ? "Try a different search." : "Trigger a fetch from the Sources page."}
           </p>
         </div>
       ) : (
         <>
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {items.map((item) => (
               <FeedItem key={item.id} item={item} showTopic />
             ))}
           </div>
 
-          {/* Pagination */}
           {total > LIMIT && (
-            <div className="flex justify-center items-center gap-3 mt-8">
+            <div className="flex justify-center items-center gap-4 mt-10">
               <button
                 onClick={() => setOffset(Math.max(0, offset - LIMIT))}
                 disabled={offset === 0}
-                className="px-4 py-2 text-sm rounded-lg border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-30 transition-colors"
+                className="px-4 py-2 text-[13px] rounded-md border border-line bg-surface text-ink-soft hover:border-ink/30 hover:text-ink disabled:opacity-30 disabled:hover:border-line transition-colors"
               >
                 ← Previous
               </button>
-              <span className="text-sm text-gray-500">
+              <span className="text-[12px] text-ink-faint font-mono">
                 {Math.floor(offset / LIMIT) + 1} / {Math.ceil(total / LIMIT)}
               </span>
               <button
                 onClick={() => setOffset(offset + LIMIT)}
                 disabled={offset + LIMIT >= total}
-                className="px-4 py-2 text-sm rounded-lg border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-30 transition-colors"
+                className="px-4 py-2 text-[13px] rounded-md border border-line bg-surface text-ink-soft hover:border-ink/30 hover:text-ink disabled:opacity-30 disabled:hover:border-line transition-colors"
               >
                 Next →
               </button>

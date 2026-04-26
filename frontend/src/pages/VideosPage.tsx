@@ -32,38 +32,40 @@ export default function VideosPage() {
 
   return (
     <div>
-      <div className="mb-5">
-        <h1 className="text-2xl font-bold">AI Videos</h1>
-        <p className="text-gray-400 text-sm">Latest AI tutorials, reviews, and tech talks from YouTube</p>
-      </div>
+      <header className="mb-8 pb-5 border-b border-line">
+        <div className="eyebrow mb-2">Watch</div>
+        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Videos worth your time</h1>
+        <p className="text-ink-muted text-[14px] max-w-xl">
+          Tutorials, conference talks and product demos pulled from the channels
+          that actually ship signal.
+        </p>
+      </header>
 
-      {/* Search */}
-      <div className="flex items-center gap-3 mb-6">
-        <div className="relative flex-1 max-w-md">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+      <div className="flex flex-wrap items-center gap-3 mb-6">
+        <div className="relative flex-1 min-w-[220px] max-w-md">
           <input
             type="text"
-            placeholder="Search videos..."
+            placeholder="Search videos…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
+            className="w-full pl-3 pr-3 py-2 text-[13.5px] rounded-md border border-line bg-surface text-ink placeholder:text-ink-faint focus:outline-none focus:border-ink/40 focus:ring-2 focus:ring-ink/5"
           />
         </div>
-        <span className="text-xs text-gray-400">{total} videos</span>
+        <span className="ml-auto text-[11.5px] text-ink-faint font-mono">
+          {total} videos
+        </span>
       </div>
 
-      {/* Grid */}
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="bg-gray-100 rounded-xl animate-pulse aspect-video" />
+            <div key={i} className="bg-surface border border-line rounded-lg animate-pulse aspect-video" />
           ))}
         </div>
       ) : videos.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
-          <p className="text-4xl mb-3">🎬</p>
-          <p className="text-lg mb-1">No videos yet</p>
-          <p className="text-sm">Trigger a fetch to load YouTube content</p>
+        <div className="text-center py-20">
+          <p className="display text-[28px] text-ink-soft mb-1">No videos yet.</p>
+          <p className="text-[13.5px] text-ink-muted">Trigger a fetch on the Sources page.</p>
         </div>
       ) : (
         <>
@@ -74,21 +76,21 @@ export default function VideosPage() {
           </div>
 
           {total > LIMIT && (
-            <div className="flex justify-center items-center gap-3 mt-8">
+            <div className="flex justify-center items-center gap-4 mt-10">
               <button
                 onClick={() => setOffset(Math.max(0, offset - LIMIT))}
                 disabled={offset === 0}
-                className="px-4 py-2 text-sm rounded-lg border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-30 transition-colors"
+                className="px-4 py-2 text-[13px] rounded-md border border-line bg-surface text-ink-soft hover:border-ink/30 hover:text-ink disabled:opacity-30 disabled:hover:border-line transition-colors"
               >
                 ← Previous
               </button>
-              <span className="text-sm text-gray-500">
+              <span className="text-[12px] text-ink-faint font-mono">
                 {Math.floor(offset / LIMIT) + 1} / {Math.ceil(total / LIMIT)}
               </span>
               <button
                 onClick={() => setOffset(offset + LIMIT)}
                 disabled={offset + LIMIT >= total}
-                className="px-4 py-2 text-sm rounded-lg border border-gray-200 bg-white hover:bg-gray-50 disabled:opacity-30 transition-colors"
+                className="px-4 py-2 text-[13px] rounded-md border border-line bg-surface text-ink-soft hover:border-ink/30 hover:text-ink disabled:opacity-30 disabled:hover:border-line transition-colors"
               >
                 Next →
               </button>
@@ -99,3 +101,4 @@ export default function VideosPage() {
     </div>
   );
 }
+

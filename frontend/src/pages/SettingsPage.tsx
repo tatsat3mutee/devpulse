@@ -10,56 +10,76 @@ export default function SettingsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-1">Settings</h1>
-      <p className="text-gray-500 text-sm mb-6">System configuration and status</p>
+      <header className="mb-8 pb-5 border-b border-line">
+        <div className="eyebrow mb-2">Configuration</div>
+        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Settings</h1>
+        <p className="text-ink-muted text-[14px]">System status, configuration, and credentials.</p>
+      </header>
 
-      <div className="space-y-6">
+      <div className="space-y-2">
         {/* Status */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <h2 className="font-semibold text-sm mb-3">System Status</h2>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-gray-500">Backend</span>
-              <span className={health ? "text-green-600" : "text-red-500"}>
-                {health ? "● Connected" : "● Disconnected"}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-500">Last Check</span>
-              <span className="text-gray-700">
-                {health ? new Date(health.timestamp).toLocaleTimeString() : "—"}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-500">Fetch Interval</span>
-              <span className="text-gray-700">60 min (cron)</span>
-            </div>
-          </div>
-        </div>
+        <Card title="System Status" eyebrow="Health">
+          <Row label="Backend">
+            <span className={`inline-flex items-center gap-1.5 ${health ? "text-accent" : "text-rose-600"}`}>
+              <span className={`w-1.5 h-1.5 rounded-full ${health ? "bg-accent" : "bg-rose-500"}`} />
+              {health ? "Connected" : "Disconnected"}
+            </span>
+          </Row>
+          <Row label="Last check">
+            <span className="text-ink-soft font-mono text-[12.5px]">
+              {health ? new Date(health.timestamp).toLocaleTimeString() : "—"}
+            </span>
+          </Row>
+          <Row label="Fetch interval">
+            <span className="text-ink-soft font-mono text-[12.5px]">60 min</span>
+          </Row>
+        </Card>
 
         {/* About */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <h2 className="font-semibold text-sm mb-3">About</h2>
-          <p className="text-sm text-gray-500 leading-relaxed">
-            AI Pulse aggregates AI/ML news from 7+ platforms — arXiv, GitHub, Reddit,
-            Hacker News, Hugging Face, X, and LinkedIn. Items are scored by engagement + recency,
-            classified into topics via LLM or keyword fallback, and optionally summarized.
+        <Card title="About" eyebrow="Project">
+          <p className="text-[13.5px] text-ink-soft leading-relaxed">
+            DevPulse aggregates AI/ML signal from arXiv, GitHub, Reddit, Hacker News,
+            Hugging Face, X, LinkedIn and a handful of newsrooms. Items are scored by
+            engagement and recency, classified into topics by an LLM (with a keyword
+            fallback), and optionally summarised.
           </p>
-        </div>
+          <p className="text-[12px] text-ink-faint mt-3">
+            Source: <a href="https://github.com/tatsat3mutee/devpulse" target="_blank" rel="noopener" className="text-ink hover:text-accent underline decoration-line">github.com/tatsat3mutee/devpulse</a>
+          </p>
+        </Card>
 
         {/* API Keys */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <h2 className="font-semibold text-sm mb-3">API Keys (configured in .env)</h2>
-          <div className="space-y-1.5 text-sm">
+        <Card title="API Keys" eyebrow="Server-side, .env">
+          <div className="divide-y divide-line">
             {["GROQ_API_KEY", "GEMINI_API_KEY", "OPENAI_API_KEY", "GITHUB_TOKEN", "TWITTER_BEARER_TOKEN"].map(k => (
-              <div key={k} className="flex justify-between">
-                <span className="text-gray-500 font-mono text-xs">{k}</span>
-                <span className="text-gray-400 text-xs">Set in backend .env</span>
+              <div key={k} className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
+                <span className="text-ink-soft font-mono text-[12px]">{k}</span>
+                <span className="text-ink-faint text-[11px] uppercase tracking-wider">backend .env</span>
               </div>
             ))}
           </div>
-        </div>
+        </Card>
       </div>
     </div>
   );
 }
+
+function Card({ title, eyebrow, children }: { title: string; eyebrow?: string; children: React.ReactNode }) {
+  return (
+    <section className="bg-surface border border-line rounded-lg p-5">
+      {eyebrow && <div className="eyebrow mb-1">{eyebrow}</div>}
+      <h2 className="font-medium text-ink text-[15px] mb-3">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function Row({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between py-1.5 text-[13px]">
+      <span className="text-ink-muted">{label}</span>
+      {children}
+    </div>
+  );
+}
+

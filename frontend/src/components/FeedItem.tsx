@@ -1,18 +1,27 @@
 import { Item, api } from "../lib/api";
 import {
   timeAgo,
-  platformIcon,
   engagementText,
-  typeBadgeColor,
+  typeDotColor,
   stripHtml,
 } from "../lib/utils";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Icon from "./Icon";
 
 interface Props {
   item: Item;
   showTopic?: boolean;
 }
+
+const typeLabel: Record<string, string> = {
+  paper: "Paper",
+  repo: "Repo",
+  social: "Discussion",
+  news: "News",
+  article: "Article",
+  video: "Video",
+};
 
 export default function FeedItem({ item, showTopic }: Props) {
   const engagement = engagementText(item.platform, item.metadata || {});
@@ -27,82 +36,75 @@ export default function FeedItem({ item, showTopic }: Props) {
   };
 
   return (
-    <div
+    <article
       onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
-      className="bg-white rounded-xl border border-gray-200 px-5 py-4 hover:border-gray-300 hover:shadow-sm transition-all cursor-pointer group"
+      className="group relative bg-surface border border-line rounded-lg px-5 py-4 hover:border-ink/30 hover:shadow-card transition-all cursor-pointer"
     >
-      {/* Top row: type badge + bookmark */}
-      <div className="flex items-start justify-between mb-2">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium ${typeBadgeColor(item.type)}`}>
-            {item.type === "paper" && "📄"}
-            {item.type === "repo" && "⭐"}
-            {item.type === "social" && "💬"}
-            {item.type === "news" && "📰"}
-            {item.type === "article" && "📝"}
-            {item.type === "video" && "🎬"}
-            {" "}{item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+      {/* Header strip */}
+      <div className="flex items-center justify-between mb-2.5 text-[11px] uppercase tracking-[0.08em]">
+        <div className="flex items-center gap-3 text-ink-muted">
+          <span className="inline-flex items-center gap-1.5">
+            <span className={`w-1.5 h-1.5 rounded-full ${typeDotColor(item.type)}`} />
+            <span className="font-medium text-ink-soft">{typeLabel[item.type] || item.type}</span>
           </span>
+          <span className="text-ink-faint">·</span>
+          <span>{item.source_name || item.platform}</span>
+          <span className="text-ink-faint">·</span>
+          <span className="normal-case tracking-normal">{timeAgo(item.published_at)}</span>
+        </div>
+        <button
+          onClick={handleBookmark}
+          className={`p-1 rounded transition-colors ${bookmarked ? "text-accent" : "text-ink-faint hover:text-ink"}`}
+          aria-label="Bookmark"
+        >
+          <Icon name={bookmarked ? "bookmark-filled" : "bookmark"} size={14} />
+        </button>
+      </div>
+
+      {/* Title */}
+      <h3 className="text-[16px] font-medium text-ink leading-snug tracking-tightish mb-1.5 group-hover:text-accent transition-colors line-clamp-2">
+        {item.title}
+      </h3>
+
+      {/* Description */}
+      {item.description && (
+        <p className="text-[13.5px] text-ink-muted line-clamp-2 leading-relaxed mb-3">
+          {stripHtml(item.description)}
+        </p>
+      )}
+
+      {/* Footer */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-1.5 flex-wrap min-w-0">
           {showTopic && item.topic_name && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 navigate(`/topic/${item.topic_slug}`);
               }}
-              className="px-2 py-0.5 rounded-md bg-gray-100 text-gray-600 hover:bg-gray-200 text-xs transition-colors"
+              className="text-[11px] font-medium text-ink-soft hover:text-ink underline decoration-line hover:decoration-ink underline-offset-2"
             >
               {item.topic_name}
             </button>
           )}
-        </div>
-        <button
-          onClick={handleBookmark}
-          className="p-1 rounded hover:bg-gray-100 transition-colors text-gray-300 hover:text-gray-600"
-          title="Bookmark"
-        >
-          {bookmarked ? "★" : "☆"}
-        </button>
-      </div>
-
-      {/* Title */}
-      <h3 className="text-[15px] font-semibold text-gray-900 leading-snug mb-1.5 group-hover:text-blue-700 transition-colors line-clamp-2">
-        {item.title}
-      </h3>
-
-      {/* Source line */}
-      <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-2">
-        <span>{item.source_name || item.platform}</span>
-        <span>·</span>
-        <span>{platformIcon(item.platform)} {item.platform}</span>
-        <span>·</span>
-        <span>{timeAgo(item.published_at)}</span>
-      </div>
-
-      {/* Description (LLM summary) */}
-      {item.description && (
-        <p className="text-sm text-gray-500 line-clamp-2 mb-2.5 leading-relaxed">
-          {stripHtml(item.description)}
-        </p>
-      )}
-
-      {/* Bottom row: tags + engagement + score */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          {(item.tags || []).slice(0, 4).map((tag, i) => (
-            <span key={`${tag}-${i}`} className="px-2 py-0.5 bg-gray-50 text-gray-500 rounded text-[11px]">
-              {tag}
+          {(item.tags || []).slice(0, 3).map((tag, i) => (
+            <span
+              key={`${tag}-${i}`}
+              className="text-[11px] text-ink-faint font-mono"
+            >
+              #{tag}
             </span>
           ))}
         </div>
-        <div className="flex items-center gap-3 text-xs text-gray-400">
-          {engagement && <span>{engagement}</span>}
+        <div className="flex items-center gap-3 text-[11px] text-ink-faint shrink-0">
+          {engagement && <span className="font-mono">{engagement}</span>}
           {item.score > 0 && (
-            <span className="font-medium text-orange-500">
-              🔥 {Math.round(item.score)}
+            <span className="font-mono text-accent">
+              {Math.round(item.score)}
             </span>
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 }

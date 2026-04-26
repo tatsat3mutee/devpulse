@@ -48,8 +48,14 @@ export async function classifyItems(
     .join("\n");
 
   const BATCH = 15;
+  let llmDead = false;
   for (let i = 0; i < items.length; i += BATCH) {
     const batch = items.slice(i, i + BATCH);
+    if (llmDead) {
+      const fb = keywordClassify(batch, topics);
+      fb.forEach((tid, iid) => results.set(iid, tid));
+      continue;
+    }
     try {
       const listing = batch
         .map(
@@ -79,8 +85,16 @@ export async function classifyItems(
           if (topic) results.set(it.id, topic.id);
         });
       }
-    } catch (err) {
-      console.error("  ⚠️ Classification batch failed, using keywords:", err);
+    } catch (err: any) {
+      const status = err?.status as number | undefined;
+      const msg = String(err?.message || "");
+      const rateLimited = status === 429 || /quota|rate limit|blocked for/i.test(msg);
+      if (rateLimited) {
+        console.warn(`  ⚠️  LLM classifier disabled — all providers limited (${msg.slice(0, 120)}). Falling back to keywords.`);
+        llmDead = true;
+      } else {
+        console.error("  ⚠️ Classification batch failed, using keywords:", msg);
+      }
       const fb = keywordClassify(batch, topics);
       fb.forEach((tid, iid) => results.set(iid, tid));
     }

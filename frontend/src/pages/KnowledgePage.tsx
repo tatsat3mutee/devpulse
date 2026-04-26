@@ -31,82 +31,81 @@ function GuideList() {
   ];
 
   const difficultyColor: Record<string, string> = {
-    beginner: "bg-green-50 text-green-700",
-    intermediate: "bg-yellow-50 text-yellow-700",
-    advanced: "bg-red-50 text-red-700",
+    beginner: "text-accent",
+    intermediate: "text-ink-soft",
+    advanced: "text-ink",
   };
 
   return (
     <div>
-      <div className="mb-5">
-        <h1 className="text-2xl font-bold">Knowledge Hub</h1>
-        <p className="text-gray-400 text-sm">Curated guides for AI developers — Copilot, VS Code, MCP, and more</p>
-      </div>
+      <header className="mb-8 pb-5 border-b border-line">
+        <div className="eyebrow mb-2">Read</div>
+        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+          Guides, written to <span className="italic text-ink-soft">be re-read.</span>
+        </h1>
+        <p className="text-ink-muted text-[14px] max-w-2xl">
+          Long-form notes on Copilot, MCP, prompt and context engineering, evals,
+          and the rest of the modern AI dev stack.
+        </p>
+      </header>
 
-      {/* Category filter */}
       <div className="flex gap-2 mb-6 flex-wrap">
         {categories.map((c) => (
           <button
             key={c.value}
             onClick={() => setCategory(c.value)}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            className={`px-3 py-1.5 rounded-md text-[12px] uppercase tracking-wider font-medium transition-colors ${
               category === c.value
-                ? "bg-blue-50 text-blue-700 border border-blue-200"
-                : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"
+                ? "bg-ink text-paper"
+                : "bg-surface text-ink-soft border border-line hover:border-ink/30 hover:text-ink"
             }`}
           >
-            <span>{c.icon}</span>
             {c.label}
           </button>
         ))}
       </div>
 
-      {/* Guide cards */}
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-40 bg-gray-100 rounded-xl animate-pulse" />
+            <div key={i} className="h-36 bg-surface border border-line rounded-lg animate-pulse" />
           ))}
         </div>
       ) : guides.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
-          <p className="text-4xl mb-3">📖</p>
-          <p className="text-lg mb-1">No guides yet</p>
-          <p className="text-sm">Guides will appear here as they're published</p>
+        <div className="text-center py-20">
+          <p className="display text-[28px] text-ink-soft mb-1">No guides yet.</p>
+          <p className="text-[13.5px] text-ink-muted">Guides will appear here as they're published.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {guides.map((guide) => (
             <Link
               key={guide.id}
               to={`/knowledge/${guide.slug}`}
-              className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-gray-300 transition-all group"
+              className="group block bg-surface rounded-lg border border-line p-5 hover:border-ink/30 hover:shadow-card transition-all"
             >
-              <div className="flex items-start gap-3">
-                <span className="text-3xl">{guide.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 group-hover:text-blue-700 transition-colors mb-1">
-                    {guide.title}
-                  </h3>
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${difficultyColor[guide.difficulty] || "bg-gray-50 text-gray-600"}`}>
-                      {guide.difficulty}
-                    </span>
-                    <span className="px-2 py-0.5 rounded bg-gray-50 text-gray-500 text-xs">
-                      {guide.category}
-                    </span>
-                  </div>
-                  {guide.tags?.length > 0 && (
-                    <div className="flex gap-1.5 flex-wrap">
-                      {guide.tags.slice(0, 4).map((tag, i) => (
-                        <span key={i} className="px-2 py-0.5 bg-gray-50 text-gray-400 rounded text-[10px]">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
+              <div className="flex items-start justify-between gap-3 mb-2">
+                <h3 className="display text-[20px] text-ink group-hover:text-accent transition-colors leading-tight">
+                  {guide.title}
+                </h3>
+                <span className="text-2xl shrink-0 opacity-70 group-hover:opacity-100 transition-opacity">{guide.icon}</span>
               </div>
+              <div className="flex items-center gap-2 text-[10.5px] uppercase tracking-wider mb-2">
+                <span className={`font-medium ${difficultyColor[guide.difficulty] || "text-ink-muted"}`}>
+                  {guide.difficulty}
+                </span>
+                <span className="text-ink-faint">·</span>
+                <span className="text-ink-muted">{guide.category}</span>
+              </div>
+              {guide.tags && (
+                <div className="flex gap-1.5 flex-wrap">
+                  {(Array.isArray(guide.tags) ? guide.tags : String(guide.tags).split(/\s+/)).filter(Boolean).slice(0, 4).map((tag, i) => (
+                    <span key={i} className="text-[10px] font-mono text-ink-faint">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </Link>
           ))}
         </div>
@@ -126,10 +125,10 @@ function GuideDetail({ slug }: { slug: string }) {
   if (loading) {
     return (
       <div className="animate-pulse">
-        <div className="h-8 bg-gray-200 rounded w-64 mb-4" />
+        <div className="h-8 bg-line rounded w-64 mb-4" />
         <div className="space-y-3">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="h-4 bg-gray-100 rounded" style={{ width: `${80 - i * 5}%` }} />
+            <div key={i} className="h-4 bg-line/50 rounded" style={{ width: `${80 - i * 5}%` }} />
           ))}
         </div>
       </div>
@@ -138,10 +137,10 @@ function GuideDetail({ slug }: { slug: string }) {
 
   if (!guide) {
     return (
-      <div className="text-center py-20 text-gray-400">
-        <p className="text-lg">Guide not found</p>
-        <Link to="/knowledge" className="text-blue-600 text-sm hover:underline mt-2 inline-block">
-          ← Back to Knowledge Hub
+      <div className="text-center py-20">
+        <p className="display text-[28px] text-ink-soft mb-1">Guide not found.</p>
+        <Link to="/knowledge" className="text-accent text-[13px] hover:underline mt-2 inline-block">
+          ← Back to Knowledge
         </Link>
       </div>
     );
@@ -149,24 +148,19 @@ function GuideDetail({ slug }: { slug: string }) {
 
   return (
     <div>
-      <Link to="/knowledge" className="text-sm text-gray-400 hover:text-gray-600 transition-colors mb-4 inline-block">
-        ← Knowledge Hub
+      <Link to="/knowledge" className="inline-flex items-center gap-1.5 text-[12px] text-ink-muted hover:text-ink transition-colors mb-4">
+        ← Knowledge
       </Link>
-      <div className="flex items-center gap-3 mb-6">
-        <span className="text-4xl">{guide.icon}</span>
-        <div>
-          <h1 className="text-2xl font-bold">{guide.title}</h1>
-          <div className="flex items-center gap-2 mt-1">
-            <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 text-xs font-medium">
-              {guide.difficulty}
-            </span>
-            <span className="text-xs text-gray-400">{guide.category}</span>
-          </div>
+      <header className="mb-8 pb-5 border-b border-line">
+        <div className="eyebrow mb-2 flex items-center gap-2">
+          <span>{guide.category}</span>
+          <span className="text-ink-faint">·</span>
+          <span className="normal-case tracking-normal text-ink-muted">{guide.difficulty}</span>
         </div>
-      </div>
+        <h1 className="display text-[30px] sm:text-[36px] text-ink">{guide.title}</h1>
+      </header>
 
-      {/* Render markdown-like content */}
-      <div className="prose prose-sm max-w-none">
+      <div className="prose prose-sm max-w-none prose-headings:font-medium prose-headings:text-ink prose-p:text-ink-soft prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-code:text-ink prose-code:bg-paper prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none">
         <MarkdownContent content={guide.content || ""} />
       </div>
     </div>
@@ -187,7 +181,7 @@ function MarkdownContent({ content }: { content: string }) {
     if (line.startsWith("```")) {
       if (inCodeBlock) {
         elements.push(
-          <pre key={i} className="bg-gray-900 text-gray-100 rounded-lg p-4 text-sm overflow-x-auto mb-4">
+          <pre key={i} className="bg-ink text-paper rounded-md p-4 text-[12.5px] leading-relaxed overflow-x-auto mb-4 font-mono">
             <code>{codeLines.join("\n")}</code>
           </pre>
         );
@@ -206,11 +200,10 @@ function MarkdownContent({ content }: { content: string }) {
     }
 
     if (line.startsWith("### ")) {
-      elements.push(<h3 key={i} className="text-lg font-semibold mt-6 mb-2">{line.slice(4)}</h3>);
+      elements.push(<h3 key={i} className="display text-[18px] text-ink mt-6 mb-2">{line.slice(4)}</h3>);
     } else if (line.startsWith("## ")) {
-      elements.push(<h2 key={i} className="text-xl font-bold mt-8 mb-3">{line.slice(3)}</h2>);
+      elements.push(<h2 key={i} className="display text-[24px] text-ink mt-8 mb-3">{line.slice(3)}</h2>);
     } else if (line.startsWith("| ")) {
-      // Collect table
       const tableLines = [line];
       let j = i + 1;
       while (j < lines.length && lines[j].startsWith("|")) {
@@ -221,13 +214,13 @@ function MarkdownContent({ content }: { content: string }) {
       i = j - 1;
     } else if (line.startsWith("- ")) {
       elements.push(
-        <li key={i} className="ml-4 text-gray-600 text-sm list-disc mb-1">
+        <li key={i} className="ml-4 text-ink-soft text-[13.5px] list-disc mb-1 leading-relaxed marker:text-ink-faint">
           <InlineMarkdown text={line.slice(2)} />
         </li>
       );
     } else if (/^\d+\.\s/.test(line)) {
       elements.push(
-        <li key={i} className="ml-4 text-gray-600 text-sm list-decimal mb-1">
+        <li key={i} className="ml-4 text-ink-soft text-[13.5px] list-decimal mb-1 leading-relaxed marker:text-ink-faint">
           <InlineMarkdown text={line.replace(/^\d+\.\s/, "")} />
         </li>
       );
@@ -235,7 +228,7 @@ function MarkdownContent({ content }: { content: string }) {
       elements.push(<div key={i} className="h-2" />);
     } else {
       elements.push(
-        <p key={i} className="text-gray-600 text-sm leading-relaxed mb-2">
+        <p key={i} className="text-ink-soft text-[13.5px] leading-relaxed mb-2">
           <InlineMarkdown text={line} />
         </p>
       );
@@ -246,20 +239,19 @@ function MarkdownContent({ content }: { content: string }) {
 }
 
 function InlineMarkdown({ text }: { text: string }) {
-  // Bold, inline code, links
   const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g);
   return (
     <>
       {parts.map((part, i) => {
         if (part.startsWith("**") && part.endsWith("**")) {
-          return <strong key={i}>{part.slice(2, -2)}</strong>;
+          return <strong key={i} className="text-ink font-medium">{part.slice(2, -2)}</strong>;
         }
         if (part.startsWith("`") && part.endsWith("`")) {
-          return <code key={i} className="bg-gray-100 px-1.5 py-0.5 rounded text-xs font-mono text-gray-800">{part.slice(1, -1)}</code>;
+          return <code key={i} className="bg-paper px-1.5 py-0.5 rounded text-[12px] font-mono text-ink border border-line">{part.slice(1, -1)}</code>;
         }
         const linkMatch = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
         if (linkMatch) {
-          return <a key={i} href={linkMatch[2]} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">{linkMatch[1]}</a>;
+          return <a key={i} href={linkMatch[2]} className="text-accent hover:underline decoration-accent/40" target="_blank" rel="noopener noreferrer">{linkMatch[1]}</a>;
         }
         return <span key={i}>{part}</span>;
       })}
@@ -274,19 +266,19 @@ function MarkdownTable({ lines }: { lines: string[] }) {
 
   return (
     <div className="overflow-x-auto mb-4">
-      <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
-        <thead className="bg-gray-50">
+      <table className="w-full text-[13px] border border-line rounded-md overflow-hidden">
+        <thead className="bg-paper">
           <tr>
             {headers.map((h, i) => (
-              <th key={i} className="px-3 py-2 text-left text-xs font-medium text-gray-600">{h}</th>
+              <th key={i} className="px-3 py-2 text-left text-[11px] uppercase tracking-wider font-medium text-ink-muted">{h}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {rows.map((row, i) => (
-            <tr key={i} className="border-t border-gray-100">
+            <tr key={i} className="border-t border-line">
               {row.map((cell, j) => (
-                <td key={j} className="px-3 py-2 text-gray-600 text-xs">
+                <td key={j} className="px-3 py-2 text-ink-soft text-[12.5px]">
                   <InlineMarkdown text={cell} />
                 </td>
               ))}
