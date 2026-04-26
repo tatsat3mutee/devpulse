@@ -4,7 +4,7 @@ import { api, Item, Topic } from "../lib/api";
 import FeedItem from "../components/FeedItem";
 import { timeAgo, stripHtml } from "../lib/utils";
 
-type Tab = "all" | "copilot" | "claude" | "models" | "devtools" | "community";
+type Tab = "all" | "copilot" | "claude" | "models" | "devtools" | "community" | "context" | "vibe";
 
 const DEV_TOOLS = [
   {
@@ -67,6 +67,70 @@ const DEV_TOOLS = [
     url: "https://huggingface.co",
     tag: "Platform",
   },
+  // — Context Engineering & Evals —
+  {
+    name: "LangSmith",
+    icon: "🔗",
+    color: "from-teal-600 to-emerald-500",
+    tagline: "LLM observability & evals platform",
+    desc: "Trace, debug, and evaluate your LLM apps. Monitor context quality, prompt performance, and RAG pipelines in production.",
+    features: ["Tracing", "Evals", "Datasets", "Prompt Hub"],
+    url: "https://smith.langchain.com",
+    tag: "Context Eng",
+  },
+  {
+    name: "Inspect AI",
+    icon: "🧪",
+    color: "from-red-600 to-rose-500",
+    tagline: "AI evaluation framework by UK AISI",
+    desc: "Python-native framework for building LLM evaluation harnesses. Flexible scoring, model grading, and safety benchmarks.",
+    features: ["Python-native", "Custom scorers", "Model grading", "Safety evals"],
+    url: "https://inspect.ai-safety-institute.org.uk",
+    tag: "Evals",
+  },
+  // — Vibe Coding —
+  {
+    name: "v0",
+    icon: "▲",
+    color: "from-black to-gray-800",
+    tagline: "AI UI generator by Vercel",
+    desc: "Describe a UI in natural language and get production-ready React + Tailwind code. The ultimate vibe coding tool for frontend.",
+    features: ["Text to UI", "React + Tailwind", "Iterate visually", "Deploy to Vercel"],
+    url: "https://v0.dev",
+    tag: "Vibe Code",
+  },
+  {
+    name: "bolt.new",
+    icon: "⚡",
+    color: "from-violet-600 to-purple-500",
+    tagline: "Full-stack apps from prompts",
+    desc: "Build, run, and deploy full-stack web apps entirely in the browser. Powered by StackBlitz WebContainers and AI.",
+    features: ["In-browser dev", "Full-stack", "Instant deploy", "AI-powered"],
+    url: "https://bolt.new",
+    tag: "Vibe Code",
+  },
+  // — Agentic Patterns —
+  {
+    name: "CrewAI",
+    icon: "👥",
+    color: "from-blue-700 to-indigo-600",
+    tagline: "Multi-agent orchestration framework",
+    desc: "Define AI agents with roles, goals, and tools. Orchestrate crews of agents that collaborate to solve complex tasks autonomously.",
+    features: ["Role-based agents", "Task delegation", "Tool integration", "Memory"],
+    url: "https://www.crewai.com",
+    tag: "Agentic",
+  },
+  // — AI Safety —
+  {
+    name: "Guardrails AI",
+    icon: "🛡️",
+    color: "from-amber-600 to-yellow-500",
+    tagline: "LLM input/output validation",
+    desc: "Open-source framework for adding guardrails to LLM apps. Validate, re-ask, and filter model outputs with programmable validators.",
+    features: ["Input validation", "Output filtering", "Re-ask loops", "Hub validators"],
+    url: "https://www.guardrailsai.com",
+    tag: "Safety",
+  },
 ];
 
 const TAB_TOPICS: Record<Tab, string[]> = {
@@ -83,6 +147,14 @@ const TAB_TOPICS: Record<Tab, string[]> = {
     "google-deepmind", "meta-ai", "hugging-face", "alibaba-cloud",
     "fine-tuning", "llm-inference", "embeddings", "multimodal",
     "new-models", "microsoft",
+  ],
+  context: [
+    "context-engineering", "rag", "prompt-engineering",
+    "ai-evals", "embeddings", "langchain",
+  ],
+  vibe: [
+    "vibe-coding", "ai-coding", "agentic-patterns",
+    "agentic-ai", "agent-skills",
   ],
   devtools: [
     "ai-coding", "agentic-ai", "agent-skills",
@@ -129,6 +201,8 @@ export default function DevHubPage() {
     { key: "copilot", label: "Copilot & Editors", icon: "🤖" },
     { key: "claude", label: "Claude · Codex · GPT", icon: "🧬" },
     { key: "models", label: "Models & HF", icon: "🧠" },
+    { key: "context", label: "Context & Evals", icon: "🧩" },
+    { key: "vibe", label: "Vibe · Agents", icon: "🎨" },
     { key: "devtools", label: "Dev Tools", icon: "🛠️" },
     { key: "community", label: "Community", icon: "💬" },
   ];
@@ -151,7 +225,7 @@ export default function DevHubPage() {
           <span>🛠️</span> Dev Hub
         </h1>
         <p className="text-gray-400 text-xs sm:text-sm mt-1">
-          Copilot · Claude · Codex · OpenRouter · Hugging Face · all AI dev tools in one place
+          Copilot · Claude · Codex · v0 · bolt.new · CrewAI · LangSmith · all AI dev tools in one place
         </p>
       </div>
 
