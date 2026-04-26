@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd frontend && bun install && bun run build",
+  "outputDirectory": "frontend/dist",
+  "installCommand": "npm i -g bun",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://devpulse-api.onrender.com/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

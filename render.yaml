@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: devpulse-api
+    runtime: node
+    buildCommand: cd backend && npm i -g bun && bun install
+    startCommand: cd backend && bun run src/server.ts
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PORT
+        value: 3000
