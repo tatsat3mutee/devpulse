@@ -67,6 +67,16 @@ const DEV_TOOLS = [
     url: "https://huggingface.co",
     tag: "Platform",
   },
+  {
+    name: "Mistral AI",
+    icon: "🌀",
+    color: "from-orange-600 to-amber-500",
+    tagline: "European AI powerhouse",
+    desc: "Open-weight & frontier models — Mistral Large, Codestral, Mixtral. La Plateforme API, Le Chat assistant, and on-device deployment.",
+    features: ["Codestral", "Mixtral", "Le Chat", "La Plateforme"],
+    url: "https://mistral.ai",
+    tag: "Models",
+  },
   // — Context Engineering & Evals —
   {
     name: "LangSmith",
