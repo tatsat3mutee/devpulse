@@ -10,6 +10,7 @@ import KnowledgePage from "./pages/KnowledgePage";
 import SourcesPage from "./pages/SourcesPage";
 import SettingsPage from "./pages/SettingsPage";
 import LearnPage from "./pages/LearnPage";
+import HelpPage from "./pages/HelpPage";
 
 const navItems = [
   { to: "/", label: "Dashboard", icon: "🏠" },
@@ -20,7 +21,7 @@ const navItems = [
   { to: "/knowledge", label: "Knowledge", icon: "📖" },
   { to: "/learn", label: "Learning Paths", icon: "🎯" },
   { to: "/sources", label: "Sources", icon: "🔗" },
-  { to: "/settings", label: "Settings", icon: "⚙️" },
+  { to: "/help", label: "Help & Search", icon: "💡" },
 ];
 
 export default function App() {
@@ -131,6 +132,7 @@ export default function App() {
             <Route path="/learn" element={<LearnPage />} />
             <Route path="/sources" element={<SourcesPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/help" element={<HelpPage />} />
           </Routes>
         </div>
       </main>
