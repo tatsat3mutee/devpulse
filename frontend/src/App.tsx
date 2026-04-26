@@ -9,6 +9,7 @@ import DevHubPage from "./pages/DevHubPage";
 import KnowledgePage from "./pages/KnowledgePage";
 import SourcesPage from "./pages/SourcesPage";
 import SettingsPage from "./pages/SettingsPage";
+import LearnPage from "./pages/LearnPage";
 
 const navItems = [
   { to: "/", label: "Dashboard", icon: "🏠" },
@@ -17,6 +18,7 @@ const navItems = [
   { to: "/devhub", label: "Dev Hub", icon: "🛠️" },
   { to: "/videos", label: "Videos", icon: "🎬" },
   { to: "/knowledge", label: "Knowledge", icon: "📖" },
+  { to: "/learn", label: "Learning Paths", icon: "🎯" },
   { to: "/sources", label: "Sources", icon: "🔗" },
   { to: "/settings", label: "Settings", icon: "⚙️" },
 ];
@@ -126,6 +128,7 @@ export default function App() {
             <Route path="/videos" element={<VideosPage />} />
             <Route path="/knowledge" element={<KnowledgePage />} />
             <Route path="/knowledge/:slug" element={<KnowledgePage />} />
+            <Route path="/learn" element={<LearnPage />} />
             <Route path="/sources" element={<SourcesPage />} />
             <Route path="/settings" element={<SettingsPage />} />
           </Routes>
