@@ -75,7 +75,7 @@ export async function fetchLinkedIn(
 
       results.push({
         title,
-        description: description || null,
+        description: description || "",
         url: link,
         type: "news",
         platform: "LinkedIn",

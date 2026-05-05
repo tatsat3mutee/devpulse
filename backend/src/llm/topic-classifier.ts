@@ -74,7 +74,7 @@ export async function classifyItems(
           },
           { role: "user", content: `Classify:\n${listing}` },
         ],
-        { temperature: 0.1, maxTokens: 1000 }
+        { temperature: 0.1, maxTokens: 1000, fastModel: true }
       );
 
       const jsonMatch = text.match(/\[[\s\S]*\]/);

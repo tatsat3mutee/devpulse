@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
-import { api, Item, ItemsResponse } from "../lib/api";
+import { api, Item } from "../lib/api";
 import FeedItem from "../components/FeedItem";
+import { useRole, type DevRole } from "../components/RoleSelector";
 
 const TYPES = [
   { value: "", label: "All" },
@@ -14,6 +15,14 @@ const TYPES = [
 
 const PLATFORMS = ["", "arXiv", "GitHub", "Reddit", "Hacker News", "Hugging Face", "X", "LinkedIn", "YouTube", "VS Code", "OpenAI", "Anthropic", "Google", "Microsoft", "TechCrunch", "The Verge", "GNews"];
 
+// Suggested search terms per role for quick filtering
+const ROLE_SUGGESTIONS: Record<DevRole, string[]> = {
+  developer: ["Claude Code", "Copilot", "RAG", "LLM API", "agentic"],
+  pm: ["model release", "benchmark", "enterprise AI", "pricing"],
+  designer: ["v0", "Figma AI", "multimodal", "design tools"],
+  qa: ["eval", "hallucination", "prompt injection", "testing"],
+};
+
 export default function FeedPage() {
   const [items, setItems] = useState<Item[]>([]);
   const [total, setTotal] = useState(0);
@@ -23,6 +32,7 @@ export default function FeedPage() {
   const [platform, setPlatform] = useState("");
   const [sort, setSort] = useState("top");
   const [offset, setOffset] = useState(0);
+  const { role } = useRole();
   const LIMIT = 20;
 
   const load = useCallback(() => {
@@ -54,6 +64,33 @@ export default function FeedPage() {
         <p className="text-ink-muted text-[14px] max-w-xl">
           Everything we've pulled, in chronological or popularity order. Filter, search, dive in.
         </p>
+        {/* Role quick-search chips */}
+        {role && ROLE_SUGGESTIONS[role] && (
+          <div className="flex flex-wrap gap-1.5 mt-4">
+            <span className="text-[11px] text-ink-faint self-center">Quick:</span>
+            {ROLE_SUGGESTIONS[role].map((s) => (
+              <button
+                key={s}
+                onClick={() => setSearch(s)}
+                className={`text-[11.5px] font-medium px-2.5 py-1 rounded-full border transition-colors ${
+                  search === s
+                    ? "bg-accent-soft border-accent/30 text-accent"
+                    : "border-line text-ink-muted hover:border-ink/30 hover:text-ink"
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+            {search && (
+              <button
+                onClick={() => setSearch("")}
+                className="text-[11px] text-ink-faint hover:text-ink transition-colors px-1"
+              >
+                ✕ clear
+              </button>
+            )}
+          </div>
+        )}
       </header>
 
       {/* Filters bar */}

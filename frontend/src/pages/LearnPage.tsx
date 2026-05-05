@@ -180,15 +180,6 @@ const JOURNEY_STEPS = [
   { icon: "🚀", title: "Build & Ship", desc: "Use everything you learned to ship an AI-powered project", path: null as string | null, color: "green", phase: "Month 1+" },
 ];
 
-const COLOR_BG: Record<string, string> = {
-  blue: "bg-blue-500", indigo: "bg-indigo-500", purple: "bg-purple-500",
-  violet: "bg-violet-500", fuchsia: "bg-fuchsia-500", pink: "bg-pink-500", green: "bg-green-500",
-};
-const COLOR_RING: Record<string, string> = {
-  blue: "ring-blue-200", indigo: "ring-indigo-200", purple: "ring-purple-200",
-  violet: "ring-violet-200", fuchsia: "ring-fuchsia-200", pink: "ring-pink-200", green: "ring-green-200",
-};
-
 /* ═══════════════════════════════════════════════════════════
    COMPONENT
    ═══════════════════════════════════════════════════════════ */

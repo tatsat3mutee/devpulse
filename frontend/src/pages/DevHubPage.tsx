@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, Item, Topic } from "../lib/api";
 import FeedItem from "../components/FeedItem";
-import { timeAgo, stripHtml } from "../lib/utils";
+import { timeAgo } from "../lib/utils";
 
 type Tab = "all" | "copilot" | "claude" | "models" | "devtools" | "community" | "context" | "vibe" | "cloud";
 

@@ -6,7 +6,7 @@ const router = Router();
 // GET /api/items — list items with optional filters
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const { type, platform, topic_id, topic, search, sort, limit, offset } = req.query;
+    const { type, platform, topic_id, topic, search, sort, limit, offset, since } = req.query;
 
     const conditions: string[] = [];
     const params: unknown[] = [];
@@ -36,6 +36,13 @@ router.get("/", async (req: Request, res: Response) => {
       conditions.push(`(i.title ILIKE $${paramIdx} OR i.description ILIKE $${paramIdx})`);
       params.push(`%${search}%`);
       paramIdx++;
+    }
+    if (since) {
+      const sinceDate = new Date(String(since));
+      if (!isNaN(sinceDate.getTime())) {
+        conditions.push(`i.published_at >= $${paramIdx++}`);
+        params.push(sinceDate.toISOString());
+      }
     }
 
     const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";

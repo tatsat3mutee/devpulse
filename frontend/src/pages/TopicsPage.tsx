@@ -2,10 +2,34 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, Topic } from "../lib/api";
 import { timeAgo } from "../lib/utils";
+import { useRole, type DevRole } from "../components/RoleSelector";
+
+// Topic slugs relevant to each role — used for pre-filtering
+const ROLE_TOPICS: Record<DevRole, string[]> = {
+  developer: [
+    "claude-code", "github-copilot", "cursor", "llm-apis", "rag",
+    "agentic-ai", "arxiv-papers", "github-trending", "open-source-llms",
+    "ai-coding-tools", "model-releases", "ai-frameworks",
+  ],
+  pm: [
+    "model-releases", "ai-benchmarks", "enterprise-ai", "ai-pricing",
+    "community-sentiment", "ai-safety", "multimodal-ai",
+  ],
+  designer: [
+    "ai-design-tools", "multimodal-ai", "ui-patterns", "figma-ai",
+    "generative-ui", "model-releases",
+  ],
+  qa: [
+    "llm-evals", "ai-safety", "ai-benchmarks", "testing-frameworks",
+    "hallucination", "prompt-injection",
+  ],
+};
 
 export default function TopicsPage() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [loading, setLoading] = useState(true);
+  const { role } = useRole();
+  const [filterByRole, setFilterByRole] = useState(!!role);
 
   useEffect(() => {
     api.getTopics().then(setTopics).finally(() => setLoading(false));
@@ -15,10 +39,19 @@ export default function TopicsPage() {
 
   const withItems = topics.filter((t) => t.item_count > 0);
   const empty = topics.filter((t) => t.item_count === 0);
-  const totalItems = withItems.reduce((s, t) => s + t.item_count, 0);
+
+  // Apply role filter if enabled
+  const visibleTopics = filterByRole && role
+    ? withItems.filter((t) => ROLE_TOPICS[role].some(
+        (slug) => t.slug === slug || t.slug.includes(slug) || slug.includes(t.slug)
+      ))
+    : withItems;
+  const displayTopics = visibleTopics.length > 0 ? visibleTopics : withItems;
+
+  const totalItems = displayTopics.reduce((s, t) => s + t.item_count, 0);
 
   // Group by category for editorial layout
-  const byCategory = withItems.reduce((acc, t) => {
+  const byCategory = displayTopics.reduce((acc, t) => {
     (acc[t.category] = acc[t.category] || []).push(t);
     return acc;
   }, {} as Record<string, Topic[]>);
@@ -28,11 +61,28 @@ export default function TopicsPage() {
       <header className="mb-10 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Index</div>
         <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
-          {topics.length} topics, <span className="italic text-ink-soft">tracked closely.</span>
+          {withItems.length} topics, <span className="italic text-ink-soft">tracked closely.</span>
         </h1>
-        <p className="text-ink-muted text-[14px]">
-          {totalItems.toLocaleString()} items across {Object.keys(byCategory).length} categories.
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-ink-muted text-[14px]">
+            {totalItems.toLocaleString()} items across {Object.keys(byCategory).length} categories.
+          </p>
+          {role && (
+            <div className="flex items-center gap-2">
+              <span className="text-[12px] text-ink-faint">Filter for my role:</span>
+              <button
+                onClick={() => setFilterByRole((v) => !v)}
+                className={`text-[11.5px] font-medium px-2.5 py-1 rounded-full border transition-colors ${
+                  filterByRole
+                    ? "bg-accent-soft border-accent/30 text-accent"
+                    : "border-line text-ink-muted hover:text-ink"
+                }`}
+              >
+                {role.toUpperCase()}
+              </button>
+            </div>
+          )}
+        </div>
       </header>
 
       <div className="space-y-10">

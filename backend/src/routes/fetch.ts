@@ -2,11 +2,12 @@ import { Router, Request, Response } from "express";
 import { runAllFetchers } from "../fetchers/index.js";
 import { classifyItems } from "../llm/topic-classifier.js";
 import pool from "../db.js";
+import { requireAdmin, AuthRequest } from "../middleware/auth.js";
 
 const router = Router();
 
-// POST /api/fetch — trigger all active fetchers
-router.post("/", async (_req: Request, res: Response) => {
+// POST /api/fetch — trigger all active fetchers (admin only)
+router.post("/", requireAdmin, async (_req: Request, res: Response) => {
   try {
     const result = await runAllFetchers();
     res.json(result);
@@ -16,8 +17,8 @@ router.post("/", async (_req: Request, res: Response) => {
   }
 });
 
-// POST /api/fetch/:fetcherKey — trigger a specific fetcher
-router.post("/:fetcherKey", async (req: Request, res: Response) => {
+// POST /api/fetch/:fetcherKey — trigger a specific fetcher (admin only)
+router.post("/:fetcherKey", requireAdmin, async (req: Request, res: Response) => {
   try {
     const { fetcherKey } = req.params;
     const result = await runAllFetchers(fetcherKey);

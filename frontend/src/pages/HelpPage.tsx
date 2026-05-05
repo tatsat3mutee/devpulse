@@ -1,16 +1,17 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { searchIndex, type SearchItem } from "../lib/searchIndex";
 
 /* ═══════════════════════════════════════════════════════════
    DATA
    ═══════════════════════════════════════════════════════════ */
 
 const QUICK_ACTIONS = [
+  { icon: "💬", label: "Chat", desc: "Ask DevPulse AI anything", path: "/chat" },
   { icon: "🏠", label: "Dashboard", desc: "See what's trending today", path: "/" },
   { icon: "📡", label: "Feed", desc: "Browse 674+ AI items", path: "/feed" },
   { icon: "📖", label: "Guides", desc: "19 in-depth learning guides", path: "/knowledge" },
   { icon: "🛠️", label: "Dev Hub", desc: "17 AI developer tools", path: "/devhub" },
-  { icon: "🎯", label: "Learning Paths", desc: "Career roadmaps & roles", path: "/learn" },
   { icon: "🗂️", label: "Topics", desc: "49 curated AI topics", path: "/topics" },
 ];
 
@@ -70,75 +71,12 @@ const KEYBOARD_SHORTCUTS = [
   { keys: ["←", "→"], desc: "Navigate between pages" },
 ];
 
-/* ═══════════════════════════════════════════════════════════
-   SEARCH LOGIC — local portal search
-   ═══════════════════════════════════════════════════════════ */
-
-interface SearchResult {
-  title: string;
-  desc: string;
-  path: string;
-  type: "page" | "guide" | "topic" | "tool";
-}
-
-const SEARCH_INDEX: SearchResult[] = [
-  // Pages
-  { title: "Dashboard", desc: "Trending topics & activity overview", path: "/", type: "page" },
-  { title: "Feed", desc: "674+ items from 7 platforms", path: "/feed", type: "page" },
-  { title: "Topics", desc: "49 curated AI topics", path: "/topics", type: "page" },
-  { title: "Dev Hub", desc: "17 essential AI tools", path: "/devhub", type: "page" },
-  { title: "Knowledge", desc: "19 in-depth guides", path: "/knowledge", type: "page" },
-  { title: "Videos", desc: "AI tutorials & talks", path: "/videos", type: "page" },
-  { title: "Sources", desc: "75 active data sources", path: "/sources", type: "page" },
-  { title: "Learning Paths", desc: "Career roadmaps & AI roles", path: "/learn", type: "page" },
-  // Guides
-  { title: "Getting Started with Copilot", desc: "Setup, tips, and first steps", path: "/knowledge/getting-started-copilot", type: "guide" },
-  { title: "Copilot Agent Mode", desc: "Multi-file editing and autonomous coding", path: "/knowledge/copilot-agent-mode", type: "guide" },
-  { title: "MCP Guide", desc: "Model Context Protocol servers", path: "/knowledge/mcp-guide", type: "guide" },
-  { title: "VS Code Power Tips", desc: "Shortcuts and productivity hacks", path: "/knowledge/vscode-power-tips", type: "guide" },
-  { title: "Prompt Engineering", desc: "System prompts, chain-of-thought, few-shot", path: "/knowledge/prompt-engineering", type: "guide" },
-  { title: "Building with LLM APIs", desc: "OpenAI, Anthropic, Groq integration", path: "/knowledge/building-with-llm-apis", type: "guide" },
-  { title: "Context Engineering", desc: "Window management, chunking, retrieval", path: "/knowledge/context-engineering", type: "guide" },
-  { title: "AI Evals & Harness", desc: "Testing and evaluating LLM outputs", path: "/knowledge/ai-evals-harness", type: "guide" },
-  { title: "Vibe Coding", desc: "AI-assisted rapid prototyping", path: "/knowledge/vibe-coding", type: "guide" },
-  { title: "Agentic Patterns", desc: "Tool use, ReAct, planning patterns", path: "/knowledge/agentic-patterns", type: "guide" },
-  { title: "AI Safety & Guardrails", desc: "Red teaming, RLHF, prompt injection defense", path: "/knowledge/ai-safety-guardrails", type: "guide" },
-  { title: "Claude Code Guide", desc: "Terminal AI assistant, agentic loops, CLAUDE.md", path: "/knowledge/claude-code-guide", type: "guide" },
-  { title: "LLM Fine-Tuning", desc: "LoRA, QLoRA, PEFT, custom model training", path: "/knowledge/llm-fine-tuning", type: "guide" },
-  { title: "RAG & Vectorless RAG", desc: "Retrieval, vector search, hybrid search, Graph RAG", path: "/knowledge/rag-guide", type: "guide" },
-  { title: "Awesome Copilot", desc: "Skills, agents, plugins, custom instructions", path: "/knowledge/awesome-copilot-guide", type: "guide" },
-  { title: "Azure AI Services", desc: "Azure OpenAI, AI Studio, Cognitive Services", path: "/knowledge/azure-ai-services", type: "guide" },
-  { title: "AWS AI & Bedrock", desc: "Bedrock, SageMaker, Amazon Q Developer", path: "/knowledge/aws-ai-bedrock", type: "guide" },
-  { title: "Karpathy AI from Scratch", desc: "nanoGPT, micrograd, neural nets from first principles", path: "/knowledge/karpathy-ai-from-scratch", type: "guide" },
-  { title: "Spring Boot + Azure AI", desc: "Spring AI, Azure OpenAI, Java cloud AI", path: "/knowledge/spring-boot-azure-ai", type: "guide" },
-  // Topics (selected)
-  { title: "RAG", desc: "Retrieval-Augmented Generation", path: "/topic/rag", type: "topic" },
-  { title: "GitHub Copilot", desc: "AI pair programming", path: "/topic/github-copilot", type: "topic" },
-  { title: "Fine-tuning", desc: "Custom model training", path: "/topic/fine-tuning", type: "topic" },
-  { title: "AI Safety", desc: "Alignment and responsible AI", path: "/topic/ai-safety", type: "topic" },
-  { title: "Agentic Patterns", desc: "Autonomous AI agents", path: "/topic/agentic-patterns", type: "topic" },
-  { title: "Context Engineering", desc: "LLM context optimization", path: "/topic/context-engineering", type: "topic" },
-  { title: "Vibe Coding", desc: "AI-powered rapid development", path: "/topic/vibe-coding", type: "topic" },
-  { title: "Prompt Engineering", desc: "Effective LLM prompting", path: "/topic/prompt-engineering", type: "topic" },
-];
-
-function search(query: string): SearchResult[] {
-  if (!query.trim()) return [];
-  const terms = query.toLowerCase().split(/\s+/);
-  return SEARCH_INDEX.filter((item) =>
-    terms.every(
-      (t) =>
-        item.title.toLowerCase().includes(t) ||
-        item.desc.toLowerCase().includes(t)
-    )
-  ).slice(0, 8);
-}
-
-const TYPE_BADGE: Record<string, { bg: string; text: string; label: string }> = {
-  page: { bg: "bg-accent-soft", text: "text-accent", label: "Page" },
-  guide: { bg: "bg-accent-soft", text: "text-accent", label: "Guide" },
-  topic: { bg: "bg-paper", text: "text-ink-soft", label: "Topic" },
-  tool: { bg: "bg-paper", text: "text-ink-muted", label: "Tool" },
+const TYPE_BADGE: Record<string, { label: string }> = {
+  page: { label: "Page" },
+  guide: { label: "Guide" },
+  topic: { label: "Topic" },
+  tool: { label: "Tool" },
+  external: { label: "External" },
 };
 
 /* ═══════════════════════════════════════════════════════════
@@ -149,7 +87,7 @@ export default function HelpPage() {
   const [query, setQuery] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const results = search(query);
+  const results = searchIndex(query, 8).filter((r) => r.type !== "external");
 
   return (
     <div className="pb-8">
@@ -188,25 +126,22 @@ export default function HelpPage() {
 
           {results.length > 0 && (
             <div className="absolute top-full mt-1 w-full bg-surface border border-line rounded-md shadow-cardHover overflow-hidden z-10">
-              {results.map((r) => {
-                const badge = TYPE_BADGE[r.type];
-                return (
-                  <Link
-                    key={r.path}
-                    to={r.path}
-                    className="flex items-center gap-3 px-3 py-2.5 hover:bg-paper transition-colors border-b border-line last:border-b-0"
-                  >
-                    <div className="flex-1 min-w-0">
-                      <div className="text-[13px] font-medium text-ink truncate">{r.title}</div>
-                      <div className="text-[11px] text-ink-muted truncate">{r.desc}</div>
-                    </div>
-                    <span className="text-[10px] uppercase tracking-wider font-mono text-ink-faint">
-                      {badge.label}
-                    </span>
-                    <span className="text-ink-faint text-[12px]">→</span>
-                  </Link>
-                );
-              })}
+              {results.map((r: SearchItem) => (
+                <Link
+                  key={r.path}
+                  to={r.path}
+                  className="flex items-center gap-3 px-3 py-2.5 hover:bg-paper transition-colors border-b border-line last:border-b-0"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-medium text-ink truncate">{r.title}</div>
+                    <div className="text-[11px] text-ink-muted truncate">{r.desc}</div>
+                  </div>
+                  <span className="text-[10px] uppercase tracking-wider font-mono text-ink-faint">
+                    {TYPE_BADGE[r.type]?.label}
+                  </span>
+                  <span className="text-ink-faint text-[12px]">→</span>
+                </Link>
+              ))}
             </div>
           )}
           {query.trim() && results.length === 0 && (
@@ -359,32 +294,24 @@ export default function HelpPage() {
         </div>
       </div>
 
-      <div className="border-t border-line pt-8 text-center">
-        <p className="display text-[24px] text-ink mb-1">Still have questions?</p>
-        <p className="text-ink-muted text-[13px] mb-5 max-w-md mx-auto">
-          DevPulse is open source. Read the guides, then explore the codebase.
-        </p>
-        <div className="flex gap-2 justify-center flex-wrap">
+      {/* ── AI Chat CTA ── */}
+      <div className="border-t border-line pt-8">
+        <div className="bg-surface border border-line rounded-xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <div className="eyebrow mb-1">DevPulse AI</div>
+            <p className="text-[13.5px] text-ink font-medium mb-1">
+              Ask anything about AI — with live web search
+            </p>
+            <p className="text-[12.5px] text-ink-muted">
+              Powered by Perplexity sonar. Inline citations, markdown, multi-turn conversation.
+            </p>
+          </div>
           <Link
-            to="/knowledge"
-            className="px-4 py-2 rounded-md bg-ink text-paper text-[12.5px] font-medium hover:bg-ink-soft transition-colors"
+            to="/chat"
+            className="shrink-0 px-4 py-2 rounded-lg bg-ink text-paper text-[13px] font-medium hover:bg-ink-soft transition-colors"
           >
-            Read the guides
+            Open Chat →
           </Link>
-          <Link
-            to="/learn"
-            className="px-4 py-2 rounded-md bg-surface border border-line text-ink-soft text-[12.5px] font-medium hover:border-ink/30 hover:text-ink transition-colors"
-          >
-            Learning paths
-          </Link>
-          <a
-            href="https://github.com/tatsat3mutee/devpulse"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 rounded-md bg-surface border border-line text-ink-soft text-[12.5px] font-medium hover:border-ink/30 hover:text-ink transition-colors"
-          >
-            GitHub repo
-          </a>
         </div>
       </div>
     </div>

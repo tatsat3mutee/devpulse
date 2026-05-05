@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api, KnowledgeGuide } from "../lib/api";
 
@@ -170,10 +170,9 @@ function GuideDetail({ slug }: { slug: string }) {
 /** Simple markdown-to-HTML renderer for guide content */
 function MarkdownContent({ content }: { content: string }) {
   const lines = content.split("\n");
-  const elements: JSX.Element[] = [];
+  const elements: ReactElement[] = [];
   let inCodeBlock = false;
   let codeLines: string[] = [];
-  let codeLang = "";
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -188,7 +187,6 @@ function MarkdownContent({ content }: { content: string }) {
         codeLines = [];
         inCodeBlock = false;
       } else {
-        codeLang = line.slice(3).trim();
         inCodeBlock = true;
       }
       continue;

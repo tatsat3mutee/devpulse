@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { api } from "../lib/api";
+import { useAuth } from "../context/AuthContext";
 
 export default function SettingsPage() {
+  const { user } = useAuth();
   const [health, setHealth] = useState<{ status: string; timestamp: string } | null>(null);
 
   useEffect(() => {
@@ -13,7 +15,7 @@ export default function SettingsPage() {
       <header className="mb-8 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Configuration</div>
         <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Settings</h1>
-        <p className="text-ink-muted text-[14px]">System status, configuration, and credentials.</p>
+        <p className="text-ink-muted text-[14px]">System status and project information.</p>
       </header>
 
       <div className="space-y-2">
@@ -48,17 +50,34 @@ export default function SettingsPage() {
           </p>
         </Card>
 
-        {/* API Keys */}
-        <Card title="API Keys" eyebrow="Server-side, .env">
-          <div className="divide-y divide-line">
-            {["GROQ_API_KEY", "GEMINI_API_KEY", "OPENAI_API_KEY", "GITHUB_TOKEN", "TWITTER_BEARER_TOKEN"].map(k => (
-              <div key={k} className="flex items-center justify-between py-2 first:pt-0 last:pb-0">
-                <span className="text-ink-soft font-mono text-[12px]">{k}</span>
-                <span className="text-ink-faint text-[11px] uppercase tracking-wider">backend .env</span>
-              </div>
-            ))}
-          </div>
-        </Card>
+        {/* Admin-only section */}
+        {user?.isAdmin && (
+          <Card title="Admin" eyebrow="Server Config">
+            <p className="text-[12px] text-ink-muted mb-3">
+              Visible only to the admin account. Configure environment variables in{" "}
+              <code className="font-mono text-[11px] bg-paper px-1 py-0.5 rounded">backend/.env</code>.
+            </p>
+            <div className="divide-y divide-line">
+              {[
+                { key: "GROQ_API_KEY", label: "Groq — primary LLM" },
+                { key: "GEMINI_API_KEY", label: "Gemini — fallback LLM" },
+                { key: "OPENAI_API_KEY", label: "OpenAI — fallback LLM" },
+                { key: "GITHUB_TOKEN", label: "GitHub — higher rate limits" },
+                { key: "TWITTER_BEARER_TOKEN", label: "X/Twitter — tweets" },
+                { key: "PERPLEXITY_API_KEY", label: "Perplexity — chat search" },
+                { key: "ADMIN_EMAIL", label: "Admin email" },
+              ].map(({ key, label }) => (
+                <div key={key} className="flex items-center justify-between py-2 first:pt-0 last:pb-0 gap-3">
+                  <div>
+                    <span className="text-ink-soft font-mono text-[12px]">{key}</span>
+                    <span className="text-ink-faint text-[11px] ml-2">{label}</span>
+                  </div>
+                  <span className="text-ink-faint text-[11px] uppercase tracking-wider shrink-0">.env</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+        )}
       </div>
     </div>
   );

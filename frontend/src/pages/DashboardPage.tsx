@@ -10,23 +10,27 @@ export default function DashboardPage() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [topItems, setTopItems] = useState<Item[]>([]);
   const [recentItems, setRecentItems] = useState<Item[]>([]);
+  const [last24h, setLast24h] = useState<Item[]>([]);
   const [videos, setVideos] = useState<Item[]>([]);
   const [guides, setGuides] = useState<KnowledgeGuide[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ topics: 0, items: 0, sources: 0 });
 
   useEffect(() => {
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
     Promise.all([
       api.getTopics(),
       api.getItems({ sort: "top", limit: "5" }),
       api.getItems({ sort: "recent", limit: "8" }),
+      api.getItems({ sort: "recent", limit: "6", since }),
       api.getItems({ type: "video", sort: "recent", limit: "4" }),
       api.getKnowledgeGuides(),
       api.getSources(),
-    ]).then(([topicsData, topData, recentData, videoData, guidesData, sourcesData]) => {
+    ]).then(([topicsData, topData, recentData, last24Data, videoData, guidesData, sourcesData]) => {
       setTopics(topicsData.filter((t) => t.item_count > 0).slice(0, 8));
       setTopItems(topData.items);
       setRecentItems(recentData.items);
+      setLast24h(last24Data.items);
       setVideos(videoData.items);
       setGuides(guidesData.slice(0, 4));
       setStats({
@@ -77,6 +81,17 @@ export default function DashboardPage() {
           <QuickLink to="/feed" icon="rss" label="Full feed" hint="Everything, fresh" />
         </div>
       </section>
+
+      {/* Last 24 hours */}
+      {last24h.length > 0 && (
+        <Section eyebrow="Last 24 hours" title="Just dropped" link="/feed?sort=recent" icon="rss">
+          <div className="space-y-2.5">
+            {last24h.map((item) => (
+              <FeedItem key={item.id} item={item} showTopic />
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* Trending */}
       {topItems.length > 0 && (

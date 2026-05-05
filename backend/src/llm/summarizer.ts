@@ -44,7 +44,7 @@ export async function summarizeItems(
             content: `Summarize each:\n${listing}`,
           },
         ],
-        { temperature: 0.2, maxTokens: 2000 }
+        { temperature: 0.2, maxTokens: 2000, fastModel: true }
       );
 
       const jsonMatch = text.match(/\[[\s\S]*\]/);

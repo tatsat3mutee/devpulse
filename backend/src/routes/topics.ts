@@ -80,4 +80,28 @@ router.get("/:slug", async (req: Request, res: Response) => {
   }
 });
 
+// GET /api/topics/trending/daily — per-topic daily item counts (last 14 days)
+// Returns: [{ topic_id, topic_name, topic_slug, day, count }]
+router.get("/trending/daily", async (_req: Request, res: Response) => {
+  try {
+    const { rows } = await pool.query(`
+      SELECT
+        t.id  AS topic_id,
+        t.name AS topic_name,
+        t.slug AS topic_slug,
+        DATE(i.published_at AT TIME ZONE 'UTC') AS day,
+        COUNT(*)::int AS count
+      FROM items i
+      JOIN topics t ON t.id = i.topic_id
+      WHERE i.published_at >= NOW() - INTERVAL '14 days'
+      GROUP BY t.id, t.name, t.slug, day
+      ORDER BY day ASC, count DESC
+    `);
+    res.json(rows);
+  } catch (err) {
+    console.error("Error fetching trending:", err);
+    res.status(500).json({ error: "Failed to fetch trending data" });
+  }
+});
+
 export default router;

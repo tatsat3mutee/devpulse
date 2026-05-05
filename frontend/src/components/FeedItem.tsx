@@ -1,17 +1,24 @@
-import { Item, api } from "../lib/api";
+import { useState } from "react";
+import { Item } from "../lib/api";
 import {
   timeAgo,
   engagementText,
   typeDotColor,
   stripHtml,
 } from "../lib/utils";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Icon from "./Icon";
+import { useAuth } from "../context/AuthContext";
+import {
+  isLocalBookmarked,
+  addLocalBookmark,
+  removeLocalBookmark,
+} from "../lib/localBookmarks";
 
 interface Props {
   item: Item;
   showTopic?: boolean;
+  note?: string | null;
 }
 
 const typeLabel: Record<string, string> = {
@@ -23,16 +30,77 @@ const typeLabel: Record<string, string> = {
   video: "Video",
 };
 
-export default function FeedItem({ item, showTopic }: Props) {
-  const engagement = engagementText(item.platform, item.metadata || {});
-  const [bookmarked, setBookmarked] = useState(item.is_bookmarked);
-  const navigate = useNavigate();
+const PLATFORM_BADGE: Record<string, string> = {
+  arxiv:          "bg-purple-500/12 text-purple-400 dark:bg-purple-500/15 dark:text-purple-400",
+  github:         "bg-emerald-500/12 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400",
+  "hacker news":  "bg-orange-500/12 text-orange-600 dark:bg-orange-500/15 dark:text-orange-400",
+  huggingface:    "bg-yellow-500/12 text-yellow-600 dark:bg-yellow-400/15 dark:text-yellow-400",
+  reddit:         "bg-red-500/12 text-red-600 dark:bg-red-500/15 dark:text-red-400",
+  youtube:        "bg-red-500/12 text-red-600 dark:bg-red-500/15 dark:text-red-400",
+  twitter:        "bg-sky-500/12 text-sky-600 dark:bg-sky-500/15 dark:text-sky-400",
+  linkedin:       "bg-blue-500/12 text-blue-600 dark:bg-blue-500/15 dark:text-blue-400",
+};
 
-  const handleBookmark = async (e: React.MouseEvent) => {
+function PlatformBadge({ platform }: { platform: string }) {
+  const key = platform?.toLowerCase() ?? "";
+  const cls = PLATFORM_BADGE[key] ?? "bg-line text-ink-faint";
+  return (
+    <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-full leading-none ${cls}`}>
+      {platform}
+    </span>
+  );
+}
+
+export default function FeedItem({ item, showTopic, note }: Props) {
+  const engagement = engagementText(item.platform, item.metadata || {});
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user, isSaved, saveItem, unsaveItem } = useAuth();
+
+  // Local bookmark state for unauthenticated users
+  const [localSaved, setLocalSaved] = useState(() => isLocalBookmarked(item.id));
+  const [copied, setCopied] = useState(false);
+
+  const saved = user ? isSaved(item.id) : localSaved;
+
+  const handleSave = async (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    const updated = await api.toggleBookmark(item.id);
-    setBookmarked(updated.is_bookmarked);
+
+    if (!user) {
+      // Save to localStorage without requiring login
+      if (localSaved) {
+        removeLocalBookmark(item.id);
+        setLocalSaved(false);
+      } else {
+        addLocalBookmark({
+          id: item.id,
+          title: item.title,
+          url: item.url,
+          platform: item.platform,
+          type: item.type,
+          topic_name: item.topic_name,
+          topic_slug: item.topic_slug,
+          source_name: item.source_name,
+          description: item.description,
+          published_at: item.published_at,
+          tags: item.tags,
+          score: item.score,
+          metadata: item.metadata || {},
+          savedAt: new Date().toISOString(),
+        });
+        setLocalSaved(true);
+      }
+      return;
+    }
+
+    try {
+      if (isSaved(item.id)) {
+        await unsaveItem(item.id);
+      } else {
+        await saveItem(item.id);
+      }
+    } catch { /* optimistic update already reverted in context */ }
   };
 
   return (
@@ -48,16 +116,16 @@ export default function FeedItem({ item, showTopic }: Props) {
             <span className="font-medium text-ink-soft">{typeLabel[item.type] || item.type}</span>
           </span>
           <span className="text-ink-faint">·</span>
-          <span>{item.source_name || item.platform}</span>
+          <PlatformBadge platform={item.source_name || item.platform} />
           <span className="text-ink-faint">·</span>
           <span className="normal-case tracking-normal">{timeAgo(item.published_at)}</span>
         </div>
         <button
-          onClick={handleBookmark}
-          className={`p-1 rounded transition-colors ${bookmarked ? "text-accent" : "text-ink-faint hover:text-ink"}`}
-          aria-label="Bookmark"
+          onClick={handleSave}
+          className={`p-1 rounded transition-colors ${saved ? "text-accent" : "text-ink-faint hover:text-ink"}`}
+          aria-label={saved ? "Remove from library" : "Save to library"}
         >
-          <Icon name={bookmarked ? "bookmark-filled" : "bookmark"} size={14} />
+          <Icon name={saved ? "bookmark-filled" : "bookmark"} size={14} />
         </button>
       </div>
 
@@ -70,6 +138,13 @@ export default function FeedItem({ item, showTopic }: Props) {
       {item.description && (
         <p className="text-[13.5px] text-ink-muted line-clamp-2 leading-relaxed mb-3">
           {stripHtml(item.description)}
+        </p>
+      )}
+
+      {/* Personal note (shown in Library) */}
+      {note && (
+        <p className="text-[12.5px] text-ink-soft italic border-l-2 border-accent/40 pl-3 mb-3 leading-relaxed">
+          {note}
         </p>
       )}
 
@@ -103,6 +178,31 @@ export default function FeedItem({ item, showTopic }: Props) {
               {Math.round(item.score)}
             </span>
           )}
+          <button
+            onClick={async (e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              try {
+                await navigator.clipboard.writeText(item.url);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              } catch {
+                // fallback: open native share if available
+                if (navigator.share) {
+                  navigator.share({ title: item.title, url: item.url }).catch(() => {});
+                }
+              }
+            }}
+            className="p-1 rounded transition-colors text-ink-faint hover:text-ink"
+            title="Copy link"
+            aria-label="Copy link"
+          >
+            {copied ? (
+              <span className="text-accent text-[10px] font-medium">Copied!</span>
+            ) : (
+              <Icon name="share" size={13} />
+            )}
+          </button>
         </div>
       </div>
     </article>

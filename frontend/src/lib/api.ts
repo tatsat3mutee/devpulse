@@ -3,6 +3,7 @@ const BASE = "/api";
 async function request<T>(path: string, opts?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     headers: { "Content-Type": "application/json" },
+    credentials: "include",
     ...opts,
   });
   if (!res.ok) throw new Error(`API ${res.status}: ${path}`);
@@ -88,6 +89,42 @@ export interface KnowledgeGuide {
   updated_at: string;
 }
 
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+  citations?: string[]; // source URLs returned by Perplexity sonar
+}
+
+export interface ChatResponse {
+  reply: string;
+  provider: string;
+  hasWebSearch: boolean;
+  citations: string[];
+}
+
+// ── Auth & Library types ─────────────────────────────────────────────
+
+export interface User {
+  id: number;
+  email: string;
+  displayName: string | null;
+  isAdmin: boolean;
+}
+
+export interface SavedItem extends Item {
+  save_id: number;
+  note: string | null;
+  saved_at: string;
+}
+
+export interface AuthResponse {
+  user: User;
+}
+
+export interface LibraryResponse {
+  saves: SavedItem[];
+}
+
 // ── API calls ────────────────────────────────────────────────────────
 
 export const api = {
@@ -103,6 +140,12 @@ export const api = {
   getTopicDetail(slug: string, params?: Record<string, string>) {
     const qs = params ? "?" + new URLSearchParams(params).toString() : "";
     return request<TopicDetail>(`/topics/${slug}${qs}`);
+  },
+
+  getTrendingDaily() {
+    return request<{ topic_id: number; topic_name: string; topic_slug: string; day: string; count: number }[]>(
+      "/topics/trending/daily"
+    );
   },
 
   getSources() {
@@ -136,5 +179,80 @@ export const api = {
 
   getKnowledgeGuide(slug: string) {
     return request<KnowledgeGuide>(`/knowledge/${slug}`);
+  },
+
+  sendChat(message: string, history: ChatMessage[]) {
+    return request<ChatResponse>("/chat", {
+      method: "POST",
+      body: JSON.stringify({ message, history }),
+    });
+  },
+
+  // ── Auth ──────────────────────────────────────────────────────────
+  register(email: string, password: string, displayName?: string) {
+    return request<AuthResponse>("/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ email, password, displayName }),
+    });
+  },
+
+  login(email: string, password: string) {
+    return request<AuthResponse>("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+  },
+
+  logout() {
+    return request<{ ok: true }>("/auth/logout", { method: "POST" });
+  },
+
+  getMe() {
+    return request<AuthResponse>("/auth/me");
+  },
+
+  // ── Library ───────────────────────────────────────────────────────
+  getLibrary() {
+    return request<LibraryResponse>("/library");
+  },
+
+  getSavedIds() {
+    return request<{ savedIds: number[] }>("/library/ids");
+  },
+
+  saveItem(itemId: number, note?: string) {
+    return request<{ save: object }>("/library", {
+      method: "POST",
+      body: JSON.stringify({ itemId, note }),
+    });
+  },
+
+  unsaveItem(itemId: number) {
+    return request<{ ok: true }>(`/library/${itemId}`, { method: "DELETE" });
+  },
+
+  updateSaveNote(itemId: number, note: string) {
+    return request<{ save: object }>(`/library/${itemId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ note }),
+    });
+  },
+
+  // ── Email digest ──────────────────────────────────────────────────
+  subscribe(email: string, frequency: "weekly" | "daily" = "weekly") {
+    return request<{ ok: true; message: string }>("/subscribe", {
+      method: "POST",
+      body: JSON.stringify({ email, frequency }),
+    });
+  },
+
+  unsubscribe(email: string) {
+    return request<{ ok: true }>(`/subscribe?email=${encodeURIComponent(email)}`, {
+      method: "DELETE",
+    });
+  },
+
+  getSubscriberCount() {
+    return request<{ count: number }>("/subscribe/count");
   },
 };

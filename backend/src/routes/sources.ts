@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import pool from "../db.js";
+import { requireAdmin } from "../middleware/auth.js";
 
 const router = Router();
 
@@ -22,8 +23,8 @@ router.get("/", async (_req: Request, res: Response) => {
   }
 });
 
-// PATCH /api/sources/:id — toggle active, update rating, etc.
-router.patch("/:id", async (req: Request, res: Response) => {
+// PATCH /api/sources/:id — toggle active, update rating, etc. (admin only)
+router.patch("/:id", requireAdmin, async (req: Request, res: Response) => {
   try {
     const { is_active, rating } = req.body;
     const updates: string[] = [];

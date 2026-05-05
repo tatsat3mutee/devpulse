@@ -21,6 +21,9 @@ interface LLMResponse {
 interface CallOpts {
   temperature?: number;
   maxTokens?: number;
+  /** Use a smaller/faster model (llama-3.1-8b-instant on Groq). Ideal for
+   *  classification/summarization — higher token-rate limits, lower latency. */
+  fastModel?: boolean;
 }
 
 // ── Rate limiting state (in-memory, per process) ─────────────────────
@@ -181,20 +184,23 @@ interface Provider {
   call: (msgs: ChatMessage[], o: CallOpts) => Promise<string>;
 }
 
-function getAllProviders(): Provider[] {
+function getAllProviders(opts?: CallOpts): Provider[] {
   const providers: Provider[] = [];
   const groq = process.env.GROQ_API_KEY;
   const gemini = process.env.GEMINI_API_KEY;
   const openai = process.env.OPENAI_API_KEY;
 
   if (groq) {
+    // llama-3.1-8b-instant: 30 RPM / 20k TPM (5x more tokens than 70b) — good for classification
+    // llama-3.3-70b-versatile: 30 RPM / 6k TPM — reserved for chat/reasoning
+    const model = opts?.fastModel ? "llama-3.1-8b-instant" : "llama-3.3-70b-versatile";
     providers.push({
       name: "groq",
       call: (msgs, o) =>
         callOpenAICompat(
           "https://api.groq.com/openai/v1/chat/completions",
           groq,
-          "llama-3.3-70b-versatile",
+          model,
           msgs,
           o
         ),
@@ -230,7 +236,7 @@ export async function askLLM(
   messages: ChatMessage[],
   opts?: CallOpts
 ): Promise<LLMResponse> {
-  const providers = getAllProviders();
+  const providers = getAllProviders(opts);
   if (providers.length === 0) {
     throw new Error(
       "No LLM key set. Add GROQ_API_KEY, GEMINI_API_KEY, or OPENAI_API_KEY to .env"
@@ -238,8 +244,7 @@ export async function askLLM(
   }
 
   let lastErr: any;
-  for (const provider of providers) {
-    // Skip providers currently in cool-down
+  for (const provider of providers) {    // Skip providers currently in cool-down
     if (Date.now() < (rateState[provider.name]?.blockedUntil ?? 0)) {
       continue;
     }

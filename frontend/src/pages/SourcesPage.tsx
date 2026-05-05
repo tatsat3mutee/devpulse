@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { api, Source, FetchStats } from "../lib/api";
 import { timeAgo } from "../lib/utils";
+import { useAuth } from "../context/AuthContext";
 
 export default function SourcesPage() {
+  const { user } = useAuth();
+  const isAdmin = user?.isAdmin ?? false;
   const [sources, setSources] = useState<Source[]>([]);
   const [loading, setLoading] = useState(true);
   const [fetching, setFetching] = useState<string | null>(null);
@@ -65,13 +68,15 @@ export default function SourcesPage() {
             {sources.length} total
           </p>
         </div>
-        <button
-          onClick={() => handleFetch()}
-          disabled={!!fetching}
-          className="px-4 py-2 bg-ink text-paper text-[13px] font-medium rounded-md hover:bg-ink-soft disabled:opacity-50 transition-colors inline-flex items-center gap-2 self-start"
-        >
-          {fetching === "all" ? "Fetching…" : "Fetch all sources now"}
-        </button>
+        {isAdmin && (
+          <button
+            onClick={() => handleFetch()}
+            disabled={!!fetching}
+            className="px-4 py-2 bg-ink text-paper text-[13px] font-medium rounded-md hover:bg-ink-soft disabled:opacity-50 transition-colors inline-flex items-center gap-2 self-start"
+          >
+            {fetching === "all" ? "Fetching…" : "Fetch all sources now"}
+          </button>
+        )}
       </header>
 
       {lastFetch && (
@@ -97,13 +102,15 @@ export default function SourcesPage() {
                   <div className="eyebrow">{srcs.length} feed{srcs.length === 1 ? "" : "s"}</div>
                   <h2 className="display text-[20px] text-ink leading-none">{platform}</h2>
                 </div>
-                <button
-                  onClick={() => handleFetch(srcs[0].fetcher_key)}
-                  disabled={!!fetching}
-                  className="text-[11.5px] uppercase tracking-wider px-2.5 py-1 rounded border border-line text-ink-soft hover:border-ink/30 hover:text-ink disabled:opacity-30 transition-colors"
-                >
-                  {fetching === srcs[0].fetcher_key ? "…" : "Fetch"}
-                </button>
+                {isAdmin && (
+                  <button
+                    onClick={() => handleFetch(srcs[0].fetcher_key)}
+                    disabled={!!fetching}
+                    className="text-[11.5px] uppercase tracking-wider px-2.5 py-1 rounded border border-line text-ink-soft hover:border-ink/30 hover:text-ink disabled:opacity-30 transition-colors"
+                  >
+                    {fetching === srcs[0].fetcher_key ? "…" : "Fetch"}
+                  </button>
+                )}
               </div>
               <div className="divide-y divide-line bg-surface border border-line rounded-md overflow-hidden">
                 {srcs.map((src) => (
@@ -111,19 +118,27 @@ export default function SourcesPage() {
                     key={src.id}
                     className="flex items-center gap-3 px-4 py-2.5 hover:bg-paper transition-colors"
                   >
-                    <button
-                      onClick={() => handleToggle(src)}
-                      className={`w-9 h-5 rounded-full transition-colors relative shrink-0 ${
-                        src.is_active ? "bg-accent" : "bg-line"
-                      }`}
-                      aria-label={src.is_active ? "Deactivate" : "Activate"}
-                    >
+                    {isAdmin ? (
+                      <button
+                        onClick={() => handleToggle(src)}
+                        className={`w-9 h-5 rounded-full transition-colors relative shrink-0 ${
+                          src.is_active ? "bg-accent" : "bg-line"
+                        }`}
+                        aria-label={src.is_active ? "Deactivate" : "Activate"}
+                      >
+                        <span
+                          className={`absolute top-0.5 w-4 h-4 bg-surface rounded-full shadow-sm transition-transform ${
+                            src.is_active ? "left-[18px]" : "left-0.5"
+                          }`}
+                        />
+                      </button>
+                    ) : (
                       <span
-                        className={`absolute top-0.5 w-4 h-4 bg-surface rounded-full shadow-sm transition-transform ${
-                          src.is_active ? "left-[18px]" : "left-0.5"
+                        className={`w-2 h-2 rounded-full shrink-0 ml-3.5 ${
+                          src.is_active ? "bg-accent" : "bg-line"
                         }`}
                       />
-                    </button>
+                    )}
                     <span
                       className={`text-[13.5px] flex-1 min-w-0 truncate ${
                         src.is_active ? "text-ink" : "text-ink-faint"
