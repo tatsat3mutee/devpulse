@@ -58,6 +58,16 @@ export function requireAdmin(req: AuthRequest, res: Response, next: NextFunction
   });
 }
 
+/** Accepts either admin JWT cookie or X-Cron-Secret header (for GitHub Actions / cron jobs). */
+export function requireAdminOrCronSecret(req: AuthRequest, res: Response, next: NextFunction): void {
+  const cronSecret = req.headers["x-cron-secret"];
+  if (cronSecret && process.env.CRON_SECRET && cronSecret === process.env.CRON_SECRET) {
+    next();
+    return;
+  }
+  requireAdmin(req, res, next);
+}
+
 export function isAdminEmail(email: string): boolean {
   const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
   return !!adminEmail && email.toLowerCase() === adminEmail;

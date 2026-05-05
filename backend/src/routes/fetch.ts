@@ -2,12 +2,12 @@ import { Router, Request, Response } from "express";
 import { runAllFetchers } from "../fetchers/index.js";
 import { classifyItems } from "../llm/topic-classifier.js";
 import pool from "../db.js";
-import { requireAdmin, AuthRequest } from "../middleware/auth.js";
+import { requireAdmin, requireAdminOrCronSecret, AuthRequest } from "../middleware/auth.js";
 
 const router = Router();
 
-// POST /api/fetch — trigger all active fetchers (admin only)
-router.post("/", requireAdmin, async (_req: Request, res: Response) => {
+// POST /api/fetch — trigger all active fetchers (admin JWT or X-Cron-Secret header)
+router.post("/", requireAdminOrCronSecret, async (_req: Request, res: Response) => {
   try {
     const result = await runAllFetchers();
     res.json(result);

@@ -13,4 +13,5 @@ jobs:
         run: |
           curl -s -X POST \
             -H "Content-Type: application/json" \
+            -H "X-Cron-Secret: ${{ secrets.CRON_SECRET }}" \
             "${{ secrets.DEVPULSE_API_URL }}/api/fetch"

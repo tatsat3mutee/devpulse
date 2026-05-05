@@ -9,5 +9,11 @@ services:
         sync: false
       - key: GROQ_API_KEY
         sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: CRON_SECRET
+        sync: false
       - key: PORT
         value: 3000
