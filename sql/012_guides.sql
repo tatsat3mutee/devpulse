@@ -1,3 +1,7 @@
+-- Knowledge guides seed data
+-- Status: DEFERRED — not included in launch MVP
+-- Run manually after launch: psql $DATABASE_URL -f sql/012_guides.sql
+
 INSERT INTO knowledge_guides (title, slug, category, icon, difficulty, tags, content) VALUES
 (
   'Context Engineering for LLMs',

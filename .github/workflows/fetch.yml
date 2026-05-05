@@ -1,0 +1,16 @@
+name: Fetch AI Feed
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'   # every 2 hours
+  workflow_dispatch:          # allow manual trigger
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger fetcher
+        run: |
+          curl -s -X POST \
+            -H "Content-Type: application/json" \
+            "${{ secrets.DEVPULSE_API_URL }}/api/fetch"
