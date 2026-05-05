@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link } from "react-router-dom";
 
 /* ═══════════════════════════════════════════════════════════
@@ -65,7 +65,7 @@ const ROLES: Role[] = [
     topics: ["fine-tuning", "llm-inference", "mlops", "embeddings", "new-models"],
     guides: ["building-with-llm-apis"],
     extLinks: [
-      { label: "fast.ai — Practical Deep Learning", url: "https://course.fast.ai" },
+      { label: "fast.ai - Practical Deep Learning", url: "https://course.fast.ai" },
       { label: "Hugging Face NLP Course", url: "https://huggingface.co/learn/nlp-course" },
       { label: "Karpathy: Neural Nets Zero to Hero", url: "https://karpathy.ai/zero-to-hero.html" },
     ],
@@ -142,7 +142,7 @@ const ROLES: Role[] = [
     icon: "🚀",
     gradient: "from-green-600 via-emerald-500 to-teal-400",
     tagline: "Ship AI products end-to-end",
-    desc: "From vibe-coding prototypes to production apps. Use AI tools to build faster than ever — the new wave of indie hackers.",
+    desc: "From vibe-coding prototypes to production apps. Use AI tools to build faster than ever - the new wave of indie hackers.",
     salary: "Freelance: $100–$300/hr",
     demand: "Booming",
     skills: ["React / Next.js", "Node / Python", "LLM APIs", "Deployment", "Vibe Coding", "v0 / bolt.new"],
@@ -154,8 +154,8 @@ const ROLES: Role[] = [
     topics: ["vibe-coding", "ai-coding", "spring-ai", "project-ideas"],
     guides: ["vibe-coding", "building-with-llm-apis"],
     extLinks: [
-      { label: "v0.dev — AI UI Generator", url: "https://v0.dev" },
-      { label: "bolt.new — Full-stack from prompts", url: "https://bolt.new" },
+      { label: "v0.dev - AI UI Generator", url: "https://v0.dev" },
+      { label: "bolt.new - Full-stack from prompts", url: "https://bolt.new" },
     ],
   },
 ];
@@ -171,11 +171,11 @@ const PORTAL_MAP = [
 ];
 
 const JOURNEY_STEPS = [
-  { icon: "🌅", title: "Discover", desc: "Explore the Dashboard — see what's trending in AI today", path: "/", color: "blue", phase: "Day 1" },
-  { icon: "📖", title: "Learn", desc: "Read Knowledge Guides — start with Context Engineering or Copilot", path: "/knowledge", color: "indigo", phase: "Week 1" },
-  { icon: "💼", title: "Choose Your Path", desc: "Pick a career role below — each has a 3-phase roadmap", path: null as string | null, color: "purple", phase: "Week 1" },
-  { icon: "🛠️", title: "Get Hands On", desc: "Try the tools in Dev Hub — Copilot, Claude Code, v0, bolt.new", path: "/devhub", color: "violet", phase: "Week 2" },
-  { icon: "📡", title: "Stay Current", desc: "Follow Topics & Feed — track the AI developments that matter to you", path: "/topics", color: "fuchsia", phase: "Ongoing" },
+  { icon: "🌅", title: "Discover", desc: "Explore the Dashboard - see what's trending in AI today", path: "/", color: "blue", phase: "Day 1" },
+  { icon: "📖", title: "Learn", desc: "Read Knowledge Guides - start with Context Engineering or Copilot", path: "/knowledge", color: "indigo", phase: "Week 1" },
+  { icon: "💼", title: "Choose Your Path", desc: "Pick a career role below - each has a 3-phase roadmap", path: null as string | null, color: "purple", phase: "Week 1" },
+  { icon: "🛠️", title: "Get Hands On", desc: "Try the tools in Dev Hub - Copilot, Claude Code, v0, bolt.new", path: "/devhub", color: "violet", phase: "Week 2" },
+  { icon: "📡", title: "Stay Current", desc: "Follow Topics & Feed - track the AI developments that matter to you", path: "/topics", color: "fuchsia", phase: "Ongoing" },
   { icon: "🎬", title: "Go Deeper", desc: "Watch curated AI tutorials and tech talks", path: "/videos", color: "pink", phase: "Ongoing" },
   { icon: "🚀", title: "Build & Ship", desc: "Use everything you learned to ship an AI-powered project", path: null as string | null, color: "green", phase: "Month 1+" },
 ];

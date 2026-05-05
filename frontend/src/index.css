@@ -85,3 +85,15 @@
   .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 }
+
+/* Prevent iOS Safari auto-zoom on input focus (triggered when font-size < 16px) */
+@media (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* Prevent double-tap zoom on buttons/links */
+button, a {
+  touch-action: manipulation;
+}

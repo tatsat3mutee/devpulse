@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, type SavedItem, type Item } from "../lib/api";
 import FeedItem from "../components/FeedItem";
@@ -76,7 +76,7 @@ export default function LibraryPage() {
       <div className="eyebrow mb-2">Personal</div>
       <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Library</h1>
       <p className="text-ink-muted text-[14px] max-w-xl">
-        Your saved articles, papers, repos, and discussions — all in one place.
+        Your saved articles, papers, repos, and discussions - all in one place.
       </p>
     </header>
   );
@@ -98,12 +98,12 @@ export default function LibraryPage() {
       <div>
         {header}
 
-        {/* Sign-in nudge — always shown for guests */}
+        {/* Sign-in nudge - always shown for guests */}
         <div className="flex items-start gap-3 bg-surface border border-line rounded-lg p-4 mb-6">
           <div className="flex-1">
             <p className="text-[13.5px] font-medium text-ink mb-0.5">
               {localBookmarkCount() >= 3
-                ? `You have ${localBookmarkCount()} saved items — sign in to sync across devices.`
+                ? `You have ${localBookmarkCount()} saved items - sign in to sync across devices.`
                 : "Bookmarks are saved locally. Sign in to sync them across devices."}
             </p>
             <p className="text-[12px] text-ink-muted">Free account, no credit card, never required.</p>
@@ -120,7 +120,7 @@ export default function LibraryPage() {
           <div className="text-center py-24">
             <p className="display text-[28px] text-ink-soft mb-2">Nothing saved yet.</p>
             <p className="text-[13.5px] text-ink-muted mb-6">
-              Hit the bookmark icon on any item in the feed to save it here — no account needed.
+              Hit the bookmark icon on any item in the feed to save it here - no account needed.
             </p>
             <Link
               to="/feed"

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { api } from "../lib/api";
 import { useAuth } from "../context/AuthContext";
 
@@ -29,7 +29,7 @@ export default function SettingsPage() {
           </Row>
           <Row label="Last check">
             <span className="text-ink-soft font-mono text-[12.5px]">
-              {health ? new Date(health.timestamp).toLocaleTimeString() : "—"}
+              {health ? new Date(health.timestamp).toLocaleTimeString() : "-"}
             </span>
           </Row>
           <Row label="Fetch interval">
@@ -59,12 +59,12 @@ export default function SettingsPage() {
             </p>
             <div className="divide-y divide-line">
               {[
-                { key: "GROQ_API_KEY", label: "Groq — primary LLM" },
-                { key: "GEMINI_API_KEY", label: "Gemini — fallback LLM" },
-                { key: "OPENAI_API_KEY", label: "OpenAI — fallback LLM" },
-                { key: "GITHUB_TOKEN", label: "GitHub — higher rate limits" },
-                { key: "TWITTER_BEARER_TOKEN", label: "X/Twitter — tweets" },
-                { key: "PERPLEXITY_API_KEY", label: "Perplexity — chat search" },
+                { key: "GROQ_API_KEY", label: "Groq - primary LLM" },
+                { key: "GEMINI_API_KEY", label: "Gemini - fallback LLM" },
+                { key: "OPENAI_API_KEY", label: "OpenAI - fallback LLM" },
+                { key: "GITHUB_TOKEN", label: "GitHub - higher rate limits" },
+                { key: "TWITTER_BEARER_TOKEN", label: "X/Twitter - tweets" },
+                { key: "PERPLEXITY_API_KEY", label: "Perplexity - chat search" },
                 { key: "ADMIN_EMAIL", label: "Admin email" },
               ].map(({ key, label }) => (
                 <div key={key} className="flex items-center justify-between py-2 first:pt-0 last:pb-0 gap-3">

@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+﻿import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   LineChart,
@@ -114,7 +114,7 @@ export default function TrendingPage() {
         <div className="h-64 bg-surface rounded-xl animate-pulse" />
       ) : rows.length === 0 ? (
         <div className="text-ink-muted text-[14px] py-12 text-center">
-          No trending data yet — check back after some items have been fetched.
+          No trending data yet - check back after some items have been fetched.
         </div>
       ) : (
         <>

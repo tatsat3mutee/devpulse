@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 
 export type DevRole = "developer" | "pm" | "designer" | "qa";
 
@@ -101,7 +101,7 @@ export default function RoleSelector({ onClose }: RoleSelectorProps) {
   );
 }
 
-/** Wrapper — shows the modal once on first visit (no role stored), then never again unless user reopens */
+/** Wrapper - shows the modal once on first visit (no role stored), then never again unless user reopens */
 export function RoleSelectorGate() {
   const { role } = useRole();
   const [show, setShow] = useState(false);

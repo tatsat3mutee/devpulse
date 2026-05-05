@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, Item, Topic, KnowledgeGuide } from "../lib/api";
 import FeedItem from "../components/FeedItem";
@@ -60,7 +60,7 @@ export default function DashboardPage() {
           <span className="italic text-ink-soft">in AI today.</span>
         </h1>
         <p className="text-[15px] text-ink-muted max-w-xl leading-relaxed">
-          Papers, repos, releases and reading — pulled from arXiv, GitHub,
+          Papers, repos, releases and reading - pulled from arXiv, GitHub,
           Hugging Face, Hacker News and a few good newsrooms. No newsletters, no noise.
         </p>
         <div className="flex items-center gap-6 mt-6 text-[13px]">
@@ -72,7 +72,7 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* Quick links — restrained, monochrome */}
+      {/* Quick links - restrained, monochrome */}
       <section>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           <QuickLink to="/devhub" icon="wrench" label="Dev Hub" hint="Tools & SDKs" />

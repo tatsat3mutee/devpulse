@@ -1,0 +1,38 @@
+{
+  "name": "DevPulse",
+  "short_name": "DevPulse",
+  "description": "AI developer signal feed - papers, repos, discussions ranked by signal",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0c0e12",
+  "theme_color": "#0c0e12",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["news", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Feed",
+      "url": "/feed",
+      "description": "Full AI developer feed"
+    },
+    {
+      "name": "Topics",
+      "url": "/topics",
+      "description": "Browse by topic"
+    }
+  ]
+}

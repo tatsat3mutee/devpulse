@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, Item, Topic } from "../lib/api";
 import FeedItem from "../components/FeedItem";
@@ -32,7 +32,7 @@ const DEV_TOOLS = [
     icon: "🟢",
     color: "from-green-600 to-emerald-500",
     tagline: "OpenAI's cloud coding agent",
-    desc: "Software engineering agent that runs in the cloud. Handles tasks in parallel — writes code, fixes bugs, and opens PRs.",
+    desc: "Software engineering agent that runs in the cloud. Handles tasks in parallel - writes code, fixes bugs, and opens PRs.",
     features: ["Cloud sandboxes", "Parallel tasks", "PR creation", "Codex CLI"],
     url: "https://openai.com/index/introducing-codex/",
     tag: "Cloud Agent",
@@ -63,12 +63,12 @@ const DEV_TOOLS = [
     icon: "🌀",
     color: "from-orange-600 to-amber-500",
     tagline: "European AI powerhouse",
-    desc: "Open-weight & frontier models — Mistral Large, Codestral, Mixtral. La Plateforme API, Le Chat assistant, and on-device deployment.",
+    desc: "Open-weight & frontier models - Mistral Large, Codestral, Mixtral. La Plateforme API, Le Chat assistant, and on-device deployment.",
     features: ["Codestral", "Mixtral", "Le Chat", "La Plateforme"],
     url: "https://mistral.ai",
     tag: "Models",
   },
-  // — Context Engineering & Evals —
+  // - Context Engineering & Evals -
   {
     name: "LangSmith",
     icon: "🔗",
@@ -89,7 +89,7 @@ const DEV_TOOLS = [
     url: "https://inspect.ai-safety-institute.org.uk",
     tag: "Evals",
   },
-  // — Vibe Coding —
+  // - Vibe Coding -
   {
     name: "v0",
     icon: "▲",
@@ -110,7 +110,7 @@ const DEV_TOOLS = [
     url: "https://bolt.new",
     tag: "Vibe Code",
   },
-  // — Agentic Patterns —
+  // - Agentic Patterns -
   {
     name: "CrewAI",
     icon: "👥",
@@ -121,7 +121,7 @@ const DEV_TOOLS = [
     url: "https://www.crewai.com",
     tag: "Agentic",
   },
-  // — AI Safety —
+  // - AI Safety -
   {
     name: "Guardrails AI",
     icon: "🛡️",
@@ -132,7 +132,7 @@ const DEV_TOOLS = [
     url: "https://www.guardrailsai.com",
     tag: "Safety",
   },
-  // — Cloud AI —
+  // - Cloud AI -
   {
     name: "Azure AI Studio",
     icon: "☁️",
@@ -158,7 +158,7 @@ const DEV_TOOLS = [
     icon: "🧠",
     color: "from-gray-700 to-slate-600",
     tagline: "GPT training from scratch",
-    desc: "Andrej Karpathy's minimal GPT implementation — ~300 lines of PyTorch. Learn transformer architecture by building and training your own language model.",
+    desc: "Andrej Karpathy's minimal GPT implementation - ~300 lines of PyTorch. Learn transformer architecture by building and training your own language model.",
     features: ["300 lines", "GPT-2 repro", "Educational", "PyTorch"],
     url: "https://github.com/karpathy/nanoGPT",
     tag: "Education",
@@ -262,7 +262,7 @@ export default function DevHubPage() {
           The AI builder's <span className="italic text-ink-soft">workshop.</span>
         </h1>
         <p className="text-ink-muted text-[14px] max-w-2xl">
-          Copilot, Claude Code, Cursor, v0, bolt.new, CrewAI — every tool worth
+          Copilot, Claude Code, Cursor, v0, bolt.new, CrewAI - every tool worth
           a serious developer's time, in one place.
         </p>
       </header>

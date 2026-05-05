@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, Topic } from "../lib/api";
 import { timeAgo } from "../lib/utils";
 import { useRole, type DevRole } from "../components/RoleSelector";
 
-// Topic slugs relevant to each role — used for pre-filtering
+// Topic slugs relevant to each role - used for pre-filtering
 const ROLE_TOPICS: Record<DevRole, string[]> = {
   developer: [
     "claude-code", "github-copilot", "cursor", "llm-apis", "rag",

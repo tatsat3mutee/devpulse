@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, Item } from "../lib/api";
 
@@ -61,7 +61,7 @@ export default function LandingPage() {
             <span className="italic text-ink-soft">before your standup.</span>
           </h1>
           <p className="text-[16px] text-ink-muted leading-relaxed mb-8 max-w-xl">
-            Papers, repos, releases and discussions — pulled from arXiv, GitHub Trending,
+            Papers, repos, releases and discussions - pulled from arXiv, GitHub Trending,
             Hacker News, Hugging Face, and Reddit. Ranked by signal, not by recency.
             No account needed.
           </p>
@@ -80,7 +80,7 @@ export default function LandingPage() {
               to="/feed"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-paper text-[14px] font-medium rounded-md hover:bg-accent/90 transition-colors"
             >
-              Open feed — no account needed
+              Open feed - no account needed
             </Link>
             <Link
               to="/register"
@@ -117,7 +117,7 @@ export default function LandingPage() {
             },
             {
               title: "10+ sources, one view",
-              body: "arXiv papers, GitHub trending repos, HN threads, Hugging Face model drops — all ranked together by real signal.",
+              body: "arXiv papers, GitHub trending repos, HN threads, Hugging Face model drops - all ranked together by real signal.",
             },
             {
               title: "AI niche only",
@@ -135,7 +135,7 @@ export default function LandingPage() {
         <section className="mt-16 border border-line rounded-xl p-8 text-center bg-surface">
           <h2 className="font-semibold text-ink text-[17px] mb-2">Get the weekly digest</h2>
           <p className="text-[13.5px] text-ink-muted mb-6 max-w-sm mx-auto leading-relaxed">
-            Top papers, repos, and releases — curated every week, straight to your inbox. No spam.
+            Top papers, repos, and releases - curated every week, straight to your inbox. No spam.
           </p>
           {subStatus === "ok" ? (
             <p className="text-accent font-medium text-[13.5px]">✓ {subMsg}</p>

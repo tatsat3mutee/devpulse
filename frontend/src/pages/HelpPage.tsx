@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+﻿import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { searchIndex, type SearchItem } from "../lib/searchIndex";
 
@@ -41,7 +41,7 @@ const FAQ: { q: string; a: string; link?: { label: string; path: string } }[] = 
   },
   {
     q: "How do I pick a learning path?",
-    a: "Visit the Learning Paths page — choose from 6 AI career roles (AI Engineer, ML Engineer, AI Coding Power User, Prompt Engineer, AI Safety, Full-Stack Builder). Each has a 3-phase roadmap with topics, guides, and external resources.",
+    a: "Visit the Learning Paths page - choose from 6 AI career roles (AI Engineer, ML Engineer, AI Coding Power User, Prompt Engineer, AI Safety, Full-Stack Builder). Each has a 3-phase roadmap with topics, guides, and external resources.",
     link: { label: "View Learning Paths", path: "/learn" },
   },
   {
@@ -300,7 +300,7 @@ export default function HelpPage() {
           <div>
             <div className="eyebrow mb-1">DevPulse AI</div>
             <p className="text-[13.5px] text-ink font-medium mb-1">
-              Ask anything about AI — with live web search
+              Ask anything about AI - with live web search
             </p>
             <p className="text-[12.5px] text-ink-muted">
               Powered by Perplexity sonar. Inline citations, markdown, multi-turn conversation.

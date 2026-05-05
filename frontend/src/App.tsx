@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+﻿import { useEffect, useState, useCallback } from "react";
 import { Routes, Route, NavLink, useLocation, Navigate } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import TopicsPage from "./pages/TopicsPage";
@@ -308,7 +308,7 @@ function AppInner() {
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[12px] text-ink-muted">
             <div className="flex items-center gap-2">
               <span className="wordmark text-[17px] text-ink">DevPulse</span>
-              <span className="text-ink-faint">— made in India by Tatsat Pandey.</span>
+              <span className="text-ink-faint">- made in India by Tatsat Pandey.</span>
             </div>
             <div className="flex items-center gap-5">
               <a href="https://github.com/tatsat3mutee/devpulse" target="_blank" rel="noopener" className="hover:text-ink inline-flex items-center gap-1.5">
@@ -321,7 +321,7 @@ function AppInner() {
         </footer>
       </main>
 
-      {/* Mobile bottom nav — visible only on small screens */}
+      {/* Mobile bottom nav - visible only on small screens */}
       {!isDesktop && (
         <nav className="fixed bottom-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur border-t border-line flex items-stretch lg:hidden">
           {[
