@@ -176,7 +176,7 @@ function AppInner() {
       >
         <div className="flex items-center justify-between px-5 pt-5 pb-4">
           <NavLink to="/" onClick={closeSidebar} className="group">
-            <span className="display text-[24px] text-ink">DevPulse</span>
+            <span className="wordmark text-[22px] text-ink">DevPulse</span>
           </NavLink>
           {!isDesktop && (
             <button
@@ -307,7 +307,7 @@ function AppInner() {
         <footer className="border-t border-line py-8 px-6 mb-16 lg:mb-0">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[12px] text-ink-muted">
             <div className="flex items-center gap-2">
-              <span className="display text-[18px] text-ink">DevPulse</span>
+              <span className="wordmark text-[17px] text-ink">DevPulse</span>
               <span className="text-ink-faint">— made in India by Tatsat Pandey.</span>
             </div>
             <div className="flex items-center gap-5">

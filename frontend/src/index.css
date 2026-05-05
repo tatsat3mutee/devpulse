@@ -3,37 +3,37 @@
 @tailwind utilities;
 
 @layer base {
-  /* ── Light palette (default) ──────────────────────────── */
+  /* ── Light palette ────────────────────────────────────────── */
   :root {
-    --paper: 250 250 247;
+    --paper: 249 250 251;
     --surface: 255 255 255;
-    --ink: 11 15 13;
-    --ink-soft: 58 63 60;
-    --ink-muted: 107 113 110;
-    --ink-faint: 168 172 169;
-    --line: 231 229 223;
-    --accent: 14 124 90;
-    --accent-soft: 230 244 238;
+    --ink: 15 17 20;
+    --ink-soft: 55 60 70;
+    --ink-muted: 104 112 124;
+    --ink-faint: 162 170 182;
+    --line: 226 230 237;
+    --accent: 14 120 90;
+    --accent-soft: 228 245 239;
     --accent-ring: 16 185 129;
-    --shadow-card: 0 1px 0 rgba(11,15,13,0.04), 0 1px 2px rgba(11,15,13,0.04);
-    --shadow-card-hover: 0 1px 0 rgba(11,15,13,0.06), 0 4px 16px -4px rgba(11,15,13,0.10);
+    --shadow-card: 0 1px 0 rgba(15,17,20,0.04), 0 1px 3px rgba(15,17,20,0.06);
+    --shadow-card-hover: 0 1px 0 rgba(15,17,20,0.06), 0 4px 16px -4px rgba(15,17,20,0.12);
     color-scheme: light;
   }
 
-  /* ── Dark palette ─────────────────────────────────────── */
+  /* ── Dark palette — neutral blue-gray, no green tint ─────── */
   .dark {
-    --paper: 13 16 14;
-    --surface: 21 26 23;
-    --ink: 228 232 229;
-    --ink-soft: 176 183 178;
-    --ink-muted: 120 128 123;
-    --ink-faint: 68 76 71;
-    --line: 38 44 40;
-    --accent: 52 211 153;
-    --accent-soft: 16 50 34;
-    --accent-ring: 16 185 129;
-    --shadow-card: 0 1px 0 rgba(0,0,0,0.20), 0 2px 4px rgba(0,0,0,0.18);
-    --shadow-card-hover: 0 1px 0 rgba(0,0,0,0.30), 0 4px 16px -4px rgba(0,0,0,0.30);
+    --paper: 12 14 18;
+    --surface: 19 22 28;
+    --ink: 226 232 240;
+    --ink-soft: 168 176 196;
+    --ink-muted: 106 115 136;
+    --ink-faint: 56 64 80;
+    --line: 34 40 52;
+    --accent: 52 199 145;
+    --accent-soft: 14 36 28;
+    --accent-ring: 52 199 145;
+    --shadow-card: 0 1px 0 rgba(0,0,0,0.28), 0 2px 6px rgba(0,0,0,0.22);
+    --shadow-card-hover: 0 1px 0 rgba(0,0,0,0.38), 0 6px 20px -4px rgba(0,0,0,0.32);
     color-scheme: dark;
   }
 
@@ -49,18 +49,31 @@
     background: rgb(var(--paper));
   }
   h1, h2, h3, h4 {
-    letter-spacing: -0.005em;
+    letter-spacing: -0.015em;
   }
-  .eyebrow {
-    @apply text-[11px] uppercase tracking-[0.14em] font-medium;
-    color: rgb(var(--ink-faint));
-  }
+
+  /* Page headings — Inter 600, tight. No serif. */
   .display {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  /* Brand wordmark only — Instrument Serif stays here */
+  .wordmark {
     font-family: 'Instrument Serif', ui-serif, Georgia, serif;
     font-weight: 400;
     letter-spacing: 0.01em;
     line-height: 1.35;
   }
+
+  /* Section labels — less aggressive tracking */
+  .eyebrow {
+    @apply text-[11px] uppercase tracking-[0.1em] font-medium;
+    color: rgb(var(--ink-faint));
+  }
+
   ::selection {
     background: rgb(var(--accent-soft));
     color: rgb(var(--accent));
