@@ -53,7 +53,7 @@ export default function DashboardPage() {
         sources: sourcesData.length,
       });
       setLoading(false);
-    });
+    }).catch(() => setLoading(false));
   }, []);
 
   // Compute top 7 topics by 14-day total for the mini bar chart
@@ -302,21 +302,21 @@ function Section({
 
 function DashboardSkeleton() {
   return (
-    <div className="space-y-12 animate-pulse">
+    <div className="space-y-10 animate-pulse">
       <div className="pb-6 border-b border-line">
-        <div className="h-3 w-32 bg-line rounded mb-4" />
-        <div className="h-12 w-3/4 bg-line/70 rounded mb-3" />
-        <div className="h-12 w-1/2 bg-line/70 rounded mb-5" />
-        <div className="h-4 w-full max-w-md bg-line/60 rounded" />
+        <div className="h-3 w-28 bg-surface rounded mb-4" />
+        <div className="h-10 w-3/4 bg-surface rounded mb-3" />
+        <div className="h-10 w-1/2 bg-surface rounded mb-5" />
+        <div className="h-3.5 w-full max-w-md bg-surface rounded" />
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="h-14 bg-surface border border-line rounded-lg" />
+          <div key={i} className="h-14 bg-surface border border-line rounded-xl" />
         ))}
       </div>
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="h-24 bg-surface border border-line rounded-lg" />
+          <div key={i} className="h-24 bg-surface border border-line rounded-xl" />
         ))}
       </div>
     </div>
