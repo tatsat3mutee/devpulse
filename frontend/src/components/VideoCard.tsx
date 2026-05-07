@@ -14,7 +14,7 @@ export default function VideoCard({ item }: Props) {
   return (
     <div
       onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
-      className="group bg-surface rounded-lg border border-line overflow-hidden hover:border-ink/30 hover:shadow-card transition-all cursor-pointer"
+      className="group bg-surface rounded-xl border border-line overflow-hidden hover:border-ink/20 hover:shadow-cardHover transition-all cursor-pointer"
     >
       {thumbnail && (
         <div className="relative aspect-video bg-paper overflow-hidden">

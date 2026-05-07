@@ -5,35 +5,35 @@
 @layer base {
   /* ── Light palette ────────────────────────────────────────── */
   :root {
-    --paper: 249 250 251;
+    --paper: 248 248 250;
     --surface: 255 255 255;
-    --ink: 15 17 20;
-    --ink-soft: 55 60 70;
-    --ink-muted: 104 112 124;
-    --ink-faint: 162 170 182;
-    --line: 226 230 237;
+    --ink: 10 10 12;
+    --ink-soft: 52 52 60;
+    --ink-muted: 100 100 112;
+    --ink-faint: 152 152 164;
+    --line: 224 224 232;
     --accent: 14 120 90;
     --accent-soft: 228 245 239;
     --accent-ring: 16 185 129;
-    --shadow-card: 0 1px 0 rgba(15,17,20,0.04), 0 1px 3px rgba(15,17,20,0.06);
-    --shadow-card-hover: 0 1px 0 rgba(15,17,20,0.06), 0 4px 16px -4px rgba(15,17,20,0.12);
+    --shadow-card: 0 1px 0 rgba(10,10,12,0.04), 0 1px 4px rgba(10,10,12,0.06);
+    --shadow-card-hover: 0 1px 0 rgba(10,10,12,0.06), 0 4px 16px -4px rgba(10,10,12,0.10);
     color-scheme: light;
   }
 
-  /* ── Dark palette — neutral blue-gray, no green tint ─────── */
+  /* ── Dark palette — warm neutral zinc, no blue cast (Linear/iOS style) ── */
   .dark {
-    --paper: 12 14 18;
-    --surface: 19 22 28;
-    --ink: 226 232 240;
-    --ink-soft: 168 176 196;
-    --ink-muted: 106 115 136;
-    --ink-faint: 56 64 80;
-    --line: 34 40 52;
-    --accent: 52 199 145;
-    --accent-soft: 14 36 28;
-    --accent-ring: 52 199 145;
-    --shadow-card: 0 1px 0 rgba(0,0,0,0.28), 0 2px 6px rgba(0,0,0,0.22);
-    --shadow-card-hover: 0 1px 0 rgba(0,0,0,0.38), 0 6px 20px -4px rgba(0,0,0,0.32);
+    --paper: 16 16 18;
+    --surface: 26 26 30;
+    --ink: 242 242 246;
+    --ink-soft: 168 168 178;
+    --ink-muted: 112 112 124;
+    --ink-faint: 76 76 88;
+    --line: 40 40 50;
+    --accent: 46 196 138;
+    --accent-soft: 16 38 30;
+    --accent-ring: 46 196 138;
+    --shadow-card: 0 1px 0 rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.22);
+    --shadow-card-hover: 0 1px 0 rgba(0,0,0,0.36), 0 6px 24px -4px rgba(0,0,0,0.30);
     color-scheme: dark;
   }
 

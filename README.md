@@ -22,9 +22,9 @@ DevPulse pulls from arXiv, GitHub Trending, Hacker News, HuggingFace, Reddit, an
 |-------|------|
 | Frontend | React 19 + Vite + Tailwind CSS |
 | Backend | Express + Bun |
-| Database | PostgreSQL |
+| Database | Neon (PostgreSQL) |
 | AI Briefing | Groq (llama-3.1-8b-instant) |
-| Deploy | Docker on Render |
+| Deploy | Docker on Railway + Vercel |
 
 ## Local development
 
@@ -44,7 +44,7 @@ cd frontend
 bun install
 bun run dev                   # starts on :5173
 
-# 4. Seed database (run in order)
+# 4. Seed database (run in order against your Neon connection string)
 psql $DATABASE_URL -f sql/001_schema.sql
 psql $DATABASE_URL -f sql/002_seed.sql
 
@@ -56,7 +56,7 @@ curl -X POST http://localhost:3000/api/fetch
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `DATABASE_URL` | Yes | PostgreSQL connection string |
+| `DATABASE_URL` | Yes | Neon connection string (`postgresql://...@...neon.tech/...?sslmode=require`) |
 | `GROQ_API_KEY` | Yes | [Get free at console.groq.com](https://console.groq.com) |
 | `GITHUB_TOKEN` | No | Raises GitHub API rate limits |
 | `PORT` | No | Default 3000 |

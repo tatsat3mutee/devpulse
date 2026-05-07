@@ -31,7 +31,7 @@ const ROLES: Role[] = [
     gradient: "from-blue-600 via-cyan-500 to-teal-400",
     tagline: "The hottest role in tech right now",
     desc: "Integrate LLMs into products. Build RAG pipelines, agents, context-aware apps. The bridge between ML research and production software.",
-    salary: "$150k–$300k+",
+    salary: "$150k-$300k+",
     demand: "Exploding",
     skills: ["LLM APIs", "RAG", "Context Engineering", "Prompt Design", "Vector DBs", "LangChain"],
     journey: [
@@ -54,7 +54,7 @@ const ROLES: Role[] = [
     gradient: "from-purple-600 via-violet-500 to-indigo-400",
     tagline: "Train, fine-tune, and deploy models",
     desc: "Build and optimize ML models. Work on data pipelines, model serving, fine-tuning, and MLOps infrastructure.",
-    salary: "$140k–$280k+",
+    salary: "$140k-$280k+",
     demand: "High",
     skills: ["Python", "PyTorch", "TensorFlow", "MLOps", "Data pipelines", "Model optimization", "CUDA"],
     journey: [
@@ -99,7 +99,7 @@ const ROLES: Role[] = [
     gradient: "from-amber-500 via-orange-500 to-red-400",
     tagline: "The art and science of talking to LLMs",
     desc: "Design system prompts, chain-of-thought strategies, and evaluation frameworks. The secret weapon behind every great AI product.",
-    salary: "$120k–$250k+",
+    salary: "$120k-$250k+",
     demand: "Growing fast",
     skills: ["System Prompts", "Chain-of-Thought", "Few-Shot Design", "Output Formatting", "Evals", "Context Engineering"],
     journey: [
@@ -121,7 +121,7 @@ const ROLES: Role[] = [
     gradient: "from-red-600 via-rose-500 to-pink-400",
     tagline: "Making AI safe, aligned, and trustworthy",
     desc: "Red teaming, guardrails, RLHF, constitutional AI. Critical work as AI systems become more powerful and autonomous.",
-    salary: "$160k–$350k+",
+    salary: "$160k-$350k+",
     demand: "Critical shortage",
     skills: ["Red Teaming", "RLHF / DPO", "Guardrails", "Prompt Injection Defense", "Evaluation", "Constitutional AI"],
     journey: [
@@ -143,7 +143,7 @@ const ROLES: Role[] = [
     gradient: "from-green-600 via-emerald-500 to-teal-400",
     tagline: "Ship AI products end-to-end",
     desc: "From vibe-coding prototypes to production apps. Use AI tools to build faster than ever - the new wave of indie hackers.",
-    salary: "Freelance: $100–$300/hr",
+    salary: "Freelance: $100-$300/hr",
     demand: "Booming",
     skills: ["React / Next.js", "Node / Python", "LLM APIs", "Deployment", "Vibe Coding", "v0 / bolt.new"],
     journey: [

@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { api, Item, Topic, KnowledgeGuide } from "../lib/api";
 import FeedItem from "../components/FeedItem";
@@ -6,13 +6,25 @@ import VideoCard from "../components/VideoCard";
 import Icon from "../components/Icon";
 import { timeAgo } from "../lib/utils";
 
+interface DailyRow {
+  topic_id: number;
+  topic_name: string;
+  topic_slug: string;
+  day: string;
+  count: number;
+}
+
+const MAJOR_LABS = ["OpenAI", "Anthropic", "Google", "Meta", "Mistral", "Microsoft", "DeepMind"];
+const TREND_PALETTE = ["#10b981","#6366f1","#f59e0b","#ef4444","#8b5cf6","#ec4899","#14b8a6"];
+
 export default function DashboardPage() {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [topItems, setTopItems] = useState<Item[]>([]);
   const [recentItems, setRecentItems] = useState<Item[]>([]);
   const [last24h, setLast24h] = useState<Item[]>([]);
   const [videos, setVideos] = useState<Item[]>([]);
-  const [guides, setGuides] = useState<KnowledgeGuide[]>([]);
+  const [labItems, setLabItems] = useState<Item[]>([]);
+  const [trendRows, setTrendRows] = useState<DailyRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ topics: 0, items: 0, sources: 0 });
 
@@ -23,16 +35,18 @@ export default function DashboardPage() {
       api.getItems({ sort: "top", limit: "5" }),
       api.getItems({ sort: "recent", limit: "8" }),
       api.getItems({ sort: "recent", limit: "6", since }),
-      api.getItems({ type: "video", sort: "recent", limit: "4" }),
-      api.getKnowledgeGuides(),
+      api.getItems({ type: "video", sort: "top", limit: "8" }),
+      api.getItems({ sort: "recent", limit: "12", search: "model" }),
       api.getSources(),
-    ]).then(([topicsData, topData, recentData, last24Data, videoData, guidesData, sourcesData]) => {
+      api.getTrendingDaily().catch(() => [] as DailyRow[]),
+    ]).then(([topicsData, topData, recentData, last24Data, videoData, labData, sourcesData, trendData]) => {
       setTopics(topicsData.filter((t) => t.item_count > 0).slice(0, 8));
       setTopItems(topData.items);
       setRecentItems(recentData.items);
       setLast24h(last24Data.items);
       setVideos(videoData.items);
-      setGuides(guidesData.slice(0, 4));
+      setLabItems(labData.items || []);
+      setTrendRows(trendData as DailyRow[]);
       setStats({
         topics: topicsData.length,
         items: topicsData.reduce((s, t) => s + t.item_count, 0),
@@ -41,6 +55,21 @@ export default function DashboardPage() {
       setLoading(false);
     });
   }, []);
+
+  // Compute top 7 topics by 14-day total for the mini bar chart
+  const trendTopics = useMemo(() => {
+    const totals = new Map<string, { name: string; count: number }>();
+    for (const r of trendRows) {
+      const cur = totals.get(r.topic_slug) || { name: r.topic_name, count: 0 };
+      totals.set(r.topic_slug, { ...cur, count: cur.count + r.count });
+    }
+    return Array.from(totals.entries())
+      .sort((a, b) => b[1].count - a[1].count)
+      .slice(0, 7)
+      .map(([slug, { name, count }]) => ({ slug, name, count }));
+  }, [trendRows]);
+
+  const maxTrend = trendTopics[0]?.count || 1;
 
   if (loading) return <DashboardSkeleton />;
 
@@ -72,13 +101,13 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      {/* Quick links - restrained, monochrome */}
+      {/* Quick links */}
       <section>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          <QuickLink to="/devhub" icon="wrench" label="Dev Hub" hint="Tools & SDKs" />
-          <QuickLink to="/videos" icon="play" label="Videos" hint="Talks & demos" />
-          <QuickLink to="/knowledge" icon="book" label="Knowledge" hint="Long reads" />
-          <QuickLink to="/feed" icon="rss" label="Full feed" hint="Everything, fresh" />
+          <QuickLink to="/feed" icon="rss" label="Feed" hint="Everything, filtered" />
+          <QuickLink to="/topics" icon="layers" label="Topics" hint="Browse by theme" />
+          <QuickLink to="/videos" icon="play" label="Watch" hint="Talks & demos" />
+          <QuickLink to="/chat" icon="chat" label="Chat" hint="Ask the AI" />
         </div>
       </section>
 
@@ -104,9 +133,51 @@ export default function DashboardPage() {
         </Section>
       )}
 
+      {/* Trend analysis mini chart */}
+      {trendTopics.length > 0 && (
+        <Section eyebrow="14-day signal" title="Topic momentum" link="/trending" icon="trending">
+          <div className="bg-surface border border-line rounded-xl p-5 space-y-3">
+            {trendTopics.map(({ slug, name, count }, i) => (
+              <Link
+                key={slug}
+                to={`/topic/${slug}`}
+                className="flex items-center gap-3 group"
+              >
+                <span className="text-[11px] text-ink-faint font-mono w-4 shrink-0">{i + 1}</span>
+                <span className="text-[13px] text-ink-soft group-hover:text-ink transition-colors w-40 truncate shrink-0">
+                  {name}
+                </span>
+                <div className="flex-1 h-2 bg-paper rounded-full overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{
+                      width: `${Math.round((count / maxTrend) * 100)}%`,
+                      backgroundColor: TREND_PALETTE[i % TREND_PALETTE.length],
+                    }}
+                  />
+                </div>
+                <span className="text-[11px] text-ink-faint font-mono w-8 text-right shrink-0">{count}</span>
+              </Link>
+            ))}
+          </div>
+          <p className="text-[11px] text-ink-faint mt-3">Items indexed per topic in the last 14 days. <Link to="/trending" className="text-accent hover:underline">Full chart →</Link></p>
+        </Section>
+      )}
+
+      {/* Platform updates - new models & features */}
+      {labItems.length > 0 && (
+        <Section eyebrow="Major labs" title="Models & features" link="/feed?search=model" icon="layers">
+          <div className="space-y-2.5">
+            {labItems.slice(0, 6).map((item) => (
+              <FeedItem key={item.id} item={item} showTopic />
+            ))}
+          </div>
+        </Section>
+      )}
+
       {/* Latest videos */}
       {videos.length > 0 && (
-        <Section eyebrow="Watch" title="Fresh videos" link="/videos" icon="play">
+        <Section eyebrow="Watch" title="Trending videos" link="/videos" icon="play">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {videos.map((v) => (
               <VideoCard key={v.id} item={v} />
@@ -122,7 +193,7 @@ export default function DashboardPage() {
             <Link
               key={t.id}
               to={`/topic/${t.slug}`}
-              className="bg-surface rounded-lg border border-line p-3.5 hover:border-ink/40 hover:shadow-card transition-all"
+              className="bg-surface rounded-xl border border-line p-3.5 hover:border-ink/20 hover:shadow-cardHover transition-all"
             >
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: t.category_color }} />

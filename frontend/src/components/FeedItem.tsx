@@ -31,14 +31,14 @@ const typeLabel: Record<string, string> = {
 };
 
 const PLATFORM_BADGE: Record<string, string> = {
-  arxiv:          "bg-purple-500/12 text-purple-400 dark:bg-purple-500/15 dark:text-purple-400",
-  github:         "bg-emerald-500/12 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-400",
-  "hacker news":  "bg-orange-500/12 text-orange-600 dark:bg-orange-500/15 dark:text-orange-400",
-  huggingface:    "bg-yellow-500/12 text-yellow-600 dark:bg-yellow-400/15 dark:text-yellow-400",
-  reddit:         "bg-red-500/12 text-red-600 dark:bg-red-500/15 dark:text-red-400",
-  youtube:        "bg-red-500/12 text-red-600 dark:bg-red-500/15 dark:text-red-400",
-  twitter:        "bg-sky-500/12 text-sky-600 dark:bg-sky-500/15 dark:text-sky-400",
-  linkedin:       "bg-blue-500/12 text-blue-600 dark:bg-blue-500/15 dark:text-blue-400",
+  arxiv:          "bg-purple-500/10 text-purple-500 dark:bg-purple-500/18 dark:text-purple-300",
+  github:         "bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/18 dark:text-emerald-300",
+  "hacker news":  "bg-orange-500/10 text-orange-600 dark:bg-orange-500/18 dark:text-orange-300",
+  huggingface:    "bg-yellow-500/10 text-yellow-600 dark:bg-yellow-400/18 dark:text-yellow-300",
+  reddit:         "bg-red-500/10 text-red-600 dark:bg-red-500/18 dark:text-red-300",
+  youtube:        "bg-red-500/10 text-red-600 dark:bg-red-500/18 dark:text-red-300",
+  twitter:        "bg-sky-500/10 text-sky-600 dark:bg-sky-500/18 dark:text-sky-300",
+  linkedin:       "bg-blue-500/10 text-blue-600 dark:bg-blue-500/18 dark:text-blue-300",
 };
 
 function PlatformBadge({ platform }: { platform: string }) {
@@ -106,31 +106,29 @@ export default function FeedItem({ item, showTopic, note }: Props) {
   return (
     <article
       onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
-      className="group relative bg-surface border border-line rounded-lg px-5 py-4 hover:border-ink/30 hover:shadow-card transition-all cursor-pointer"
+      className="group relative bg-surface border border-line rounded-xl px-5 py-4 hover:border-ink/20 hover:shadow-cardHover transition-all cursor-pointer"
     >
       {/* Header strip */}
-      <div className="flex items-center justify-between mb-2.5 text-[11px] uppercase tracking-[0.08em]">
-        <div className="flex items-center gap-3 text-ink-muted">
-          <span className="inline-flex items-center gap-1.5">
-            <span className={`w-1.5 h-1.5 rounded-full ${typeDotColor(item.type)}`} />
-            <span className="font-medium text-ink-soft">{typeLabel[item.type] || item.type}</span>
-          </span>
-          <span className="text-ink-faint">·</span>
+      <div className="flex items-center justify-between mb-2 text-[11px]">
+        <div className="flex items-center gap-2 text-ink-muted">
           <PlatformBadge platform={item.source_name || item.platform} />
-          <span className="text-ink-faint">·</span>
-          <span className="normal-case tracking-normal">{timeAgo(item.published_at)}</span>
+          <span className="text-ink-faint/60">·</span>
+          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${typeDotColor(item.type)}`} />
+          <span className="text-ink-faint">{typeLabel[item.type] || item.type}</span>
+          <span className="text-ink-faint/60">·</span>
+          <span className="text-ink-faint">{timeAgo(item.published_at)}</span>
         </div>
         <button
           onClick={handleSave}
-          className={`p-1 rounded transition-colors ${saved ? "text-accent" : "text-ink-faint hover:text-ink"}`}
+          className={`p-1 rounded transition-colors ${saved ? "text-accent" : "text-ink-faint/50 hover:text-ink-muted"}`}
           aria-label={saved ? "Remove from library" : "Save to library"}
         >
-          <Icon name={saved ? "bookmark-filled" : "bookmark"} size={14} />
+          <Icon name={saved ? "bookmark-filled" : "bookmark"} size={13} />
         </button>
       </div>
 
       {/* Title */}
-      <h3 className="text-[16px] font-medium text-ink leading-snug tracking-tightish mb-1.5 group-hover:text-accent transition-colors line-clamp-2">
+      <h3 className="text-[15px] font-semibold text-ink leading-snug tracking-tightish mb-1.5 group-hover:text-accent transition-colors line-clamp-2">
         {item.title}
       </h3>
 

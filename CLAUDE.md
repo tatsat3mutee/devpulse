@@ -39,7 +39,7 @@ Migrations are plain SQL files in `sql/`. Run them in order (001 → 008) agains
 
 Backend requires `backend/.env`:
 ```
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/ai_pulse
+DATABASE_URL=postgresql://user:pass@ep-xxx.us-east-1.aws.neon.tech/ai_pulse?sslmode=require  # Neon (or local: postgresql://postgres:postgres@localhost:5432/ai_pulse)
 PORT=3000
 PERPLEXITY_API_KEY=   # Chat with web search + citations (sonar model, recommended)
 GROQ_API_KEY=         # LLM fallback (primary)

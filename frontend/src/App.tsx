@@ -15,26 +15,17 @@ import ChatPage from "./pages/ChatPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import LibraryPage from "./pages/LibraryPage";
-import LandingPage from "./pages/LandingPage";
 import TrendingPage from "./pages/TrendingPage";
 import Icon from "./components/Icon";
 import CommandPalette from "./components/CommandPalette";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import { RoleSelectorGate } from "./components/RoleSelector";
 
 const navItems = [
   { to: "/", label: "Today", icon: "home" as const },
   { to: "/topics", label: "Topics", icon: "layers" as const },
-  { to: "/trending", label: "Trending", icon: "trending" as const },
+  { to: "/videos", label: "Watch", icon: "play" as const },
   { to: "/feed", label: "Feed", icon: "rss" as const },
   { to: "/chat", label: "Chat", icon: "chat" as const },
-  { to: "/library", label: "Library", icon: "bookmark" as const },
-  { to: "/devhub", label: "Dev Hub", icon: "wrench" as const },
-  { to: "/videos", label: "Videos", icon: "play" as const },
-  { to: "/knowledge", label: "Knowledge", icon: "book" as const },
-  { to: "/learn", label: "Learning", icon: "target" as const },
-  { to: "/sources", label: "Sources", icon: "link" as const },
-  { to: "/help", label: "Search", icon: "search" as const },
 ];
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -53,7 +44,7 @@ function UserBadge() {
     return (
       <NavLink
         to="/login"
-        className="text-[12px] text-ink-muted hover:text-ink transition-colors px-2 py-1"
+        className="text-[12px] font-medium text-ink-muted hover:text-ink transition-colors px-3 py-1.5 rounded-md border border-line hover:border-ink/30 hover:bg-surface"
       >
         Sign in
       </NavLink>
@@ -88,14 +79,23 @@ function UserBadge() {
               onClick={() => setOpen(false)}
               className="flex items-center gap-2 px-3 py-2 text-ink-soft hover:text-ink hover:bg-paper transition-colors"
             >
-              <Icon name="bookmark" size={13} /> Library
+              <Icon name="bookmark" size={13} /> Saved
             </NavLink>
-            <button
-              onClick={async () => { setOpen(false); await logout(); }}
-              className="w-full text-left flex items-center gap-2 px-3 py-2 text-ink-muted hover:text-ink hover:bg-paper transition-colors"
+            <NavLink
+              to="/settings"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 px-3 py-2 text-ink-soft hover:text-ink hover:bg-paper transition-colors"
             >
-              Sign out
-            </button>
+              <Icon name="settings" size={13} /> Settings
+            </NavLink>
+            <div className="border-t border-line mt-1 pt-1">
+              <button
+                onClick={async () => { setOpen(false); await logout(); }}
+                className="w-full text-left flex items-center gap-2 px-3 py-2 text-ink-muted hover:text-ink hover:bg-paper transition-colors"
+              >
+                Sign out
+              </button>
+            </div>
           </div>
         </>
       )}
@@ -122,7 +122,6 @@ function AppInner() {
   const [paletteOpen, setPaletteOpen] = useState(false);
 
   const location = useLocation();
-  const { user, loading: authLoading } = useAuth();
 
   const openPalette = useCallback(() => setPaletteOpen(true), []);
   const closePalette = useCallback(() => setPaletteOpen(false), []);
@@ -150,11 +149,6 @@ function AppInner() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  // Show landing page for unauthenticated users on root path (after all hooks)
-  if (!authLoading && !user && location.pathname === "/") {
-    return <LandingPage />;
-  }
-
   const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark');
   const closeSidebar = () => setSidebarOpen(false);
   const currentLabel = navItems.find(n => n.to === location.pathname)?.label;
@@ -162,7 +156,6 @@ function AppInner() {
   return (
     <div className="min-h-screen flex bg-paper">
       <CommandPalette open={paletteOpen} onClose={closePalette} />
-      <RoleSelectorGate />
       {sidebarOpen && !isDesktop && (
         <div
           className="fixed inset-0 bg-ink/30 backdrop-blur-[2px] z-40 lg:hidden"
@@ -172,25 +165,28 @@ function AppInner() {
 
       <aside
         style={{ transform: sidebarOpen || isDesktop ? 'translateX(0)' : 'translateX(-100%)' }}
-        className="w-60 bg-surface border-r border-line flex flex-col fixed h-full z-50 transition-transform duration-200"
+        className="w-56 bg-surface border-r border-line flex flex-col fixed h-full z-50 transition-transform duration-200"
       >
-        <div className="flex items-center justify-between px-5 pt-5 pb-4">
-          <NavLink to="/" onClick={closeSidebar} className="group">
-            <span className="wordmark text-[22px] text-ink">DevPulse</span>
+        {/* Wordmark */}
+        <div className="flex items-center justify-between px-4 pt-5 pb-5">
+          <NavLink to="/" onClick={closeSidebar} className="flex items-center gap-2 group">
+            <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
+            <span className="wordmark text-[21px] leading-none">
+              <span className="text-ink">Dev</span><span className="text-accent">Pulse</span>
+            </span>
           </NavLink>
           {!isDesktop && (
             <button
               onClick={closeSidebar}
-              className="w-8 h-8 rounded-md flex items-center justify-center text-ink-muted hover:bg-paper hover:text-ink"
+              className="w-7 h-7 rounded-md flex items-center justify-center text-ink-muted hover:bg-paper hover:text-ink"
             >
-              <Icon name="close" size={16} />
+              <Icon name="close" size={15} />
             </button>
           )}
         </div>
-        <p className="px-5 text-[12px] text-ink-muted leading-snug pb-5 border-b border-line">
-          A quiet feed of what's<br/>actually moving in AI.
-        </p>
-        <nav className="flex flex-col gap-px px-3 py-3 flex-1 overflow-y-auto">
+
+        {/* Nav */}
+        <nav className="flex flex-col gap-0.5 px-2 flex-1 overflow-y-auto">
           {navItems.map((n) => (
             <NavLink
               key={n.to}
@@ -198,43 +194,44 @@ function AppInner() {
               end={n.to === "/"}
               onClick={closeSidebar}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2 rounded-md text-[13.5px] font-medium transition-colors ${
+                `flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all ${
                   isActive
-                    ? "bg-ink text-paper"
-                    : "text-ink-soft hover:bg-paper hover:text-ink"
+                    ? "bg-accent/10 text-accent"
+                    : "text-ink-muted hover:bg-paper hover:text-ink"
                 }`
               }
             >
-              <Icon name={n.icon} size={16} className="shrink-0" />
+              <Icon name={n.icon} size={15} className="shrink-0" />
               <span>{n.label}</span>
             </NavLink>
           ))}
         </nav>
-        <div className="px-5 py-4 border-t border-line">
-          <div className="flex items-center justify-between">
+
+        {/* Footer */}
+        <div className="px-4 py-4 border-t border-line">
+          <div className="flex items-center justify-between mb-3">
             <NavLink
-              to="/settings"
-              className="flex items-center gap-2 text-[12px] text-ink-muted hover:text-ink transition-colors"
+              to="/sources"
+              className="text-[11.5px] text-ink-faint hover:text-ink transition-colors"
             >
-              <Icon name="settings" size={14} />
-              Settings
+              Sources
             </NavLink>
             <button
               onClick={toggleTheme}
-              className="w-7 h-7 rounded-md flex items-center justify-center text-ink-muted hover:text-ink hover:bg-paper transition-colors"
+              className="w-6 h-6 rounded-md flex items-center justify-center text-ink-faint hover:text-ink hover:bg-paper transition-colors"
               title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
             >
-              <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={14} />
+              <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={13} />
             </button>
           </div>
-          <p className="text-[10px] text-ink-faint mt-2 font-mono">
-            curated · daily · since 2025
+          <p className="text-[10px] text-ink-faint font-mono tracking-wide">
+            made in India · since 2025
           </p>
         </div>
       </aside>
 
-      <main style={{ marginLeft: isDesktop ? '15rem' : 0 }} className="flex-1 min-w-0 flex flex-col">
-        <header className="h-14 bg-paper/80 backdrop-blur border-b border-line flex items-center justify-between px-4 sm:px-8 sticky top-0 z-30">
+      <main style={{ marginLeft: isDesktop ? '14rem' : 0 }} className="flex-1 min-w-0 flex flex-col">
+        <header className="h-12 bg-paper/90 backdrop-blur-md border-b border-line flex items-center justify-between px-4 sm:px-6 sticky top-0 z-30">
           <div className="flex items-center gap-3">
             {!isDesktop && (
               <button
@@ -326,9 +323,9 @@ function AppInner() {
         <nav className="fixed bottom-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur border-t border-line flex items-stretch lg:hidden">
           {[
             { to: "/", label: "Today", icon: "home" as const },
-            { to: "/feed", label: "Feed", icon: "rss" as const },
             { to: "/topics", label: "Topics", icon: "layers" as const },
-            { to: "/library", label: "Library", icon: "bookmark" as const },
+            { to: "/videos", label: "Watch", icon: "play" as const },
+            { to: "/feed", label: "Feed", icon: "rss" as const },
             { to: "/chat", label: "Chat", icon: "chat" as const },
           ].map((n) => (
             <NavLink
