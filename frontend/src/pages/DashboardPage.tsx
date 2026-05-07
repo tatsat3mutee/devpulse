@@ -25,6 +25,7 @@ export default function DashboardPage() {
   const [videos, setVideos] = useState<Item[]>([]);
   const [labItems, setLabItems] = useState<Item[]>([]);
   const [trendRows, setTrendRows] = useState<DailyRow[]>([]);
+  const [guides, setGuides] = useState<KnowledgeGuide[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ topics: 0, items: 0, sources: 0 });
 
@@ -39,7 +40,8 @@ export default function DashboardPage() {
       api.getItems({ sort: "recent", limit: "12", search: "model" }),
       api.getSources(),
       api.getTrendingDaily().catch(() => [] as DailyRow[]),
-    ]).then(([topicsData, topData, recentData, last24Data, videoData, labData, sourcesData, trendData]) => {
+      api.getKnowledgeGuides().catch(() => [] as KnowledgeGuide[]),
+    ]).then(([topicsData, topData, recentData, last24Data, videoData, labData, sourcesData, trendData, guidesData]) => {
       setTopics(topicsData.filter((t) => t.item_count > 0).slice(0, 8));
       setTopItems(topData.items);
       setRecentItems(recentData.items);
@@ -47,6 +49,7 @@ export default function DashboardPage() {
       setVideos(videoData.items);
       setLabItems(labData.items || []);
       setTrendRows(trendData as DailyRow[]);
+      setGuides((guidesData as KnowledgeGuide[]).slice(0, 4));
       setStats({
         topics: topicsData.length,
         items: topicsData.reduce((s, t) => s + t.item_count, 0),
