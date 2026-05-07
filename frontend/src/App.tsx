@@ -1,4 +1,4 @@
-﻿import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Routes, Route, NavLink, useLocation, Navigate } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import TopicsPage from "./pages/TopicsPage";
@@ -16,6 +16,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import LibraryPage from "./pages/LibraryPage";
 import TrendingPage from "./pages/TrendingPage";
+import LandingPage from "./pages/LandingPage";
 import Icon from "./components/Icon";
 import CommandPalette from "./components/CommandPalette";
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -298,6 +299,7 @@ function AppInner() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/library" element={<LibraryPage />} />
+            <Route path="/landing" element={<LandingPage />} />
           </Routes>
         </div>
 
@@ -311,6 +313,7 @@ function AppInner() {
               <a href="https://github.com/tatsat3mutee/devpulse" target="_blank" rel="noopener" className="hover:text-ink inline-flex items-center gap-1.5">
                 <Icon name="github" size={13} /> Source
               </a>
+              <NavLink to="/landing" className="hover:text-ink">About</NavLink>
               <NavLink to="/sources" className="hover:text-ink">Sources</NavLink>
               <NavLink to="/settings" className="hover:text-ink">Settings</NavLink>
             </div>
@@ -318,7 +321,7 @@ function AppInner() {
         </footer>
       </main>
 
-      {/* Mobile bottom nav - visible only on small screens */}
+      {/* Mobile bottom nav */}
       {!isDesktop && (
         <nav className="fixed bottom-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur border-t border-line flex items-stretch lg:hidden">
           {[
