@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#0c0e12",
-  "theme_color": "#0c0e12",
+  "theme_color": "#34c78d",
   "icons": [
     {
       "src": "/icon.svg",
@@ -23,16 +23,43 @@
     }
   ],
   "categories": ["news", "productivity"],
+  "screenshots": [
+    {
+      "src": "/og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Feed",
       "url": "/feed",
+      "icons": [{
+        "src": "/icon.svg",
+        "sizes": "any",
+        "type": "image/svg+xml"
+      }],
       "description": "Full AI developer feed"
     },
     {
       "name": "Topics",
       "url": "/topics",
+      "icons": [{
+        "src": "/icon.svg",
+        "sizes": "any",
+        "type": "image/svg+xml"
+      }],
       "description": "Browse by topic"
+    },
+    {
+      "name": "Chat",
+      "url": "/chat",
+      "icons": [{
+        "src": "/icon.svg",
+        "sizes": "any",
+        "type": "image/svg+xml"
+      }],
+      "description": "Chat about today's signal"
     }
   ]
 }

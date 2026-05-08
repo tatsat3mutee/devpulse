@@ -1,11 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#0C0E12"/>
-  <polyline
-    points="56,256 144,256 192,128 256,384 308,172 352,256 456,256"
-    fill="none"
-    stroke="#34C78D"
-    stroke-width="40"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34C78D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1fa878;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="120" fill="#0C0E12"/>
+  <!-- Pulse lines representing AI signal -->
+  <g stroke="url(#grad1)" stroke-width="32" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left pulse -->
+    <path d="M 80 256 L 140 256 L 170 180 L 200 280 L 230 220 L 270 256"/>
+    <!-- Center pulse (main) -->
+    <path d="M 270 256 L 330 256 L 360 140 L 410 320 L 432 256"/>
+  </g>
+  <!-- AI dot indicator -->
+  <circle cx="256" cy="100" r="24" fill="#34C78D" opacity="0.8"/>
 </svg>
