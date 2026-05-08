@@ -1,34 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#0C0E12"/>
-  <polyline points="0,260 180,260 270,155 380,365 460,195 540,260 1200,260"
-    fill="none" stroke="#34C78D" stroke-width="3"
-    stroke-linecap="round" stroke-linejoin="round" opacity="0.12"/>
-  <text x="600" y="268"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="72" text-anchor="middle" font-weight="400">
-    <tspan fill="#ffffff">Dev</tspan><tspan fill="#34C78D">Pulse</tspan>
-  </text>
-  <text x="600" y="316"
-    font-family="Arial, Helvetica, sans-serif"
-    font-size="18" fill="#555555" text-anchor="middle" letter-spacing="4">
-    AI DEVELOPER SIGNAL FEED
-  </text>
-  <rect x="273" y="350" width="76" height="26" rx="5" fill="#141619"/>
-  <text x="311" y="368" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">arXiv</text>
-  <rect x="361" y="350" width="108" height="26" rx="5" fill="#141619"/>
-  <text x="415" y="368" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">Hacker News</text>
-  <rect x="481" y="350" width="110" height="26" rx="5" fill="#141619"/>
-  <text x="536" y="368" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">HuggingFace</text>
-  <rect x="603" y="350" width="96" height="26" rx="5" fill="#141619"/>
-  <text x="651" y="368" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">GitHub</text>
-  <rect x="711" y="350" width="76" height="26" rx="5" fill="#141619"/>
-  <text x="749" y="368" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">Reddit</text>
-  <rect x="799" y="350" width="128" height="26" rx="5" fill="#141619"/>
-  <text x="863" y="368" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">Groq AI Briefing</text>
-  <text x="600" y="490"
-    font-family="Arial, Helvetica, sans-serif"
-    font-size="14" fill="#333333" text-anchor="middle">
-    No account needed · Updated daily · Ranked by signal
-  </text>
-  <circle cx="600" cy="530" r="3" fill="#34C78D"/>
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0C0E12;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1d23;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#34C78D" stroke-width="0.5" opacity="0.1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Logo -->
+  <g transform="translate(150, 150)">
+    <rect width="180" height="180" rx="40" fill="#0C0E12" stroke="#34C78D" stroke-width="2"/>
+    <g stroke="#34C78D" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 30 90 L 60 90 L 80 40 L 105 130 L 125 70 L 150 90"/>
+    </g>
+  </g>
+  
+  <!-- Main text -->
+  <text x="400" y="200" font-family="Inter, sans-serif" font-size="80" font-weight="700" fill="#ffffff" letter-spacing="-2">DevPulse</text>
+  
+  <!-- Tagline -->
+  <text x="400" y="280" font-family="Inter, sans-serif" font-size="40" font-weight="400" fill="#34C78D">AI developer signal feed</text>
+  
+  <!-- Description -->
+  <text x="400" y="360" font-family="Inter, sans-serif" font-size="28" font-weight="400" fill="#999999">Papers • Repos • Discussions • Curated Daily</text>
+  
+  <!-- Bottom accent -->
+  <line x1="0" y1="600" x2="1200" y2="600" stroke="#34C78D" stroke-width="3" opacity="0.5"/>
 </svg>

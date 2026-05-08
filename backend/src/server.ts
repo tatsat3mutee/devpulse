@@ -13,6 +13,7 @@ import chatRouter from "./routes/chat.js";
 import authRouter from "./routes/auth.js";
 import libraryRouter from "./routes/library.js";
 import subscribeRouter from "./routes/subscribe.js";
+import rssRouter from "./routes/rss.js";
 import { startCron } from "./cron.js";
 
 if (!process.env.JWT_SECRET) {
@@ -48,6 +49,7 @@ app.use("/api/fetch", fetchRouter);
 app.use("/api/knowledge", knowledgeRouter);
 app.use("/api/chat", chatRouter);
 app.use("/api/subscribe", subscribeRouter);
+app.use("/api/rss", rssRouter);
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
