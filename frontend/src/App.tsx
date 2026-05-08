@@ -313,9 +313,6 @@ function AppInner() {
               <span className="text-ink-faint">- made in India by Tatsat Pandey.</span>
             </div>
             <div className="flex items-center gap-5">
-              <a href="https://github.com/tatsat3mutee/devpulse" target="_blank" rel="noopener" className="hover:text-ink inline-flex items-center gap-1.5">
-                <Icon name="github" size={13} /> Source
-              </a>
               <NavLink to="/about" className="hover:text-ink">About</NavLink>
               <NavLink to="/sources" className="hover:text-ink">Sources</NavLink>
               <NavLink to="/settings" className="hover:text-ink">Settings</NavLink>

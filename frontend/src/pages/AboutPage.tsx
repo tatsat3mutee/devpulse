@@ -50,15 +50,15 @@ const RANKING_STEPS = [
   },
   {
     step: "AI relevance",
-    desc: 'Groq llama-3.1-8b-instant rates each title 0–100: \"Rate 0–100 how relevant this is to AI/ML research and development: {title}. Return only the number.\"',
+    desc: 'Groq llama-3.1-8b-instant rates each title 0–100: "Rate 0–100 how relevant this is to AI/ML research and development: {title}. Return only the number."',
   },
   {
     step: "Composite score",
-    desc: "Final score = (community_signal × 0.40) + (recency × 0.30) + (ai_relevance / 100 × 0.30). Recency decays over 48 h.",
+    desc: "Final score = (community_signal × 0.40) + (recency × 0.30) + (ai_relevance / 100 × 0.30). Recency decays over 48 h.",
   },
   {
     step: "Source balance",
-    desc: "Each source contributes at most 30 % of the feed to prevent any single source from dominating Today.",
+    desc: "Each source contributes at most 30 % of the feed to prevent any single source from dominating Today.",
   },
 ];
 
@@ -190,14 +190,6 @@ export default function AboutPage() {
           flexWrap: "wrap",
         }}
       >
-        <a
-          href="https://github.com/tatsat3mutee/devpulse"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "var(--ink-muted)", textDecoration: "none" }}
-        >
-          GitHub ↗
-        </a>
         <NavLink to="/sources" style={{ color: "var(--ink-muted)", textDecoration: "none" }}>
           All Sources
         </NavLink>
