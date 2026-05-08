@@ -17,6 +17,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LibraryPage from "./pages/LibraryPage";
 import TrendingPage from "./pages/TrendingPage";
 import LandingPage from "./pages/LandingPage";
+import AboutPage from "./pages/AboutPage";
 import Icon from "./components/Icon";
 import CommandPalette from "./components/CommandPalette";
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -300,6 +301,7 @@ function AppInner() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/library" element={<LibraryPage />} />
             <Route path="/landing" element={<LandingPage />} />
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </div>
 
@@ -314,7 +316,7 @@ function AppInner() {
               <a href="https://github.com/tatsat3mutee/devpulse" target="_blank" rel="noopener" className="hover:text-ink inline-flex items-center gap-1.5">
                 <Icon name="github" size={13} /> Source
               </a>
-              <NavLink to="/landing" className="hover:text-ink">About</NavLink>
+              <NavLink to="/about" className="hover:text-ink">About</NavLink>
               <NavLink to="/sources" className="hover:text-ink">Sources</NavLink>
               <NavLink to="/settings" className="hover:text-ink">Settings</NavLink>
             </div>
