@@ -170,8 +170,8 @@ function AppInner() {
       >
         {/* Wordmark */}
         <div className="flex items-center justify-between px-4 pt-5 pb-5">
-          <NavLink to="/" onClick={closeSidebar} className="flex items-center gap-2 group">
-            <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
+          <NavLink to="/" onClick={closeSidebar} className="flex items-center gap-2.5 group">
+            <img src="/icon.svg" alt="" className="w-6 h-6 shrink-0" />
             <span className="wordmark text-[21px] leading-none">
               <span className="text-ink">Dev</span><span className="text-accent">Pulse</span>
             </span>
@@ -305,7 +305,8 @@ function AppInner() {
 
         <footer className="border-t border-line py-8 px-6 mb-16 lg:mb-0">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[12px] text-ink-muted">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
+              <img src="/icon.svg" alt="" className="w-5 h-5" />
               <span className="wordmark text-[17px] text-ink">DevPulse</span>
               <span className="text-ink-faint">- made in India by Tatsat Pandey.</span>
             </div>
