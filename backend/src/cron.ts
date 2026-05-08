@@ -2,6 +2,7 @@ import cron from "node-cron";
 import pool from "./db.js";
 import { runAllFetchers } from "./fetchers/index.js";
 import { sendWeeklyDigest, sendDailyDigest } from "./llm/digest.js";
+import { seedYouTubeSources } from "./seed-sources.js";
 
 /**
  * Start the cron scheduler. Reads fetch_interval_minutes from DB settings.
@@ -43,6 +44,11 @@ async function scheduleFromDB(): Promise<void> {
 
   // Run once on startup (5 s delay to let DB connect)
   setTimeout(async () => {
+    try {
+      await seedYouTubeSources();
+    } catch (err) {
+      console.error("Seed sources error:", err);
+    }
     console.log("\n🚀 Initial fetch on startup…");
     try {
       await runAllFetchers();

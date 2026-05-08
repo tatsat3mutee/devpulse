@@ -7,10 +7,13 @@ const SORT_TABS = [
   { value: "recent", label: "Latest" },
 ];
 
-const AI_CREATORS = [
-  "Andrej Karpathy", "Yannic Kilcher", "Two Minute Papers", "Lex Fridman",
-  "AI Explained", "Samuel Albanie", "Sentdex", "3Blue1Brown", "Deep Learning AI",
-  "Fireship", "Matt Wolfe", "The AI Advantage",
+// Pinned creator chips — official AI labs first, then top educators.
+// These match the channels seeded by backend/src/seed-sources.ts.
+const FEATURED_CREATORS = [
+  "Anthropic", "OpenAI", "Google DeepMind", "Hugging Face", "Meta AI",
+  "AI Engineer",
+  "Andrej Karpathy", "Lex Fridman", "Two Minute Papers",
+  "Yannic Kilcher", "AI Explained", "3Blue1Brown",
 ];
 
 export default function VideosPage() {
@@ -44,15 +47,26 @@ export default function VideosPage() {
   useEffect(() => { load(); }, [load]);
   useEffect(() => { setOffset(0); }, [search, sort, creatorFilter]);
 
-  // Build creator list from loaded videos
+  // Merge featured creators with anyone showing up in the loaded videos,
+  // so chips never disappear just because the current page has no items
+  // from that creator.
   const creators = useMemo(() => {
     const seen = new Map<string, number>();
+    for (const c of FEATURED_CREATORS) seen.set(c, 0);
     for (const v of videos) {
       if (v.author) seen.set(v.author, (seen.get(v.author) || 0) + 1);
     }
     return Array.from(seen.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 12)
+      .sort((a, b) => {
+        // Featured first (in declared order), then by frequency in loaded items
+        const ai = FEATURED_CREATORS.indexOf(a[0]);
+        const bi = FEATURED_CREATORS.indexOf(b[0]);
+        if (ai !== -1 && bi !== -1) return ai - bi;
+        if (ai !== -1) return -1;
+        if (bi !== -1) return 1;
+        return b[1] - a[1];
+      })
+      .slice(0, 14)
       .map(([name]) => name);
   }, [videos]);
 
@@ -62,7 +76,8 @@ export default function VideosPage() {
         <div className="eyebrow mb-2">Watch</div>
         <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">AI on video</h1>
         <p className="text-ink-muted text-[14px] max-w-xl">
-          Talks, tutorials and demos from the creators and labs actually shipping AI.
+          Talks, tutorials and demos straight from Anthropic, OpenAI, DeepMind, Hugging Face,
+          AI Engineer, plus the researchers actually shipping AI.
         </p>
       </header>
 
@@ -95,7 +110,7 @@ export default function VideosPage() {
         </span>
       </div>
 
-      {/* Creator chips from live data */}
+      {/* Creator chips — featured + live */}
       {creators.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-6">
           <span className="text-[11px] text-ink-faint self-center mr-1">By creator:</span>
@@ -168,4 +183,3 @@ export default function VideosPage() {
     </div>
   );
 }
-
