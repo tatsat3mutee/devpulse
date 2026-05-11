@@ -9,7 +9,9 @@ export function timeAgo(dateStr: string | null): string {
   const seconds = Math.floor(
     (Date.now() - new Date(dateStr).getTime()) / 1000
   );
-  if (seconds < 60) return "just now";
+  if (seconds < 0) return "just now";
+  if (seconds < 10) return "just now";
+  if (seconds < 60) return `${seconds}s ago`;
   const mins = Math.floor(seconds / 60);
   if (mins < 60) return `${mins}m ago`;
   const hours = Math.floor(mins / 60);

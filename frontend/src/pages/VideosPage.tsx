@@ -11,9 +11,10 @@ const SORT_TABS = [
 // These match the channels seeded by backend/src/seed-sources.ts.
 const FEATURED_CREATORS = [
   "Anthropic", "OpenAI", "Google DeepMind", "Hugging Face", "Meta AI",
-  "AI Engineer",
-  "Andrej Karpathy", "Lex Fridman", "Two Minute Papers",
+  "AI Engineer", "Fireship",
+  "Andrej Karpathy", "Two Minute Papers",
   "Yannic Kilcher", "AI Explained", "3Blue1Brown",
+  "Piyush Garg", "Hitesh Choudhary", "Harkirat Singh",
 ];
 
 export default function VideosPage() {

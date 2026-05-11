@@ -7,6 +7,11 @@ import type { FetchResult } from "./types.js";
  * Falls back to YouTube RSS feed if no API key.
  */
 export async function fetchYouTube(channelId: string): Promise<FetchResult[]> {
+  // Normalize: strip full URL prefix if present (some SQL seeds store full URLs)
+  channelId = channelId
+    .replace(/^https?:\/\/(www\.)?youtube\.com\/channel\//i, "")
+    .replace(/\/$/, "");
+
   const apiKey = process.env.YOUTUBE_API_KEY;
 
   if (apiKey) {
@@ -124,9 +129,14 @@ function cleanText(text: string): string {
 }
 
 const AI_KEYWORDS =
-  /\b(ai|artificial intelligence|machine learning|deep learning|llm|gpt|copilot|chatgpt|claude|gemini|neural|transformer|diffusion|langchain|openai|anthropic|model|embedding|fine-tun|rag|agent|mcp|coding assistant|vscode|vs code)\b/i;
+  /\b(ai|artificial intelligence|machine learning|deep learning|llm|gpt|copilot|chatgpt|claude|gemini|neural|transformer|diffusion|langchain|openai|anthropic|embedding|fine-tun|rag|agent|mcp|coding assistant|cursor|windsurf|devin|cline|aider)\b/i;
+
+// Negative keywords — if these dominate the text, skip the video even if AI_KEYWORDS match
+const NON_AI_KEYWORDS =
+  /\b(ffmpeg|x264|x265|av1|h\.?264|h\.?265|h\.?266|video codec|video encoding|vlc|obs studio|premiere pro|davinci resolve|color grading|cinematography)\b/i;
 
 function isAIRelated(text: string): boolean {
+  if (NON_AI_KEYWORDS.test(text)) return false;
   return AI_KEYWORDS.test(text);
 }
 
