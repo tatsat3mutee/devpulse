@@ -25,7 +25,9 @@ const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+  origin: process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim())
+    : ["http://localhost:5173", "https://devpulse.tatsatpandey.com"],
   credentials: true,
 }));
 app.use(cookieParser());
