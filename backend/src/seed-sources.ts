@@ -58,8 +58,8 @@ export async function seedYouTubeSources(): Promise<{
     try {
       const result = await pool.query(
         `INSERT INTO sources (name, url, fetcher_key, is_active, rating)
-         VALUES ($1, $2, 'youtube', true, $3)
-         ON CONFLICT (url) DO NOTHING
+         SELECT $1, $2, 'youtube', true, $3
+         WHERE NOT EXISTS (SELECT 1 FROM sources WHERE url = $2)
          RETURNING id`,
         [s.name, s.channelId, s.rating ?? 4]
       );
