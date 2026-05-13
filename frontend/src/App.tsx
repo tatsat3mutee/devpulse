@@ -18,12 +18,14 @@ import LibraryPage from "./pages/LibraryPage";
 import TrendingPage from "./pages/TrendingPage";
 import LandingPage from "./pages/LandingPage";
 import AboutPage from "./pages/AboutPage";
+import BriefPage from "./pages/BriefPage";
 import Icon from "./components/Icon";
 import CommandPalette from "./components/CommandPalette";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
 const navItems = [
   { to: "/", label: "Today", icon: "home" as const },
+  { to: "/brief", label: "Brief", icon: "newspaper" as const },
   { to: "/topics", label: "Topics", icon: "layers" as const },
   { to: "/videos", label: "Watch", icon: "play" as const },
   { to: "/feed", label: "Feed", icon: "rss" as const },
@@ -284,6 +286,7 @@ function AppInner() {
         <div className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-8 py-6 sm:py-10">
           <Routes>
             <Route path="/" element={<DashboardPage />} />
+            <Route path="/brief" element={<BriefPage />} />
             <Route path="/topics" element={<TopicsPage />} />
             <Route path="/trending" element={<TrendingPage />} />
             <Route path="/topic/:slug" element={<TopicDetailPage />} />
@@ -327,8 +330,8 @@ function AppInner() {
         <nav className="fixed bottom-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur border-t border-line flex items-stretch lg:hidden">
           {[
             { to: "/", label: "Today", icon: "home" as const },
+            { to: "/brief", label: "Brief", icon: "newspaper" as const },
             { to: "/topics", label: "Topics", icon: "layers" as const },
-            { to: "/feed", label: "Feed", icon: "rss" as const },
             { to: "/learn", label: "Learn", icon: "book" as const },
             { to: "/chat", label: "Chat", icon: "chat" as const },
           ].map((n) => (

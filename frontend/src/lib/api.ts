@@ -111,6 +111,31 @@ export interface UserPrefs {
   role: string;
 }
 
+// ── Brief types ──────────────────────────────────────────────────────
+
+export interface BriefItem {
+  title: string;
+  url: string;
+  platform: string;
+  score: number;
+}
+
+export interface BriefSection {
+  topic: string;
+  slug: string;
+  items: BriefItem[];
+  summary: string | null;
+}
+
+export interface Brief {
+  date: string;
+  intro: string | null;
+  sections: BriefSection[];
+  generated: boolean;
+  generated_at?: string;
+  message?: string;
+}
+
 // ── Learn types ──────────────────────────────────────────────────────
 
 export interface LearnChapter {
@@ -326,6 +351,15 @@ export const api = {
       method: "PATCH",
       body: JSON.stringify({ note }),
     });
+  },
+
+  // ── Morning Brief ────────────────────────────────────────────────
+  getBrief() {
+    return request<Brief>("/brief");
+  },
+
+  refreshBrief() {
+    return request<Brief & { ok: boolean }>("/brief/refresh", { method: "POST" });
   },
 
   // ── Email digest ──────────────────────────────────────────────────

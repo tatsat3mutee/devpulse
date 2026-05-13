@@ -16,6 +16,8 @@ import subscribeRouter from "./routes/subscribe.js";
 import rssRouter from "./routes/rss.js";
 import prefsRouter from "./routes/prefs.js";
 import learnRouter, { initLearnTables } from "./routes/learn.js";
+import briefRouter from "./routes/brief.js";
+import pool from "./db.js";
 import { startCron } from "./cron.js";
 
 if (!process.env.JWT_SECRET) {
@@ -54,6 +56,7 @@ app.use("/api/subscribe", subscribeRouter);
 app.use("/api/rss", rssRouter);
 app.use("/api/prefs", prefsRouter);
 app.use("/api/learn", learnRouter);
+app.use("/api/brief", briefRouter);
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
@@ -67,8 +70,32 @@ app.get("*", (_req, res) => {
   res.sendFile(path.join(frontendDist, "index.html"));
 });
 
+async function seedExtraSources() {
+  const sources = [
+    { name: "TLDR AI", platform: "newsletter", category: "AI", url: "https://tldr.tech/ai/rss", fetcher_key: "rss" },
+    { name: "The Changelog", platform: "podcast", category: "engineering", url: "https://changelog.com/podcast.rss", fetcher_key: "rss" },
+    { name: "Lobsters", platform: "community", category: "engineering", url: "https://lobste.rs/rss", fetcher_key: "rss" },
+    { name: "dev.to", platform: "blog", category: "engineering", url: "https://dev.to/feed", fetcher_key: "rss" },
+    { name: "InfoQ", platform: "news", category: "engineering", url: "https://feed.infoq.com/", fetcher_key: "rss" },
+    { name: "Bytes.dev", platform: "newsletter", category: "engineering", url: "https://bytes.dev/rss.xml", fetcher_key: "rss" },
+    { name: "JavaScript Weekly", platform: "newsletter", category: "engineering", url: "https://javascriptweekly.com/rss/fulltext.xml", fetcher_key: "rss" },
+    { name: "Golang Weekly", platform: "newsletter", category: "engineering", url: "https://golangweekly.com/rss/fulltext.xml", fetcher_key: "rss" },
+    { name: "Hacker Newsletter", platform: "newsletter", category: "engineering", url: "https://hackernewsletter.com/issues.rss", fetcher_key: "rss" },
+    { name: "Import AI", platform: "newsletter", category: "AI", url: "https://jack-clark.net/feed/", fetcher_key: "rss" },
+  ];
+  for (const s of sources) {
+    await pool.query(
+      `INSERT INTO sources (name, platform, category, url, fetcher_key, is_active)
+       VALUES ($1, $2, $3, $4, $5, true)
+       ON CONFLICT (url) DO NOTHING`,
+      [s.name, s.platform, s.category, s.url, s.fetcher_key]
+    ).catch(() => {});
+  }
+}
+
 app.listen(PORT, () => {
   console.log(`🚀 DevPulse running on http://localhost:${PORT}`);
   initLearnTables().catch(err => console.error("initLearnTables failed:", err));
+  seedExtraSources().catch(err => console.error("seedExtraSources failed:", err));
   startCron();
 });
