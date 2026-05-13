@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { api, Item } from "../lib/api";
 import FeedItem from "../components/FeedItem";
 import { useRole, type DevRole } from "../components/RoleSelector";
+import { useAuth } from "../context/AuthContext";
 
 const TYPES = [
   { value: "", label: "All" },
@@ -24,6 +25,7 @@ const ROLE_SUGGESTIONS: Record<DevRole, string[]> = {
 };
 
 export default function FeedPage() {
+  const { user } = useAuth();
   const [items, setItems] = useState<Item[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -32,6 +34,7 @@ export default function FeedPage() {
   const [platform, setPlatform] = useState("");
   const [sort, setSort] = useState("top");
   const [offset, setOffset] = useState(0);
+  const [hideSeen, setHideSeen] = useState(false);
   const { role } = useRole();
   const LIMIT = 20;
 
@@ -45,13 +48,14 @@ export default function FeedPage() {
     if (type) params.type = type;
     if (platform) params.platform = platform;
     if (search.length >= 2) params.search = search;
+    if (hideSeen && user) params.hide_seen = "true";
 
     api.getItems(params).then((res) => {
       setItems(res.items);
       setTotal(res.total);
       setLoading(false);
     });
-  }, [sort, type, platform, search, offset]);
+  }, [sort, type, platform, search, offset, hideSeen, user]);
 
   useEffect(() => { load(); }, [load]);
   useEffect(() => { setOffset(0); }, [sort, type, platform, search]);
@@ -150,9 +154,23 @@ export default function FeedPage() {
               <option key={p} value={p}>{p || "All sources"}</option>
             ))}
           </select>
-          <span className="ml-auto text-[11.5px] text-ink-faint font-mono">
-            {items.length} / {total}
-          </span>
+          <div className="ml-auto flex items-center gap-3">
+            {user && (
+              <button
+                onClick={() => setHideSeen(h => !h)}
+                className={`text-[11.5px] font-medium px-2.5 py-1 rounded-full border transition-colors ${
+                  hideSeen
+                    ? "bg-accent/10 border-accent/30 text-accent"
+                    : "border-line text-ink-muted hover:border-ink/30 hover:text-ink"
+                }`}
+              >
+                {hideSeen ? "Showing unseen" : "Hide seen"}
+              </button>
+            )}
+            <span className="text-[11.5px] text-ink-faint font-mono">
+              {items.length} / {total}
+            </span>
+          </div>
         </div>
       </div>
 

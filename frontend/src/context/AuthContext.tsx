@@ -1,17 +1,25 @@
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
-import { api, type User } from "../lib/api";
+import { api, type User, type UserPrefs } from "../lib/api";
 import { getLocalBookmarks, clearLocalBookmarks } from "../lib/localBookmarks";
 
 interface AuthContextValue {
   user: User | null;
   loading: boolean;
   savedIds: Set<number>;
+  followedTopicIds: Set<number>;
+  mutedSourceIds: Set<number>;
+  role: string;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, displayName?: string) => Promise<void>;
   logout: () => Promise<void>;
   saveItem: (itemId: number, note?: string) => Promise<void>;
   unsaveItem: (itemId: number) => Promise<void>;
   isSaved: (itemId: number) => boolean;
+  followTopic: (topicId: number) => Promise<void>;
+  unfollowTopic: (topicId: number) => Promise<void>;
+  muteSource: (sourceId: number) => Promise<void>;
+  unmuteSource: (sourceId: number) => Promise<void>;
+  refreshPrefs: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -20,6 +28,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [savedIds, setSavedIds] = useState<Set<number>>(new Set());
+  const [followedTopicIds, setFollowedTopicIds] = useState<Set<number>>(new Set());
+  const [mutedSourceIds, setMutedSourceIds] = useState<Set<number>>(new Set());
+  const [role, setRole] = useState<string>("developer");
 
   const hydrateSaves = useCallback(async () => {
     try {
@@ -30,22 +41,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const refreshPrefs = useCallback(async () => {
+    try {
+      const prefs: UserPrefs = await api.getPrefs();
+      setFollowedTopicIds(new Set(prefs.followed_topics.map(t => t.topic_id)));
+      setMutedSourceIds(new Set(prefs.muted_sources.map(s => s.source_id)));
+      setRole(prefs.role ?? "developer");
+    } catch {
+      /* not logged in or prefs unavailable */
+    }
+  }, []);
+
   useEffect(() => {
     api.getMe()
       .then(({ user }) => {
         setUser(user);
-        return hydrateSaves();
+        return Promise.all([hydrateSaves(), refreshPrefs()]);
       })
       .catch(() => { /* not logged in */ })
       .finally(() => setLoading(false));
-  }, [hydrateSaves]);
+  }, [hydrateSaves, refreshPrefs]);
 
-  /** After login/register, silently migrate any locally-saved bookmarks to the server */
   const migrateLocalBookmarks = useCallback(async () => {
     const local = getLocalBookmarks();
     if (local.length === 0) return;
     try {
-      // Fire-and-forget each save; ignore duplicates (409/conflict is fine)
       await Promise.allSettled(local.map((b) => api.saveItem(b.id)));
       clearLocalBookmarks();
       await hydrateSaves();
@@ -55,7 +75,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     const { user } = await api.login(email, password);
     setUser(user);
-    await hydrateSaves();
+    await Promise.all([hydrateSaves(), refreshPrefs()]);
     await migrateLocalBookmarks();
   };
 
@@ -70,6 +90,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await api.logout();
     setUser(null);
     setSavedIds(new Set());
+    setFollowedTopicIds(new Set());
+    setMutedSourceIds(new Set());
+    setRole("developer");
   };
 
   const saveItem = async (itemId: number, note?: string) => {
@@ -94,8 +117,55 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const isSaved = (itemId: number) => savedIds.has(itemId);
 
+  const followTopic = async (topicId: number) => {
+    setFollowedTopicIds(prev => new Set([...prev, topicId]));
+    try {
+      await api.followTopic(topicId);
+    } catch (err) {
+      setFollowedTopicIds(prev => { const s = new Set(prev); s.delete(topicId); return s; });
+      throw err;
+    }
+  };
+
+  const unfollowTopic = async (topicId: number) => {
+    setFollowedTopicIds(prev => { const s = new Set(prev); s.delete(topicId); return s; });
+    try {
+      await api.unfollowTopic(topicId);
+    } catch (err) {
+      setFollowedTopicIds(prev => new Set([...prev, topicId]));
+      throw err;
+    }
+  };
+
+  const muteSource = async (sourceId: number) => {
+    setMutedSourceIds(prev => new Set([...prev, sourceId]));
+    try {
+      await api.muteSource(sourceId);
+    } catch (err) {
+      setMutedSourceIds(prev => { const s = new Set(prev); s.delete(sourceId); return s; });
+      throw err;
+    }
+  };
+
+  const unmuteSource = async (sourceId: number) => {
+    setMutedSourceIds(prev => { const s = new Set(prev); s.delete(sourceId); return s; });
+    try {
+      await api.unmuteSource(sourceId);
+    } catch (err) {
+      setMutedSourceIds(prev => new Set([...prev, sourceId]));
+      throw err;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, savedIds, login, register, logout, saveItem, unsaveItem, isSaved }}>
+    <AuthContext.Provider value={{
+      user, loading, savedIds, followedTopicIds, mutedSourceIds, role,
+      login, register, logout,
+      saveItem, unsaveItem, isSaved,
+      followTopic, unfollowTopic,
+      muteSource, unmuteSource,
+      refreshPrefs,
+    }}>
       {children}
     </AuthContext.Provider>
   );

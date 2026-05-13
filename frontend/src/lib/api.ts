@@ -27,6 +27,7 @@ export interface Item {
   metadata: Record<string, any>;
   topic_name?: string;
   topic_slug?: string;
+  source_id?: number | null;
   source_name?: string;
   image_url?: string;
   author?: string;
@@ -100,6 +101,62 @@ export interface ChatResponse {
   provider: string;
   hasWebSearch: boolean;
   citations: string[];
+}
+
+// ── Prefs types ──────────────────────────────────────────────────────
+
+export interface UserPrefs {
+  followed_topics: { topic_id: number; name: string; slug: string }[];
+  muted_sources: { source_id: number; name: string }[];
+  role: string;
+}
+
+// ── Brief types ──────────────────────────────────────────────────────
+
+export interface BriefItem {
+  title: string;
+  url: string;
+  platform: string;
+  score: number;
+}
+
+export interface BriefSection {
+  topic: string;
+  slug: string;
+  items: BriefItem[];
+  summary: string | null;
+}
+
+export interface Brief {
+  date: string;
+  intro: string | null;
+  sections: BriefSection[];
+  generated: boolean;
+  generated_at?: string;
+  message?: string;
+}
+
+// ── Learn types ──────────────────────────────────────────────────────
+
+export interface LearnChapter {
+  id: string;
+  title: string;
+  url: string;
+  status: "done" | "reading" | null;
+  note: string | null;
+}
+
+export interface LearnBook {
+  id: number;
+  slug: string;
+  title: string;
+  author: string | null;
+  url: string;
+  description: string | null;
+  chapters: LearnChapter[];
+  chapters_total: number;
+  chapters_done: number;
+  percent: number;
 }
 
 // ── Auth & Library types ─────────────────────────────────────────────
@@ -236,6 +293,73 @@ export const api = {
       method: "PATCH",
       body: JSON.stringify({ note }),
     });
+  },
+
+  // ── Seen tracking ────────────────────────────────────────────────
+  markSeen(item_ids: number[]) {
+    return request<{ ok: boolean; marked: number }>("/items/seen", {
+      method: "POST",
+      body: JSON.stringify({ item_ids }),
+    });
+  },
+
+  // ── Preferences ───────────────────────────────────────────────────
+  getPrefs() {
+    return request<UserPrefs>("/prefs");
+  },
+
+  followTopic(topicId: number) {
+    return request<{ ok: boolean }>(`/prefs/topics/${topicId}`, { method: "POST" });
+  },
+
+  unfollowTopic(topicId: number) {
+    return request<{ ok: boolean }>(`/prefs/topics/${topicId}`, { method: "DELETE" });
+  },
+
+  muteSource(sourceId: number) {
+    return request<{ ok: boolean }>(`/prefs/sources/${sourceId}/mute`, { method: "POST" });
+  },
+
+  unmuteSource(sourceId: number) {
+    return request<{ ok: boolean }>(`/prefs/sources/${sourceId}/mute`, { method: "DELETE" });
+  },
+
+  updateRole(role: string) {
+    return request<{ ok: boolean; role: string }>("/prefs/role", {
+      method: "PATCH",
+      body: JSON.stringify({ role }),
+    });
+  },
+
+  // ── Learn / Reading tracker ───────────────────────────────────────
+  getLearnBooks() {
+    return request<{ books: Omit<LearnBook, "chapters">[] }>("/learn/books");
+  },
+
+  getLearnBook(slug: string) {
+    return request<LearnBook>(`/learn/books/${slug}`);
+  },
+
+  toggleChapter(slug: string, chapterId: string) {
+    return request<{ ok: boolean; status: string }>(`/learn/books/${slug}/chapters/${chapterId}`, {
+      method: "POST",
+    });
+  },
+
+  updateChapterNote(slug: string, chapterId: string, note: string) {
+    return request<{ ok: boolean }>(`/learn/books/${slug}/chapters/${chapterId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ note }),
+    });
+  },
+
+  // ── Morning Brief ────────────────────────────────────────────────
+  getBrief() {
+    return request<Brief>("/brief");
+  },
+
+  refreshBrief() {
+    return request<Brief & { ok: boolean }>("/brief/refresh", { method: "POST" });
   },
 
   // ── Email digest ──────────────────────────────────────────────────

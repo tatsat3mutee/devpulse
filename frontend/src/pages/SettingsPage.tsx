@@ -1,21 +1,44 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { api } from "../lib/api";
 import { useAuth } from "../context/AuthContext";
 
 export default function SettingsPage() {
-  const { user } = useAuth();
+  const { user, followedTopicIds, mutedSourceIds, unfollowTopic, unmuteSource, refreshPrefs } = useAuth();
   const [health, setHealth] = useState<{ status: string; timestamp: string } | null>(null);
+  const [followedList, setFollowedList] = useState<{ topic_id: number; name: string; slug: string }[]>([]);
+  const [mutedList, setMutedList] = useState<{ source_id: number; name: string }[]>([]);
 
   useEffect(() => {
     api.getHealth().then(setHealth).catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    api.getPrefs().then(prefs => {
+      setFollowedList(prefs.followed_topics);
+      setMutedList(prefs.muted_sources);
+    }).catch(() => {});
+  }, [user, followedTopicIds, mutedSourceIds]);
+
+  const handleUnfollow = async (topicId: number) => {
+    await unfollowTopic(topicId);
+    setFollowedList(prev => prev.filter(t => t.topic_id !== topicId));
+    await refreshPrefs();
+  };
+
+  const handleUnmute = async (sourceId: number) => {
+    await unmuteSource(sourceId);
+    setMutedList(prev => prev.filter(s => s.source_id !== sourceId));
+    await refreshPrefs();
+  };
 
   return (
     <div>
       <header className="mb-8 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Configuration</div>
         <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Settings</h1>
-        <p className="text-ink-muted text-[14px]">System status and project information.</p>
+        <p className="text-ink-muted text-[14px]">System status, preferences and project information.</p>
       </header>
 
       <div className="space-y-2">
@@ -37,6 +60,66 @@ export default function SettingsPage() {
           </Row>
         </Card>
 
+        {/* Preferences — logged-in users only */}
+        {user && (
+          <Card title="Preferences" eyebrow="Personalisation">
+            <div className="space-y-4">
+              <div>
+                <p className="text-[12.5px] font-medium text-ink-soft mb-2">Followed topics</p>
+                {followedList.length === 0 ? (
+                  <p className="text-[12.5px] text-ink-faint">
+                    No topics followed yet.{" "}
+                    <Link to="/topics" className="text-accent hover:underline">Browse topics →</Link>
+                  </p>
+                ) : (
+                  <div className="flex flex-wrap gap-2">
+                    {followedList.map(t => (
+                      <span
+                        key={t.topic_id}
+                        className="flex items-center gap-1.5 text-[12px] px-2.5 py-1 rounded-full bg-accent/8 border border-accent/20 text-accent"
+                      >
+                        <Link to={`/topic/${t.slug}`} className="hover:underline">{t.name}</Link>
+                        <button
+                          onClick={() => handleUnfollow(t.topic_id)}
+                          className="text-accent/60 hover:text-accent transition-colors leading-none"
+                          aria-label={`Unfollow ${t.name}`}
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="border-t border-line pt-4">
+                <p className="text-[12.5px] font-medium text-ink-soft mb-2">Muted sources</p>
+                {mutedList.length === 0 ? (
+                  <p className="text-[12.5px] text-ink-faint">No sources muted. Use the ··· menu on any feed item to mute a source.</p>
+                ) : (
+                  <div className="flex flex-wrap gap-2">
+                    {mutedList.map(s => (
+                      <span
+                        key={s.source_id}
+                        className="flex items-center gap-1.5 text-[12px] px-2.5 py-1 rounded-full bg-rose-500/8 border border-rose-500/20 text-rose-600 dark:text-rose-400"
+                      >
+                        {s.name}
+                        <button
+                          onClick={() => handleUnmute(s.source_id)}
+                          className="opacity-60 hover:opacity-100 transition-opacity leading-none"
+                          aria-label={`Unmute ${s.name}`}
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </Card>
+        )}
+
         {/* About */}
         <Card title="About" eyebrow="Project">
           <p className="text-[13.5px] text-ink-soft leading-relaxed">
@@ -44,9 +127,6 @@ export default function SettingsPage() {
             Hugging Face, X, LinkedIn and a handful of newsrooms. Items are scored by
             engagement and recency, classified into topics by an LLM (with a keyword
             fallback), and optionally summarised.
-          </p>
-          <p className="text-[12px] text-ink-faint mt-3">
-            Source: <a href="https://github.com/tatsat3mutee/devpulse" target="_blank" rel="noopener" className="text-ink hover:text-accent underline decoration-line">github.com/tatsat3mutee/devpulse</a>
           </p>
         </Card>
 
@@ -101,4 +181,3 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
     </div>
   );
 }
-

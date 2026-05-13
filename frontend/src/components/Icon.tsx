@@ -32,7 +32,9 @@ type IconName =
   | "sun"
   | "moon"
   | "user"
-  | "share";
+  | "share"
+  | "more"
+  | "check";
 
 interface Props extends SVGProps<SVGSVGElement> {
   name: IconName;
@@ -270,6 +272,20 @@ export default function Icon({ name, size = 16, className = "", ...rest }: Props
           <circle cx="6" cy="12" r="3" />
           <circle cx="18" cy="19" r="3" />
           <path d="m8.7 10.7 6.6-3.4M8.7 13.3l6.6 3.4" />
+        </svg>
+      );
+    case "more":
+      return (
+        <svg {...common}>
+          <circle cx="5" cy="12" r="1.3" fill="currentColor" stroke="none" />
+          <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
+          <circle cx="19" cy="12" r="1.3" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case "check":
+      return (
+        <svg {...common}>
+          <path d="M4 12l5 5L20 7" />
         </svg>
       );
     default:

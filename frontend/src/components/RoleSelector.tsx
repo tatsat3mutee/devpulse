@@ -1,4 +1,6 @@
 ﻿import { useState, useEffect } from "react";
+import { api } from "../lib/api";
+import { useAuth } from "../context/AuthContext";
 
 export type DevRole = "developer" | "pm" | "designer" | "qa";
 
@@ -51,9 +53,13 @@ interface RoleSelectorProps {
 
 export default function RoleSelector({ onClose }: RoleSelectorProps) {
   const { role, setRole } = useRole();
+  const { user } = useAuth();
 
-  const handleSelect = (r: DevRole) => {
+  const handleSelect = async (r: DevRole) => {
     setRole(r);
+    if (user) {
+      api.updateRole(r).catch(() => {});
+    }
     onClose();
   };
 
