@@ -3,13 +3,16 @@ import { useParams, Link } from "react-router-dom";
 import { api, TopicDetail } from "../lib/api";
 import FeedItem from "../components/FeedItem";
 import Icon from "../components/Icon";
+import { useAuth } from "../context/AuthContext";
 
 export default function TopicDetailPage() {
   const { slug } = useParams<{ slug: string }>();
+  const { user, followedTopicIds, followTopic, unfollowTopic } = useAuth();
   const [data, setData] = useState<TopicDetail | null>(null);
   const [typeFilter, setTypeFilter] = useState<string>("");
   const [sort, setSort] = useState<string>("top");
   const [loading, setLoading] = useState(true);
+  const [followLoading, setFollowLoading] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -35,6 +38,21 @@ export default function TopicDetailPage() {
   }
 
   const totalCount = (data.type_counts || []).reduce((sum, tc) => sum + tc.count, 0);
+  const isFollowed = followedTopicIds.has(data.id);
+
+  const handleFollowToggle = async () => {
+    if (!user) return;
+    setFollowLoading(true);
+    try {
+      if (isFollowed) {
+        await unfollowTopic(data.id);
+      } else {
+        await followTopic(data.id);
+      }
+    } finally {
+      setFollowLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -49,21 +67,38 @@ export default function TopicDetailPage() {
 
       {/* Header */}
       <header className="mb-8 pb-5 border-b border-line">
-        <div className="eyebrow mb-2 flex items-center gap-1.5">
-          <span
-            className="w-1.5 h-1.5 rounded-full"
-            style={{ backgroundColor: data.category_color }}
-          />
-          {data.category}
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <div className="eyebrow mb-2 flex items-center gap-1.5">
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: data.category_color }}
+              />
+              {data.category}
+            </div>
+            <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+              {data.name}
+            </h1>
+            {data.description && (
+              <p className="text-ink-muted text-[14px] max-w-2xl leading-relaxed">
+                {data.description}
+              </p>
+            )}
+          </div>
+          {user && (
+            <button
+              onClick={handleFollowToggle}
+              disabled={followLoading}
+              className={`shrink-0 mt-2 px-4 py-2 text-[13px] font-medium rounded-lg border transition-all ${
+                isFollowed
+                  ? "bg-accent/10 border-accent/30 text-accent hover:bg-accent/20"
+                  : "border-line text-ink-muted hover:border-ink/30 hover:text-ink bg-surface"
+              } disabled:opacity-50`}
+            >
+              {isFollowed ? "Following ✓" : "Follow"}
+            </button>
+          )}
         </div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
-          {data.name}
-        </h1>
-        {data.description && (
-          <p className="text-ink-muted text-[14px] max-w-2xl leading-relaxed">
-            {data.description}
-          </p>
-        )}
       </header>
 
       {/* Filters */}

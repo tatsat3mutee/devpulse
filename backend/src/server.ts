@@ -14,6 +14,8 @@ import authRouter from "./routes/auth.js";
 import libraryRouter from "./routes/library.js";
 import subscribeRouter from "./routes/subscribe.js";
 import rssRouter from "./routes/rss.js";
+import prefsRouter from "./routes/prefs.js";
+import learnRouter, { initLearnTables } from "./routes/learn.js";
 import { startCron } from "./cron.js";
 
 if (!process.env.JWT_SECRET) {
@@ -50,6 +52,8 @@ app.use("/api/knowledge", knowledgeRouter);
 app.use("/api/chat", chatRouter);
 app.use("/api/subscribe", subscribeRouter);
 app.use("/api/rss", rssRouter);
+app.use("/api/prefs", prefsRouter);
+app.use("/api/learn", learnRouter);
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
@@ -65,5 +69,6 @@ app.get("*", (_req, res) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 DevPulse running on http://localhost:${PORT}`);
+  initLearnTables().catch(err => console.error("initLearnTables failed:", err));
   startCron();
 });

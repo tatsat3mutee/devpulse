@@ -28,6 +28,7 @@ const navItems = [
   { to: "/videos", label: "Watch", icon: "play" as const },
   { to: "/feed", label: "Feed", icon: "rss" as const },
   { to: "/chat", label: "Chat", icon: "chat" as const },
+  { to: "/learn", label: "Learn", icon: "book" as const },
 ];
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -292,7 +293,7 @@ function AppInner() {
             <Route path="/videos" element={<VideosPage />} />
             <Route path="/knowledge" element={<KnowledgePage />} />
             <Route path="/knowledge/:slug" element={<KnowledgePage />} />
-            <Route path="/learn" element={<LearnPage />} />
+            <Route path="/learn" element={<ProtectedRoute><LearnPage /></ProtectedRoute>} />
             <Route path="/sources" element={<SourcesPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/help" element={<HelpPage />} />
@@ -327,8 +328,8 @@ function AppInner() {
           {[
             { to: "/", label: "Today", icon: "home" as const },
             { to: "/topics", label: "Topics", icon: "layers" as const },
-            { to: "/videos", label: "Watch", icon: "play" as const },
             { to: "/feed", label: "Feed", icon: "rss" as const },
+            { to: "/learn", label: "Learn", icon: "book" as const },
             { to: "/chat", label: "Chat", icon: "chat" as const },
           ].map((n) => (
             <NavLink
