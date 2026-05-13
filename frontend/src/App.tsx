@@ -19,6 +19,7 @@ import TrendingPage from "./pages/TrendingPage";
 import LandingPage from "./pages/LandingPage";
 import AboutPage from "./pages/AboutPage";
 import BriefPage from "./pages/BriefPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import Icon from "./components/Icon";
 import CommandPalette from "./components/CommandPalette";
 import { AuthProvider, useAuth } from "./context/AuthContext";
@@ -306,6 +307,7 @@ function AppInner() {
             <Route path="/library" element={<LibraryPage />} />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
 

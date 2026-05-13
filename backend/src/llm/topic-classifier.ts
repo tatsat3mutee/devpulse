@@ -163,6 +163,12 @@ const KEYWORD_MAP: Record<string, string[]> = {
   "ai-tools-comparison": ["comparison", "vs ", " vs ", "better than", "alternative to", "compared to"],
   "ai-industry-news": ["funding", "acquisition", "billion", "partnership", "raised", "valuation", "ipo"],
   "ai-startups": ["startup", "launch", "founded", "seed round", "series a", "y combinator"],
+  // ── Enterprise topics (must appear BEFORE broad catches like agentic-ai, ai-coding) ──
+  "coding-agents": ["coding agent", "code agent", "autonomous coding", "devin ai", "devin software", " devin ", "opencode", "aider", "continue.dev", " cline ", "cline tool", "codex cli", "swe-agent", "swe-bench", "open-source swe", "ai software engineer", "ai swe"],
+  "ai-testing": ["ai testing", "test generation", "ai qa", "playwright ai", "cypress ai", "mutation testing", "test automation ai", "mabl", "testim", "applitools", "ai-generated test"],
+  "ai-devops": ["ai devops", "github actions ai", "ai ci/cd", "ai infrastructure", "platform engineering ai", "terraform ai", "ai sre", "ai ops", "aiops"],
+  "ai-security": ["prompt injection", "llm security", "ai red team", "jailbreak", "guardrail", "owasp ai", "model security", "data poisoning", "adversarial attack", "llm vulnerability"],
+  "ai-governance": ["ai governance", "ai compliance", "model governance", "ai policy", "enterprise ai deploy", "ai cost optim", "ai audit", "responsible deploy", "model risk"],
 };
 
 function keywordClassify(

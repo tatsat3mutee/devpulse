@@ -9,11 +9,11 @@ const ROLE_TOPICS: Record<DevRole, string[]> = {
   developer: [
     "claude-code", "github-copilot", "cursor", "llm-apis", "rag",
     "agentic-ai", "arxiv-papers", "github-trending", "open-source-llms",
-    "ai-coding-tools", "model-releases", "ai-frameworks",
+    "ai-coding-tools", "model-releases", "ai-frameworks", "coding-agents", "ai-devops",
   ],
   pm: [
     "model-releases", "ai-benchmarks", "enterprise-ai", "ai-pricing",
-    "community-sentiment", "ai-safety", "multimodal-ai",
+    "community-sentiment", "ai-safety", "multimodal-ai", "ai-governance",
   ],
   designer: [
     "ai-design-tools", "multimodal-ai", "ui-patterns", "figma-ai",
@@ -21,7 +21,7 @@ const ROLE_TOPICS: Record<DevRole, string[]> = {
   ],
   qa: [
     "llm-evals", "ai-safety", "ai-benchmarks", "testing-frameworks",
-    "hallucination", "prompt-injection",
+    "hallucination", "prompt-injection", "ai-testing", "ai-security",
   ],
 };
 

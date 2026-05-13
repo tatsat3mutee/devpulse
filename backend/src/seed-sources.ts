@@ -27,11 +27,18 @@ const YOUTUBE_AI_SOURCES: Array<{
 
   // ── Researchers / educators ──────────────────────────────
   { name: "Andrej Karpathy",  channelId: "UCPk8mLtZdJN5x3i0pJRlf-A", rating: 5 },
-  { name: "Lex Fridman",      channelId: "UCSHZKyawb77ixDdsGog4iWA", rating: 4 },
   { name: "Two Minute Papers",channelId: "UCbfYPyITQ-7l4upoX8nvctg", rating: 4 },
   { name: "Yannic Kilcher",   channelId: "UCZHmQk67mSJgfCCTn7xBfew", rating: 4 },
   { name: "AI Explained",     channelId: "UCNJ1Ymd5yFuUPtn21xtRbbw", rating: 4 },
   { name: "3Blue1Brown",      channelId: "UCYO_jab_esuFRV4b17AJtAw", rating: 4 },
+  { name: "Fireship",         channelId: "UCsBjURrPoezykLs9EqgamOA", rating: 4 },
+
+  // ── Indian AI / dev educators ────────────────────────────
+  { name: "Piyush Garg",      channelId: "UCyPBAMFlAIadIjt-4vPqaLw", rating: 4 },
+  { name: "Hitesh Choudhary", channelId: "UCVjlmGGb1suVvwYXdMMSHNA", rating: 4 },
+  { name: "Harkirat Singh",   channelId: "UC_seDWJHxCAkq95bCPoHj3Q", rating: 4 },
+  { name: "Tanay Pratap",     channelId: "UCNFmBuclxQPe57orKiQKp5g", rating: 4 },
+  { name: "Akshay Saini",     channelId: "UC3N9i_KvKZYP4F84FPIzgPQ", rating: 4 },
 ];
 
 /**
@@ -51,8 +58,8 @@ export async function seedYouTubeSources(): Promise<{
     try {
       const result = await pool.query(
         `INSERT INTO sources (name, url, fetcher_key, is_active, rating)
-         VALUES ($1, $2, 'youtube', true, $3)
-         ON CONFLICT (url) DO NOTHING
+         SELECT $1, $2, 'youtube', true, $3
+         WHERE NOT EXISTS (SELECT 1 FROM sources WHERE url = $2)
          RETURNING id`,
         [s.name, s.channelId, s.rating ?? 4]
       );

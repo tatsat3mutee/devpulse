@@ -28,8 +28,13 @@ if (!process.env.JWT_SECRET) {
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
+// Required for Render/cloud reverse proxies — lets express-rate-limit read real client IP from X-Forwarded-For
+app.set("trust proxy", 1);
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+  origin: process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim())
+    : ["http://localhost:5173", "https://devpulse.tatsatpandey.com"],
   credentials: true,
 }));
 app.use(cookieParser());

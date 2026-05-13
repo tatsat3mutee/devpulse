@@ -18,10 +18,10 @@ const PLATFORMS = ["", "arXiv", "GitHub", "Reddit", "Hacker News", "Hugging Face
 
 // Suggested search terms per role for quick filtering
 const ROLE_SUGGESTIONS: Record<DevRole, string[]> = {
-  developer: ["Claude Code", "Copilot", "RAG", "LLM API", "agentic"],
+  developer: ["Claude Code", "Copilot", "RAG", "coding agent", "agentic"],
   pm: ["model release", "benchmark", "enterprise AI", "pricing"],
   designer: ["v0", "Figma AI", "multimodal", "design tools"],
-  qa: ["eval", "hallucination", "prompt injection", "testing"],
+  qa: ["AI testing", "test generation", "eval", "prompt injection"],
 };
 
 export default function FeedPage() {
