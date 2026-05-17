@@ -153,7 +153,12 @@ const KEYWORD_MAP: Record<string, string[]> = {
   multimodal: ["multimodal", "vision-language", "audio model", "omni"],
   "ai-hardware": ["gpu", "tpu", "nvidia", "h100", "a100", "ai chip", "cuda"],
   "hugging-face": ["hugging face", "huggingface", "hf model", "spaces"],
-  "interview-prep": ["interview", "leetcode", "system design", "coding interview", "dsa", "behavioral", "hiring"],
+  "interview-prep": ["interview", "leetcode", "coding interview", "behavioral", "hiring"],
+  "dsa-algorithms": ["algorithm", "data structure", "dsa", "competitive programming", "sorting algorithm", "graph algorithm", "dynamic programming", "binary search", "tree traversal", "linked list", "heap", "hash map", "bfs", "dfs", "greedy algorithm", "backtracking", "leetcode solution"],
+  "system-design": ["system design", "software architecture", "scalability", "distributed system", "microservice", "design pattern", "load balancer", "caching", "message queue", "event driven", "high availability", "cap theorem", "database sharding", "api gateway"],
+  "web-development": ["react", "nextjs", "next.js", "vue", "svelte", "remix", "frontend", "web dev", "css", "tailwind", "javascript framework", "typescript web", "html", "webpack", "vite", "server component", "web assembly", "wasm"],
+  "perplexity-ai": ["perplexity", "pplx", "perplexity ai", "sonar api", "perplexity search"],
+  "research-papers": ["research paper", "arxiv paper", "conference paper", "neurips", "icml", "iclr", "cvpr", "aaai", "state-of-the-art", "sota", "ablation study", "paper review", "ml paper"],
   "project-ideas": ["project idea", "side project", "portfolio", "beginner project", "hackathon", "build a"],
   // New portal topics
   "vscode-updates": ["vs code", "vscode", "visual studio code", "vscode release", "vscode extension"],

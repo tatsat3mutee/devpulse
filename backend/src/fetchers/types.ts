@@ -5,7 +5,7 @@ export interface FetchResult {
   type: "paper" | "repo" | "social" | "news" | "video" | "article";
   platform: string;
   tags: string[];
-  publishedAt: Date;
+  publishedAt: Date | null;
   metadata?: Record<string, unknown>;
   imageUrl?: string;
   author?: string;

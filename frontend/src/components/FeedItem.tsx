@@ -116,7 +116,7 @@ export default function FeedItem({ item, showTopic, note }: Props) {
           <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${typeDotColor(item.type)}`} />
           <span className="text-ink-faint">{typeLabel[item.type] || item.type}</span>
           <span className="text-ink-faint/60">·</span>
-          <span className="text-ink-faint">{timeAgo(item.published_at)}</span>
+          <span className="text-ink-faint">{timeAgo(item.published_at || item.fetched_at)}</span>
         </div>
         <button
           onClick={handleSave}

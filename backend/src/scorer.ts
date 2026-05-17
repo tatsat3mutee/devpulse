@@ -1,7 +1,7 @@
 import pool from "./db.js";
 
 /**
- * Compute hotness score for items: engagement (60%) + recency (40%)
+ * Compute hotness score for items: engagement (70%) + recency (30%)
  * Score is 0–100. Used to rank the feed — higher = more prominent.
  */
 export async function computeScores(itemIds: number[]): Promise<void> {
@@ -16,7 +16,7 @@ export async function computeScores(itemIds: number[]): Promise<void> {
     const engagement = engagementScore(item.platform, item.metadata || {});
     const recency = recencyScore(item.published_at);
     const score =
-      Math.round((engagement * 0.6 + recency * 0.4) * 100) / 100;
+      Math.round((engagement * 0.7 + recency * 0.3) * 100) / 100;
 
     await pool.query("UPDATE items SET score = $1 WHERE id = $2", [
       score,
@@ -50,7 +50,7 @@ function engagementScore(
       raw = (meta.likes || 0) * 1.5;
       break;
     case "arXiv":
-      raw = 30; // base score for curated academic papers
+      raw = 45; // boosted base — curated academic papers are high-value deep content
       break;
     default:
       raw = 20;

@@ -32,8 +32,8 @@ export async function fetchRSS(sourceUrl: string): Promise<FetchResult[]> {
       const author = tag(entry, "name"); // inside <author><name>
 
       if (!title || !link) continue;
-      const pubDate = published ? new Date(published) : new Date();
-      if (pubDate < weekAgo) continue;
+      const pubDate = published ? new Date(published) : null;
+      if (pubDate && pubDate < weekAgo) continue;
 
       results.push({
         title: cleanHTML(title).slice(0, 500),
@@ -64,8 +64,8 @@ export async function fetchRSS(sourceUrl: string): Promise<FetchResult[]> {
       );
 
       if (!title || !link) continue;
-      const date = pubDate ? new Date(pubDate) : new Date();
-      if (date < weekAgo) continue;
+      const date = pubDate ? new Date(pubDate) : null;
+      if (date && date < weekAgo) continue;
 
       results.push({
         title: cleanHTML(title).slice(0, 500),
