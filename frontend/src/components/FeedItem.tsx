@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Item } from "../lib/api";
+import { useState, useRef, useEffect } from "react";
+import { Item, api } from "../lib/api";
 import {
   timeAgo,
   engagementText,
@@ -51,11 +51,29 @@ function PlatformBadge({ platform }: { platform: string }) {
   );
 }
 
+// Module-level batch queue for seen tracking — shared across all FeedItem instances
+let seenQueue: Set<number> = new Set();
+let seenTimer: ReturnType<typeof setTimeout> | null = null;
+
+function enqueueSeen(id: number) {
+  seenQueue.add(id);
+  if (seenTimer) clearTimeout(seenTimer);
+  seenTimer = setTimeout(() => {
+    const ids = Array.from(seenQueue);
+    seenQueue = new Set();
+    seenTimer = null;
+    api.markSeen(ids).catch(() => {});
+  }, 2000);
+}
+
 export default function FeedItem({ item, showTopic, note }: Props) {
   const engagement = engagementText(item.platform, item.metadata || {});
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, isSaved, saveItem, unsaveItem } = useAuth();
+  const { user, isSaved, saveItem, unsaveItem, muteSource, mutedSourceIds } = useAuth();
+  const articleRef = useRef<HTMLElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [mutedLocally, setMutedLocally] = useState(false);
 
   // Local bookmark state for unauthenticated users
   const [localSaved, setLocalSaved] = useState(() => isLocalBookmarked(item.id));
@@ -63,12 +81,30 @@ export default function FeedItem({ item, showTopic, note }: Props) {
 
   const saved = user ? isSaved(item.id) : localSaved;
 
+  // IntersectionObserver: mark item as seen after 2s dwell
+  useEffect(() => {
+    if (!user || !articleRef.current) return;
+    const el = articleRef.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          enqueueSeen(item.id);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [user, item.id]);
+
+  const isMuted = mutedLocally || (item.source_id != null && mutedSourceIds.has(item.source_id));
+
   const handleSave = async (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
 
     if (!user) {
-      // Save to localStorage without requiring login
       if (localSaved) {
         removeLocalBookmark(item.id);
         setLocalSaved(false);
@@ -103,8 +139,24 @@ export default function FeedItem({ item, showTopic, note }: Props) {
     } catch { /* optimistic update already reverted in context */ }
   };
 
+  const handleMuteSource = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setMenuOpen(false);
+    if (!user || item.source_id == null) return;
+    setMutedLocally(true);
+    try {
+      await muteSource(item.source_id);
+    } catch {
+      setMutedLocally(false);
+    }
+  };
+
+  if (isMuted) return null;
+
   return (
     <article
+      ref={articleRef}
       onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
       className="group relative bg-surface border border-line rounded-xl px-5 py-4 hover:border-ink/20 hover:shadow-cardHover transition-all cursor-pointer"
     >
@@ -118,13 +170,39 @@ export default function FeedItem({ item, showTopic, note }: Props) {
           <span className="text-ink-faint/60">·</span>
           <span className="text-ink-faint">{timeAgo(item.published_at || item.fetched_at)}</span>
         </div>
-        <button
-          onClick={handleSave}
-          className={`p-1 rounded transition-colors ${saved ? "text-accent" : "text-ink-faint/50 hover:text-ink-muted"}`}
-          aria-label={saved ? "Remove from library" : "Save to library"}
-        >
-          <Icon name={saved ? "bookmark-filled" : "bookmark"} size={13} />
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={handleSave}
+            className={`p-1 rounded transition-colors ${saved ? "text-accent" : "text-ink-faint/50 hover:text-ink-muted"}`}
+            aria-label={saved ? "Remove from library" : "Save to library"}
+          >
+            <Icon name={saved ? "bookmark-filled" : "bookmark"} size={13} />
+          </button>
+          {user && item.source_id != null && (
+            <div className="relative">
+              <button
+                onClick={(e) => { e.stopPropagation(); e.preventDefault(); setMenuOpen(o => !o); }}
+                className="p-1 rounded transition-colors text-ink-faint/50 hover:text-ink-muted"
+                aria-label="More options"
+              >
+                <Icon name="more" size={13} />
+              </button>
+              {menuOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={(e) => { e.stopPropagation(); setMenuOpen(false); }} />
+                  <div className="absolute right-0 top-6 z-50 bg-surface border border-line rounded-lg shadow-card w-40 py-1 text-[12.5px]">
+                    <button
+                      onClick={handleMuteSource}
+                      className="w-full text-left px-3 py-2 text-ink-muted hover:text-ink hover:bg-paper transition-colors"
+                    >
+                      Mute {item.source_name || "this source"}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Title */}
@@ -185,7 +263,6 @@ export default function FeedItem({ item, showTopic, note }: Props) {
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               } catch {
-                // fallback: open native share if available
                 if (navigator.share) {
                   navigator.share({ title: item.title, url: item.url }).catch(() => {});
                 }

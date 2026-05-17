@@ -1,10 +1,13 @@
-﻿import { useEffect, useState, useMemo } from "react";
+﻿import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { api, Item, Topic, KnowledgeGuide } from "../lib/api";
 import FeedItem from "../components/FeedItem";
 import VideoCard from "../components/VideoCard";
 import Icon from "../components/Icon";
 import { timeAgo } from "../lib/utils";
+import { useAuth } from "../context/AuthContext";
+
+const AUTO_REFRESH_MS = 15 * 60 * 1000;
 
 interface DailyRow {
   topic_id: number;
@@ -18,6 +21,7 @@ const MAJOR_LABS = ["OpenAI", "Anthropic", "Google", "Meta", "Mistral", "Microso
 const TREND_PALETTE = ["#10b981","#6366f1","#f59e0b","#ef4444","#8b5cf6","#ec4899","#14b8a6"];
 
 export default function DashboardPage() {
+  const { user, followedTopicIds } = useAuth();
   const [topics, setTopics] = useState<Topic[]>([]);
   const [topItems, setTopItems] = useState<Item[]>([]);
   const [recentItems, setRecentItems] = useState<Item[]>([]);
@@ -28,20 +32,33 @@ export default function DashboardPage() {
   const [guides, setGuides] = useState<KnowledgeGuide[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ topics: 0, items: 0, sources: 0 });
+  const [lastRefreshed, setLastRefreshed] = useState<Date>(new Date());
+  const [followedTopics, setFollowedTopics] = useState<{ id: number; name: string; slug: string }[]>([]);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  useEffect(() => {
+  const isPersonalized = user != null && followedTopicIds.size > 0;
+
+  const load = useCallback(async () => {
+    setLoading(true);
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-    Promise.all([
-      api.getTopics(),
-      api.getItems({ sort: "top", limit: "5" }),
-      api.getItems({ sort: "recent", limit: "8" }),
-      api.getItems({ sort: "recent", limit: "6", since }),
-      api.getItems({ type: "video", sort: "top", limit: "8" }),
-      api.getItems({ sort: "recent", limit: "12", search: "model" }),
-      api.getSources(),
-      api.getTrendingDaily().catch(() => [] as DailyRow[]),
-      api.getKnowledgeGuides().catch(() => [] as KnowledgeGuide[]),
-    ]).then(([topicsData, topData, recentData, last24Data, videoData, labData, sourcesData, trendData, guidesData]) => {
+    const topParams: Record<string, string> = { sort: "top", limit: "5" };
+    const recentParams: Record<string, string> = { sort: "recent", limit: "8" };
+    if (isPersonalized) {
+      topParams.personalized = "true";
+      recentParams.personalized = "true";
+    }
+    try {
+      const [topicsData, topData, recentData, last24Data, videoData, labData, sourcesData, trendData, guidesData] = await Promise.all([
+        api.getTopics(),
+        api.getItems(topParams),
+        api.getItems(recentParams),
+        api.getItems({ sort: "recent", limit: "6", since }),
+        api.getItems({ type: "video", sort: "top", limit: "8" }),
+        api.getItems({ sort: "recent", limit: "12", search: "model" }),
+        api.getSources(),
+        api.getTrendingDaily().catch(() => [] as DailyRow[]),
+        api.getKnowledgeGuides().catch(() => [] as KnowledgeGuide[]),
+      ]);
       setTopics(topicsData.filter((t) => t.item_count > 0).slice(0, 8));
       setTopItems(topData.items);
       setRecentItems(recentData.items);
@@ -55,9 +72,26 @@ export default function DashboardPage() {
         items: topicsData.reduce((s, t) => s + t.item_count, 0),
         sources: sourcesData.length,
       });
+      // Build followed topic chips from topics list
+      if (followedTopicIds.size > 0) {
+        const ft = topicsData.filter(t => followedTopicIds.has(t.id)).map(t => ({ id: t.id, name: t.name, slug: t.slug }));
+        setFollowedTopics(ft);
+      }
+      setLastRefreshed(new Date());
+    } finally {
       setLoading(false);
-    }).catch(() => setLoading(false));
-  }, []);
+    }
+  }, [isPersonalized, followedTopicIds]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  // Auto-refresh every 15 min
+  useEffect(() => {
+    timerRef.current = setInterval(() => { load(); }, AUTO_REFRESH_MS);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [load]);
 
   // Compute top 7 topics by 14-day total for the mini bar chart
   const trendTopics = useMemo(() => {
@@ -101,7 +135,43 @@ export default function DashboardPage() {
           <Stat label="Items indexed" value={stats.items} />
           <span className="w-px h-6 bg-line" />
           <Stat label="Sources" value={stats.sources} />
+          <span className="w-px h-6 bg-line" />
+          <div className="flex items-center gap-2 text-[11px] text-ink-faint">
+            <span>Updated {timeAgo(lastRefreshed.toISOString())}</span>
+            <button
+              onClick={() => load()}
+              className="flex items-center gap-1 text-ink-faint hover:text-ink transition-colors"
+              title="Refresh now"
+            >
+              <Icon name="refresh" size={11} />
+              Refresh
+            </button>
+          </div>
         </div>
+        {isPersonalized && (
+          <div className="flex items-center gap-1.5 mt-4 flex-wrap">
+            <span className="text-[11px] text-accent font-medium uppercase tracking-wider">Personalised</span>
+            {followedTopics.map(t => (
+              <Link
+                key={t.id}
+                to={`/topic/${t.slug}`}
+                className="text-[11.5px] font-medium px-2.5 py-1 rounded-full border border-accent/30 bg-accent/5 text-accent hover:bg-accent/10 transition-colors"
+              >
+                {t.name}
+              </Link>
+            ))}
+          </div>
+        )}
+        {user && !isPersonalized && (
+          <p className="text-[12px] text-ink-faint mt-3">
+            Follow topics on any topic page to get a personalised feed.
+          </p>
+        )}
+        {!user && (
+          <p className="text-[12px] text-ink-faint mt-3">
+            <Link to="/login" className="text-accent hover:underline">Sign in</Link> to personalise your feed.
+          </p>
+        )}
       </header>
 
       {/* Quick links */}
