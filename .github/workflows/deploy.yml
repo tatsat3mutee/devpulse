@@ -29,11 +29,11 @@ jobs:
 
   deploy:
     # Manual only (workflow_dispatch) until EC2 SSH secrets are configured.
+    # Requires repo secrets: LIGHTSAIL_HOST (EC2 elastic IP), LIGHTSAIL_SSH_KEY (private key).
     # Per docs: deploys normally happen via git pull on the EC2 box (AWS_ONE_PLAN).
     if: github.event_name == 'workflow_dispatch'
     needs: test
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1
@@ -41,13 +41,14 @@ jobs:
           host: ${{ secrets.LIGHTSAIL_HOST }}
           username: ubuntu
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
-          script_stop: true
           script: |
+            set -e
             cd /opt/devpulse
             sudo git fetch origin main
             sudo git reset --hard origin/main
             sudo docker build -t devpulse .
-            sudo docker stop devpulse && sudo docker rm devpulse
+            sudo docker stop devpulse || true
+            sudo docker rm devpulse || true
             sudo docker run -d --name devpulse \
               --env-file backend/.env \
               -p 127.0.0.1:3000:3000 \
