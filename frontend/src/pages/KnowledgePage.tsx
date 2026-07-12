@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { Link, useParams } from "react-router-dom";
 import { api, KnowledgeGuide } from "../lib/api";
+import { setPageMeta } from "../lib/seo";
 
 export default function KnowledgePage() {
   const { slug } = useParams<{ slug: string }>();
@@ -121,6 +122,15 @@ function GuideDetail({ slug }: { slug: string }) {
   useEffect(() => {
     api.getKnowledgeGuide(slug).then(setGuide).finally(() => setLoading(false));
   }, [slug]);
+
+  useEffect(() => {
+    if (!guide) return;
+    setPageMeta({
+      title: `${guide.title} — DevPulse Knowledge`,
+      description: `${guide.title} — a ${guide.difficulty} guide on ${guide.category} from DevPulse Knowledge.`,
+      url: `https://devpulse.tatsatpandey.com/knowledge/${guide.slug}`,
+    });
+  }, [guide]);
 
   if (loading) {
     return (

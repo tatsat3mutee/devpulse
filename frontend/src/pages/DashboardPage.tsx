@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { api, Item, Topic, KnowledgeGuide } from "../lib/api";
 import FeedItem from "../components/FeedItem";
+import ClusteredFeed from "../components/ClusteredFeed";
 import VideoCard from "../components/VideoCard";
 import Icon from "../components/Icon";
 import { timeAgo } from "../lib/utils";
@@ -17,17 +18,14 @@ interface DailyRow {
   count: number;
 }
 
-const MAJOR_LABS = ["OpenAI", "Anthropic", "Google", "Meta", "Mistral", "Microsoft", "DeepMind"];
 const TREND_PALETTE = ["#10b981","#6366f1","#f59e0b","#ef4444","#8b5cf6","#ec4899","#14b8a6"];
 
 export default function DashboardPage() {
   const { user, followedTopicIds } = useAuth();
   const [topics, setTopics] = useState<Topic[]>([]);
   const [topItems, setTopItems] = useState<Item[]>([]);
-  const [recentItems, setRecentItems] = useState<Item[]>([]);
   const [last24h, setLast24h] = useState<Item[]>([]);
   const [videos, setVideos] = useState<Item[]>([]);
-  const [labItems, setLabItems] = useState<Item[]>([]);
   const [trendRows, setTrendRows] = useState<DailyRow[]>([]);
   const [guides, setGuides] = useState<KnowledgeGuide[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,29 +40,23 @@ export default function DashboardPage() {
     setLoading(true);
     const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
     const topParams: Record<string, string> = { sort: "top", limit: "5" };
-    const recentParams: Record<string, string> = { sort: "recent", limit: "8" };
     if (isPersonalized) {
       topParams.personalized = "true";
-      recentParams.personalized = "true";
     }
     try {
-      const [topicsData, topData, recentData, last24Data, videoData, labData, sourcesData, trendData, guidesData] = await Promise.all([
+      const [topicsData, topData, last24Data, videoData, sourcesData, trendData, guidesData] = await Promise.all([
         api.getTopics(),
         api.getItems(topParams),
-        api.getItems(recentParams),
         api.getItems({ sort: "recent", limit: "6", since }),
-        api.getItems({ type: "video", sort: "top", limit: "8" }),
-        api.getItems({ sort: "recent", limit: "12", search: "model" }),
+        api.getItems({ type: "video", sort: "top", limit: "12" }),
         api.getSources(),
         api.getTrendingDaily().catch(() => [] as DailyRow[]),
         api.getKnowledgeGuides().catch(() => [] as KnowledgeGuide[]),
       ]);
       setTopics(topicsData.filter((t) => t.item_count > 0).slice(0, 8));
       setTopItems(topData.items);
-      setRecentItems(recentData.items);
       setLast24h(last24Data.items);
       setVideos(videoData.items);
-      setLabItems(labData.items || []);
       setTrendRows(trendData as DailyRow[]);
       setGuides((guidesData as KnowledgeGuide[]).slice(0, 4));
       setStats({
@@ -120,58 +112,64 @@ export default function DashboardPage() {
     <div className="space-y-12">
       {/* Editorial header */}
       <header className="pb-6 border-b border-line">
-        <div className="eyebrow mb-3">{today}</div>
-        <h1 className="display text-[36px] sm:text-[44px] text-ink mb-3 max-w-2xl">
-          What's actually moving<br />
-          <span className="italic text-ink-soft">in AI today.</span>
-        </h1>
-        <p className="text-[15px] text-ink-muted max-w-xl leading-relaxed">
-          Papers, repos, releases and reading - pulled from arXiv, GitHub,
-          Hugging Face, Hacker News and a few good newsrooms. No newsletters, no noise.
-        </p>
-        <div className="flex items-center gap-6 mt-6 text-[13px]">
-          <Stat label="Topics tracked" value={stats.topics} />
-          <span className="w-px h-6 bg-line" />
-          <Stat label="Items indexed" value={stats.items} />
-          <span className="w-px h-6 bg-line" />
-          <Stat label="Sources" value={stats.sources} />
-          <span className="w-px h-6 bg-line" />
-          <div className="flex items-center gap-2 text-[11px] text-ink-faint">
-            <span>Updated {timeAgo(lastRefreshed.toISOString())}</span>
-            <button
-              onClick={() => load()}
-              className="flex items-center gap-1 text-ink-faint hover:text-ink transition-colors"
-              title="Refresh now"
-            >
-              <Icon name="refresh" size={11} />
-              Refresh
-            </button>
+        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-6 lg:gap-10 items-start">
+          {/* Left: masthead */}
+          <div>
+            <div className="eyebrow mb-3">{today}</div>
+            <h1 className="display text-[36px] sm:text-[44px] text-ink mb-3">
+              What's actually moving<br />
+              <span className="italic text-ink-soft">in AI today.</span>
+            </h1>
+            <p className="text-[15px] text-ink-muted max-w-xl leading-relaxed">
+              Papers, repos, releases and reading - pulled from arXiv, GitHub,
+              Hugging Face, Hacker News and a few good newsrooms. No newsletters, no noise.
+            </p>
+            {isPersonalized && (
+              <div className="flex items-center gap-1.5 mt-4 flex-wrap">
+                <span className="text-[11px] text-accent font-medium uppercase tracking-wider">Personalised</span>
+                {followedTopics.map(t => (
+                  <Link
+                    key={t.id}
+                    to={`/topic/${t.slug}`}
+                    className="text-[11.5px] font-medium px-2.5 py-1 rounded-full border border-accent/30 bg-accent/5 text-accent hover:bg-accent/10 transition-colors"
+                  >
+                    {t.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+            {user && !isPersonalized && (
+              <p className="text-[12px] text-ink-faint mt-3">
+                Follow topics on any topic page to get a personalised feed.
+              </p>
+            )}
+            {!user && (
+              <p className="text-[12px] text-ink-faint mt-3">
+                <Link to="/login" className="text-accent hover:underline">Sign in</Link> to personalise your feed.
+              </p>
+            )}
+          </div>
+
+          {/* Right: snapshot panel — balances the hero on wide screens */}
+          <div className="bg-surface border border-line rounded-xl p-5">
+            <div className="grid grid-cols-3 gap-3">
+              <Stat label="Topics tracked" value={stats.topics} />
+              <Stat label="Items indexed" value={stats.items} />
+              <Stat label="Sources" value={stats.sources} />
+            </div>
+            <div className="flex items-center justify-between mt-4 pt-4 border-t border-line text-[11px] text-ink-faint">
+              <span>Updated {timeAgo(lastRefreshed.toISOString())}</span>
+              <button
+                onClick={() => load()}
+                className="flex items-center gap-1 text-ink-faint hover:text-ink transition-colors"
+                title="Refresh now"
+              >
+                <Icon name="refresh" size={11} />
+                Refresh
+              </button>
+            </div>
           </div>
         </div>
-        {isPersonalized && (
-          <div className="flex items-center gap-1.5 mt-4 flex-wrap">
-            <span className="text-[11px] text-accent font-medium uppercase tracking-wider">Personalised</span>
-            {followedTopics.map(t => (
-              <Link
-                key={t.id}
-                to={`/topic/${t.slug}`}
-                className="text-[11.5px] font-medium px-2.5 py-1 rounded-full border border-accent/30 bg-accent/5 text-accent hover:bg-accent/10 transition-colors"
-              >
-                {t.name}
-              </Link>
-            ))}
-          </div>
-        )}
-        {user && !isPersonalized && (
-          <p className="text-[12px] text-ink-faint mt-3">
-            Follow topics on any topic page to get a personalised feed.
-          </p>
-        )}
-        {!user && (
-          <p className="text-[12px] text-ink-faint mt-3">
-            <Link to="/login" className="text-accent hover:underline">Sign in</Link> to personalise your feed.
-          </p>
-        )}
       </header>
 
       {/* Quick links */}
@@ -184,12 +182,45 @@ export default function DashboardPage() {
         </div>
       </section>
 
+      {/* Active topics - surfaced near the top */}
+      {topics.length > 0 && (
+        <Section eyebrow="Browse" title="Active topics" link="/topics" icon="layers">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {topics.map((t) => (
+              <Link
+                key={t.id}
+                to={`/topic/${t.slug}`}
+                className="bg-surface rounded-xl border border-line p-3.5 hover:border-ink/20 hover:shadow-cardHover transition-all"
+              >
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: t.category_color }} />
+                  <span className="font-medium text-[13px] text-ink truncate">{t.name}</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-ink-faint">
+                  <span>{t.item_count} items</span>
+                  {t.latest_item_at && <span>{timeAgo(t.latest_item_at)}</span>}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </Section>
+      )}
+
       {/* Last 24 hours */}
       {last24h.length > 0 && (
         <Section eyebrow="Last 24 hours" title="Just dropped" link="/feed?sort=recent" icon="rss">
-          <div className="space-y-2.5">
-            {last24h.map((item) => (
-              <FeedItem key={item.id} item={item} showTopic />
+          <ClusteredFeed items={last24h} showTopic />
+        </Section>
+      )}
+
+      {/* Latest videos - horizontal carousel */}
+      {videos.length > 0 && (
+        <Section eyebrow="Watch" title="Trending videos" link="/videos" icon="play">
+          <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory">
+            {videos.map((v) => (
+              <div key={v.id} className="snap-start shrink-0 w-[240px] sm:w-[280px]">
+                <VideoCard item={v} />
+              </div>
             ))}
           </div>
         </Section>
@@ -237,50 +268,6 @@ export default function DashboardPage() {
         </Section>
       )}
 
-      {/* Platform updates - new models & features */}
-      {labItems.length > 0 && (
-        <Section eyebrow="Major labs" title="Models & features" link="/feed?search=model" icon="layers">
-          <div className="space-y-2.5">
-            {labItems.slice(0, 6).map((item) => (
-              <FeedItem key={item.id} item={item} showTopic />
-            ))}
-          </div>
-        </Section>
-      )}
-
-      {/* Latest videos */}
-      {videos.length > 0 && (
-        <Section eyebrow="Watch" title="Trending videos" link="/videos" icon="play">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            {videos.map((v) => (
-              <VideoCard key={v.id} item={v} />
-            ))}
-          </div>
-        </Section>
-      )}
-
-      {/* Hot topics */}
-      <Section eyebrow="Browse" title="Active topics" link="/topics" icon="layers">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {topics.map((t) => (
-            <Link
-              key={t.id}
-              to={`/topic/${t.slug}`}
-              className="bg-surface rounded-xl border border-line p-3.5 hover:border-ink/20 hover:shadow-cardHover transition-all"
-            >
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: t.category_color }} />
-                <span className="font-medium text-[13px] text-ink truncate">{t.name}</span>
-              </div>
-              <div className="flex items-center justify-between text-[11px] text-ink-faint">
-                <span>{t.item_count} items</span>
-                {t.latest_item_at && <span>{timeAgo(t.latest_item_at)}</span>}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </Section>
-
       {/* Knowledge guides */}
       {guides.length > 0 && (
         <Section eyebrow="Read" title="Knowledge guides" link="/knowledge" icon="book">
@@ -303,15 +290,6 @@ export default function DashboardPage() {
           </div>
         </Section>
       )}
-
-      {/* Recent */}
-      <Section eyebrow="Just in" title="Recently added" link="/feed?sort=recent" icon="clock">
-        <div className="space-y-2.5">
-          {recentItems.map((item) => (
-            <FeedItem key={item.id} item={item} showTopic />
-          ))}
-        </div>
-      </Section>
     </div>
   );
 }

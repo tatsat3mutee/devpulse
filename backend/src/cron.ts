@@ -4,6 +4,8 @@ import { runAllFetchers } from "./fetchers/index.js";
 import { sendWeeklyDigest, sendDailyDigest } from "./llm/digest.js";
 import { seedYouTubeSources } from "./seed-sources.js";
 
+let fetchInFlight = false;
+
 /**
  * Start the cron scheduler. Reads fetch_interval_minutes from DB settings.
  * Also triggers one fetch 5 seconds after startup.
@@ -11,6 +13,36 @@ import { seedYouTubeSources } from "./seed-sources.js";
 export function startCron(): void {
   scheduleFromDB();
   scheduleWeeklyDigest();
+  scheduleRetentionCleanup();
+}
+
+// Rolling retention window (days). Items older than this are pruned nightly,
+// EXCEPT any item a user has saved to their library.
+const RETENTION_DAYS = Number(process.env.RETENTION_DAYS) || 30;
+
+async function runRetentionCleanup(): Promise<void> {
+  try {
+    const { rowCount } = await pool.query(
+      `DELETE FROM items
+        WHERE COALESCE(published_at, fetched_at) < NOW() - make_interval(days => $1::int)
+          AND id NOT IN (SELECT item_id FROM user_saves)`,
+      [RETENTION_DAYS]
+    );
+    console.log(`🧹 Retention: removed ${rowCount ?? 0} items older than ${RETENTION_DAYS}d (kept saved)`);
+  } catch (err) {
+    console.error("Retention cleanup error:", err);
+  }
+}
+
+/** Daily retention cleanup — 03:00 UTC */
+function scheduleRetentionCleanup(): void {
+  cron.schedule("0 3 * * *", () => {
+    console.log(`\n🧹 [${new Date().toISOString()}] Running retention cleanup…`);
+    void runRetentionCleanup();
+  });
+
+  // Also run once shortly after startup so it doesn't wait until 03:00 UTC.
+  setTimeout(() => { void runRetentionCleanup(); }, 30_000);
 }
 
 async function scheduleFromDB(): Promise<void> {
@@ -33,12 +65,19 @@ async function scheduleFromDB(): Promise<void> {
   console.log(`⏰ Cron: every ${minutes} min (${expr})`);
 
   cron.schedule(expr, async () => {
+    if (fetchInFlight) {
+      console.log("⏭️ Cron fetch skipped — previous fetch still in flight");
+      return;
+    }
+    fetchInFlight = true;
     console.log(`\n🔄 [${new Date().toISOString()}] Cron fetch starting…`);
     try {
       const stats = await runAllFetchers();
       console.log(`🔄 Cron done: ${stats.itemsInserted} new items`);
     } catch (err) {
       console.error("🔄 Cron error:", err);
+    } finally {
+      fetchInFlight = false;
     }
   });
 
@@ -49,11 +88,18 @@ async function scheduleFromDB(): Promise<void> {
     } catch (err) {
       console.error("Seed sources error:", err);
     }
+    if (fetchInFlight) {
+      console.log("⏭️ Startup fetch skipped — fetch already in flight");
+      return;
+    }
+    fetchInFlight = true;
     console.log("\n🚀 Initial fetch on startup…");
     try {
       await runAllFetchers();
     } catch (err) {
       console.error("Initial fetch error:", err);
+    } finally {
+      fetchInFlight = false;
     }
   }, 5000);
 }

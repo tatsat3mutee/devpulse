@@ -78,12 +78,39 @@ export async function classifyItems(
       );
 
       const jsonMatch = text.match(/\[[\s\S]*\]/);
+      let slugs: string[] | null = null;
       if (jsonMatch) {
-        const slugs: string[] = JSON.parse(jsonMatch[0]);
+        try {
+          const parsed = JSON.parse(jsonMatch[0]);
+          if (Array.isArray(parsed) && parsed.length === batch.length) {
+            slugs = parsed;
+          } else {
+            console.error(
+              `  ⚠️ Classifier LLM returned ${
+                Array.isArray(parsed)
+                  ? `array of ${parsed.length}, expected ${batch.length}`
+                  : "non-array"
+              }: ${text.slice(0, 200)}`
+            );
+          }
+        } catch {
+          console.error(
+            `  ⚠️ Classifier LLM response was not valid JSON: ${text.slice(0, 200)}`
+          );
+        }
+      } else {
+        console.error(
+          `  ⚠️ Classifier LLM response had no JSON array: ${text.slice(0, 200)}`
+        );
+      }
+      if (slugs) {
         batch.forEach((it, idx) => {
-          const topic = topics.find((t) => t.slug === slugs[idx]);
+          const topic = topics.find((t) => t.slug === slugs![idx]);
           if (topic) results.set(it.id, topic.id);
         });
+      } else {
+        const fb = keywordClassify(batch, topics);
+        fb.forEach((tid, iid) => results.set(iid, tid));
       }
     } catch (err: any) {
       const status = err?.status as number | undefined;
@@ -104,7 +131,7 @@ export async function classifyItems(
 
 // ── Keyword fallback (no LLM needed) ────────────────────────────────
 
-const KEYWORD_MAP: Record<string, string[]> = {
+export const KEYWORD_MAP: Record<string, string[]> = {
   // ── Cloud AI topics ──
   "azure-ai": ["azure openai", "azure ai", "azure cognitive", "azure ai studio", "azure ml", "azure machine learning"],
   "aws-ai": ["aws bedrock", "amazon bedrock", "sagemaker", "amazon q", "aws ai", "codewhisperer"],

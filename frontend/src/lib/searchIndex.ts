@@ -2,7 +2,7 @@ export interface SearchItem {
   title: string;
   desc: string;
   path: string;
-  type: "page" | "guide" | "topic" | "tool" | "external";
+  type: "page" | "guide" | "topic" | "tool" | "external" | "item";
   url?: string; // for external links only
 }
 
@@ -16,7 +16,7 @@ export const SEARCH_INDEX: SearchItem[] = [
   { title: "Knowledge", desc: "In-depth learning guides", path: "/knowledge", type: "page" },
   { title: "Videos", desc: "AI tutorials & talks", path: "/videos", type: "page" },
   { title: "Sources", desc: "75 active data sources", path: "/sources", type: "page" },
-  { title: "Learning Paths", desc: "Career roadmaps & AI roles", path: "/learn", type: "page" },
+  { title: "Events", desc: "Upcoming AI & tech conferences", path: "/events", type: "page" },
   { title: "Settings", desc: "Preferences & configuration", path: "/settings", type: "page" },
   // Guides
   { title: "Getting Started with Copilot", desc: "Setup, tips, and first steps", path: "/knowledge/getting-started-copilot", type: "guide" },

@@ -4,7 +4,8 @@ import { Resend } from "resend";
 
 const router = Router();
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+const MAX_EMAIL_LENGTH = 254;
 
 function getResend(): Resend | null {
   const key = process.env.RESEND_API_KEY;
@@ -14,13 +15,14 @@ function getResend(): Resend | null {
 
 // POST /api/subscribe — add email to digest list
 router.post("/", async (req: Request, res: Response) => {
-  const { email, frequency = "weekly" } = req.body as { email?: string; frequency?: string };
+  const { email: rawEmail, frequency = "weekly" } = req.body as { email?: string; frequency?: string };
+  const email = typeof rawEmail === "string" ? rawEmail.trim().toLowerCase() : "";
 
-  if (!email?.trim()) {
+  if (!email) {
     res.status(400).json({ error: "Email is required" });
     return;
   }
-  if (!EMAIL_RE.test(email.trim())) {
+  if (email.length > MAX_EMAIL_LENGTH || !EMAIL_RE.test(email)) {
     res.status(400).json({ error: "Invalid email format" });
     return;
   }
@@ -37,7 +39,7 @@ router.post("/", async (req: Request, res: Response) => {
          SET frequency = EXCLUDED.frequency,
              unsubscribed_at = NULL,
              confirmed = true`,
-      [email.trim().toLowerCase(), frequency]
+      [email, frequency]
     );
 
     // Send a welcome email if Resend is configured
@@ -45,7 +47,7 @@ router.post("/", async (req: Request, res: Response) => {
     if (resend) {
       await resend.emails.send({
         from: process.env.RESEND_FROM || "DevPulse <digest@devpulse.ai>",
-        to: email.trim().toLowerCase(),
+        to: email,
         subject: "You're subscribed to DevPulse",
         html: `
           <div style="font-family: system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; color: #333;">
@@ -65,7 +67,7 @@ router.post("/", async (req: Request, res: Response) => {
             </p>
             <p style="font-size:12px; color:#999; margin-top:32px;">
               To unsubscribe reply with "unsubscribe" or visit the link below.<br/>
-              <a href="${process.env.APP_URL || "https://devpulse-q71w.onrender.com"}/unsubscribe?email=${encodeURIComponent(email.trim().toLowerCase())}"
+              <a href="${process.env.APP_URL || "https://devpulse-q71w.onrender.com"}/unsubscribe?email=${encodeURIComponent(email)}"
                  style="color:#999;">Unsubscribe</a>
             </p>
           </div>
@@ -81,13 +83,19 @@ router.post("/", async (req: Request, res: Response) => {
 });
 
 // DELETE /api/subscribe?email=... — unsubscribe
+// NOTE: keeps the query-string mechanism — existing unsubscribe links in sent emails depend on it.
 router.delete("/", async (req: Request, res: Response) => {
-  const { email } = req.query as { email?: string };
+  const raw = (req.query as { email?: string }).email;
+  const email = typeof raw === "string" ? raw.trim().toLowerCase() : "";
   if (!email) { res.status(400).json({ error: "Email required" }); return; }
+  if (email.length > MAX_EMAIL_LENGTH || !EMAIL_RE.test(email)) {
+    res.status(400).json({ error: "Invalid email format" });
+    return;
+  }
 
   await pool.query(
     `UPDATE email_subscribers SET unsubscribed_at = NOW() WHERE email = $1`,
-    [email.toLowerCase()]
+    [email]
   );
   res.json({ ok: true });
 });

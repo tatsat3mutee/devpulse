@@ -23,4 +23,5 @@ COPY --from=frontend-build /app/frontend/dist ./frontend/dist
 
 EXPOSE 3000
 ENV PORT=3000
+ENV NODE_ENV=production
 CMD ["bun", "run", "backend/src/server.ts"]

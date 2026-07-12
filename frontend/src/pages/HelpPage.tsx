@@ -42,7 +42,7 @@ const FAQ: { q: string; a: string; link?: { label: string; path: string } }[] = 
   {
     q: "How do I pick a learning path?",
     a: "Visit the Learning Paths page - choose from 6 AI career roles (AI Engineer, ML Engineer, AI Coding Power User, Prompt Engineer, AI Safety, Full-Stack Builder). Each has a 3-phase roadmap with topics, guides, and external resources.",
-    link: { label: "View Learning Paths", path: "/learn" },
+    link: { label: "View Knowledge Guides", path: "/knowledge" },
   },
   {
     q: "Where do I find AI research papers?",

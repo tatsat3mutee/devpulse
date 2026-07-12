@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 /**
  * LinkedIn fetcher — aggregates AI content from LinkedIn via multiple strategies:
@@ -17,7 +18,7 @@ import type { FetchResult } from "./types.js";
 async function resolveGoogleNewsUrl(url: string): Promise<string> {
   if (!url.includes("news.google.com/rss/articles/")) return url;
   try {
-    const res = await fetch(url, {
+    const res = await safeFetch(url, {
       method: "HEAD",
       redirect: "follow",
       headers: { "User-Agent": "ai-pulse/1.0" },
@@ -27,7 +28,7 @@ async function resolveGoogleNewsUrl(url: string): Promise<string> {
   } catch {
     // If HEAD fails, try GET with manual redirect
     try {
-      const res = await fetch(url, {
+      const res = await safeFetch(url, {
         redirect: "manual",
         headers: { "User-Agent": "ai-pulse/1.0" },
       });
@@ -46,7 +47,7 @@ export async function fetchLinkedIn(
   // Strategy: Use Google News RSS to find LinkedIn AI posts
   // sourceUrl = "https://news.google.com/rss/search?q=site:linkedin.com+AI+OR+LLM+OR+GPT"
   try {
-    const res = await fetch(sourceUrl, {
+    const res = await safeFetch(sourceUrl, {
       headers: { "User-Agent": "ai-pulse/1.0" },
     });
     if (!res.ok) throw new Error(`LinkedIn/Google RSS ${res.status}`);

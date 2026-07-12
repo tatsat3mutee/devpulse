@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { createHash, timingSafeEqual } from "node:crypto";
 
 export interface AuthRequest extends Request {
   userId?: number;
@@ -58,10 +59,18 @@ export function requireAdmin(req: AuthRequest, res: Response, next: NextFunction
   });
 }
 
+/** Constant-time string comparison. Hashing both sides equalizes lengths so
+ *  timingSafeEqual never throws and no length information leaks. */
+function safeCompare(a: string, b: string): boolean {
+  const da = createHash("sha256").update(a).digest();
+  const db = createHash("sha256").update(b).digest();
+  return timingSafeEqual(da, db);
+}
+
 /** Accepts either admin JWT cookie or X-Cron-Secret header (for GitHub Actions / cron jobs). */
 export function requireAdminOrCronSecret(req: AuthRequest, res: Response, next: NextFunction): void {
   const cronSecret = req.headers["x-cron-secret"];
-  if (cronSecret && process.env.CRON_SECRET && cronSecret === process.env.CRON_SECRET) {
+  if (typeof cronSecret === "string" && process.env.CRON_SECRET && safeCompare(cronSecret, process.env.CRON_SECRET)) {
     next();
     return;
   }

@@ -38,7 +38,6 @@ export default function TopicsPage() {
   if (loading) return <Skeleton />;
 
   const withItems = topics.filter((t) => t.item_count > 0);
-  const empty = topics.filter((t) => t.item_count === 0);
 
   // Apply role filter if enabled
   const visibleTopics = filterByRole && role
@@ -135,24 +134,6 @@ export default function TopicsPage() {
             </section>
           ))}
       </div>
-
-      {empty.length > 0 && (
-        <details className="mt-12 pt-5 border-t border-line text-[12px] text-ink-faint">
-          <summary className="cursor-pointer hover:text-ink transition-colors">
-            {empty.length} topics still waiting for content
-          </summary>
-          <div className="flex flex-wrap gap-1.5 mt-3">
-            {empty.map((t) => (
-              <span
-                key={t.id}
-                className="text-[11px] text-ink-muted font-mono"
-              >
-                #{t.slug}
-              </span>
-            ))}
-          </div>
-        </details>
-      )}
     </div>
   );
 }

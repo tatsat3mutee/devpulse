@@ -20,7 +20,7 @@ export function useRole() {
   return { role, setRole };
 }
 
-const ROLES: { value: DevRole; label: string; icon: string; description: string }[] = [
+export const ROLES: { value: DevRole; label: string; icon: string; description: string }[] = [
   {
     value: "developer",
     label: "Developer",

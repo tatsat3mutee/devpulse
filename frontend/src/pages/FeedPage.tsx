@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { api, Item } from "../lib/api";
-import FeedItem from "../components/FeedItem";
+import ClusteredFeed from "../components/ClusteredFeed";
 import { useRole, type DevRole } from "../components/RoleSelector";
 import { useAuth } from "../context/AuthContext";
 
@@ -189,11 +189,7 @@ export default function FeedPage() {
         </div>
       ) : (
         <>
-          <div className="space-y-2.5">
-            {items.map((item) => (
-              <FeedItem key={item.id} item={item} showTopic />
-            ))}
-          </div>
+          <ClusteredFeed items={items} showTopic />
 
           {total > LIMIT && (
             <div className="flex justify-center items-center gap-4 mt-10">

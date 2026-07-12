@@ -22,10 +22,16 @@ export default function LandingPage() {
 
   async function handleSubscribe(e: React.FormEvent) {
     e.preventDefault();
-    if (!subEmail.trim()) return;
+    const email = subEmail.trim().toLowerCase();
+    if (!email) return;
+    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      setSubStatus("error");
+      setSubMsg("Please enter a valid email address.");
+      return;
+    }
     setSubStatus("loading");
     try {
-      const res = await api.subscribe(subEmail.trim());
+      const res = await api.subscribe(email);
       setSubStatus("ok");
       setSubMsg(res.message ?? "Subscribed!");
       setSubEmail("");
@@ -39,8 +45,13 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-paper flex flex-col">
       {/* Nav */}
-      <nav className="flex items-center justify-between px-6 py-4 border-b border-line max-w-5xl mx-auto w-full">
-        <span className="font-semibold text-ink text-[15px] tracking-tight">DevPulse</span>
+      <nav className="flex items-center justify-between px-6 py-4 border-b border-line max-w-6xl mx-auto w-full">
+        <Link to="/" className="flex items-center gap-2">
+          <img src="/icon.svg" alt="" className="w-6 h-6" />
+          <span className="wordmark text-[20px] leading-none">
+            <span className="text-ink">Dev</span><span className="text-accent">Pulse</span>
+          </span>
+        </Link>
         <div className="flex items-center gap-3">
           <Link to="/login" className="text-[13px] text-ink-muted hover:text-ink transition-colors">Sign in</Link>
           <Link
@@ -53,60 +64,76 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero */}
-      <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-16 sm:py-24">
-        <div className="max-w-2xl mb-16">
-          <div className="eyebrow mb-4">AI developer signal, unified</div>
-          <h1 className="display text-[42px] sm:text-[56px] text-ink leading-[1.1] mb-6">
-            Every important AI move,<br />
-            <span className="italic text-ink-soft">before your standup.</span>
-          </h1>
-          <p className="text-[16px] text-ink-muted leading-relaxed mb-8 max-w-xl">
-            Papers, repos, releases and discussions - pulled from arXiv, GitHub Trending,
-            Hacker News, Hugging Face, and Reddit. Ranked by signal, not by recency.
-            No account needed.
-          </p>
+      <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-14 sm:py-20">
+        <div className="grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center mb-20">
+          {/* Left: copy */}
+          <div>
+            <div className="eyebrow mb-4">AI developer signal, unified</div>
+            <h1 className="display text-[40px] sm:text-[56px] text-ink leading-[1.05] mb-6">
+              Every important<br />AI move,{" "}
+              <span className="italic text-accent">before your standup.</span>
+            </h1>
+            <p className="text-[16px] text-ink-muted leading-relaxed mb-7 max-w-lg">
+              Papers, repos, releases and discussions — pulled from arXiv, GitHub Trending,
+              Hacker News, Hugging Face, and Reddit. Ranked by signal, not by recency. No account needed.
+            </p>
 
-          {/* Source pills */}
-          <div className="flex flex-wrap gap-2 mb-10">
-            {SOURCES.map(({ label, color }) => (
-              <span key={label} className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${color}`}>
-                {label}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <Link
-              to="/feed"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-paper text-[14px] font-medium rounded-md hover:bg-accent/90 transition-colors"
-            >
-              Open feed - no account needed
-            </Link>
-            <Link
-              to="/register"
-              className="inline-flex items-center gap-2 px-5 py-2.5 border border-line text-ink text-[14px] rounded-md hover:border-ink/30 hover:bg-surface transition-colors"
-            >
-              Create account
-            </Link>
-          </div>
-        </div>
-
-        {/* Live feed preview */}
-        {items.length > 0 && (
-          <section>
-            <div className="flex items-center justify-between mb-4">
-              <p className="eyebrow">Live right now</p>
-              <Link to="/feed" className="text-[12px] text-accent hover:underline">
-                See all →
-              </Link>
-            </div>
-            <div className="space-y-px border border-line rounded-lg overflow-hidden">
-              {items.map((item) => (
-                <PreviewItem key={item.id} item={item} />
+            {/* Source pills */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              {SOURCES.map(({ label, color }) => (
+                <span key={label} className={`text-[12px] font-medium px-2.5 py-1 rounded-full ${color}`}>
+                  {label}
+                </span>
               ))}
             </div>
-          </section>
-        )}
+
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to="/feed"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-paper text-[14px] font-medium rounded-md hover:bg-accent/90 transition-colors shadow-sm"
+              >
+                Open feed - no account needed
+              </Link>
+              <Link
+                to="/register"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-line text-ink text-[14px] rounded-md hover:border-ink/30 hover:bg-surface transition-colors"
+              >
+                Create account
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: live preview card */}
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-accent/10 via-transparent to-accent/5 rounded-3xl blur-2xl -z-10" />
+            <div className="rounded-xl border border-line bg-surface shadow-cardHover overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-line">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/70" />
+                <span className="ml-2 text-[11px] text-ink-faint font-mono">devpulse — live</span>
+                <span className="ml-auto flex items-center gap-1.5 text-[11px] text-accent">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" /> Live
+                </span>
+              </div>
+              {items.length > 0 ? (
+                <div className="divide-y divide-line">
+                  {items.slice(0, 6).map((item) => (
+                    <PreviewItem key={item.id} item={item} />
+                  ))}
+                </div>
+              ) : (
+                <div className="p-10 text-center text-[13px] text-ink-faint">Loading live feed…</div>
+              )}
+              <Link
+                to="/feed"
+                className="block text-center text-[12px] text-accent hover:underline py-3 border-t border-line"
+              >
+                See the full feed →
+              </Link>
+            </div>
+          </div>
+        </div>
 
         {/* Value props */}
         <div className="grid sm:grid-cols-3 gap-4 mt-16">
@@ -165,7 +192,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-line px-6 py-5 max-w-5xl mx-auto w-full flex items-center justify-between gap-4 flex-wrap">
+      <footer className="border-t border-line px-6 py-5 max-w-6xl mx-auto w-full flex items-center justify-between gap-4 flex-wrap">
         <span className="text-[12px] text-ink-faint">DevPulse · Open source AI developer feed</span>
         <div className="flex gap-4">
           <a

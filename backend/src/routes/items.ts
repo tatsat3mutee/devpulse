@@ -116,8 +116,12 @@ router.get("/", optionalAuth, async (req: Request, res: Response) => {
         "i.published_at DESC";
     }
 
-    const lim = Math.min(Number(limit) || 50, 200);
-    const off = Number(offset) || 0;
+    const limNum = Number(limit);
+    const offNum = Number(offset);
+    const lim = Number.isFinite(limNum) ? Math.min(Math.max(1, Math.trunc(limNum)), 200) : 50;
+    const off = Number.isFinite(offNum) ? Math.max(0, Math.trunc(offNum)) : 0;
+    const limParam = paramIdx++;
+    const offParam = paramIdx++;
 
     const query = `
       SELECT i.*, t.name as topic_name, t.slug as topic_slug, s.name as source_name
@@ -126,11 +130,15 @@ router.get("/", optionalAuth, async (req: Request, res: Response) => {
       LEFT JOIN sources s ON i.source_id = s.id
       ${where}
       ORDER BY ${orderBy}
-      LIMIT ${lim} OFFSET ${off}
+      LIMIT $${limParam} OFFSET $${offParam}
     `;
+    params.push(lim, off);
 
     const needsTopicJoin = conditions.some(c => c.includes("t."));
-    const countParams = params.slice(0, personalized === "true" && authReq.userId ? params.length - 1 : params.length);
+    // Count query uses only the WHERE params — exclude the trailing
+    // [uid (personalized ORDER BY only), lim, off] params.
+    const extraParams = 2 + (personalized === "true" && authReq.userId ? 1 : 0);
+    const countParams = params.slice(0, params.length - extraParams);
     const countQuery = needsTopicJoin
       ? `SELECT COUNT(*) FROM items i LEFT JOIN topics t ON i.topic_id = t.id ${where}`
       : `SELECT COUNT(*) FROM items i ${where}`;
@@ -154,6 +162,11 @@ router.get("/", optionalAuth, async (req: Request, res: Response) => {
 
 // GET /api/items/:id — single item
 router.get("/:id", async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id < 1 || id > 2147483647) {
+    res.status(400).json({ error: "Invalid id" });
+    return;
+  }
   try {
     const result = await pool.query(
       `SELECT i.*, t.name as topic_name, s.name as source_name
@@ -161,7 +174,7 @@ router.get("/:id", async (req: Request, res: Response) => {
        LEFT JOIN topics t ON i.topic_id = t.id
        LEFT JOIN sources s ON i.source_id = s.id
        WHERE i.id = $1`,
-      [req.params.id]
+      [id]
     );
     if (result.rows.length === 0) {
       res.status(404).json({ error: "Item not found" });

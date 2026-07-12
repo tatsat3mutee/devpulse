@@ -23,7 +23,7 @@ router.get("/", async (_req: Request, res: Response) => {
        LIMIT 20`
     );
 
-    const baseUrl = process.env.PUBLIC_URL || "https://devpulse.ai";
+    const baseUrl = process.env.PUBLIC_URL || "https://devpulse.tatsatpandey.com";
     const now = new Date().toUTCString();
 
     const itemsXml = result.rows

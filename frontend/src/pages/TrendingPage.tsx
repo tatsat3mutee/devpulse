@@ -176,7 +176,7 @@ export default function TrendingPage() {
                   wrapperStyle={{ fontSize: 12, paddingTop: 12 }}
                   formatter={(value) => topics.find((t) => t.slug === value)?.name ?? value}
                 />
-                {visibleTopics.map((t, i) => (
+                {visibleTopics.map((t) => (
                   <Line
                     key={t.slug}
                     type="monotone"

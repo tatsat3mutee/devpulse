@@ -48,12 +48,35 @@ export async function summarizeItems(
       );
 
       const jsonMatch = text.match(/\[[\s\S]*\]/);
-      if (jsonMatch) {
-        const summaries: string[] = JSON.parse(jsonMatch[0]);
-        batch.forEach((it, idx) => {
-          if (summaries[idx]) results.set(it.id, summaries[idx]);
-        });
+      if (!jsonMatch) {
+        console.error(
+          `  ⚠️ Summarizer LLM response had no JSON array, skipping batch: ${text.slice(0, 200)}`
+        );
+        continue;
       }
+      let summaries: string[];
+      try {
+        const parsed = JSON.parse(jsonMatch[0]);
+        if (!Array.isArray(parsed) || parsed.length !== batch.length) {
+          console.error(
+            `  ⚠️ Summarizer LLM returned ${
+              Array.isArray(parsed)
+                ? `array of ${parsed.length}, expected ${batch.length}`
+                : "non-array"
+            }, skipping batch: ${text.slice(0, 200)}`
+          );
+          continue;
+        }
+        summaries = parsed;
+      } catch {
+        console.error(
+          `  ⚠️ Summarizer LLM response was not valid JSON, skipping batch: ${text.slice(0, 200)}`
+        );
+        continue;
+      }
+      batch.forEach((it, idx) => {
+        if (summaries[idx]) results.set(it.id, summaries[idx]);
+      });
     } catch (err: any) {
       const status = err?.status as number | undefined;
       const msg = String(err?.message || "");

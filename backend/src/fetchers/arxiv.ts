@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 /**
  * arXiv API — recent AI papers from cs.AI, cs.CL, cs.LG
@@ -8,7 +9,7 @@ export async function fetchArxiv(sourceUrl: string): Promise<FetchResult[]> {
   const categories = "cat:cs.AI+OR+cat:cs.CL+OR+cat:cs.LG+OR+cat:cs.CV+OR+cat:cs.NE+OR+cat:cs.RO+OR+cat:cs.SE+OR+cat:stat.ML";
   const url = `${sourceUrl}?search_query=${categories}&start=0&max_results=40&sortBy=submittedDate&sortOrder=descending`;
 
-  const res = await fetch(url, {
+  const res = await safeFetch(url, {
     headers: { "User-Agent": "ai-pulse/1.0" },
   });
   if (!res.ok) throw new Error(`arXiv API ${res.status}`);

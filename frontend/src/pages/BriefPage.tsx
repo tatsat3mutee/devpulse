@@ -4,27 +4,54 @@ import { api, Brief } from "../lib/api";
 import Icon from "../components/Icon";
 import { useAuth } from "../context/AuthContext";
 
+const BRIEF_LANGS: { code: string; label: string }[] = [
+  { code: "en", label: "English" },
+  { code: "es", label: "Español" },
+  { code: "fr", label: "Français" },
+  { code: "de", label: "Deutsch" },
+  { code: "hi", label: "हिन्दी" },
+  { code: "pt", label: "Português" },
+  { code: "ja", label: "日本語" },
+  { code: "zh", label: "中文" },
+];
+
 export default function BriefPage() {
   const { user } = useAuth();
   const [brief, setBrief] = useState<Brief | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [refreshing, setRefreshing] = useState(false);
+  const [lang, setLang] = useState<string>(() => localStorage.getItem("devpulse:briefLang") || "en");
+  const [archiveDates, setArchiveDates] = useState<string[]>([]);
+  const [viewDate, setViewDate] = useState<string>(""); // "" = today
 
   function load() {
     setLoading(true);
-    api.getBrief()
+    setError("");
+    api.getBrief(lang, viewDate || undefined)
       .then(setBrief)
-      .catch(() => setError("Failed to load the brief."))
+      .catch(() => {
+        setBrief(null);
+        setError(viewDate ? "No brief archived for that date." : "Failed to load the brief.");
+      })
       .finally(() => setLoading(false));
   }
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, [lang, viewDate]);
+
+  useEffect(() => {
+    api.getBriefArchive().then(({ dates }) => setArchiveDates(dates)).catch(() => {});
+  }, []);
+
+  const handleLangChange = (code: string) => {
+    localStorage.setItem("devpulse:briefLang", code);
+    setLang(code);
+  };
 
   const handleRefresh = async () => {
     setRefreshing(true);
     try {
-      const b = await api.refreshBrief();
+      const b = await api.refreshBrief(lang);
       setBrief(b);
     } catch {
       setError("Refresh failed.");
@@ -57,12 +84,22 @@ export default function BriefPage() {
       <div className="text-center py-20">
         <p className="display text-[28px] text-ink-soft mb-2">Brief unavailable.</p>
         <p className="text-[13.5px] text-ink-muted mb-4">{error}</p>
-        <button
-          onClick={load}
-          className="px-4 py-2 text-[13px] font-medium rounded-lg border border-line hover:border-ink/30 hover:text-ink text-ink-muted transition-colors"
-        >
-          Try again
-        </button>
+        <div className="flex items-center justify-center gap-2">
+          {viewDate && (
+            <button
+              onClick={() => setViewDate("")}
+              className="px-4 py-2 text-[13px] font-medium rounded-lg bg-ink text-paper hover:bg-ink-soft transition-colors"
+            >
+              Back to today
+            </button>
+          )}
+          <button
+            onClick={load}
+            className="px-4 py-2 text-[13px] font-medium rounded-lg border border-line hover:border-ink/30 hover:text-ink text-ink-muted transition-colors"
+          >
+            Try again
+          </button>
+        </div>
       </div>
     );
   }
@@ -76,7 +113,7 @@ export default function BriefPage() {
     );
   }
 
-  const date = new Date(brief.date + "T12:00:00").toLocaleDateString("en-US", {
+  const date = new Date(brief.date + "T12:00:00").toLocaleDateString(lang === "en" ? "en-US" : lang, {
     weekday: "long",
     month: "long",
     day: "numeric",
@@ -95,16 +132,41 @@ export default function BriefPage() {
             </h1>
             <p className="text-[12.5px] text-ink-muted font-mono tracking-wide">{date}</p>
           </div>
-          {user?.isAdmin && (
-            <button
-              onClick={handleRefresh}
-              disabled={refreshing}
-              title="Regenerate brief"
-              className="mt-2 w-8 h-8 rounded-md flex items-center justify-center text-ink-faint hover:text-ink hover:bg-surface transition-colors disabled:opacity-40"
+          <div className="flex items-center gap-1.5 mt-2">
+            {archiveDates.length > 0 && (
+              <select
+                value={viewDate}
+                onChange={(e) => setViewDate(e.target.value)}
+                title="Past briefs"
+                className="text-[12px] bg-surface border border-line rounded-md px-2 py-1.5 text-ink-muted hover:text-ink hover:border-ink/30 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/30 cursor-pointer"
+              >
+                <option value="">Today</option>
+                {archiveDates.map((d) => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+            )}
+            <select
+              value={lang}
+              onChange={(e) => handleLangChange(e.target.value)}
+              title="Brief language"
+              className="text-[12px] bg-surface border border-line rounded-md px-2 py-1.5 text-ink-muted hover:text-ink hover:border-ink/30 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/30 cursor-pointer"
             >
-              <Icon name="refresh" size={15} className={refreshing ? "animate-spin" : ""} />
-            </button>
-          )}
+              {BRIEF_LANGS.map((l) => (
+                <option key={l.code} value={l.code}>{l.label}</option>
+              ))}
+            </select>
+            {user?.isAdmin && !viewDate && (
+              <button
+                onClick={handleRefresh}
+                disabled={refreshing}
+                title="Regenerate brief"
+                className="w-8 h-8 rounded-md flex items-center justify-center text-ink-faint hover:text-ink hover:bg-surface transition-colors disabled:opacity-40"
+              >
+                <Icon name="refresh" size={15} className={refreshing ? "animate-spin" : ""} />
+              </button>
+            )}
+          </div>
         </div>
       </header>
 

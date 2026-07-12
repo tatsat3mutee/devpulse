@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 /**
  * Generic RSS/Atom feed fetcher.
@@ -6,7 +7,7 @@ import type { FetchResult } from "./types.js";
  * Parses both RSS 2.0 (<item>) and Atom (<entry>) formats with regex.
  */
 export async function fetchRSS(sourceUrl: string): Promise<FetchResult[]> {
-  const res = await fetch(sourceUrl, {
+  const res = await safeFetch(sourceUrl, {
     headers: {
       "User-Agent": "ai-pulse/1.0",
       Accept: "application/rss+xml, application/atom+xml, application/xml, text/xml",

@@ -1,28 +1,47 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, lazy, Suspense } from "react";
 import { Routes, Route, NavLink, useLocation, Navigate } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
-import TopicsPage from "./pages/TopicsPage";
-import TopicDetailPage from "./pages/TopicDetailPage";
-import FeedPage from "./pages/FeedPage";
-import VideosPage from "./pages/VideosPage";
-import DevHubPage from "./pages/DevHubPage";
-import KnowledgePage from "./pages/KnowledgePage";
-import SourcesPage from "./pages/SourcesPage";
-import SettingsPage from "./pages/SettingsPage";
-import LearnPage from "./pages/LearnPage";
-import HelpPage from "./pages/HelpPage";
-import ChatPage from "./pages/ChatPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import LibraryPage from "./pages/LibraryPage";
-import TrendingPage from "./pages/TrendingPage";
-import LandingPage from "./pages/LandingPage";
-import AboutPage from "./pages/AboutPage";
-import BriefPage from "./pages/BriefPage";
-import NotFoundPage from "./pages/NotFoundPage";
 import Icon from "./components/Icon";
 import CommandPalette from "./components/CommandPalette";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+
+// Code-split every non-landing page — keeps the initial bundle small.
+const TopicsPage = lazy(() => import("./pages/TopicsPage"));
+const TopicDetailPage = lazy(() => import("./pages/TopicDetailPage"));
+const FeedPage = lazy(() => import("./pages/FeedPage"));
+const VideosPage = lazy(() => import("./pages/VideosPage"));
+const DevHubPage = lazy(() => import("./pages/DevHubPage"));
+const KnowledgePage = lazy(() => import("./pages/KnowledgePage"));
+const EventsPage = lazy(() => import("./pages/EventsPage"));
+const SourcesPage = lazy(() => import("./pages/SourcesPage"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage"));
+const HelpPage = lazy(() => import("./pages/HelpPage"));
+const ChatPage = lazy(() => import("./pages/ChatPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
+const LibraryPage = lazy(() => import("./pages/LibraryPage"));
+const TrendingPage = lazy(() => import("./pages/TrendingPage"));
+const LandingPage = lazy(() => import("./pages/LandingPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const BriefPage = lazy(() => import("./pages/BriefPage"));
+const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
+const TermsPage = lazy(() => import("./pages/TermsPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+
+function PageFallback() {
+  return (
+    <div className="space-y-4 animate-pulse py-4">
+      <div className="h-3 w-24 bg-surface rounded" />
+      <div className="h-10 w-2/3 bg-surface rounded" />
+      <div className="h-4 w-full max-w-md bg-surface rounded" />
+      <div className="h-28 bg-surface border border-line rounded-xl" />
+      <div className="h-28 bg-surface border border-line rounded-xl" />
+    </div>
+  );
+}
 
 const navItems = [
   { to: "/", label: "Today", icon: "home" as const },
@@ -31,16 +50,9 @@ const navItems = [
   { to: "/videos", label: "Watch", icon: "play" as const },
   { to: "/feed", label: "Feed", icon: "rss" as const },
   { to: "/chat", label: "Chat", icon: "chat" as const },
-  { to: "/learn", label: "Learn", icon: "book" as const },
+  { to: "/events", label: "Events", icon: "calendar" as const },
+  { to: "/knowledge", label: "Knowledge", icon: "book" as const },
 ];
-
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
-  const location = useLocation();
-  if (loading) return <div className="flex-1 animate-pulse bg-surface" />;
-  if (!user) return <Navigate to="/login" state={{ next: location.pathname }} replace />;
-  return <>{children}</>;
-}
 
 function UserBadge() {
   const { user, logout } = useAuth();
@@ -67,6 +79,9 @@ function UserBadge() {
     <div className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
+        aria-label="User menu"
+        aria-haspopup="menu"
+        aria-expanded={open}
         className="w-7 h-7 rounded-full bg-ink text-paper text-[11px] font-medium flex items-center justify-center hover:bg-ink-soft transition-colors"
         title={user.displayName || user.email}
       >
@@ -111,9 +126,11 @@ function UserBadge() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppInner />
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <AppInner />
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 
@@ -159,8 +176,21 @@ function AppInner() {
   const closeSidebar = () => setSidebarOpen(false);
   const currentLabel = navItems.find(n => n.to === location.pathname)?.label;
 
+  // Per-page document titles for SEO / tab clarity
+  useEffect(() => {
+    document.title = currentLabel
+      ? `${currentLabel} · DevPulse`
+      : "DevPulse - AI developer signal feed";
+  }, [currentLabel, location.pathname]);
+
   return (
     <div className="min-h-screen flex bg-paper">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[200] focus:px-3 focus:py-2 focus:bg-ink focus:text-paper focus:rounded-md focus:text-[13px]"
+      >
+        Skip to content
+      </a>
       <CommandPalette open={paletteOpen} onClose={closePalette} />
       {sidebarOpen && !isDesktop && (
         <div
@@ -184,6 +214,7 @@ function AppInner() {
           {!isDesktop && (
             <button
               onClick={closeSidebar}
+              aria-label="Close sidebar"
               className="w-7 h-7 rounded-md flex items-center justify-center text-ink-muted hover:bg-paper hover:text-ink"
             >
               <Icon name="close" size={15} />
@@ -249,7 +280,18 @@ function AppInner() {
               </button>
             )}
             {!isDesktop ? (
-              <span className="font-medium text-[14px] text-ink">{currentLabel || "DevPulse"}</span>
+              <NavLink to="/" className="flex items-center gap-2 min-w-0">
+                <img src="/icon.svg" alt="" className="w-5 h-5 shrink-0" />
+                <span className="wordmark text-[16px] leading-none shrink-0">
+                  <span className="text-ink">Dev</span><span className="text-accent">Pulse</span>
+                </span>
+                {currentLabel && (
+                  <>
+                    <span className="text-ink-faint/40 text-[13px] shrink-0">/</span>
+                    <span className="text-[13px] text-ink-muted truncate">{currentLabel}</span>
+                  </>
+                )}
+              </NavLink>
             ) : (
               <span className="eyebrow">{currentLabel || "DevPulse"}</span>
             )}
@@ -284,7 +326,8 @@ function AppInner() {
           </div>
         </header>
 
-        <div className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-8 py-6 sm:py-10">
+        <div id="main" className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-8 py-6 sm:py-10">
+          <Suspense fallback={<PageFallback />}>
           <Routes>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/brief" element={<BriefPage />} />
@@ -297,18 +340,24 @@ function AppInner() {
             <Route path="/videos" element={<VideosPage />} />
             <Route path="/knowledge" element={<KnowledgePage />} />
             <Route path="/knowledge/:slug" element={<KnowledgePage />} />
-            <Route path="/learn" element={<ProtectedRoute><LearnPage /></ProtectedRoute>} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/learn" element={<Navigate to="/knowledge" replace />} />
             <Route path="/sources" element={<SourcesPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/help" element={<HelpPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/library" element={<LibraryPage />} />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
+          </Suspense>
         </div>
 
         <footer className="border-t border-line py-8 px-6 mb-16 lg:mb-0">
@@ -320,7 +369,10 @@ function AppInner() {
             </div>
             <div className="flex items-center gap-5">
               <NavLink to="/about" className="hover:text-ink">About</NavLink>
+              <NavLink to="/privacy" className="hover:text-ink">Privacy</NavLink>
+              <NavLink to="/terms" className="hover:text-ink">Terms</NavLink>
               <NavLink to="/sources" className="hover:text-ink">Sources</NavLink>
+              <a href="/api/rss" target="_blank" rel="noopener noreferrer" className="hover:text-ink">RSS</a>
               <NavLink to="/settings" className="hover:text-ink">Settings</NavLink>
             </div>
           </div>
@@ -334,7 +386,7 @@ function AppInner() {
             { to: "/", label: "Today", icon: "home" as const },
             { to: "/brief", label: "Brief", icon: "newspaper" as const },
             { to: "/topics", label: "Topics", icon: "layers" as const },
-            { to: "/learn", label: "Learn", icon: "book" as const },
+            { to: "/knowledge", label: "Learn", icon: "book" as const },
             { to: "/chat", label: "Chat", icon: "chat" as const },
           ].map((n) => (
             <NavLink
@@ -342,7 +394,7 @@ function AppInner() {
               to={n.to}
               end={n.to === "/"}
               className={({ isActive }) =>
-                `flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-[10px] font-medium transition-colors ${
+                `flex-1 flex flex-col items-center justify-center gap-0.5 py-3 text-[10px] font-medium transition-colors ${
                   isActive ? "text-accent" : "text-ink-faint hover:text-ink"
                 }`
               }

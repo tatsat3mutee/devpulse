@@ -1,5 +1,6 @@
 import pool from "../db.js";
 import type { FetchResult, FetcherFn } from "./types.js";
+import { normalizeUrl } from "./http.js";
 import { fetchArxiv } from "./arxiv.js";
 import { fetchReddit } from "./reddit.js";
 import { fetchGithubTrending } from "./github-trending.js";
@@ -13,6 +14,7 @@ import { fetchGNews } from "./gnews.js";
 import { computeScores } from "../scorer.js";
 import { classifyItems } from "../llm/topic-classifier.js";
 import { summarizeItems } from "../llm/summarizer.js";
+import { inc, gauge } from "../metrics.js";
 
 // ── Fetcher registry: fetcher_key (from sources table) → function ───
 
@@ -53,6 +55,33 @@ export async function runAllFetchers(
     errors: [],
   };
 
+  const { rows: lockRows } = await pool.query(
+    "SELECT pg_try_advisory_lock(874512) AS locked"
+  );
+  if (!lockRows[0]?.locked) {
+    console.log("⏭️ Fetch already running, skipping");
+    inc("fetch.skipped_lock");
+    return stats;
+  }
+
+  try {
+    inc("fetch.runs");
+    gauge("fetch.last_run_at", new Date().toISOString());
+    const result = await runAllFetchersLocked(fetcherKey, stats);
+    inc("fetch.items_fetched", result.itemsFetched);
+    inc("fetch.items_inserted", result.itemsInserted);
+    inc("fetch.source_errors", result.errors.length);
+    gauge("fetch.last_inserted", result.itemsInserted);
+    return result;
+  } finally {
+    await pool.query("SELECT pg_advisory_unlock(874512)");
+  }
+}
+
+async function runAllFetchersLocked(
+  fetcherKey: string | undefined,
+  stats: FetchStats
+): Promise<FetchStats> {
   // 1. Get active sources from DB
   let q = "SELECT * FROM sources WHERE is_active = true";
   const params: unknown[] = [];
@@ -95,7 +124,7 @@ export async function runAllFetchers(
               source.id,
               item.title.slice(0, 500),
               item.description?.slice(0, 1000) || null,
-              item.url,
+              normalizeUrl(item.url),
               item.type,
               item.platform,
               item.tags,
@@ -150,11 +179,13 @@ export async function runAllFetchers(
         [newItemIds]
       );
       const topicMap = await classifyItems(rows);
-      for (const [itemId, topicId] of topicMap) {
-        await pool.query("UPDATE items SET topic_id = $1 WHERE id = $2", [
-          topicId,
-          itemId,
-        ]);
+      if (topicMap.size > 0) {
+        await pool.query(
+          `UPDATE items SET topic_id = u.topic_id
+           FROM (SELECT unnest($1::int[]) AS id, unnest($2::int[]) AS topic_id) u
+           WHERE items.id = u.id`,
+          [[...topicMap.keys()], [...topicMap.values()]]
+        );
       }
       console.log(`  ✅ ${topicMap.size} items classified`);
     } catch (err) {
@@ -168,12 +199,13 @@ export async function runAllFetchers(
         [newItemIds]
       );
       const summaryMap = await summarizeItems(rows);
-      for (const [itemId, summary] of summaryMap) {
+      if (summaryMap.size > 0) {
         await pool.query(
-          `UPDATE items SET description = $1,
-                  metadata = metadata || '{"llm_summarized":true}'::jsonb
-           WHERE id = $2`,
-          [summary, itemId]
+          `UPDATE items SET description = u.summary,
+                  metadata = items.metadata || '{"llm_summarized":true}'::jsonb
+           FROM (SELECT unnest($1::int[]) AS id, unnest($2::text[]) AS summary) u
+           WHERE items.id = u.id`,
+          [[...summaryMap.keys()], [...summaryMap.values()]]
         );
       }
       console.log(`  ✅ ${summaryMap.size} items summarized`);

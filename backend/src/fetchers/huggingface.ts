@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 /**
  * Hugging Face Daily Papers API — curated research papers.
@@ -8,7 +9,7 @@ import type { FetchResult } from "./types.js";
 export async function fetchHuggingFace(
   sourceUrl: string
 ): Promise<FetchResult[]> {
-  const res = await fetch(sourceUrl, {
+  const res = await safeFetch(sourceUrl, {
     headers: { "User-Agent": "ai-pulse/1.0" },
   });
   if (!res.ok) throw new Error(`HuggingFace API ${res.status}`);

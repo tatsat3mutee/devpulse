@@ -7,6 +7,7 @@
 //  - Honors Gemini's `retryDelay` field when provided
 //  - Cross-provider failover on persistent 429 / quota errors
 //  - Daily-quota tracking so we don't hammer a dead provider for hours
+import { inc } from "../metrics.js";
 
 interface ChatMessage {
   role: "system" | "user" | "assistant";
@@ -38,6 +39,7 @@ interface RateState {
 }
 
 const rateState: Record<string, RateState> = {
+  openrouter: { recent: [], rpm: 55, blockedUntil: 0 }, // depends on account; leave headroom
   groq: { recent: [], rpm: 25, blockedUntil: 0 },     // free: 30 RPM, leave headroom
   gemini: { recent: [], rpm: 12, blockedUntil: 0 },   // free: 15 RPM for 2.0-flash
   openai: { recent: [], rpm: 50, blockedUntil: 0 },   // depends on tier
@@ -186,10 +188,28 @@ interface Provider {
 
 function getAllProviders(opts?: CallOpts): Provider[] {
   const providers: Provider[] = [];
+  const openrouter = process.env.OPENROUTER_API_KEY;
   const groq = process.env.GROQ_API_KEY;
   const gemini = process.env.GEMINI_API_KEY;
   const openai = process.env.OPENAI_API_KEY;
 
+  // OpenRouter is the "proper" model for reasoning/chat. We deliberately skip it
+  // for fastModel (classification/summarization) batch jobs to keep those free
+  // on Groq and avoid running up OpenRouter cost on high-volume calls.
+  if (openrouter && !opts?.fastModel) {
+    const model = process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini";
+    providers.push({
+      name: "openrouter",
+      call: (msgs, o) =>
+        callOpenAICompat(
+          "https://openrouter.ai/api/v1/chat/completions",
+          openrouter,
+          model,
+          msgs,
+          o
+        ),
+    });
+  }
   if (groq) {
     // llama-3.1-8b-instant: 30 RPM / 20k TPM (5x more tokens than 70b) — good for classification
     // llama-3.3-70b-versatile: 30 RPM / 6k TPM — reserved for chat/reasoning
@@ -253,9 +273,11 @@ export async function askLLM(
       try {
         await acquireSlot(provider.name);
         const text = await provider.call(messages, opts ?? {});
+        inc(`llm.calls.${provider.name}`);
         return { text, provider: provider.name };
       } catch (err: any) {
         lastErr = err;
+        inc(`llm.errors.${provider.name}`);
         const status = err?.status as number | undefined;
         const isRateLimit = status === 429;
         const isServerError = typeof status === "number" && status >= 500;
@@ -295,11 +317,13 @@ export async function askLLM(
     }
   }
 
+  inc("llm.all_providers_failed");
   throw lastErr ?? new Error("All LLM providers failed");
 }
 
 export function hasLLMKey(): boolean {
   return !!(
+    process.env.OPENROUTER_API_KEY ||
     process.env.GROQ_API_KEY ||
     process.env.GEMINI_API_KEY ||
     process.env.OPENAI_API_KEY

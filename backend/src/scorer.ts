@@ -11,23 +11,28 @@ export async function computeScores(itemIds: number[]): Promise<void> {
     "SELECT id, platform, metadata, published_at FROM items WHERE id = ANY($1)",
     [itemIds]
   );
+  if (rows.length === 0) return;
 
+  const ids: number[] = [];
+  const scores: number[] = [];
   for (const item of rows) {
     const engagement = engagementScore(item.platform, item.metadata || {});
     const recency = recencyScore(item.published_at);
-    const score =
-      Math.round((engagement * 0.7 + recency * 0.3) * 100) / 100;
-
-    await pool.query("UPDATE items SET score = $1 WHERE id = $2", [
-      score,
-      item.id,
-    ]);
+    ids.push(item.id);
+    scores.push(Math.round((engagement * 0.7 + recency * 0.3) * 100) / 100);
   }
+
+  await pool.query(
+    `UPDATE items SET score = v.score
+       FROM (SELECT unnest($1::int[]) AS id, unnest($2::numeric[]) AS score) v
+      WHERE items.id = v.id`,
+    [ids, scores]
+  );
 }
 
 // ── Engagement: log-scaled 0–100 based on platform metrics ──────────
 
-function engagementScore(
+export function engagementScore(
   platform: string,
   meta: Record<string, any>
 ): number {
@@ -62,7 +67,7 @@ function engagementScore(
 
 // ── Recency: decay curve 0–100 ─────────────────────────────────────
 
-function recencyScore(publishedAt: Date | string | null): number {
+export function recencyScore(publishedAt: Date | string | null): number {
   if (!publishedAt) return 30;
   const hoursAgo =
     (Date.now() - new Date(publishedAt).getTime()) / (1000 * 60 * 60);

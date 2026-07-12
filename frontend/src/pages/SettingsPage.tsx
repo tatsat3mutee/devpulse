@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
 import { useAuth } from "../context/AuthContext";
+import { useRole, ROLES, type DevRole } from "../components/RoleSelector";
 
 export default function SettingsPage() {
-  const { user, followedTopicIds, mutedSourceIds, unfollowTopic, unmuteSource, refreshPrefs } = useAuth();
+  const { user, followedTopicIds, mutedSourceIds, unfollowTopic, unmuteSource, refreshPrefs, logout } = useAuth();
+  const navigate = useNavigate();
   const [health, setHealth] = useState<{ status: string; timestamp: string } | null>(null);
   const [followedList, setFollowedList] = useState<{ topic_id: number; name: string; slug: string }[]>([]);
   const [mutedList, setMutedList] = useState<{ source_id: number; name: string }[]>([]);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+  const { role, setRole } = useRole();
+
+  const handleRole = (r: DevRole) => {
+    setRole(r);
+    if (user) api.updateRole(r).catch(() => {});
+  };
 
   useEffect(() => {
     api.getHealth().then(setHealth).catch(() => {});
@@ -31,6 +42,19 @@ export default function SettingsPage() {
     await unmuteSource(sourceId);
     setMutedList(prev => prev.filter(s => s.source_id !== sourceId));
     await refreshPrefs();
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    setDeleteError("");
+    try {
+      await api.deleteAccount();
+      await logout();
+      navigate("/");
+    } catch (err) {
+      setDeleteError(err instanceof Error ? err.message : "Failed to delete account.");
+      setDeleting(false);
+    }
   };
 
   return (
@@ -58,6 +82,32 @@ export default function SettingsPage() {
           <Row label="Fetch interval">
             <span className="text-ink-soft font-mono text-[12.5px]">60 min</span>
           </Row>
+        </Card>
+
+        {/* Role personalisation — works for everyone (stored locally, synced when signed in) */}
+        <Card title="Your role" eyebrow="Personalisation">
+          <p className="text-[12.5px] text-ink-muted mb-3">
+            We highlight the topics most relevant to your role across the feed and topics pages.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {ROLES.map(({ value, label, icon, description }) => (
+              <button
+                key={value}
+                onClick={() => handleRole(value)}
+                className={`text-left px-3.5 py-3 rounded-lg border transition-all ${
+                  role === value
+                    ? "border-accent bg-accent-soft text-accent"
+                    : "border-line hover:border-ink/25 hover:bg-paper text-ink-soft hover:text-ink"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[16px]">{icon}</span>
+                  <span className="font-medium text-[13px]">{label}</span>
+                </div>
+                <p className="text-[11.5px] text-ink-muted leading-relaxed">{description}</p>
+              </button>
+            ))}
+          </div>
         </Card>
 
         {/* Preferences — logged-in users only */}
@@ -130,6 +180,48 @@ export default function SettingsPage() {
           </p>
         </Card>
 
+        {/* Danger zone — logged-in users only */}
+        {user && (
+          <Card title="Delete account" eyebrow="Danger zone">
+            <p className="text-[13px] text-ink-muted leading-relaxed mb-4">
+              Permanently delete your account and all associated data — saved items,
+              followed topics, and muted sources. This cannot be undone.
+            </p>
+            {!confirmingDelete ? (
+              <button
+                onClick={() => setConfirmingDelete(true)}
+                className="text-[13px] font-medium px-4 py-2 rounded-md border border-rose-500/40 text-rose-600 dark:text-rose-400 hover:bg-rose-500/10 transition-colors"
+              >
+                Delete my account
+              </button>
+            ) : (
+              <div className="space-y-3">
+                <p className="text-[13px] font-medium text-ink">
+                  Are you absolutely sure? This will erase everything tied to{" "}
+                  <span className="font-mono text-[12px]">{user.email}</span>.
+                </p>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleDeleteAccount}
+                    disabled={deleting}
+                    className="text-[13px] font-medium px-4 py-2 rounded-md bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-60 transition-colors"
+                  >
+                    {deleting ? "Deleting…" : "Yes, delete permanently"}
+                  </button>
+                  <button
+                    onClick={() => { setConfirmingDelete(false); setDeleteError(""); }}
+                    disabled={deleting}
+                    className="text-[13px] px-4 py-2 rounded-md border border-line text-ink-muted hover:text-ink hover:border-ink/30 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                {deleteError && <p className="text-[12px] text-rose-500">{deleteError}</p>}
+              </div>
+            )}
+          </Card>
+        )}
+
         {/* Admin-only section */}
         {user?.isAdmin && (
           <Card title="Admin" eyebrow="Server Config">
@@ -139,12 +231,12 @@ export default function SettingsPage() {
             </p>
             <div className="divide-y divide-line">
               {[
-                { key: "GROQ_API_KEY", label: "Groq - primary LLM" },
+                { key: "OPENROUTER_API_KEY", label: "OpenRouter - primary chat LLM" },
+                { key: "GROQ_API_KEY", label: "Groq - fast classification / fallback" },
                 { key: "GEMINI_API_KEY", label: "Gemini - fallback LLM" },
                 { key: "OPENAI_API_KEY", label: "OpenAI - fallback LLM" },
                 { key: "GITHUB_TOKEN", label: "GitHub - higher rate limits" },
                 { key: "TWITTER_BEARER_TOKEN", label: "X/Twitter - tweets" },
-                { key: "PERPLEXITY_API_KEY", label: "Perplexity - chat search" },
                 { key: "ADMIN_EMAIL", label: "Admin email" },
               ].map(({ key, label }) => (
                 <div key={key} className="flex items-center justify-between py-2 first:pt-0 last:pb-0 gap-3">

@@ -101,7 +101,7 @@ export default function ChatPage() {
       ]);
     } catch (err: any) {
       const errMsg = err?.message?.includes("503")
-        ? "No AI key configured - add PERPLEXITY_API_KEY or GEMINI_API_KEY to backend/.env"
+        ? "No AI key configured - add OPENROUTER_API_KEY or GROQ_API_KEY to backend/.env"
         : err?.message?.includes("429")
         ? "Rate limited - wait a moment and try again."
         : "Something went wrong. Please try again.";
@@ -129,7 +129,7 @@ export default function ChatPage() {
           </h1>
           <p className="text-ink-muted text-[13.5px] text-center mb-8 max-w-sm">
             Ask anything about AI tools, models, research, and developer workflows.
-            Answers are grounded with live web search.
+            Answers are grounded in the DevPulse feed.
           </p>
 
           {/* Suggestions */}

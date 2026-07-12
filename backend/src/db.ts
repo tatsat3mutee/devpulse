@@ -8,9 +8,9 @@ const isLocal = dbUrl.includes("localhost") || dbUrl.includes("127.0.0.1");
 // shared across all clients; 10 is a safe ceiling for a single Express worker).
 const pool = new Pool.Pool({
   connectionString: isLocal ? dbUrl : dbUrl.replace("sslmode=require", "sslmode=verify-full"),
-  ssl: isLocal ? false : { rejectUnauthorized: false },
-  max: 10,
-  idleTimeoutMillis: 30_000,
+  ssl: isLocal ? false : { rejectUnauthorized: true },
+  max: Number(process.env.PG_POOL_MAX) || 10,
+  idleTimeoutMillis: 60_000,
   connectionTimeoutMillis: 5_000,
 });
 

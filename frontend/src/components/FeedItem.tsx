@@ -6,8 +6,9 @@ import {
   typeDotColor,
   stripHtml,
 } from "../lib/utils";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Icon from "./Icon";
+import VideoModal, { isYouTube } from "./VideoModal";
 import { useAuth } from "../context/AuthContext";
 import {
   isLocalBookmarked,
@@ -69,7 +70,6 @@ function enqueueSeen(id: number) {
 export default function FeedItem({ item, showTopic, note }: Props) {
   const engagement = engagementText(item.platform, item.metadata || {});
   const navigate = useNavigate();
-  const location = useLocation();
   const { user, isSaved, saveItem, unsaveItem, muteSource, mutedSourceIds } = useAuth();
   const articleRef = useRef<HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -78,6 +78,9 @@ export default function FeedItem({ item, showTopic, note }: Props) {
   // Local bookmark state for unauthenticated users
   const [localSaved, setLocalSaved] = useState(() => isLocalBookmarked(item.id));
   const [copied, setCopied] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  const isVideo = isYouTube(item);
 
   const saved = user ? isSaved(item.id) : localSaved;
 
@@ -118,7 +121,7 @@ export default function FeedItem({ item, showTopic, note }: Props) {
           topic_name: item.topic_name,
           topic_slug: item.topic_slug,
           source_name: item.source_name,
-          description: item.description,
+          description: item.description ?? undefined,
           published_at: item.published_at,
           tags: item.tags,
           score: item.score,
@@ -157,7 +160,10 @@ export default function FeedItem({ item, showTopic, note }: Props) {
   return (
     <article
       ref={articleRef}
-      onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
+      onClick={() => {
+        if (isVideo) setVideoOpen(true);
+        else window.open(item.url, "_blank", "noopener,noreferrer");
+      }}
       className="group relative bg-surface border border-line rounded-xl px-5 py-4 hover:border-ink/20 hover:shadow-cardHover transition-all cursor-pointer"
     >
       {/* Header strip */}
@@ -184,6 +190,8 @@ export default function FeedItem({ item, showTopic, note }: Props) {
                 onClick={(e) => { e.stopPropagation(); e.preventDefault(); setMenuOpen(o => !o); }}
                 className="p-1 rounded transition-colors text-ink-faint/50 hover:text-ink-muted"
                 aria-label="More options"
+                aria-haspopup="menu"
+                aria-expanded={menuOpen}
               >
                 <Icon name="more" size={13} />
               </button>
@@ -212,7 +220,7 @@ export default function FeedItem({ item, showTopic, note }: Props) {
 
       {/* Description */}
       {item.description && (
-        <p className="text-[13.5px] text-ink-muted line-clamp-2 leading-relaxed mb-3">
+        <p className="text-[13.5px] text-ink-muted line-clamp-3 leading-relaxed mb-3">
           {stripHtml(item.description)}
         </p>
       )}
@@ -250,36 +258,103 @@ export default function FeedItem({ item, showTopic, note }: Props) {
         <div className="flex items-center gap-3 text-[11px] text-ink-faint shrink-0">
           {engagement && <span className="font-mono">{engagement}</span>}
           {item.score > 0 && (
-            <span className="font-mono text-accent">
+            <span
+              className="font-mono text-accent inline-flex items-center gap-0.5"
+              title="Hotness score — ranked by recency + engagement"
+            >
+              <Icon name="trending" size={11} />
               {Math.round(item.score)}
             </span>
           )}
-          <button
-            onClick={async (e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              try {
-                await navigator.clipboard.writeText(item.url);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              } catch {
-                if (navigator.share) {
-                  navigator.share({ title: item.title, url: item.url }).catch(() => {});
-                }
-              }
-            }}
-            className="p-1 rounded transition-colors text-ink-faint hover:text-ink"
-            title="Copy link"
-            aria-label="Copy link"
-          >
-            {copied ? (
-              <span className="text-accent text-[10px] font-medium">Copied!</span>
-            ) : (
-              <Icon name="share" size={13} />
+          <div className="relative">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setShareOpen((o) => !o);
+              }}
+              className="p-1 rounded transition-colors text-ink-faint hover:text-ink"
+              title="Share"
+              aria-label="Share"
+            >
+              {copied ? (
+                <span className="text-accent text-[10px] font-medium">Copied!</span>
+              ) : (
+                <Icon name="share" size={13} />
+              )}
+            </button>
+            {shareOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShareOpen(false);
+                  }}
+                />
+                <div className="absolute right-0 top-7 z-50 bg-surface border border-line rounded-lg shadow-card w-44 py-1 text-[12.5px]">
+                  <button
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      try {
+                        await navigator.clipboard.writeText(item.url);
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 2000);
+                      } catch { /* clipboard unavailable */ }
+                      setShareOpen(false);
+                    }}
+                    className="w-full text-left flex items-center gap-2 px-3 py-2 text-ink-soft hover:text-ink hover:bg-paper transition-colors"
+                  >
+                    <Icon name="link" size={13} /> Copy link
+                  </button>
+                  <a
+                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(item.url)}&text=${encodeURIComponent(item.title)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => { e.stopPropagation(); setShareOpen(false); }}
+                    className="w-full text-left flex items-center gap-2 px-3 py-2 text-ink-soft hover:text-ink hover:bg-paper transition-colors"
+                  >
+                    <Icon name="share" size={13} /> Share on X
+                  </a>
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(item.url)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => { e.stopPropagation(); setShareOpen(false); }}
+                    className="w-full text-left flex items-center gap-2 px-3 py-2 text-ink-soft hover:text-ink hover:bg-paper transition-colors"
+                  >
+                    <Icon name="share" size={13} /> Share on LinkedIn
+                  </a>
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(`${item.title} ${item.url}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => { e.stopPropagation(); setShareOpen(false); }}
+                    className="w-full text-left flex items-center gap-2 px-3 py-2 text-ink-soft hover:text-ink hover:bg-paper transition-colors"
+                  >
+                    <Icon name="chat" size={13} /> Share on WhatsApp
+                  </a>
+                  {typeof navigator !== "undefined" && "share" in navigator && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        navigator.share({ title: item.title, url: item.url }).catch(() => {});
+                        setShareOpen(false);
+                      }}
+                      className="w-full text-left flex items-center gap-2 px-3 py-2 text-ink-soft hover:text-ink hover:bg-paper transition-colors border-t border-line mt-1 pt-2"
+                    >
+                      <Icon name="more" size={13} /> More…
+                    </button>
+                  )}
+                </div>
+              </>
             )}
-          </button>
+          </div>
         </div>
       </div>
+      {videoOpen && <VideoModal item={item} onClose={() => setVideoOpen(false)} />}
     </article>
   );
 }

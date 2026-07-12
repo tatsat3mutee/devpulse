@@ -34,6 +34,7 @@ type IconName =
   | "user"
   | "share"
   | "more"
+  | "calendar"
   | "check";
 
 interface Props extends SVGProps<SVGSVGElement> {
@@ -280,6 +281,13 @@ export default function Icon({ name, size = 16, className = "", ...rest }: Props
           <circle cx="5" cy="12" r="1.3" fill="currentColor" stroke="none" />
           <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
           <circle cx="19" cy="12" r="1.3" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case "calendar":
+      return (
+        <svg {...common}>
+          <rect x="3" y="4.5" width="18" height="16" rx="2" />
+          <path d="M3 9h18M8 3v3M16 3v3" />
         </svg>
       );
     case "check":

@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 /**
  * YouTube Data API v3 fetcher.
@@ -33,7 +34,7 @@ async function fetchViaAPI(
     `&publishedAfter=${weekAgo.toISOString()}&maxResults=10` +
     `&key=${apiKey}`;
 
-  const res = await fetch(url);
+  const res = await safeFetch(url);
   if (!res.ok) {
     console.warn(`  YouTube API ${res.status} for ${channelId}, falling back to RSS`);
     return fetchViaRSS(channelId);
@@ -70,7 +71,7 @@ async function fetchViaAPI(
 
 async function fetchViaRSS(channelId: string): Promise<FetchResult[]> {
   const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-  const res = await fetch(feedUrl, {
+  const res = await safeFetch(feedUrl, {
     headers: { "User-Agent": "ai-pulse/1.0" },
   });
   if (!res.ok) throw new Error(`YouTube RSS ${res.status} for ${channelId}`);

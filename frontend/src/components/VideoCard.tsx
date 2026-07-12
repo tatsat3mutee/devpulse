@@ -1,19 +1,27 @@
+import { useState } from "react";
 import { Item } from "../lib/api";
 import { timeAgo } from "../lib/utils";
+import VideoModal, { getYouTubeId } from "./VideoModal";
 
 interface Props {
   item: Item;
 }
 
 export default function VideoCard({ item }: Props) {
-  const videoId = item.metadata?.videoId || item.url.match(/v=([^&]+)/)?.[1];
+  const videoId = getYouTubeId(item);
   const thumbnail = item.image_url || (videoId
     ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
     : null);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    if (videoId) setOpen(true);
+    else window.open(item.url, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <div
-      onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
+      onClick={handleOpen}
       className="group bg-surface rounded-xl border border-line overflow-hidden hover:border-ink/20 hover:shadow-cardHover transition-all cursor-pointer"
     >
       {thumbnail && (
@@ -47,6 +55,7 @@ export default function VideoCard({ item }: Props) {
           <span>{timeAgo(item.published_at)}</span>
         </div>
       </div>
+      {open && <VideoModal item={item} onClose={() => setOpen(false)} />}
     </div>
   );
 }

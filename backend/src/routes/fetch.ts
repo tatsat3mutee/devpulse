@@ -29,8 +29,8 @@ router.post("/:fetcherKey", requireAdmin, async (req: Request, res: Response) =>
   }
 });
 
-// POST /api/fetch/reclassify — re-classify items in "General" topic
-router.post("/reclassify/general", async (_req: Request, res: Response) => {
+// POST /api/fetch/reclassify — re-classify items in "General" topic (admin only)
+router.post("/reclassify/general", requireAdmin, async (_req: Request, res: Response) => {
   try {
     const generalTopic = await pool.query(
       "SELECT id FROM topics WHERE slug = 'general'"

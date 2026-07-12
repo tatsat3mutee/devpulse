@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 const AI_KEYWORDS = /\b(ai|llm|gpt|claude|gemini|openai|anthropic|deepmind|mistral|mixtral|neural|transformer|diffusion|embedding|vector|rag|agent|copilot|chatbot|machine.?learn|deep.?learn|langchain|fine.?tun|llama|hugging\s?face)\b/i;
 
@@ -28,7 +29,7 @@ export async function fetchHackerNews(
     filterClientSide = true;
   }
 
-  const res = await fetch(url, {
+  const res = await safeFetch(url, {
     headers: { "User-Agent": "ai-pulse/1.0" },
   });
   if (!res.ok) throw new Error(`HN API ${res.status}`);

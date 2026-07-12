@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { api, TopicDetail } from "../lib/api";
+import { setPageMeta } from "../lib/seo";
 import FeedItem from "../components/FeedItem";
 import Icon from "../components/Icon";
 import { useAuth } from "../context/AuthContext";
@@ -21,6 +22,15 @@ export default function TopicDetailPage() {
     if (typeFilter) params.type = typeFilter;
     api.getTopicDetail(slug, params).then(setData).finally(() => setLoading(false));
   }, [slug, typeFilter, sort]);
+
+  useEffect(() => {
+    if (!data) return;
+    setPageMeta({
+      title: `${data.name} — DevPulse`,
+      description: data.description ?? `Latest ${data.name} papers, repos, and discussions on DevPulse.`,
+      url: `https://devpulse.tatsatpandey.com/topics/${data.slug}`,
+    });
+  }, [data]);
 
   if (loading || !data) {
     return (

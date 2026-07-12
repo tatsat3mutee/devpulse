@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 /**
  * GitHub Search API — finds trending AI/ML repos pushed recently.
@@ -49,7 +50,7 @@ export async function fetchGithubTrending(
     headers.Authorization = `token ${process.env.GITHUB_TOKEN}`;
   }
 
-  const res = await fetch(apiUrl, { headers });
+  const res = await safeFetch(apiUrl, { headers });
   if (!res.ok) {
     const body = await res.text();
     throw new Error(`GitHub API ${res.status}: ${body.slice(0, 200)}`);

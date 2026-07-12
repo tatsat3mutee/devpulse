@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 const MIN_SCORE = Number(process.env.MIN_REDDIT_SCORE) || 20;
 const UA = "ai-pulse:v1.0 (automated AI news aggregator)";
@@ -12,7 +13,7 @@ export async function fetchReddit(sourceUrl: string): Promise<FetchResult[]> {
   // sourceUrl = "https://www.reddit.com/r/MachineLearning"
   const jsonUrl = `${sourceUrl}/top.json?t=week&limit=25`;
 
-  const res = await fetch(jsonUrl, { headers: { "User-Agent": UA } });
+  const res = await safeFetch(jsonUrl, { headers: { "User-Agent": UA } });
   if (!res.ok) throw new Error(`Reddit ${res.status} for ${sourceUrl}`);
 
   const data: any = await res.json();

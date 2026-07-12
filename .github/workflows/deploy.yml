@@ -1,0 +1,57 @@
+name: CI (+ manual deploy)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Backend install + typecheck + tests
+        working-directory: backend
+        run: |
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun test
+      - name: Frontend install + typecheck + build
+        working-directory: frontend
+        run: |
+          bun install --frozen-lockfile
+          bun run build
+
+  deploy:
+    # Manual only (workflow_dispatch) until EC2 SSH secrets are configured.
+    # Per docs: deploys normally happen via git pull on the EC2 box (AWS_ONE_PLAN).
+    if: github.event_name == 'workflow_dispatch'
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.LIGHTSAIL_HOST }}
+          username: ubuntu
+          key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+          script_stop: true
+          script: |
+            cd /opt/devpulse
+            sudo git fetch origin main
+            sudo git reset --hard origin/main
+            sudo docker build -t devpulse .
+            sudo docker stop devpulse && sudo docker rm devpulse
+            sudo docker run -d --name devpulse \
+              --env-file backend/.env \
+              -p 127.0.0.1:3000:3000 \
+              --memory=512m --restart unless-stopped \
+              devpulse
+            sleep 10
+            curl -fsS http://localhost:3000/api/health

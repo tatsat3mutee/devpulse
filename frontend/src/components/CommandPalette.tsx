@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "./Icon";
 import { searchIndex, type SearchItem } from "../lib/searchIndex";
+import { api } from "../lib/api";
 
 const TYPE_LABELS: Record<string, string> = {
   page: "Page",
@@ -9,6 +10,7 @@ const TYPE_LABELS: Record<string, string> = {
   topic: "Topic",
   tool: "Tool",
   external: "External",
+  item: "Feed",
 };
 
 interface Props {
@@ -19,11 +21,38 @@ interface Props {
 export default function CommandPalette({ open, onClose }: Props) {
   const [query, setQuery] = useState("");
   const [activeIdx, setActiveIdx] = useState(0);
+  const [feedResults, setFeedResults] = useState<SearchItem[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  const results = query ? searchIndex(query, 10) : [];
+  // Static index (pages, guides, topics, tools) + live feed content search.
+  const staticResults = query ? searchIndex(query, 6) : [];
+  const results = query ? [...staticResults, ...feedResults] : [];
+
+  // Live search over feed items (title/description) via the backend.
+  useEffect(() => {
+    const q = query.trim();
+    if (q.length < 2) { setFeedResults([]); return; }
+    let ignore = false;
+    const t = setTimeout(() => {
+      api.getItems({ search: q, sort: "top", limit: "6" })
+        .then((res) => {
+          if (ignore) return;
+          setFeedResults(
+            res.items.map((it) => ({
+              title: it.title,
+              desc: [it.source_name || it.platform, it.topic_name].filter(Boolean).join(" · "),
+              path: "",
+              type: "item" as const,
+              url: it.url,
+            }))
+          );
+        })
+        .catch(() => { if (!ignore) setFeedResults([]); });
+    }, 220);
+    return () => { ignore = true; clearTimeout(t); };
+  }, [query]);
 
   // Reset on open
   useEffect(() => {
@@ -47,7 +76,7 @@ export default function CommandPalette({ open, onClose }: Props) {
 
   const go = useCallback(
     (item: SearchItem) => {
-      if (item.type === "external" && item.url) {
+      if ((item.type === "external" || item.type === "item") && item.url) {
         window.open(item.url, "_blank", "noopener");
       } else {
         navigate(item.path);
@@ -94,7 +123,7 @@ export default function CommandPalette({ open, onClose }: Props) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Search pages, guides, topics, docs..."
+              placeholder="Search feed, pages, guides, topics..."
               className="flex-1 py-3.5 bg-transparent text-ink text-[14px] placeholder:text-ink-faint outline-none"
             />
             <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded bg-paper border border-line text-[10px] font-mono text-ink-faint">
@@ -122,6 +151,8 @@ export default function CommandPalette({ open, onClose }: Props) {
                         ? "book"
                         : r.type === "topic"
                         ? "layers"
+                        : r.type === "item"
+                        ? "rss"
                         : r.type === "external"
                         ? "external"
                         : "wrench"
@@ -140,7 +171,7 @@ export default function CommandPalette({ open, onClose }: Props) {
                   <span className="text-[10px] uppercase tracking-wider font-mono text-ink-faint shrink-0">
                     {TYPE_LABELS[r.type]}
                   </span>
-                  {r.type === "external" && (
+                  {(r.type === "external" || r.type === "item") && (
                     <Icon name="external" size={12} className="text-ink-faint shrink-0" />
                   )}
                 </button>
@@ -170,7 +201,7 @@ export default function CommandPalette({ open, onClose }: Props) {
                   { label: "Chat", path: "/chat" },
                   { label: "Knowledge", path: "/knowledge" },
                   { label: "Dev Hub", path: "/devhub" },
-                  { label: "Learning", path: "/learn" },
+                  { label: "Events", path: "/events" },
                   { label: "Topics", path: "/topics" },
                 ].map((link) => (
                   <button

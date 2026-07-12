@@ -1,12 +1,33 @@
 const BASE = (import.meta.env.VITE_API_URL ?? "") + "/api";
 
+function friendlyErrorMessage(status: number, path: string): string {
+  if (status === 401) return "Please sign in to do that.";
+  if (status === 403) return "You don't have permission to do that.";
+  if (status === 404) return "Not found.";
+  if (status === 429) return "You're going too fast — please wait a moment.";
+  if (status >= 500) return "Something went wrong on our end. Please try again.";
+  return `API ${status}: ${path}`;
+}
+
 async function request<T>(path: string, opts?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     headers: { "Content-Type": "application/json" },
     credentials: "include",
     ...opts,
   });
-  if (!res.ok) throw new Error(`API ${res.status}: ${path}`);
+  if (!res.ok) {
+    // Prefer a server-provided { error } message when the body is JSON.
+    let serverMsg: string | undefined;
+    try {
+      const body = await res.json();
+      if (body && typeof body.error === "string" && body.error.trim()) {
+        serverMsg = body.error;
+      }
+    } catch {
+      // Non-JSON body — fall through to the friendly message.
+    }
+    throw new Error(serverMsg ?? friendlyErrorMessage(res.status, path));
+  }
   return res.json();
 }
 
@@ -136,28 +157,26 @@ export interface Brief {
   message?: string;
 }
 
-// ── Learn types ──────────────────────────────────────────────────────
-
-export interface LearnChapter {
-  id: string;
-  title: string;
+export interface ConfEvent {
+  name: string;
   url: string;
-  status: "done" | "reading" | null;
-  note: string | null;
+  startDate: string;
+  endDate: string;
+  city?: string;
+  country?: string;
+  online?: boolean;
+  topic: string;
+  cfpUrl?: string;
+  cfpEndDate?: string;
 }
 
-export interface LearnBook {
-  id: number;
-  slug: string;
-  title: string;
-  author: string | null;
-  url: string;
-  description: string | null;
-  chapters: LearnChapter[];
-  chapters_total: number;
-  chapters_done: number;
-  percent: number;
+export interface EventsResponse {
+  events: ConfEvent[];
+  total: number;
+  countries: string[];
 }
+
+// ─────────────────────────────────────────────────────────────────────
 
 // ── Auth & Library types ─────────────────────────────────────────────
 
@@ -268,6 +287,24 @@ export const api = {
     return request<AuthResponse>("/auth/me");
   },
 
+  deleteAccount() {
+    return request<{ ok: true }>("/auth/me", { method: "DELETE" });
+  },
+
+  forgotPassword(email: string) {
+    return request<{ ok: true }>("/auth/forgot-password", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    });
+  },
+
+  resetPassword(token: string, password: string) {
+    return request<{ ok: true }>("/auth/reset-password", {
+      method: "POST",
+      body: JSON.stringify({ token, password }),
+    });
+  },
+
   // ── Library ───────────────────────────────────────────────────────
   getLibrary() {
     return request<LibraryResponse>("/library");
@@ -331,35 +368,24 @@ export const api = {
     });
   },
 
-  // ── Learn / Reading tracker ───────────────────────────────────────
-  getLearnBooks() {
-    return request<{ books: Omit<LearnBook, "chapters">[] }>("/learn/books");
-  },
-
-  getLearnBook(slug: string) {
-    return request<LearnBook>(`/learn/books/${slug}`);
-  },
-
-  toggleChapter(slug: string, chapterId: string) {
-    return request<{ ok: boolean; status: string }>(`/learn/books/${slug}/chapters/${chapterId}`, {
-      method: "POST",
-    });
-  },
-
-  updateChapterNote(slug: string, chapterId: string, note: string) {
-    return request<{ ok: boolean }>(`/learn/books/${slug}/chapters/${chapterId}`, {
-      method: "PATCH",
-      body: JSON.stringify({ note }),
-    });
-  },
-
   // ── Morning Brief ────────────────────────────────────────────────
-  getBrief() {
-    return request<Brief>("/brief");
+  getBrief(lang?: string, date?: string) {
+    const q = new URLSearchParams();
+    if (lang && lang !== "en") q.set("lang", lang);
+    if (date) q.set("date", date);
+    const qs = q.toString();
+    return request<Brief>(`/brief${qs ? `?${qs}` : ""}`);
   },
 
-  refreshBrief() {
-    return request<Brief & { ok: boolean }>("/brief/refresh", { method: "POST" });
+  getBriefArchive() {
+    return request<{ dates: string[] }>("/brief/archive");
+  },
+
+  refreshBrief(lang?: string) {
+    return request<Brief & { ok: boolean }>(
+      `/brief/refresh${lang && lang !== "en" ? `?lang=${encodeURIComponent(lang)}` : ""}`,
+      { method: "POST" }
+    );
   },
 
   // ── Email digest ──────────────────────────────────────────────────
@@ -378,5 +404,15 @@ export const api = {
 
   getSubscriberCount() {
     return request<{ count: number }>("/subscribe/count");
+  },
+
+  // ── Events ────────────────────────────────────────────────────────
+  getEvents(params: { country?: string; city?: string; online?: boolean } = {}) {
+    const q = new URLSearchParams();
+    if (params.country) q.set("country", params.country);
+    if (params.city) q.set("city", params.city);
+    if (params.online === false) q.set("online", "false");
+    const qs = q.toString();
+    return request<EventsResponse>(`/events${qs ? `?${qs}` : ""}`);
   },
 };

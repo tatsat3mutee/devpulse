@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 /**
  * X (Twitter) fetcher — uses the free X API v2 recent search endpoint.
@@ -29,7 +30,7 @@ export async function fetchTwitter(
     sort_order: "relevancy",
   });
 
-  const res = await fetch(
+  const res = await safeFetch(
     `https://api.x.com/2/tweets/search/recent?${params}`,
     {
       headers: { Authorization: `Bearer ${token}` },

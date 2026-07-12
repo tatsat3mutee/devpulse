@@ -1,4 +1,5 @@
 import type { FetchResult } from "./types.js";
+import { safeFetch } from "./http.js";
 
 /**
  * GNews API fetcher — fetches AI news articles.
@@ -19,7 +20,7 @@ export async function fetchGNews(searchQuery: string): Promise<FetchResult[]> {
     `&lang=en&max=10&sortby=publishedAt` +
     `&apikey=${apiKey}`;
 
-  const res = await fetch(url, {
+  const res = await safeFetch(url, {
     headers: { "User-Agent": "ai-pulse/1.0" },
   });
   if (!res.ok) throw new Error(`GNews API ${res.status}`);
