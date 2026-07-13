@@ -41,7 +41,7 @@ function GuideList() {
     <div>
       <header className="mb-8 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Read</div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+        <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">
           Guides, written to <span className="italic text-ink-soft">be re-read.</span>
         </h1>
         <p className="text-ink-muted text-[14px] max-w-2xl">
@@ -167,7 +167,7 @@ function GuideDetail({ slug }: { slug: string }) {
           <span className="text-ink-faint">·</span>
           <span className="normal-case tracking-normal text-ink-muted">{guide.difficulty}</span>
         </div>
-        <h1 className="display text-[30px] sm:text-[36px] text-ink">{guide.title}</h1>
+        <h1 className="display text-[24px] sm:text-[30px] md:text-[36px] text-ink">{guide.title}</h1>
       </header>
 
       <div className="prose prose-sm max-w-none prose-headings:font-medium prose-headings:text-ink prose-p:text-ink-soft prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-code:text-ink prose-code:bg-paper prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none">
@@ -190,7 +190,7 @@ function MarkdownContent({ content }: { content: string }) {
     if (line.startsWith("```")) {
       if (inCodeBlock) {
         elements.push(
-          <pre key={i} className="bg-ink text-paper rounded-md p-4 text-[12.5px] leading-relaxed overflow-x-auto mb-4 font-mono">
+          <pre key={i} className="bg-ink text-paper rounded-md p-3 sm:p-4 text-[12px] sm:text-[12.5px] leading-relaxed overflow-x-auto mb-4 font-mono">
             <code>{codeLines.join("\n")}</code>
           </pre>
         );

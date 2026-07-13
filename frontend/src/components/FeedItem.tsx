@@ -164,19 +164,19 @@ export default function FeedItem({ item, showTopic, note }: Props) {
         if (isVideo) setVideoOpen(true);
         else window.open(item.url, "_blank", "noopener,noreferrer");
       }}
-      className="group relative bg-surface border border-line rounded-xl px-5 py-4 hover:border-ink/20 hover:shadow-cardHover transition-all cursor-pointer"
+      className="group relative bg-surface border border-line rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 hover:border-ink/20 hover:shadow-cardHover transition-all cursor-pointer"
     >
       {/* Header strip */}
-      <div className="flex items-center justify-between mb-2 text-[11px]">
-        <div className="flex items-center gap-2 text-ink-muted">
+      <div className="flex items-center justify-between gap-2 mb-2 text-[11px]">
+        <div className="flex items-center gap-1.5 sm:gap-2 text-ink-muted min-w-0 flex-wrap">
           <PlatformBadge platform={item.source_name || item.platform} />
           <span className="text-ink-faint/60">·</span>
           <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${typeDotColor(item.type)}`} />
           <span className="text-ink-faint">{typeLabel[item.type] || item.type}</span>
           <span className="text-ink-faint/60">·</span>
-          <span className="text-ink-faint">{timeAgo(item.published_at || item.fetched_at)}</span>
+          <span className="text-ink-faint whitespace-nowrap">{timeAgo(item.published_at || item.fetched_at)}</span>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 shrink-0">
           <button
             onClick={handleSave}
             className={`p-1 rounded transition-colors ${saved ? "text-accent" : "text-ink-faint/50 hover:text-ink-muted"}`}
@@ -255,7 +255,7 @@ export default function FeedItem({ item, showTopic, note }: Props) {
             </span>
           ))}
         </div>
-        <div className="flex items-center gap-3 text-[11px] text-ink-faint shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 text-[11px] text-ink-faint shrink-0">
           {engagement && <span className="font-mono">{engagement}</span>}
           {item.score > 0 && (
             <span

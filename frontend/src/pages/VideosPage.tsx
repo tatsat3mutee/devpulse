@@ -75,7 +75,7 @@ export default function VideosPage() {
     <div>
       <header className="mb-8 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Watch</div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">AI on video</h1>
+        <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">AI on video</h1>
         <p className="text-ink-muted text-[14px] max-w-xl">
           Talks, tutorials and demos straight from Anthropic, OpenAI, DeepMind, Hugging Face,
           AI Engineer, plus the researchers actually shipping AI.
@@ -97,7 +97,7 @@ export default function VideosPage() {
             </button>
           ))}
         </div>
-        <div className="flex-1 min-w-[200px] max-w-sm">
+        <div className="flex-1 min-w-[160px] max-w-sm">
           <input
             type="text"
             placeholder="Search videos…"

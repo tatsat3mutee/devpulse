@@ -104,7 +104,7 @@ export default function TrendingPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-ink mb-1">Topic Trends</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink mb-1">Topic Trends</h1>
         <p className="text-[13.5px] text-ink-muted">
           Daily item volume per topic over the last 14 days.
         </p>
@@ -200,8 +200,8 @@ export default function TrendingPage() {
               <table className="w-full text-[13px]">
                 <thead>
                   <tr className="border-b border-line bg-surface">
-                    <th className="text-left px-4 py-2.5 text-ink-muted font-medium">Topic</th>
-                    <th className="text-right px-4 py-2.5 text-ink-muted font-medium">Items (14d)</th>
+                    <th className="text-left px-3 sm:px-4 py-2.5 text-ink-muted font-medium">Topic</th>
+                    <th className="text-right px-3 sm:px-4 py-2.5 text-ink-muted font-medium">Items (14d)</th>
                   </tr>
                 </thead>
                 <tbody>

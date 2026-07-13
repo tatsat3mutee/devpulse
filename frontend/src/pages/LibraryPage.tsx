@@ -74,7 +74,7 @@ export default function LibraryPage() {
   const header = (
     <header className="mb-8 pb-5 border-b border-line">
       <div className="eyebrow mb-2">Personal</div>
-      <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Library</h1>
+      <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">Library</h1>
       <p className="text-ink-muted text-[14px] max-w-xl">
         Your saved articles, papers, repos, and discussions - all in one place.
       </p>

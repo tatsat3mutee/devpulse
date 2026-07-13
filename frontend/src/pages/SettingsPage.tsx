@@ -61,7 +61,7 @@ export default function SettingsPage() {
     <div>
       <header className="mb-8 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Configuration</div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Settings</h1>
+        <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">Settings</h1>
         <p className="text-ink-muted text-[14px]">System status, preferences and project information.</p>
       </header>
 
@@ -198,9 +198,9 @@ export default function SettingsPage() {
               <div className="space-y-3">
                 <p className="text-[13px] font-medium text-ink">
                   Are you absolutely sure? This will erase everything tied to{" "}
-                  <span className="font-mono text-[12px]">{user.email}</span>.
+                  <span className="font-mono text-[12px] break-all">{user.email}</span>.
                 </p>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                   <button
                     onClick={handleDeleteAccount}
                     disabled={deleting}
@@ -239,9 +239,9 @@ export default function SettingsPage() {
                 { key: "TWITTER_BEARER_TOKEN", label: "X/Twitter - tweets" },
                 { key: "ADMIN_EMAIL", label: "Admin email" },
               ].map(({ key, label }) => (
-                <div key={key} className="flex items-center justify-between py-2 first:pt-0 last:pb-0 gap-3">
-                  <div>
-                    <span className="text-ink-soft font-mono text-[12px]">{key}</span>
+                <div key={key} className="flex flex-wrap items-center justify-between py-2 first:pt-0 last:pb-0 gap-x-3 gap-y-0.5">
+                  <div className="min-w-0">
+                    <span className="text-ink-soft font-mono text-[12px] break-all">{key}</span>
                     <span className="text-ink-faint text-[11px] ml-2">{label}</span>
                   </div>
                   <span className="text-ink-faint text-[11px] uppercase tracking-wider shrink-0">.env</span>

@@ -119,7 +119,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-full" style={{ minHeight: "calc(100vh - 3.5rem - 80px)" }}>
+    <div className="flex flex-col h-full" style={{ minHeight: "calc(100dvh - 3.5rem - 80px)" }}>
       {/* ── Empty state ─────────────────────────────────────── */}
       {isEmpty && (
         <div className="flex-1 flex flex-col items-center justify-center px-4 pb-8">
@@ -171,7 +171,7 @@ export default function ChatPage() {
           )}
 
           {/* Sticky input at bottom */}
-          <div className="sticky bottom-0 bg-paper/90 backdrop-blur border-t border-line py-4">
+          <div className="sticky bottom-0 bg-paper/90 backdrop-blur border-t border-line py-3 sm:py-4">
             <div className="max-w-3xl mx-auto px-4">
               <InputBar
                 input={input}
@@ -194,7 +194,7 @@ function MessageRow({ message }: { message: ChatMessage }) {
   if (message.role === "user") {
     return (
       <div className="flex justify-end">
-        <div className="max-w-[75%] bg-ink text-paper rounded-2xl rounded-br-sm px-4 py-2.5 text-[13.5px] leading-relaxed">
+        <div className="max-w-[85%] sm:max-w-[75%] bg-ink text-paper rounded-2xl rounded-br-sm px-4 py-2.5 text-[13.5px] leading-relaxed break-words">
           {message.content}
         </div>
       </div>
@@ -211,7 +211,7 @@ function MessageRow({ message }: { message: ChatMessage }) {
           <span className="text-paper text-[11px] select-none">✦</span>
         </div>
         <div
-          className="prose-chat text-[13.5px] leading-relaxed text-ink flex-1"
+          className="prose-chat text-[13.5px] leading-relaxed text-ink flex-1 min-w-0 break-words"
           dangerouslySetInnerHTML={{ __html: renderMarkdown(message.content) }}
         />
       </div>
@@ -232,7 +232,7 @@ function MessageRow({ message }: { message: ChatMessage }) {
                 className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface border border-line text-[11px] text-ink-soft hover:text-ink hover:border-ink/30 transition-colors"
               >
                 <span className="text-ink-faint font-mono">{i + 1}</span>
-                <span>{hostname(url)}</span>
+                <span className="truncate max-w-[160px]">{hostname(url)}</span>
               </a>
             ))}
           </div>

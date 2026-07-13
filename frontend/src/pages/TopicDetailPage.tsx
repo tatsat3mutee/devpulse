@@ -77,7 +77,7 @@ export default function TopicDetailPage() {
 
       {/* Header */}
       <header className="mb-8 pb-5 border-b border-line">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-3 sm:gap-4">
           <div className="flex-1 min-w-0">
             <div className="eyebrow mb-2 flex items-center gap-1.5">
               <span
@@ -86,7 +86,7 @@ export default function TopicDetailPage() {
               />
               {data.category}
             </div>
-            <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+            <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">
               {data.name}
             </h1>
             {data.description && (
@@ -99,7 +99,7 @@ export default function TopicDetailPage() {
             <button
               onClick={handleFollowToggle}
               disabled={followLoading}
-              className={`shrink-0 mt-2 px-4 py-2 text-[13px] font-medium rounded-lg border transition-all ${
+              className={`shrink-0 sm:mt-2 px-4 py-2 text-[13px] font-medium rounded-lg border transition-all ${
                 isFollowed
                   ? "bg-accent/10 border-accent/30 text-accent hover:bg-accent/20"
                   : "border-line text-ink-muted hover:border-ink/30 hover:text-ink bg-surface"

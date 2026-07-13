@@ -112,7 +112,7 @@ export default function CommandPalette({ open, onClose }: Props) {
       />
 
       {/* Panel */}
-      <div className="relative mx-auto mt-[15vh] w-[90vw] max-w-lg">
+      <div className="relative mx-auto mt-[8vh] sm:mt-[15vh] w-[92vw] sm:w-[90vw] max-w-lg">
         <div className="bg-surface border border-line rounded-xl shadow-cardHover overflow-hidden">
           {/* Input */}
           <div className="flex items-center gap-3 px-4 border-b border-line">
@@ -133,7 +133,7 @@ export default function CommandPalette({ open, onClose }: Props) {
 
           {/* Results */}
           {results.length > 0 && (
-            <div ref={listRef} className="max-h-[50vh] overflow-y-auto py-1">
+            <div ref={listRef} className="max-h-[55vh] sm:max-h-[50vh] overflow-y-auto py-1">
               {results.map((r, i) => (
                 <button
                   key={r.path || r.url}

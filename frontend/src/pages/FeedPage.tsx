@@ -64,7 +64,7 @@ export default function FeedPage() {
     <div>
       <header className="mb-8 pb-4 border-b border-line">
         <div className="eyebrow mb-2">Stream</div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">The full feed</h1>
+        <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">The full feed</h1>
         <p className="text-ink-muted text-[14px] max-w-xl">
           Everything we've pulled, in chronological or popularity order. Filter, search, dive in.
         </p>
@@ -136,7 +136,7 @@ export default function FeedPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <div className="relative flex-1 min-w-[220px] max-w-md">
+          <div className="relative flex-1 min-w-[160px] max-w-md">
             <input
               type="text"
               placeholder="Search papers, repos, posts…"

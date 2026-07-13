@@ -59,7 +59,7 @@ export default function TopicsPage() {
     <div>
       <header className="mb-10 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Index</div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+        <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">
           {withItems.length} topics, <span className="italic text-ink-soft">tracked closely.</span>
         </h1>
         <div className="flex flex-wrap items-center justify-between gap-3">

@@ -124,15 +124,15 @@ export default function BriefPage() {
     <div className="max-w-2xl">
       {/* Masthead */}
       <header className="mb-8 pb-6 border-b-2 border-ink/80">
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-3 sm:gap-4">
           <div>
             <div className="eyebrow mb-2">Morning Brief</div>
-            <h1 className="display text-[38px] sm:text-[52px] text-ink leading-none mb-2">
+            <h1 className="display text-[32px] sm:text-[44px] md:text-[52px] text-ink leading-none mb-2">
               DevPulse Daily
             </h1>
             <p className="text-[12.5px] text-ink-muted font-mono tracking-wide">{date}</p>
           </div>
-          <div className="flex items-center gap-1.5 mt-2">
+          <div className="flex flex-wrap items-center gap-1.5 sm:mt-2">
             {archiveDates.length > 0 && (
               <select
                 value={viewDate}
@@ -194,11 +194,11 @@ export default function BriefPage() {
 
             {/* AI summary */}
             {section.summary && (
-              <p className="text-[14px] text-ink-soft leading-relaxed mb-4 pl-8">{section.summary}</p>
+              <p className="text-[14px] text-ink-soft leading-relaxed mb-4 pl-4 sm:pl-8">{section.summary}</p>
             )}
 
             {/* Items */}
-            <ol className="space-y-2.5 pl-8">
+            <ol className="space-y-2.5 pl-4 sm:pl-8">
               {section.items.map((item, j) => (
                 <li key={j} className="flex items-start gap-2.5">
                   <span className="text-[11px] font-mono text-ink-faint shrink-0 mt-0.5">{j + 1}.</span>

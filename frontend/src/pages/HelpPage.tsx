@@ -93,7 +93,7 @@ export default function HelpPage() {
     <div className="pb-8">
       <header className="mb-8 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Help</div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+        <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">
           How can we <span className="italic text-ink-soft">help?</span>
         </h1>
         <p className="text-ink-muted text-[14px] mb-5">

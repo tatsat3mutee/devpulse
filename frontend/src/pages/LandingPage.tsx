@@ -45,7 +45,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-paper flex flex-col">
       {/* Nav */}
-      <nav className="flex items-center justify-between px-6 py-4 border-b border-line max-w-6xl mx-auto w-full">
+      <nav className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-line max-w-6xl mx-auto w-full">
         <Link to="/" className="flex items-center gap-2">
           <img src="/icon.svg" alt="" className="w-6 h-6" />
           <span className="wordmark text-[20px] leading-none">
@@ -69,7 +69,7 @@ export default function LandingPage() {
           {/* Left: copy */}
           <div>
             <div className="eyebrow mb-4">AI developer signal, unified</div>
-            <h1 className="display text-[40px] sm:text-[56px] text-ink leading-[1.05] mb-6">
+            <h1 className="display text-[32px] sm:text-[48px] md:text-[56px] text-ink leading-[1.05] mb-6">
               Every important<br />AI move,{" "}
               <span className="italic text-accent">before your standup.</span>
             </h1>

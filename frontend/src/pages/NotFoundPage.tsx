@@ -4,7 +4,7 @@ import Icon from "../components/Icon";
 export default function NotFoundPage() {
   return (
     <div className="flex flex-col items-center justify-center text-center py-24 px-4">
-      <div className="text-[64px] font-mono text-ink-faint mb-4 select-none">404</div>
+      <div className="text-[48px] sm:text-[64px] font-mono text-ink-faint mb-4 select-none">404</div>
       <h1 className="display text-[28px] sm:text-[34px] text-ink mb-3">
         Page not found
       </h1>

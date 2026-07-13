@@ -268,12 +268,12 @@ function AppInner() {
       </aside>
 
       <main style={{ marginLeft: isDesktop ? '14rem' : 0 }} className="flex-1 min-w-0 flex flex-col">
-        <header className="h-12 bg-paper/90 backdrop-blur-md border-b border-line flex items-center justify-between px-4 sm:px-6 sticky top-0 z-30">
-          <div className="flex items-center gap-3">
+        <header className="h-12 bg-paper/90 backdrop-blur-md border-b border-line flex items-center justify-between gap-2 px-4 sm:px-6 sticky top-0 z-30">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
             {!isDesktop && (
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="w-9 h-9 -ml-2 rounded-md flex items-center justify-center text-ink-soft hover:bg-surface hover:text-ink"
+                className="w-9 h-9 -ml-2 rounded-md flex items-center justify-center text-ink-soft hover:bg-surface hover:text-ink shrink-0"
                 aria-label="Menu"
               >
                 <Icon name="menu" size={18} />
@@ -296,7 +296,7 @@ function AppInner() {
               <span className="eyebrow">{currentLabel || "DevPulse"}</span>
             )}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <button
               onClick={openPalette}
               className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-md border border-line bg-surface text-ink-muted text-[12px] hover:border-ink/30 hover:text-ink transition-colors"
@@ -360,14 +360,14 @@ function AppInner() {
           </Suspense>
         </div>
 
-        <footer className="border-t border-line py-8 px-6 mb-16 lg:mb-0">
+        <footer className="border-t border-line py-8 px-4 sm:px-6 mb-16 lg:mb-0">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[12px] text-ink-muted">
-            <div className="flex items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2.5">
               <img src="/icon.svg" alt="" className="w-5 h-5" />
               <span className="wordmark text-[17px] text-ink">DevPulse</span>
               <span className="text-ink-faint">- made in India by Tatsat Pandey.</span>
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               <NavLink to="/about" className="hover:text-ink">About</NavLink>
               <NavLink to="/privacy" className="hover:text-ink">Privacy</NavLink>
               <NavLink to="/terms" className="hover:text-ink">Terms</NavLink>

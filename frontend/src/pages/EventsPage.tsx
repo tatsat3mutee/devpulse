@@ -45,7 +45,7 @@ export default function EventsPage() {
     <div>
       <header className="mb-8 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Near you</div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">AI &amp; Tech events</h1>
+        <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">AI &amp; Tech events</h1>
         <p className="text-ink-muted text-[14px] max-w-xl">
           Upcoming AI, ML and developer conferences worldwide. Pick your country to see what's on — or
           search a city. Sourced from the open <span className="text-ink-soft">confs.tech</span> dataset.
@@ -109,9 +109,9 @@ export default function EventsPage() {
                 href={e.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-start gap-4 bg-surface border border-line rounded-xl px-5 py-4 hover:border-ink/20 hover:shadow-cardHover transition-all"
+                className="group flex items-start gap-3 sm:gap-4 bg-surface border border-line rounded-xl px-4 sm:px-5 py-4 hover:border-ink/20 hover:shadow-cardHover transition-all"
               >
-                <div className="shrink-0 w-11 text-center">
+                <div className="shrink-0 w-6 sm:w-11 text-center">
                   <Icon name="calendar" size={18} className="mx-auto text-ink-faint group-hover:text-accent transition-colors" />
                 </div>
                 <div className="min-w-0 flex-1">

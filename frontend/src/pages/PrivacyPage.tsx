@@ -3,7 +3,7 @@ export default function PrivacyPage() {
     <div className="max-w-2xl">
       <header className="mb-8 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Legal</div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Privacy Policy</h1>
+        <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">Privacy Policy</h1>
         <p className="text-ink-muted text-[13px]">Last updated: July 2026</p>
       </header>
 

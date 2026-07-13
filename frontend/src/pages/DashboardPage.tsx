@@ -248,7 +248,7 @@ export default function DashboardPage() {
                 className="flex items-center gap-3 group"
               >
                 <span className="text-[11px] text-ink-faint font-mono w-4 shrink-0">{i + 1}</span>
-                <span className="text-[13px] text-ink-soft group-hover:text-ink transition-colors w-40 truncate shrink-0">
+                <span className="text-[13px] text-ink-soft group-hover:text-ink transition-colors w-24 sm:w-40 truncate shrink-0">
                   {name}
                 </span>
                 <div className="flex-1 h-2 bg-paper rounded-full overflow-hidden">

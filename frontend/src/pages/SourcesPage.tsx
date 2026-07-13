@@ -61,7 +61,7 @@ export default function SourcesPage() {
       <header className="mb-8 pb-5 border-b border-line flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
         <div>
           <div className="eyebrow mb-2">Pipeline</div>
-          <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">Sources</h1>
+          <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">Sources</h1>
           <p className="text-ink-muted text-[14px]">
             <span className="text-ink font-medium">{sources.filter((s) => s.is_active).length}</span> active
             <span className="text-ink-faint mx-1.5">/</span>
@@ -146,10 +146,10 @@ export default function SourcesPage() {
                     >
                       {src.name}
                     </span>
-                    <span className="text-[11px] text-ink-faint font-mono w-16 text-right">
+                    <span className="hidden sm:block text-[11px] text-ink-faint font-mono w-16 text-right shrink-0">
                       {src.item_count} items
                     </span>
-                    <span className="text-[11px] text-ink-faint w-20 text-right">
+                    <span className="text-[11px] text-ink-faint w-14 sm:w-20 text-right shrink-0">
                       {src.last_fetched ? timeAgo(src.last_fetched) : "never"}
                     </span>
                   </div>

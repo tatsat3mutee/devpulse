@@ -258,7 +258,7 @@ export default function DevHubPage() {
     <div>
       <header className="mb-8 pb-5 border-b border-line">
         <div className="eyebrow mb-2">Tooling</div>
-        <h1 className="display text-[32px] sm:text-[38px] text-ink mb-2">
+        <h1 className="display text-[26px] sm:text-[32px] md:text-[38px] text-ink mb-2">
           The AI builder's <span className="italic text-ink-soft">workshop.</span>
         </h1>
         <p className="text-ink-muted text-[14px] max-w-2xl">
