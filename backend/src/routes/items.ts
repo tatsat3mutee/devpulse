@@ -70,6 +70,10 @@ router.get("/", optionalAuth, async (req: Request, res: Response) => {
       params.push(...slugs);
       paramIdx += slugs.length;
     }
+    if (req.query.topic_category) {
+      conditions.push(`t.category = $${paramIdx++}`);
+      params.push(String(req.query.topic_category));
+    }
     if (search) {
       conditions.push(`(i.title ILIKE $${paramIdx} OR i.description ILIKE $${paramIdx})`);
       params.push(`%${search}%`);

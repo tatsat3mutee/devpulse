@@ -47,6 +47,7 @@ GEMINI_API_KEY=       # LLM fallback
 OPENAI_API_KEY=       # LLM fallback
 GITHUB_TOKEN=         # Optional, raises GitHub API rate limits
 TWITTER_BEARER_TOKEN= # Optional
+ARTIFICIAL_ANALYSIS_API_KEY= # Optional, powers /models benchmark leaderboard (free key from artificialanalysis.ai)
 ```
 
 LLM keys are optional — the fetcher pipeline degrades gracefully (skips LLM classification/summarization, uses keyword fallback).

@@ -201,6 +201,28 @@ export interface LibraryResponse {
   saves: SavedItem[];
 }
 
+export interface BenchmarkModel {
+  id: string;
+  name: string;
+  slug: string;
+  creator: string;
+  creator_slug: string;
+  intelligence_index: number | null;
+  coding_index: number | null;
+  output_tokens_per_second: number | null;
+  time_to_first_token_seconds: number | null;
+  price_1m_input: number | null;
+  price_1m_output: number | null;
+  price_1m_blended: number | null;
+}
+
+export interface BenchmarksResponse {
+  models: BenchmarkModel[];
+  fetched_at: number;
+  attribution: string;
+  stale?: boolean;
+}
+
 // ── API calls ────────────────────────────────────────────────────────
 
 export const api = {
@@ -211,6 +233,10 @@ export const api = {
 
   getTopics() {
     return request<Topic[]>("/topics");
+  },
+
+  getBenchmarks() {
+    return request<BenchmarksResponse>("/benchmarks");
   },
 
   getTopicDetail(slug: string, params?: Record<string, string>) {

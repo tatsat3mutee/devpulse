@@ -17,6 +17,7 @@ import rssRouter from "./routes/rss.js";
 import prefsRouter from "./routes/prefs.js";
 import briefRouter from "./routes/brief.js";
 import eventsRouter from "./routes/events.js";
+import benchmarksRouter from "./routes/benchmarks.js";
 import sitemapRouter from "./routes/sitemap.js";
 import pool from "./db.js";
 import { startCron } from "./cron.js";
@@ -128,6 +129,7 @@ app.use("/api/rss", rssRouter);
 app.use("/api/prefs", prefsRouter);
 app.use("/api/brief", briefRouter);
 app.use("/api/events", eventsRouter);
+app.use("/api/benchmarks", benchmarksRouter);
 
 app.get("/api/health", async (_req, res) => {
   try {

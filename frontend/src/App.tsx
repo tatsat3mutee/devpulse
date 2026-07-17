@@ -24,6 +24,7 @@ const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const LibraryPage = lazy(() => import("./pages/LibraryPage"));
 const TrendingPage = lazy(() => import("./pages/TrendingPage"));
+const ModelsPage = lazy(() => import("./pages/ModelsPage"));
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const BriefPage = lazy(() => import("./pages/BriefPage"));
@@ -46,6 +47,7 @@ function PageFallback() {
 const navItems = [
   { to: "/", label: "Today", icon: "home" as const },
   { to: "/brief", label: "Brief", icon: "newspaper" as const },
+  { to: "/models", label: "Models", icon: "spark" as const },
   { to: "/topics", label: "Topics", icon: "layers" as const },
   { to: "/videos", label: "Watch", icon: "play" as const },
   { to: "/feed", label: "Feed", icon: "rss" as const },
@@ -332,6 +334,7 @@ function AppInner() {
             <Route path="/" element={<DashboardPage />} />
             <Route path="/brief" element={<BriefPage />} />
             <Route path="/topics" element={<TopicsPage />} />
+            <Route path="/models" element={<ModelsPage />} />
             <Route path="/trending" element={<TrendingPage />} />
             <Route path="/topic/:slug" element={<TopicDetailPage />} />
             <Route path="/feed" element={<FeedPage />} />
