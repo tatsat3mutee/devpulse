@@ -1,5 +1,5 @@
 import type { FetchResult } from "./types.js";
-import { safeFetch } from "./http.js";
+import { safeFetch, decodeEntities } from "./http.js";
 
 /**
  * LinkedIn fetcher — aggregates AI content from LinkedIn via multiple strategies:
@@ -56,17 +56,12 @@ export async function fetchLinkedIn(
     const items = xml.split("<item>").slice(1);
 
     for (const item of items.slice(0, 20)) {
-      const title = extractTag(item, "title")
-        .replace(/&amp;/g, "&")
-        .replace(/&lt;/g, "<")
-        .replace(/&gt;/g, ">")
-        .replace(/&#39;/g, "'")
-        .replace(/&quot;/g, '"');
+      const title = decodeEntities(extractTag(item, "title"));
       const rawLink = extractTag(item, "link");
       const pubDate = extractTag(item, "pubDate");
-      const description = extractTag(item, "description")
-        .replace(/<[^>]+>/g, "")
-        .slice(0, 500);
+      const description = decodeEntities(
+        extractTag(item, "description").replace(/<[^>]+>/g, "")
+      ).slice(0, 500);
       const source = extractTag(item, "source");
 
       if (!title || !rawLink) continue;

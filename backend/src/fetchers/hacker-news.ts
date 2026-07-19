@@ -1,5 +1,5 @@
 import type { FetchResult } from "./types.js";
-import { safeFetch } from "./http.js";
+import { safeFetch, decodeEntities } from "./http.js";
 
 const AI_KEYWORDS = /\b(ai|llm|gpt|claude|gemini|openai|anthropic|deepmind|mistral|mixtral|neural|transformer|diffusion|embedding|vector|rag|agent|copilot|chatbot|machine.?learn|deep.?learn|langchain|fine.?tun|llama|hugging\s?face)\b/i;
 
@@ -52,8 +52,8 @@ export async function fetchHackerNews(
       hit.url || `https://news.ycombinator.com/item?id=${hit.objectID}`;
 
     results.push({
-      title: hit.title || "",
-      description: hit.story_text?.slice(0, 500) || null,
+      title: decodeEntities(hit.title || ""),
+      description: hit.story_text ? decodeEntities(hit.story_text.slice(0, 500)) : null,
       url: itemUrl,
       type: "news",
       platform: "Hacker News",

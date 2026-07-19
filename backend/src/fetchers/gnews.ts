@@ -1,5 +1,5 @@
 import type { FetchResult } from "./types.js";
-import { safeFetch } from "./http.js";
+import { safeFetch, decodeEntities } from "./http.js";
 
 /**
  * GNews API fetcher — fetches AI news articles.
@@ -30,8 +30,8 @@ export async function fetchGNews(searchQuery: string): Promise<FetchResult[]> {
 
   for (const article of data.articles || []) {
     results.push({
-      title: (article.title || "").slice(0, 500),
-      description: (article.description || "").slice(0, 1000),
+      title: decodeEntities(article.title || "").slice(0, 500),
+      description: decodeEntities(article.description || "").slice(0, 1000),
       url: article.url,
       type: "news",
       platform: article.source?.name || "GNews",

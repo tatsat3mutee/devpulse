@@ -1,5 +1,5 @@
 import type { FetchResult } from "./types.js";
-import { safeFetch } from "./http.js";
+import { safeFetch, decodeEntities } from "./http.js";
 
 const MIN_SCORE = Number(process.env.MIN_REDDIT_SCORE) || 20;
 const UA = "ai-pulse:v1.0 (automated AI news aggregator)";
@@ -29,8 +29,8 @@ export async function fetchReddit(sourceUrl: string): Promise<FetchResult[]> {
     const permalink = `https://www.reddit.com${d.permalink}`;
 
     results.push({
-      title: d.title || "",
-      description: (d.selftext || "").slice(0, 500) || null,
+      title: decodeEntities(d.title || ""),
+      description: decodeEntities((d.selftext || "").slice(0, 500)) || null,
       url: d.url && d.url !== permalink ? d.url : permalink,
       type: "social",
       platform: "Reddit",

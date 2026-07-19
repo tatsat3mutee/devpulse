@@ -1,5 +1,31 @@
 import { describe, expect, test } from "bun:test";
-import { normalizeUrl, safeFetch } from "./http.js";
+import { normalizeUrl, safeFetch, decodeEntities } from "./http.js";
+
+describe("decodeEntities", () => {
+  test("decodes numeric decimal entities", () => {
+    expect(decodeEntities("Moonshot&#8217;s Kimi")).toBe("Moonshot\u2019s Kimi");
+    expect(decodeEntities("&#8220;quoted&#8221; &#8212; dash")).toBe("\u201Cquoted\u201D \u2014 dash");
+  });
+
+  test("decodes numeric hex entities", () => {
+    expect(decodeEntities("it&#x2019;s here")).toBe("it\u2019s here");
+    expect(decodeEntities("A&#x26;B")).toBe("A&B");
+  });
+
+  test("decodes named entities", () => {
+    expect(decodeEntities("Tom &amp; Jerry &rsquo;quote&rsquo;")).toBe("Tom & Jerry \u2019quote\u2019");
+    expect(decodeEntities("a&nbsp;b &lt;tag&gt;")).toBe("a b <tag>");
+  });
+
+  test("leaves unknown entities and plain text untouched", () => {
+    expect(decodeEntities("&notarealentity; plain")).toBe("&notarealentity; plain");
+    expect(decodeEntities("no entities here")).toBe("no entities here");
+  });
+
+  test("drops control-char and invalid code points", () => {
+    expect(decodeEntities("bad&#7;char")).toBe("badchar");
+  });
+});
 
 describe("normalizeUrl", () => {
   test("strips utm_* params", () => {

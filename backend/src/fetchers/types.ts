@@ -1,6 +1,6 @@
 export interface FetchResult {
   title: string;
-  description: string;
+  description: string | null;
   url: string;
   type: "paper" | "repo" | "social" | "news" | "video" | "article";
   platform: string;

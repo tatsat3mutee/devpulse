@@ -94,6 +94,34 @@ const TRACKING_PARAMS = new Set([
   "mc_eid",
 ]);
 
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ",
+  ndash: "\u2013", mdash: "\u2014", hellip: "\u2026",
+  lsquo: "\u2018", rsquo: "\u2019", ldquo: "\u201C", rdquo: "\u201D",
+  copy: "\u00A9", trade: "\u2122", reg: "\u00AE", deg: "\u00B0",
+};
+
+function fromCodePointSafe(cp: number): string {
+  try {
+    // Reject control chars and invalid code points
+    if (!Number.isFinite(cp) || cp < 32 || cp > 0x10ffff) return "";
+    return String.fromCodePoint(cp);
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * Decode HTML entities in feed text: numeric decimal (&#8217;),
+ * numeric hex (&#x2019;), and common named entities (&amp;, &rsquo;, ...).
+ */
+export function decodeEntities(text: string): string {
+  return text
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => fromCodePointSafe(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec) => fromCodePointSafe(parseInt(dec, 10)))
+    .replace(/&([a-z]+);/gi, (match, name) => NAMED_ENTITIES[name.toLowerCase()] ?? match);
+}
+
 /**
  * Canonicalize a URL for dedup: lowercase protocol/host, strip hash,
  * tracking params, and trailing slash. Returns input unchanged on parse failure.

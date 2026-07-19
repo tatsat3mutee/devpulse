@@ -1,5 +1,5 @@
 import type { FetchResult } from "./types.js";
-import { safeFetch } from "./http.js";
+import { safeFetch, decodeEntities } from "./http.js";
 
 /**
  * Generic RSS/Atom feed fetcher.
@@ -104,14 +104,7 @@ function stripCDATA(text: string): string {
 }
 
 function cleanHTML(html: string): string {
-  return html
-    .replace(/<[^>]+>/g, "") // strip tags
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, " ")
+  return decodeEntities(html.replace(/<[^>]+>/g, ""))
     .replace(/\s+/g, " ")
     .trim();
 }
