@@ -19,6 +19,7 @@ FROM base
 WORKDIR /app
 COPY --from=backend-deps /app/backend/node_modules ./backend/node_modules
 COPY backend/ ./backend/
+COPY sql/ ./sql/
 COPY --from=frontend-build /app/frontend/dist ./frontend/dist
 
 EXPOSE 3000
