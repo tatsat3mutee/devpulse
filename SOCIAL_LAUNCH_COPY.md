@@ -4,6 +4,91 @@ Copy-paste ready posts for LinkedIn, Reddit, Twitter/X, and Hacker News.
 
 ---
 
+## ⚡ READY TO POST — Launch Day (July 2026)
+
+> Live stats as of 2026-07-27: **6,037 items · 256 sources · 58 topics**. Attach `demo/devpulse-demo.mp4` to the LinkedIn post (native upload, not GIF).
+
+### LinkedIn — Launch Post (primary)
+```
+I missed having one place that just tells me what matters in AI. So I built it.
+
+DevPulse is live: devpulse.tatsatpandey.com
+
+Every day there is more AI and engineering news than anyone can keep up with.
+DevPulse pulls from 256 sources — arXiv, GitHub Trending, Hacker News, Reddit,
+Hugging Face, YouTube, engineering blogs — and ranks everything by signal:
+recency × engagement × relevance. Not clicks. Not outrage.
+
+What's inside:
+
+1. Today — the ranked front page. Open it, scan it, close it.
+2. Brief — a daily AI-written digest of the top stories.
+3. Models — frontier model releases + a live benchmark leaderboard.
+4. Chat — ask questions about the news, with citations.
+5. Topics — 58 lanes from LLM infra to DSA, follow what you care about.
+6. RSS, dark mode, keyboard search (⌘K), installable as an app.
+
+No login required. No feed to doomscroll. 6,000+ items ranked so far.
+
+I want this to be the tab that stays open on your second monitor —
+your agents run on one side, you stay caught up on the other.
+
+Kick the tires and tell me what's broken. Suggestions become features fast :)
+
+#AI #MachineLearning #DevTools #BuildInPublic #OpenSource
+```
+
+### X / Twitter — Launch Thread
+```
+1/ Shipped: DevPulse — a ranked signal feed for AI engineers.
+
+256 sources (arXiv, GitHub, HN, Reddit, HF, YouTube) → one ranked page.
+No login. No algorithmic rage-bait. Just signal.
+
+devpulse.tatsatpandey.com
+
+2/ How ranking works: recency × engagement × topic relevance.
+An LLM classifies every item into 58 topics; keyword fallback when
+the LLM is down. Dedup by URL. 6,000+ items ranked so far.
+
+3/ Bonus features I use daily:
+• /brief — AI daily digest
+• /models — frontier releases + benchmark leaderboard
+• /chat — ask the news questions, get cited answers
+• ⌘K search, RSS, PWA install
+
+4/ Built with Bun + Express + Postgres + React 19. Single container on EC2.
+Fetch pipeline degrades gracefully when LLM keys run out of quota.
+
+Feedback → features. Try it: devpulse.tatsatpandey.com
+```
+
+### Hacker News — Show HN
+```
+Title: Show HN: DevPulse – A ranked feed of AI papers, repos, and discussions
+
+I was drowning in AI news spread across arXiv, HN, Reddit, GitHub Trending,
+and a dozen newsletters, so I built a single ranked front page.
+
+How it works: a cron fetches from 256 sources, scores each item by
+recency + platform engagement, classifies it into topics with an LLM
+(keyword fallback when quota runs out), dedups by canonical URL, and
+serves a ranked feed. There's also a daily AI-written brief, a frontier
+model release tracker with a benchmark leaderboard (Artificial Analysis
+API), and a chat that answers questions about the news with citations.
+
+Stack: Bun + Express + Postgres, React 19 + Vite, one Docker container.
+No login needed for anything above. RSS at /api/rss.
+
+https://devpulse.tatsatpandey.com
+
+Happy to answer questions about the scoring/classification pipeline —
+the LLM failover (Groq → Gemini → OpenAI with token buckets) was the
+most fun part to build.
+```
+
+---
+
 ## 📱 LINKEDIN (Thread Strategy)
 
 ### Post 1 — Hook (Main Post)

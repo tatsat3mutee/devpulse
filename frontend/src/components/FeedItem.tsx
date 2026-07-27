@@ -32,14 +32,14 @@ const typeLabel: Record<string, string> = {
 };
 
 const PLATFORM_BADGE: Record<string, string> = {
-  arxiv:          "bg-purple-500/10 text-purple-500 dark:bg-purple-500/18 dark:text-purple-300",
-  github:         "bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/18 dark:text-emerald-300",
-  "hacker news":  "bg-orange-500/10 text-orange-600 dark:bg-orange-500/18 dark:text-orange-300",
-  huggingface:    "bg-yellow-500/10 text-yellow-600 dark:bg-yellow-400/18 dark:text-yellow-300",
-  reddit:         "bg-red-500/10 text-red-600 dark:bg-red-500/18 dark:text-red-300",
-  youtube:        "bg-red-500/10 text-red-600 dark:bg-red-500/18 dark:text-red-300",
-  twitter:        "bg-sky-500/10 text-sky-600 dark:bg-sky-500/18 dark:text-sky-300",
-  linkedin:       "bg-blue-500/10 text-blue-600 dark:bg-blue-500/18 dark:text-blue-300",
+  arxiv:          "bg-purple-500/10 text-purple-700 dark:bg-purple-500/18 dark:text-purple-300",
+  github:         "bg-emerald-500/10 text-emerald-700 dark:bg-emerald-500/18 dark:text-emerald-300",
+  "hacker news":  "bg-orange-500/10 text-orange-700 dark:bg-orange-500/18 dark:text-orange-300",
+  huggingface:    "bg-yellow-500/10 text-yellow-700 dark:bg-yellow-400/18 dark:text-yellow-300",
+  reddit:         "bg-red-500/10 text-red-700 dark:bg-red-500/18 dark:text-red-300",
+  youtube:        "bg-red-500/10 text-red-700 dark:bg-red-500/18 dark:text-red-300",
+  twitter:        "bg-sky-500/10 text-sky-700 dark:bg-sky-500/18 dark:text-sky-300",
+  linkedin:       "bg-blue-500/10 text-blue-700 dark:bg-blue-500/18 dark:text-blue-300",
 };
 
 function PlatformBadge({ platform }: { platform: string }) {
@@ -179,7 +179,7 @@ export default function FeedItem({ item, showTopic, note }: Props) {
         <div className="flex items-center gap-1 shrink-0">
           <button
             onClick={handleSave}
-            className={`p-1 rounded transition-colors ${saved ? "text-accent" : "text-ink-faint/50 hover:text-ink-muted"}`}
+            className={`p-1 rounded transition-colors ${saved ? "text-accent" : "text-ink-faint hover:text-ink-soft"}`}
             aria-label={saved ? "Remove from library" : "Save to library"}
           >
             <Icon name={saved ? "bookmark-filled" : "bookmark"} size={13} />
@@ -188,7 +188,7 @@ export default function FeedItem({ item, showTopic, note }: Props) {
             <div className="relative">
               <button
                 onClick={(e) => { e.stopPropagation(); e.preventDefault(); setMenuOpen(o => !o); }}
-                className="p-1 rounded transition-colors text-ink-faint/50 hover:text-ink-muted"
+                className="p-1 rounded transition-colors text-ink-faint hover:text-ink-soft"
                 aria-label="More options"
                 aria-haspopup="menu"
                 aria-expanded={menuOpen}

@@ -114,12 +114,19 @@ function fromCodePointSafe(cp: number): string {
 /**
  * Decode HTML entities in feed text: numeric decimal (&#8217;),
  * numeric hex (&#x2019;), and common named entities (&amp;, &rsquo;, ...).
+ * Runs up to 3 passes so double-encoded feeds (&amp;#8217;) fully decode.
  */
 export function decodeEntities(text: string): string {
-  return text
-    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => fromCodePointSafe(parseInt(hex, 16)))
-    .replace(/&#(\d+);/g, (_, dec) => fromCodePointSafe(parseInt(dec, 10)))
-    .replace(/&([a-z]+);/gi, (match, name) => NAMED_ENTITIES[name.toLowerCase()] ?? match);
+  let result = text;
+  for (let i = 0; i < 3; i++) {
+    const next = result
+      .replace(/&#x([0-9a-f]+);/gi, (_, hex) => fromCodePointSafe(parseInt(hex, 16)))
+      .replace(/&#(\d+);/g, (_, dec) => fromCodePointSafe(parseInt(dec, 10)))
+      .replace(/&([a-z]+);/gi, (match, name) => NAMED_ENTITIES[name.toLowerCase()] ?? match);
+    if (next === result) break;
+    result = next;
+  }
+  return result;
 }
 
 /**

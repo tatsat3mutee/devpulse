@@ -22,6 +22,11 @@ describe("decodeEntities", () => {
     expect(decodeEntities("no entities here")).toBe("no entities here");
   });
 
+  test("decodes double-encoded entities (&amp;#8217;)", () => {
+    expect(decodeEntities("Kalanick&amp;#8217;s company")).toBe("Kalanick\u2019s company");
+    expect(decodeEntities("Tom &amp;amp; Jerry")).toBe("Tom & Jerry");
+  });
+
   test("drops control-char and invalid code points", () => {
     expect(decodeEntities("bad&#7;char")).toBe("badchar");
   });
