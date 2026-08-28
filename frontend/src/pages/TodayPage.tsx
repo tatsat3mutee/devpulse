@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { api, type Concept, type TodayResponse } from "../lib/api";
+import { api, type Concept, type ConceptSources, type TodayResponse } from "../lib/api";
 import { useAuth } from "../context/AuthContext";
 import ConceptArticle from "../components/ConceptArticle";
 
@@ -12,27 +12,41 @@ import ConceptArticle from "../components/ConceptArticle";
  * "finishable" issue that slow-news publishers and curation practitioners
  * independently converge on.
  */
+type Sample = { concept: Concept; sources: ConceptSources };
+
 export default function TodayPage() {
   const { user } = useAuth();
   const [data, setData] = useState<TodayResponse | null>(null);
+  const [sample, setSample] = useState<Sample | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!user) {
-      setLoading(false);
-      return;
-    }
     let cancelled = false;
-    api
-      .getToday()
-      .then((res) => !cancelled && setData(res))
-      .catch((e) => !cancelled && setError(e.message))
-      .finally(() => !cancelled && setLoading(false));
+    setLoading(true);
+    setError(null);
+
+    // Signed out, the front door still serves a real concept. The archive and
+    // every /concept/:slug are already public, so showing only a pitch here was
+    // hiding readable work behind a login for nothing.
+    const load = user
+      ? api.getToday().then((res) => { if (!cancelled) setData(res); })
+      : api.getConceptArchive({ limit: 1 }).then(async (res) => {
+          const top = res.concepts[0];
+          if (!top || cancelled) return;
+          const full = await api.getConcept(top.slug);
+          if (!cancelled) setSample(full);
+        });
+
+    load
+      .catch((e) => { if (!cancelled) setError((e as Error).message); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+
     return () => { cancelled = true; };
   }, [user]);
 
-  if (!user) return <SignedOut />;
+  // A failed sample fetch degrades to the pitch alone rather than an error page.
+  if (!user) return <SignedOut sample={sample} loading={loading} />;
   if (loading) return <TodaySkeleton />;
   if (error) return <Empty title="Couldn't load today's concept" body={error} />;
 
@@ -80,22 +94,40 @@ function MentionRow({ concept }: { concept: Concept }) {
   );
 }
 
-function SignedOut() {
+function SignedOut({ sample, loading }: { sample: Sample | null; loading: boolean }) {
   return (
-    <div className="max-w-lg py-8">
-      <h1 className="display text-[32px] text-ink mb-3">One idea, twice a week.</h1>
-      <p className="text-[15px] leading-relaxed text-ink-muted mb-6">
-        DevPulse reads the AI firehose and throws almost all of it away. What's left is a
-        mechanism you can learn in ten minutes and explain to someone else — with the
-        number that makes it concrete, and a draft if you want to post about it.
-      </p>
-      <Link
-        to="/login"
-        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-ink text-paper text-[13px] font-medium hover:bg-ink-soft transition-colors"
-      >
-        Sign in to start
-      </Link>
-    </div>
+    <>
+      <div className="max-w-[42rem] pb-8 mb-10 border-b border-line">
+        <h1 className="display text-[32px] text-ink mb-3">One idea, twice a week.</h1>
+        <p className="text-[15px] leading-relaxed text-ink-muted mb-6">
+          DevPulse reads the AI firehose and throws almost all of it away. What's left is a
+          mechanism you can learn in ten minutes and explain to someone else — with the
+          number that makes it concrete, and a draft if you want to post about it.
+        </p>
+        <Link
+          to="/login"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-ink text-paper text-[13px] font-medium hover:bg-ink-soft transition-colors"
+        >
+          Sign in to start
+        </Link>
+      </div>
+
+      {loading && <TodaySkeleton />}
+
+      {!loading && sample && (
+        <>
+          <p className="eyebrow text-ink-faint mb-5 max-w-[42rem]">
+            Here's one, in full — this is the whole format
+          </p>
+          <ConceptArticle concept={sample.concept} sources={sample.sources} />
+          <div className="max-w-[42rem] mt-10 pt-6 border-t border-line">
+            <Link to="/archive" className="text-[13px] font-medium text-accent hover:underline">
+              Read every concept we've published →
+            </Link>
+          </div>
+        </>
+      )}
+    </>
   );
 }
 
