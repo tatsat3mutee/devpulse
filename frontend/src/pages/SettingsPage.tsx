@@ -1,48 +1,25 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { api } from "../lib/api";
+import { useNavigate } from "react-router-dom";
+import {
+  api,
+  AREA_LABELS,
+  CONCEPT_AREAS,
+  DAY_LABELS,
+  type ConceptArea,
+  type DeliveryPrefs,
+} from "../lib/api";
 import { useAuth } from "../context/AuthContext";
-import { useRole, ROLES, type DevRole } from "../components/RoleSelector";
 
 export default function SettingsPage() {
-  const { user, followedTopicIds, mutedSourceIds, unfollowTopic, unmuteSource, refreshPrefs, logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [health, setHealth] = useState<{ status: string; timestamp: string } | null>(null);
-  const [followedList, setFollowedList] = useState<{ topic_id: number; name: string; slug: string }[]>([]);
-  const [mutedList, setMutedList] = useState<{ source_id: number; name: string }[]>([]);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState("");
-  const { role, setRole } = useRole();
-
-  const handleRole = (r: DevRole) => {
-    setRole(r);
-    if (user) api.updateRole(r).catch(() => {});
-  };
-
   useEffect(() => {
     api.getHealth().then(setHealth).catch(() => {});
   }, []);
-
-  useEffect(() => {
-    if (!user) return;
-    api.getPrefs().then(prefs => {
-      setFollowedList(prefs.followed_topics);
-      setMutedList(prefs.muted_sources);
-    }).catch(() => {});
-  }, [user, followedTopicIds, mutedSourceIds]);
-
-  const handleUnfollow = async (topicId: number) => {
-    await unfollowTopic(topicId);
-    setFollowedList(prev => prev.filter(t => t.topic_id !== topicId));
-    await refreshPrefs();
-  };
-
-  const handleUnmute = async (sourceId: number) => {
-    await unmuteSource(sourceId);
-    setMutedList(prev => prev.filter(s => s.source_id !== sourceId));
-    await refreshPrefs();
-  };
 
   const handleDeleteAccount = async () => {
     setDeleting(true);
@@ -66,6 +43,8 @@ export default function SettingsPage() {
       </header>
 
       <div className="space-y-2">
+        <DeliveryCard />
+
         {/* Status */}
         <Card title="System Status" eyebrow="Health">
           <Row label="Backend">
@@ -84,99 +63,15 @@ export default function SettingsPage() {
           </Row>
         </Card>
 
-        {/* Role personalisation — works for everyone (stored locally, synced when signed in) */}
-        <Card title="Your role" eyebrow="Personalisation">
-          <p className="text-[12.5px] text-ink-muted mb-3">
-            We highlight the topics most relevant to your role across the feed and topics pages.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {ROLES.map(({ value, label, icon, description }) => (
-              <button
-                key={value}
-                onClick={() => handleRole(value)}
-                className={`text-left px-3.5 py-3 rounded-lg border transition-all ${
-                  role === value
-                    ? "border-accent bg-accent-soft text-accent"
-                    : "border-line hover:border-ink/25 hover:bg-paper text-ink-soft hover:text-ink"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[16px]">{icon}</span>
-                  <span className="font-medium text-[13px]">{label}</span>
-                </div>
-                <p className="text-[11.5px] text-ink-muted leading-relaxed">{description}</p>
-              </button>
-            ))}
-          </div>
-        </Card>
-
-        {/* Preferences — logged-in users only */}
-        {user && (
-          <Card title="Preferences" eyebrow="Personalisation">
-            <div className="space-y-4">
-              <div>
-                <p className="text-[12.5px] font-medium text-ink-soft mb-2">Followed topics</p>
-                {followedList.length === 0 ? (
-                  <p className="text-[12.5px] text-ink-faint">
-                    No topics followed yet.{" "}
-                    <Link to="/topics" className="text-accent hover:underline">Browse topics →</Link>
-                  </p>
-                ) : (
-                  <div className="flex flex-wrap gap-2">
-                    {followedList.map(t => (
-                      <span
-                        key={t.topic_id}
-                        className="flex items-center gap-1.5 text-[12px] px-2.5 py-1 rounded-full bg-accent/8 border border-accent/20 text-accent"
-                      >
-                        <Link to={`/topic/${t.slug}`} className="hover:underline">{t.name}</Link>
-                        <button
-                          onClick={() => handleUnfollow(t.topic_id)}
-                          className="text-accent/60 hover:text-accent transition-colors leading-none"
-                          aria-label={`Unfollow ${t.name}`}
-                        >
-                          ×
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="border-t border-line pt-4">
-                <p className="text-[12.5px] font-medium text-ink-soft mb-2">Muted sources</p>
-                {mutedList.length === 0 ? (
-                  <p className="text-[12.5px] text-ink-faint">No sources muted. Use the ··· menu on any feed item to mute a source.</p>
-                ) : (
-                  <div className="flex flex-wrap gap-2">
-                    {mutedList.map(s => (
-                      <span
-                        key={s.source_id}
-                        className="flex items-center gap-1.5 text-[12px] px-2.5 py-1 rounded-full bg-rose-500/8 border border-rose-500/20 text-rose-600 dark:text-rose-400"
-                      >
-                        {s.name}
-                        <button
-                          onClick={() => handleUnmute(s.source_id)}
-                          className="opacity-60 hover:opacity-100 transition-opacity leading-none"
-                          aria-label={`Unmute ${s.name}`}
-                        >
-                          ×
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </Card>
-        )}
-
         {/* About */}
         <Card title="About" eyebrow="Project">
           <p className="text-[13.5px] text-ink-soft leading-relaxed">
-            DevPulse aggregates AI/ML signal from arXiv, GitHub, Reddit, Hacker News,
-            Hugging Face, X, LinkedIn and a handful of newsrooms. Items are scored by
-            engagement and recency, classified into topics by an LLM (with a keyword
-            fallback), and optionally summarised.
+            DevPulse reads arXiv, GitHub, Hugging Face, lab engineering blogs and a
+            handful of newsrooms, then throws almost all of it away. What survives is a{" "}
+            <em>concept</em> — one transferable mechanism you could learn and re-explain.
+            Concepts are ranked by durability, not popularity: mechanism density, source
+            authority and corroboration decide the order, recency only breaks ties, and an
+            unanchored social spike is penalised.
           </p>
         </Card>
 
@@ -252,6 +147,145 @@ export default function SettingsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+/**
+ * Delivery cadence.
+ *
+ * `users.serve_days` / `serve_areas` / `email_concepts` shipped with the
+ * concepts migration and sane defaults (Tue + Fri, all areas, email on), but
+ * nothing exposed them — so the twice-a-week promise was effectively
+ * hard-coded. This is the control surface for it.
+ */
+function DeliveryCard() {
+  const [prefs, setPrefs] = useState<DeliveryPrefs | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .getDeliveryPrefs()
+      .then((p) => !cancelled && setPrefs(p))
+      .catch((e) => !cancelled && setError(e.message))
+      .finally(() => !cancelled && setLoading(false));
+    return () => { cancelled = true; };
+  }, []);
+
+  async function save(patch: Partial<Omit<DeliveryPrefs, "known_areas">>) {
+    if (!prefs) return;
+    const previous = prefs;
+    setPrefs({ ...prefs, ...patch });
+    setSaving(true);
+    setError(null);
+    try {
+      const next = await api.updateDeliveryPrefs(patch);
+      setPrefs({ ...prefs, ...patch, ...next });
+    } catch (e) {
+      // The server rejects an empty schedule or empty area set; roll back so the
+      // UI never shows a state the backend refused to store.
+      setPrefs(previous);
+      setError(e instanceof Error ? e.message : "Couldn't save.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <Card title="Delivery" eyebrow="Concepts">
+        <p className="text-[13px] text-ink-muted">Loading…</p>
+      </Card>
+    );
+  }
+  if (!prefs) {
+    return (
+      <Card title="Delivery" eyebrow="Concepts">
+        <p className="text-[13px] text-ink-muted">{error ?? "Sign in to set your cadence."}</p>
+      </Card>
+    );
+  }
+
+  const toggleDay = (d: number) => {
+    const next = prefs.serve_days.includes(d)
+      ? prefs.serve_days.filter((x) => x !== d)
+      : [...prefs.serve_days, d].sort((a, b) => a - b);
+    save({ serve_days: next });
+  };
+
+  const toggleArea = (a: ConceptArea) => {
+    const next = prefs.serve_areas.includes(a)
+      ? prefs.serve_areas.filter((x) => x !== a)
+      : [...prefs.serve_areas, a];
+    save({ serve_areas: next });
+  };
+
+  const chip = (on: boolean) =>
+    `px-2.5 py-1.5 rounded-md text-[12.5px] font-medium border transition-colors disabled:opacity-50 ${
+      on
+        ? "bg-accent/10 border-accent/30 text-accent"
+        : "border-line text-ink-muted hover:text-ink hover:border-ink/25"
+    }`;
+
+  return (
+    <Card title="Delivery" eyebrow="Concepts">
+      <div className="mb-4">
+        <p className="text-[13px] text-ink-muted mb-2">Days you get a concept</p>
+        <div className="flex flex-wrap gap-1.5">
+          {DAY_LABELS.map((label, d) => (
+            <button
+              key={d}
+              onClick={() => toggleDay(d)}
+              disabled={saving}
+              aria-pressed={prefs.serve_days.includes(d)}
+              className={chip(prefs.serve_days.includes(d))}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <p className="text-[13px] text-ink-muted mb-2">Areas you want covered</p>
+        <div className="flex flex-wrap gap-1.5">
+          {CONCEPT_AREAS.map((a) => (
+            <button
+              key={a}
+              onClick={() => toggleArea(a)}
+              disabled={saving}
+              aria-pressed={prefs.serve_areas.includes(a)}
+              className={chip(prefs.serve_areas.includes(a))}
+            >
+              {AREA_LABELS[a]}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <Row label="Email me each edition">
+        <button
+          onClick={() => save({ email_concepts: !prefs.email_concepts })}
+          disabled={saving}
+          role="switch"
+          aria-checked={prefs.email_concepts}
+          aria-label="Email me each edition"
+          className={`relative w-9 h-5 rounded-full transition-colors disabled:opacity-50 ${
+            prefs.email_concepts ? "bg-accent" : "bg-line"
+          }`}
+        >
+          <span
+            className={`absolute top-0.5 w-4 h-4 rounded-full bg-paper transition-transform ${
+              prefs.email_concepts ? "translate-x-[18px]" : "translate-x-0.5"
+            }`}
+          />
+        </button>
+      </Row>
+
+      {error && <p className="mt-2 text-[12.5px] text-rose-600">{error}</p>}
+    </Card>
   );
 }
 

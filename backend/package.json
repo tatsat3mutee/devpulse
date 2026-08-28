@@ -8,7 +8,8 @@
     "test": "bun test",
     "typecheck": "bunx tsc --noEmit",
     "migrate": "bun run scripts/migrate.ts",
-    "seed:sources": "bun run src/seed-sources.ts"
+    "seed:sources": "bun run src/seed-sources.ts",
+    "seed:concepts": "bun run src/concepts/seed.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
@@ -19,7 +20,8 @@
     "jsonwebtoken": "^9.0.3",
     "node-cron": "^3.0.3",
     "pg": "^8.13.0",
-    "resend": "^6.12.2"
+    "resend": "^6.12.2",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^3.0.0",

@@ -211,9 +211,13 @@ function getAllProviders(opts?: CallOpts): Provider[] {
     });
   }
   if (groq) {
-    // llama-3.1-8b-instant: 30 RPM / 20k TPM (5x more tokens than 70b) — good for classification
-    // llama-3.3-70b-versatile: 30 RPM / 6k TPM — reserved for chat/reasoning
-    const model = opts?.fastModel ? "llama-3.1-8b-instant" : "llama-3.3-70b-versatile";
+    // Groq retires model IDs without notice — both llama-3.1-8b-instant and
+    // llama-3.3-70b-versatile now 404, which silently disabled every LLM
+    // feature in the app. Override via env when Groq's catalog moves again;
+    // check the live list with GET https://api.groq.com/openai/v1/models.
+    const model = opts?.fastModel
+      ? process.env.GROQ_FAST_MODEL || "openai/gpt-oss-20b"
+      : process.env.GROQ_MODEL || "openai/gpt-oss-120b";
     providers.push({
       name: "groq",
       call: (msgs, o) =>
@@ -279,6 +283,7 @@ export async function askLLM(
         lastErr = err;
         inc(`llm.errors.${provider.name}`);
         const status = err?.status as number | undefined;
+        const msg = String(err?.message ?? err ?? "");
         const isRateLimit = status === 429;
         const isServerError = typeof status === "number" && status >= 500;
         const isQuotaExhausted = err?.quotaExhausted === true;
@@ -311,7 +316,25 @@ export async function askLLM(
           break; // try next provider
         }
 
-        // Non-retryable error → bail entirely
+        // Provider-level failures — a retired model ID, a revoked or
+        // misscoped key. These say nothing about whether the *request* is
+        // valid, so they must not end the chain: the whole point of a
+        // multi-provider client is that one provider going bad is survivable.
+        // Bailing here is what let a single decommissioned Groq model take
+        // down classification, summarization and extraction at once, with
+        // working Gemini and OpenAI keys sitting unused.
+        if (status === 404 || status === 401 || status === 403) {
+          // Cool the provider off so the next caller skips it immediately
+          // rather than paying the failed round-trip again.
+          blockProvider(provider.name, 10 * 60 * 1000);
+          console.warn(
+            `  ⚠️  ${provider.name} unavailable (${status}: ${msg.slice(0, 120)}) — cooling off 10m, trying next provider`
+          );
+          break; // try next provider
+        }
+
+        // Genuinely non-retryable and not provider-specific (e.g. a malformed
+        // request) → bail; retrying elsewhere would fail the same way.
         throw err;
       }
     }
