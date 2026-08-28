@@ -35,7 +35,8 @@ type IconName =
   | "share"
   | "more"
   | "calendar"
-  | "check";
+  | "check"
+  | "copy";
 
 interface Props extends SVGProps<SVGSVGElement> {
   name: IconName;
@@ -294,6 +295,13 @@ export default function Icon({ name, size = 16, className = "", ...rest }: Props
       return (
         <svg {...common}>
           <path d="M4 12l5 5L20 7" />
+        </svg>
+      );
+    case "copy":
+      return (
+        <svg {...common}>
+          <rect x="9" y="9" width="12" height="12" rx="2" />
+          <path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" />
         </svg>
       );
     default:

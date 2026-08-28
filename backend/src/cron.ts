@@ -1,7 +1,10 @@
 import cron from "node-cron";
 import pool from "./db.js";
 import { runAllFetchers } from "./fetchers/index.js";
-import { sendWeeklyDigest, sendDailyDigest } from "./llm/digest.js";
+import { sendEditionEmails } from "./llm/digest.js";
+import { runExtraction } from "./concepts/extract.js";
+import { runServeJob } from "./concepts/serve.js";
+import { snapshotBenchmarks } from "./routes/benchmarks.js";
 import { seedYouTubeSources } from "./seed-sources.js";
 
 let fetchInFlight = false;
@@ -12,7 +15,7 @@ let fetchInFlight = false;
  */
 export function startCron(): void {
   scheduleFromDB();
-  scheduleWeeklyDigest();
+  scheduleConceptPipeline();
   scheduleRetentionCleanup();
 }
 
@@ -104,25 +107,40 @@ async function scheduleFromDB(): Promise<void> {
   }, 5000);
 }
 
-/** Weekly digest — every Monday at 08:00 UTC */
-function scheduleWeeklyDigest(): void {
-  // "0 8 * * 1" = 08:00 every Monday
-  cron.schedule("0 8 * * 1", async () => {
-    console.log(`\n📬 [${new Date().toISOString()}] Sending weekly digest…`);
+/**
+ * The concept pipeline.
+ *
+ * Extraction runs nightly rather than per-fetch: it is the expensive LLM stage,
+ * and there is no value in re-running it every hour when the output is two
+ * concepts a week. Serving and delivery run in the morning, after extraction
+ * has had a chance to add anything new to the pool.
+ */
+function scheduleConceptPipeline(): void {
+  // 02:00 UTC — extract concepts from the last 48h of items.
+  cron.schedule("0 2 * * *", async () => {
+    console.log(`\n🧠 [${new Date().toISOString()}] Running concept extraction…`);
     try {
-      await sendWeeklyDigest();
+      await runExtraction();
     } catch (err) {
-      console.error("Weekly digest error:", err);
+      console.error("Concept extraction error:", err);
+    }
+    // Same slot: one row per model per day, so /models can show movement
+    // instead of only ever showing the current standings.
+    try {
+      await snapshotBenchmarks();
+    } catch (err) {
+      console.error("Benchmark snapshot error:", err);
     }
   });
 
-  // Daily digest — every day at 07:00 UTC
+  // 07:00 UTC — build each due user's edition, then email it.
   cron.schedule("0 7 * * *", async () => {
-    console.log(`\n📬 [${new Date().toISOString()}] Sending daily digest…`);
+    console.log(`\n📮 [${new Date().toISOString()}] Serving editions…`);
     try {
-      await sendDailyDigest();
+      await runServeJob();
+      await sendEditionEmails();
     } catch (err) {
-      console.error("Daily digest error:", err);
+      console.error("Edition serve/delivery error:", err);
     }
   });
 }

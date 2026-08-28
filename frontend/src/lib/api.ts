@@ -98,19 +98,6 @@ export interface FetchStats {
   errors: string[];
 }
 
-export interface KnowledgeGuide {
-  id: number;
-  title: string;
-  slug: string;
-  category: string;
-  content?: string;
-  icon: string;
-  difficulty: string;
-  tags: string[];
-  created_at: string;
-  updated_at: string;
-}
-
 export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
@@ -132,48 +119,119 @@ export interface UserPrefs {
   role: string;
 }
 
-// ── Brief types ──────────────────────────────────────────────────────
+// ── Concepts ─────────────────────────────────────────────────────────
 
-export interface BriefItem {
-  title: string;
-  url: string;
-  platform: string;
-  score: number;
-}
+export const CONCEPT_AREAS = [
+  "inference-serving",
+  "open-weights",
+  "agent-context",
+  "evals-reliability",
+  "credentials",
+] as const;
 
-export interface BriefSection {
-  topic: string;
+export type ConceptArea = (typeof CONCEPT_AREAS)[number];
+
+/** Display labels for the five tracked areas. */
+export const AREA_LABELS: Record<string, string> = {
+  "inference-serving": "Inference & serving",
+  "open-weights": "Open weights",
+  "agent-context": "Agents & context",
+  "evals-reliability": "Evals & reliability",
+  credentials: "Credentials",
+};
+
+export type ConceptState = "served" | "got_it" | "not_for_me" | "want_to_post";
+
+export interface Concept {
+  id: number;
   slug: string;
-  items: BriefItem[];
-  summary: string | null;
+  title: string;
+  hook: string;
+  claim_number: string | null;
+  mechanism: string;
+  why_it_matters: string;
+  transfer: string | null;
+  post_draft: string | null;
+  area: ConceptArea;
+  difficulty: "working" | "deep" | "frontier";
+  durability: number;
+  state?: ConceptState | null;
+  published_at?: string;
 }
 
-export interface Brief {
-  date: string;
-  intro: string | null;
-  sections: BriefSection[];
-  generated: boolean;
-  generated_at?: string;
+export interface ConceptSources {
+  items: { id: number; title: string; url: string; platform: string; role: string }[];
+  links: { label: string; url: string }[];
+}
+
+export interface Edition {
+  served_on: string;
+  lead: Concept | null;
+  mentions: Concept[];
+}
+
+export interface TodayResponse {
+  edition: Edition | null;
+  sources?: ConceptSources;
   message?: string;
 }
 
-export interface ConfEvent {
-  name: string;
-  url: string;
-  startDate: string;
-  endDate: string;
-  city?: string;
-  country?: string;
-  online?: boolean;
-  topic: string;
-  cfpUrl?: string;
-  cfpEndDate?: string;
+export interface AreaCoverage {
+  area: ConceptArea;
+  total: number;
+  mastered: number;
+  seen: number;
+  unexplored: number;
 }
 
-export interface EventsResponse {
-  events: ConfEvent[];
+export interface CoverageResponse {
+  areas: AreaCoverage[];
+  known_areas: ConceptArea[];
+  recent: {
+    id: number;
+    slug: string;
+    title: string;
+    area: ConceptArea;
+    difficulty: string;
+    state: ConceptState;
+    served_on: string;
+  }[];
+}
+
+export interface ArchiveResponse {
+  concepts: Concept[];
   total: number;
-  countries: string[];
+  limit: number;
+  offset: number;
+}
+
+export interface DeliveryPrefs {
+  serve_days: number[];
+  serve_areas: ConceptArea[];
+  email_concepts: boolean;
+  known_areas?: ConceptArea[];
+}
+
+/** Postgres DOW ordering: 0 = Sunday. */
+export const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+export interface BenchmarkMovementRow {
+  model_slug: string;
+  model_name: string;
+  creator: string;
+  intelligence_now: number | null;
+  intelligence_then: number | null;
+  intelligence_delta: number | null;
+  price_now: number | null;
+  price_then: number | null;
+  since: string;
+  as_of: string;
+}
+
+export interface BenchmarkMovementResponse {
+  movement: BenchmarkMovementRow[];
+  snapshot_days: number;
+  has_history: boolean;
 }
 
 // ─────────────────────────────────────────────────────────────────────
@@ -244,12 +302,6 @@ export const api = {
     return request<TopicDetail>(`/topics/${slug}${qs}`);
   },
 
-  getTrendingDaily() {
-    return request<{ topic_id: number; topic_name: string; topic_slug: string; day: string; count: number }[]>(
-      "/topics/trending/daily"
-    );
-  },
-
   getSources() {
     return request<Source[]>("/sources");
   },
@@ -272,15 +324,6 @@ export const api = {
 
   getHealth() {
     return request<{ status: string; timestamp: string }>("/health");
-  },
-
-  getKnowledgeGuides(category?: string) {
-    const qs = category ? `?category=${category}` : "";
-    return request<KnowledgeGuide[]>(`/knowledge${qs}`);
-  },
-
-  getKnowledgeGuide(slug: string) {
-    return request<KnowledgeGuide>(`/knowledge/${slug}`);
   },
 
   sendChat(message: string, history: ChatMessage[]) {
@@ -394,26 +437,6 @@ export const api = {
     });
   },
 
-  // ── Morning Brief ────────────────────────────────────────────────
-  getBrief(lang?: string, date?: string) {
-    const q = new URLSearchParams();
-    if (lang && lang !== "en") q.set("lang", lang);
-    if (date) q.set("date", date);
-    const qs = q.toString();
-    return request<Brief>(`/brief${qs ? `?${qs}` : ""}`);
-  },
-
-  getBriefArchive() {
-    return request<{ dates: string[] }>("/brief/archive");
-  },
-
-  refreshBrief(lang?: string) {
-    return request<Brief & { ok: boolean }>(
-      `/brief/refresh${lang && lang !== "en" ? `?lang=${encodeURIComponent(lang)}` : ""}`,
-      { method: "POST" }
-    );
-  },
-
   // ── Email digest ──────────────────────────────────────────────────
   subscribe(email: string, frequency: "weekly" | "daily" = "weekly") {
     return request<{ ok: true; message: string }>("/subscribe", {
@@ -432,13 +455,52 @@ export const api = {
     return request<{ count: number }>("/subscribe/count");
   },
 
-  // ── Events ────────────────────────────────────────────────────────
-  getEvents(params: { country?: string; city?: string; online?: boolean } = {}) {
+  // ── Concepts ──────────────────────────────────────────────────────
+  getToday() {
+    return request<TodayResponse>("/concepts/today");
+  },
+
+  getCoverage() {
+    return request<CoverageResponse>("/concepts/coverage");
+  },
+
+  getConceptArchive(
+    params: { area?: string; search?: string; limit?: number; offset?: number } = {}
+  ) {
     const q = new URLSearchParams();
-    if (params.country) q.set("country", params.country);
-    if (params.city) q.set("city", params.city);
-    if (params.online === false) q.set("online", "false");
+    if (params.area) q.set("area", params.area);
+    if (params.search) q.set("search", params.search);
+    if (params.limit) q.set("limit", String(params.limit));
+    if (params.offset) q.set("offset", String(params.offset));
     const qs = q.toString();
-    return request<EventsResponse>(`/events${qs ? `?${qs}` : ""}`);
+    return request<ArchiveResponse>(`/concepts/archive${qs ? `?${qs}` : ""}`);
+  },
+
+  getConcept(slug: string) {
+    return request<{ concept: Concept; sources: ConceptSources }>(
+      `/concepts/${encodeURIComponent(slug)}`
+    );
+  },
+
+  setConceptState(id: number, state: Exclude<ConceptState, "served">) {
+    return request<{ ok: true; state: string }>(`/concepts/${id}/state`, {
+      method: "POST",
+      body: JSON.stringify({ state }),
+    });
+  },
+
+  getDeliveryPrefs() {
+    return request<DeliveryPrefs>("/concepts/prefs/delivery");
+  },
+
+  updateDeliveryPrefs(patch: Partial<Omit<DeliveryPrefs, "known_areas">>) {
+    return request<{ ok: true } & DeliveryPrefs>("/concepts/prefs/delivery", {
+      method: "PATCH",
+      body: JSON.stringify(patch),
+    });
+  },
+
+  getBenchmarkMovement(days = 30) {
+    return request<BenchmarkMovementResponse>(`/benchmarks/movement?days=${days}`);
   },
 };

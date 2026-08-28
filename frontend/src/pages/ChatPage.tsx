@@ -57,13 +57,18 @@ function hostname(url: string): string {
 
 /* ── Suggested questions ────────────────────────────────────── */
 
+/**
+ * Prompts aimed at the concept corpus rather than at general AI trivia — the
+ * assistant now retrieves from `concepts` first, so these are questions it can
+ * actually answer with a mechanism and a citation.
+ */
 const SUGGESTIONS = [
-  "What is RAG and how does it work?",
-  "Compare GPT-4o vs Claude Sonnet",
-  "How do I fine-tune Llama 3?",
-  "Best MCP servers for VS Code",
-  "What is context engineering?",
-  "How to get started with agent mode?",
+  "Why does prefix caching break when I add a timestamp?",
+  "What is context rot, and how do I design around it?",
+  "When is a sub-agent the wrong choice?",
+  "How does paged attention reclaim VRAM?",
+  "What biases does an LLM judge introduce?",
+  "Which concepts should I learn before speculative decoding?",
 ];
 
 /* ── Component ──────────────────────────────────────────────── */

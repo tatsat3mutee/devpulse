@@ -1,19 +1,16 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from "react";
 import { Routes, Route, NavLink, useLocation, Navigate } from "react-router-dom";
-import DashboardPage from "./pages/DashboardPage";
+import TodayPage from "./pages/TodayPage";
 import Icon from "./components/Icon";
 import CommandPalette from "./components/CommandPalette";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
-// Code-split every non-landing page — keeps the initial bundle small.
-const TopicsPage = lazy(() => import("./pages/TopicsPage"));
-const TopicDetailPage = lazy(() => import("./pages/TopicDetailPage"));
-const FeedPage = lazy(() => import("./pages/FeedPage"));
-const VideosPage = lazy(() => import("./pages/VideosPage"));
-const DevHubPage = lazy(() => import("./pages/DevHubPage"));
-const KnowledgePage = lazy(() => import("./pages/KnowledgePage"));
-const EventsPage = lazy(() => import("./pages/EventsPage"));
+// Code-split everything except the front door — keeps the initial bundle small.
+const CoveragePage = lazy(() => import("./pages/CoveragePage"));
+const ArchivePage = lazy(() => import("./pages/ArchivePage"));
+const ConceptPage = lazy(() => import("./pages/ConceptPage"));
+const ModelsPage = lazy(() => import("./pages/ModelsPage"));
 const SourcesPage = lazy(() => import("./pages/SourcesPage"));
 const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const HelpPage = lazy(() => import("./pages/HelpPage"));
@@ -23,13 +20,10 @@ const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const LibraryPage = lazy(() => import("./pages/LibraryPage"));
-const TrendingPage = lazy(() => import("./pages/TrendingPage"));
-const ModelsPage = lazy(() => import("./pages/ModelsPage"));
-const LandingPage = lazy(() => import("./pages/LandingPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
-const BriefPage = lazy(() => import("./pages/BriefPage"));
 const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
 const TermsPage = lazy(() => import("./pages/TermsPage"));
+const UnsubscribePage = lazy(() => import("./pages/UnsubscribePage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function PageFallback() {
@@ -44,16 +38,19 @@ function PageFallback() {
   );
 }
 
+/**
+ * Three entries, on purpose.
+ *
+ * The previous nav had nine, and the dashboard fired seven parallel API calls
+ * across six sections — every visit demanded a decision about what to read, and
+ * that decision cost is why the product went unused. Artifact died of
+ * incoherence via addition; the discipline here is to keep the front door
+ * singular and let everything else be somewhere you go deliberately.
+ */
 const navItems = [
-  { to: "/", label: "Today", icon: "home" as const },
-  { to: "/brief", label: "Brief", icon: "newspaper" as const },
-  { to: "/models", label: "Models", icon: "spark" as const },
-  { to: "/topics", label: "Topics", icon: "layers" as const },
-  { to: "/videos", label: "Watch", icon: "play" as const },
-  { to: "/feed", label: "Feed", icon: "rss" as const },
-  { to: "/chat", label: "Chat", icon: "chat" as const },
-  { to: "/events", label: "Events", icon: "calendar" as const },
-  { to: "/knowledge", label: "Knowledge", icon: "book" as const },
+  { to: "/", label: "Today", icon: "spark" as const },
+  { to: "/coverage", label: "Coverage", icon: "layers" as const },
+  { to: "/archive", label: "Archive", icon: "book" as const },
 ];
 
 function UserBadge() {
@@ -182,7 +179,7 @@ function AppInner() {
   useEffect(() => {
     document.title = currentLabel
       ? `${currentLabel} · DevPulse`
-      : "DevPulse - AI developer signal feed";
+      : "DevPulse - one AI idea, twice a week";
   }, [currentLabel, location.pathname]);
 
   return (
@@ -331,33 +328,45 @@ function AppInner() {
         <div id="main" className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-8 py-6 sm:py-10">
           <Suspense fallback={<PageFallback />}>
           <Routes>
-            <Route path="/" element={<DashboardPage />} />
-            <Route path="/brief" element={<BriefPage />} />
-            <Route path="/topics" element={<TopicsPage />} />
+            <Route path="/" element={<TodayPage />} />
+            <Route path="/coverage" element={<CoveragePage />} />
+            <Route path="/archive" element={<ArchivePage />} />
+            <Route path="/concept/:slug" element={<ConceptPage />} />
+
+            {/* Off-nav but kept: reachable deliberately, not competing for attention. */}
             <Route path="/models" element={<ModelsPage />} />
-            <Route path="/trending" element={<TrendingPage />} />
-            <Route path="/topic/:slug" element={<TopicDetailPage />} />
-            <Route path="/feed" element={<FeedPage />} />
-            <Route path="/devhub" element={<DevHubPage />} />
-            <Route path="/vscode" element={<DevHubPage />} />
-            <Route path="/videos" element={<VideosPage />} />
-            <Route path="/knowledge" element={<KnowledgePage />} />
-            <Route path="/knowledge/:slug" element={<KnowledgePage />} />
-            <Route path="/events" element={<EventsPage />} />
-            <Route path="/learn" element={<Navigate to="/knowledge" replace />} />
+            <Route path="/chat" element={<ChatPage />} />
             <Route path="/sources" element={<SourcesPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/library" element={<LibraryPage />} />
             <Route path="/help" element={<HelpPage />} />
-            <Route path="/chat" element={<ChatPage />} />
+
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
-            <Route path="/library" element={<LibraryPage />} />
-            <Route path="/landing" element={<LandingPage />} />
+
             <Route path="/about" element={<AboutPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
+            <Route path="/unsubscribe" element={<UnsubscribePage />} />
+
+            {/* Retired surfaces — redirect rather than 404 so old links and
+                bookmarks land somewhere useful. */}
+            <Route path="/feed" element={<Navigate to="/archive" replace />} />
+            <Route path="/brief" element={<Navigate to="/" replace />} />
+            <Route path="/topics" element={<Navigate to="/coverage" replace />} />
+            <Route path="/topic/:slug" element={<Navigate to="/archive" replace />} />
+            <Route path="/knowledge" element={<Navigate to="/archive" replace />} />
+            <Route path="/knowledge/:slug" element={<Navigate to="/archive" replace />} />
+            <Route path="/learn" element={<Navigate to="/archive" replace />} />
+            <Route path="/trending" element={<Navigate to="/archive" replace />} />
+            <Route path="/videos" element={<Navigate to="/archive" replace />} />
+            <Route path="/events" element={<Navigate to="/archive" replace />} />
+            <Route path="/devhub" element={<Navigate to="/archive" replace />} />
+            <Route path="/vscode" element={<Navigate to="/archive" replace />} />
+            <Route path="/landing" element={<Navigate to="/" replace />} />
+
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           </Suspense>
@@ -385,13 +394,7 @@ function AppInner() {
       {/* Mobile bottom nav */}
       {!isDesktop && (
         <nav className="fixed bottom-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur border-t border-line flex items-stretch lg:hidden">
-          {[
-            { to: "/", label: "Today", icon: "home" as const },
-            { to: "/brief", label: "Brief", icon: "newspaper" as const },
-            { to: "/topics", label: "Topics", icon: "layers" as const },
-            { to: "/knowledge", label: "Learn", icon: "book" as const },
-            { to: "/chat", label: "Chat", icon: "chat" as const },
-          ].map((n) => (
+          {navItems.map((n) => (
             <NavLink
               key={n.to}
               to={n.to}

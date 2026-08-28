@@ -4,8 +4,8 @@ import pool from "./../db.js";
 const router = Router();
 
 const STATIC_PAGES = [
-  "/", "/feed", "/topics", "/videos", "/chat", "/brief", "/knowledge",
-  "/events", "/trending", "/devhub", "/about", "/help", "/privacy", "/terms",
+  "/", "/coverage", "/archive", "/models", "/chat",
+  "/about", "/help", "/privacy", "/terms",
 ];
 
 function xmlEscape(s: string): string {
@@ -24,21 +24,18 @@ function buildXml(urls: string[]): string {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>\n`;
 }
 
-// GET /sitemap.xml — static pages + dynamic topic and knowledge guide slugs
+// GET /sitemap.xml — static pages + every published concept
 router.get("/", async (_req: Request, res: Response) => {
   const base = (process.env.SITE_URL || "https://devpulse.tatsatpandey.com").replace(/\/+$/, "");
   const urls = STATIC_PAGES.map((p) => `${base}${p}`);
 
   try {
-    const [topics, guides] = await Promise.all([
-      pool.query<{ slug: string }>(`SELECT slug FROM topics`),
-      pool.query<{ slug: string }>(`SELECT slug FROM knowledge_guides`),
-    ]);
-    for (const row of topics.rows) {
-      if (row.slug) urls.push(`${base}/topics/${row.slug}`);
-    }
-    for (const row of guides.rows) {
-      if (row.slug) urls.push(`${base}/knowledge/${row.slug}`);
+    // Concepts are the indexable content now — topic and guide pages are gone.
+    const concepts = await pool.query<{ slug: string }>(
+      `SELECT slug FROM concepts WHERE status = 'published'`
+    );
+    for (const row of concepts.rows) {
+      if (row.slug) urls.push(`${base}/concept/${row.slug}`);
     }
   } catch (err) {
     console.error("Sitemap DB error (serving static-only sitemap):", err);

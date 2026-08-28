@@ -8,7 +8,6 @@ import {
 } from "../lib/utils";
 import { useNavigate } from "react-router-dom";
 import Icon from "./Icon";
-import VideoModal, { isYouTube } from "./VideoModal";
 import { useAuth } from "../context/AuthContext";
 import {
   isLocalBookmarked,
@@ -79,8 +78,6 @@ export default function FeedItem({ item, showTopic, note }: Props) {
   const [localSaved, setLocalSaved] = useState(() => isLocalBookmarked(item.id));
   const [copied, setCopied] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
-  const [videoOpen, setVideoOpen] = useState(false);
-  const isVideo = isYouTube(item);
 
   const saved = user ? isSaved(item.id) : localSaved;
 
@@ -160,10 +157,7 @@ export default function FeedItem({ item, showTopic, note }: Props) {
   return (
     <article
       ref={articleRef}
-      onClick={() => {
-        if (isVideo) setVideoOpen(true);
-        else window.open(item.url, "_blank", "noopener,noreferrer");
-      }}
+      onClick={() => window.open(item.url, "_blank", "noopener,noreferrer")}
       className="group relative bg-surface border border-line rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 hover:border-ink/20 hover:shadow-cardHover transition-all cursor-pointer"
     >
       {/* Header strip */}
@@ -354,7 +348,6 @@ export default function FeedItem({ item, showTopic, note }: Props) {
           </div>
         </div>
       </div>
-      {videoOpen && <VideoModal item={item} onClose={() => setVideoOpen(false)} />}
     </article>
   );
 }
