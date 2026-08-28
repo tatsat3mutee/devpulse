@@ -10,6 +10,9 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 const CoveragePage = lazy(() => import("./pages/CoveragePage"));
 const ArchivePage = lazy(() => import("./pages/ArchivePage"));
 const ConceptPage = lazy(() => import("./pages/ConceptPage"));
+const FeedPage = lazy(() => import("./pages/FeedPage"));
+const TopicsPage = lazy(() => import("./pages/TopicsPage"));
+const TopicDetailPage = lazy(() => import("./pages/TopicDetailPage"));
 const ModelsPage = lazy(() => import("./pages/ModelsPage"));
 const SourcesPage = lazy(() => import("./pages/SourcesPage"));
 const SettingsPage = lazy(() => import("./pages/SettingsPage"));
@@ -39,18 +42,48 @@ function PageFallback() {
 }
 
 /**
- * Three entries, on purpose.
+ * Two groups, on purpose.
  *
- * The previous nav had nine, and the dashboard fired seven parallel API calls
- * across six sections — every visit demanded a decision about what to read, and
- * that decision cost is why the product went unused. Artifact died of
- * incoherence via addition; the discipline here is to keep the front door
- * singular and let everything else be somewhere you go deliberately.
+ * "Ideas" is the product: one deep concept, twice a week. "Browse" is the
+ * raw material — the full aggregator surfaces for people who want to dig.
+ * The original nav had nine flat entries and died of incoherence via
+ * addition; grouping keeps the front door singular without hiding the depth.
  */
-const navItems = [
-  { to: "/", label: "Today", icon: "spark" as const },
-  { to: "/coverage", label: "Coverage", icon: "layers" as const },
-  { to: "/archive", label: "Archive", icon: "book" as const },
+type NavItem = {
+  to: string;
+  label: string;
+  icon: React.ComponentProps<typeof Icon>["name"];
+};
+
+const navGroups: { label: string; items: NavItem[] }[] = [
+  {
+    label: "Ideas",
+    items: [
+      { to: "/", label: "Today", icon: "spark" as const },
+      { to: "/coverage", label: "Coverage", icon: "target" as const },
+      { to: "/archive", label: "Archive", icon: "book" as const },
+    ],
+  },
+  {
+    label: "Browse",
+    items: [
+      { to: "/feed", label: "Feed", icon: "rss" as const },
+      { to: "/topics", label: "Topics", icon: "layers" as const },
+      { to: "/models", label: "Models", icon: "trending" as const },
+      { to: "/chat", label: "Chat", icon: "chat" as const },
+    ],
+  },
+];
+
+const navItems = navGroups.flatMap((g) => g.items);
+
+// Mobile bottom bar: the five surfaces that matter on the go.
+const mobileNavItems = [
+  navGroups[0].items[0], // Today
+  navGroups[1].items[0], // Feed
+  navGroups[1].items[1], // Topics
+  navGroups[0].items[1], // Coverage
+  navGroups[0].items[2], // Archive
 ];
 
 function UserBadge() {
@@ -222,24 +255,33 @@ function AppInner() {
         </div>
 
         {/* Nav */}
-        <nav className="flex flex-col gap-0.5 px-2 flex-1 overflow-y-auto">
-          {navItems.map((n) => (
-            <NavLink
-              key={n.to}
-              to={n.to}
-              end={n.to === "/"}
-              onClick={closeSidebar}
-              className={({ isActive }) =>
-                `flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all ${
-                  isActive
-                    ? "bg-accent/10 text-accent"
-                    : "text-ink-muted hover:bg-paper hover:text-ink"
-                }`
-              }
-            >
-              <Icon name={n.icon} size={15} className="shrink-0" />
-              <span>{n.label}</span>
-            </NavLink>
+        <nav className="flex flex-col px-2 flex-1 overflow-y-auto">
+          {navGroups.map((group) => (
+            <div key={group.label} className="mb-4">
+              <div className="px-3 pb-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
+                {group.label}
+              </div>
+              <div className="flex flex-col gap-0.5">
+                {group.items.map((n) => (
+                  <NavLink
+                    key={n.to}
+                    to={n.to}
+                    end={n.to === "/"}
+                    onClick={closeSidebar}
+                    className={({ isActive }) =>
+                      `flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium transition-all ${
+                        isActive
+                          ? "bg-accent/10 text-accent"
+                          : "text-ink-muted hover:bg-paper hover:text-ink"
+                      }`
+                    }
+                  >
+                    <Icon name={n.icon} size={15} className="shrink-0" />
+                    <span>{n.label}</span>
+                  </NavLink>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
 
@@ -333,7 +375,10 @@ function AppInner() {
             <Route path="/archive" element={<ArchivePage />} />
             <Route path="/concept/:slug" element={<ConceptPage />} />
 
-            {/* Off-nav but kept: reachable deliberately, not competing for attention. */}
+            {/* Browse: the aggregator surfaces, one level below the front door. */}
+            <Route path="/feed" element={<FeedPage />} />
+            <Route path="/topics" element={<TopicsPage />} />
+            <Route path="/topic/:slug" element={<TopicDetailPage />} />
             <Route path="/models" element={<ModelsPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/sources" element={<SourcesPage />} />
@@ -353,10 +398,7 @@ function AppInner() {
 
             {/* Retired surfaces — redirect rather than 404 so old links and
                 bookmarks land somewhere useful. */}
-            <Route path="/feed" element={<Navigate to="/archive" replace />} />
             <Route path="/brief" element={<Navigate to="/" replace />} />
-            <Route path="/topics" element={<Navigate to="/coverage" replace />} />
-            <Route path="/topic/:slug" element={<Navigate to="/archive" replace />} />
             <Route path="/knowledge" element={<Navigate to="/archive" replace />} />
             <Route path="/knowledge/:slug" element={<Navigate to="/archive" replace />} />
             <Route path="/learn" element={<Navigate to="/archive" replace />} />
@@ -394,7 +436,7 @@ function AppInner() {
       {/* Mobile bottom nav */}
       {!isDesktop && (
         <nav className="fixed bottom-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur border-t border-line flex items-stretch lg:hidden">
-          {navItems.map((n) => (
+          {mobileNavItems.map((n) => (
             <NavLink
               key={n.to}
               to={n.to}

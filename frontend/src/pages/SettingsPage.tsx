@@ -9,9 +9,11 @@ import {
   type DeliveryPrefs,
 } from "../lib/api";
 import { useAuth } from "../context/AuthContext";
+import { useRole, ROLES, type DevRole } from "../components/RoleSelector";
 
 export default function SettingsPage() {
   const { user, logout } = useAuth();
+  const { role, setRole } = useRole();
   const navigate = useNavigate();
   const [health, setHealth] = useState<{ status: string; timestamp: string } | null>(null);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
@@ -20,6 +22,11 @@ export default function SettingsPage() {
   useEffect(() => {
     api.getHealth().then(setHealth).catch(() => {});
   }, []);
+
+  const handleRole = (r: DevRole) => {
+    setRole(r);
+    if (user) api.updateRole(r).catch(() => {});
+  };
 
   const handleDeleteAccount = async () => {
     setDeleting(true);
@@ -44,6 +51,32 @@ export default function SettingsPage() {
 
       <div className="space-y-2">
         <DeliveryCard />
+
+        {/* Role personalisation — works for everyone (stored locally, synced when signed in) */}
+        <Card title="Your role" eyebrow="Personalisation">
+          <p className="text-[12.5px] text-ink-muted mb-3">
+            We highlight the topics most relevant to your role across the feed and topics pages.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {ROLES.map(({ value, label, icon, description }) => (
+              <button
+                key={value}
+                onClick={() => handleRole(value)}
+                className={`text-left px-3.5 py-3 rounded-lg border transition-all ${
+                  role === value
+                    ? "border-accent bg-accent-soft text-accent"
+                    : "border-line hover:border-ink/25 hover:bg-paper text-ink-soft hover:text-ink"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[16px]">{icon}</span>
+                  <span className="font-medium text-[13px]">{label}</span>
+                </div>
+                <p className="text-[11.5px] text-ink-muted leading-relaxed">{description}</p>
+              </button>
+            ))}
+          </div>
+        </Card>
 
         {/* Status */}
         <Card title="System Status" eyebrow="Health">

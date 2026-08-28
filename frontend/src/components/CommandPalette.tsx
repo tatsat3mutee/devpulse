@@ -197,12 +197,12 @@ export default function CommandPalette({ open, onClose }: Props) {
               <p className="text-[11px] text-ink-faint mb-3">Quick links</p>
               <div className="grid grid-cols-2 gap-1">
                 {[
-                  { label: "Dashboard", path: "/" },
-                  { label: "Chat", path: "/chat" },
-                  { label: "Knowledge", path: "/knowledge" },
-                  { label: "Dev Hub", path: "/devhub" },
-                  { label: "Events", path: "/events" },
+                  { label: "Today", path: "/" },
+                  { label: "Feed", path: "/feed" },
                   { label: "Topics", path: "/topics" },
+                  { label: "Archive", path: "/archive" },
+                  { label: "Models", path: "/models" },
+                  { label: "Chat", path: "/chat" },
                 ].map((link) => (
                   <button
                     key={link.path}
