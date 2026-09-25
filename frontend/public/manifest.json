@@ -1,0 +1,61 @@
+{
+  "name": "DevPulse",
+  "short_name": "DevPulse",
+  "description": "Learn durable AI engineering mechanisms in a finishable twice-weekly edition",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0c0e12",
+  "theme_color": "#34c78d",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Edition",
+      "url": "/edition",
+      "icons": [{
+        "src": "/icon.svg",
+        "sizes": "any",
+        "type": "image/svg+xml"
+      }],
+      "description": "Your latest concept edition"
+    },
+    {
+      "name": "Chat",
+      "url": "/chat",
+      "icons": [{
+        "src": "/icon.svg",
+        "sizes": "any",
+        "type": "image/svg+xml"
+      }],
+      "description": "Chat about today's signal"
+    }
+  ]
+}

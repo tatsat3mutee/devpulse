@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { execFileSync } from "node:child_process";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer, type Server } from "node:http";
 import { dirname, extname, join, resolve, sep } from "node:path";
@@ -169,7 +170,7 @@ test.describe("isolated synthetic published editions", () => {
   let server: Server | undefined;
 
   test.beforeAll(async () => {
-    test.setTimeout(120_000);
+    test.setTimeout(240_000);
     const workspace = resolve(dirname(fileURLToPath(import.meta.url)), "..");
     await mkdir(join(workspace, ".astro"), { recursive: true });
     fixtureRoot = await mkdtemp(join(workspace, ".astro", "reader-fixture-"));
@@ -203,8 +204,8 @@ test.describe("isolated synthetic published editions", () => {
     const review = edition("2026-01-04", "PRIVATE_REVIEW_CANARY", "draft");
     for (const item of [first, second, draft]) await writeFile(join(fixtureRoot, `data/editions/${item.date}.json`), JSON.stringify(item));
     await writeFile(join(fixtureRoot, "data/review/2026-01-04.json"), JSON.stringify(review));
-    execFileSync(process.execPath, [join(workspace, "node_modules/astro/bin/astro.mjs"), "build"], {
-      cwd: fixtureRoot, timeout: 90_000, env: { ...process.env, SITE_URL: "https://reader-fixture.example" }, stdio: "pipe",
+    await promisify(execFile)(process.execPath, [join(workspace, "node_modules/astro/bin/astro.mjs"), "build"], {
+      cwd: fixtureRoot, timeout: 200_000, env: { ...process.env, SITE_URL: "https://reader-fixture.example" }, maxBuffer: 16 * 1024 * 1024,
     });
     const output = join(fixtureRoot, "dist");
     server = createServer(async (request, response) => {

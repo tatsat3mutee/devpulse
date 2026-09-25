@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ── Light palette ────────────────────────────────────────── */
+  :root {
+    --paper: 247 248 246;
+    --surface: 255 255 255;
+    --ink: 24 29 28;
+    --ink-soft: 57 66 63;
+    --ink-muted: 83 96 91;
+    --ink-faint: 103 115 110;
+    --line: 212 220 215;
+    --accent: 10 112 80;
+    --warning: 146 77 12;
+    --warning-soft: 255 245 222;
+    --accent-soft: 228 245 239;
+    --accent-ring: 16 185 129;
+    --shadow-card: 0 1px 0 rgba(10,10,12,0.04), 0 1px 4px rgba(10,10,12,0.06);
+    --shadow-card-hover: 0 1px 0 rgba(10,10,12,0.06), 0 4px 16px -4px rgba(10,10,12,0.10);
+    color-scheme: light;
+  }
+
+  /* ── Dark palette — warm neutral zinc, no blue cast (Linear/iOS style) ── */
+  .dark {
+    --paper: 20 22 22;
+    --surface: 29 32 31;
+    --ink: 241 244 242;
+    --ink-soft: 189 199 194;
+    --ink-muted: 160 173 166;
+    --ink-faint: 145 158 151;
+    --line: 63 73 68;
+    --warning: 245 194 108;
+    --warning-soft: 51 39 23;
+    --accent: 46 196 138;
+    --accent-soft: 16 38 30;
+    --accent-ring: 46 196 138;
+    --shadow-card: 0 1px 0 rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.22);
+    --shadow-card-hover: 0 1px 0 rgba(0,0,0,0.36), 0 6px 24px -4px rgba(0,0,0,0.30);
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    color: rgb(var(--ink));
+    background: rgb(var(--paper));
+  }
+  h1, h2, h3, h4 {
+    letter-spacing: 0;
+  }
+
+  /* Page headings — Inter 600, tight. No serif. */
+  .display {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  /* Brand wordmark — clean, tight sans (not the tall/condensed serif) */
+  .wordmark {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.1;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+  }
+
+  /* Section labels — less aggressive tracking */
+  .eyebrow {
+    @apply text-[11px] uppercase tracking-[0.1em] font-medium;
+    color: rgb(var(--ink-faint));
+  }
+
+  ::selection {
+    background: rgb(var(--accent-soft));
+    color: rgb(var(--accent));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 4px;
+  }
+
+  input[type="checkbox"], input[type="radio"] {
+    accent-color: rgb(var(--accent));
+  }
+}
+
+.lesson-heading {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+@layer utilities {
+  .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+}
+
+/* Prevent iOS Safari auto-zoom on input focus (triggered when font-size < 16px) */
+@media (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* Prevent double-tap zoom on buttons/links */
+button, a {
+  touch-action: manipulation;
+}
