@@ -26,7 +26,7 @@ test("Workflow publishes only a manually verified main SHA artifact without rebu
   const gate = "github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'";
   expect(publish.if).toBe(gate);
   expect(publish.needs).toBe("verify");
-  expect(publish.environment).toBe("production");
+  expect(publish.environment).toBeUndefined();
   expect(workflow.concurrency["cancel-in-progress"]).toBe(false);
   for (const job of [verify, publish]) {
     expect(job.steps.find((step) => step.uses?.startsWith("actions/checkout@"))?.with?.ref).toBe("${{ github.sha }}");
