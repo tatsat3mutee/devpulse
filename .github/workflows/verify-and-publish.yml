@@ -1,0 +1,127 @@
+name: Verify and publish
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: devpulse-${{ github.event_name == 'workflow_dispatch' && 'release' || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    outputs:
+      archive_sha256: ${{ steps.package.outputs.archive_sha256 }}
+      edition_date: ${{ steps.package.outputs.edition_date }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.3.13
+      - run: bun install --frozen-lockfile
+      - run: bun test ./tests
+      - run: bun run build
+      - run: bunx playwright install --with-deps chromium
+      - run: bun run test:e2e
+      - name: Package verified release
+        id: package
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+        run: |
+          bun run release:check
+          edition_date=$(bun -e 'import { loadLatestApproved } from "./scripts/check-release"; console.log((await loadLatestApproved()).date)')
+          printf '%s\n' "$GITHUB_SHA" > dist/release-sha.txt
+          RELEASE_ARTIFACT_DIR=dist RELEASE_SHA="$GITHUB_SHA" bun run release:probe
+          tar -czf "devpulse-${GITHUB_SHA}.tar.gz" -C dist .
+          archive_sha256=$(sha256sum "devpulse-${GITHUB_SHA}.tar.gz" | cut -d ' ' -f 1)
+          printf 'archive_sha256=%s\nedition_date=%s\n' "$archive_sha256" "$edition_date" >> "$GITHUB_OUTPUT"
+        env:
+          PUBLIC_SITE_URL: https://devpulse.tatsatpandey.com
+      - name: Verified static artifact
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: release-${{ github.sha }}
+          path: devpulse-${{ github.sha }}.tar.gz
+          if-no-files-found: error
+          retention-days: 7
+      - name: Browser evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: browser-results-${{ github.run_id }}
+          path: |
+            playwright-report
+            test-results
+          retention-days: 7
+
+  publish:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: production
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.3.13
+      - run: bun install --frozen-lockfile
+      - name: Require a reviewed edition
+        run: bun run release:check
+      - name: Download verified static artifact
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: release-${{ github.sha }}
+      - name: Verify artifact checksum
+        run: |
+          [[ "$ARCHIVE_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          printf '%s  %s\n' "$ARCHIVE_SHA256" "devpulse-${GITHUB_SHA}.tar.gz" | sha256sum --check --strict
+        env:
+          ARCHIVE_SHA256: ${{ needs.verify.outputs.archive_sha256 }}
+      - name: Install pinned EC2 SSH identity
+        run: |
+          test -n "$EC2_SSH_KEY" && test -n "$EC2_KNOWN_HOSTS"
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$EC2_SSH_KEY" > "$HOME/.ssh/deploy_key"
+          chmod 600 "$HOME/.ssh/deploy_key"
+          printf '%s\n' "$EC2_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+        env:
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          EC2_KNOWN_HOSTS: ${{ secrets.EC2_KNOWN_HOSTS }}
+      - name: Upload and release on existing EC2
+        run: |
+          [[ "$EC2_HOST" =~ ^[A-Za-z0-9][A-Za-z0-9.-]*$ && "$EC2_USER" =~ ^[a-z_][a-z0-9_-]*$ ]]
+          [[ "$GITHUB_SHA" =~ ^[0-9a-f]{40}$ && "$ARCHIVE_SHA256" =~ ^[0-9a-f]{64}$ && "$EDITION_DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]
+          options=(-i "$HOME/.ssh/deploy_key" -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o "UserKnownHostsFile=$HOME/.ssh/known_hosts" -o ConnectTimeout=10 -o ServerAliveInterval=15 -o ServerAliveCountMax=3)
+          scp "${options[@]}" "devpulse-${GITHUB_SHA}.tar.gz" "$EC2_USER@$EC2_HOST:/tmp/"
+          ssh "${options[@]}" "$EC2_USER@$EC2_HOST" "sudo -n env -u DEVPULSE_SANDBOX bash -s -- '$GITHUB_SHA' '$ARCHIVE_SHA256' '$EDITION_DATE'" < deploy/ec2/release.sh
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ vars.EC2_USER || 'ubuntu' }}
+          ARCHIVE_SHA256: ${{ needs.verify.outputs.archive_sha256 }}
+          EDITION_DATE: ${{ needs.verify.outputs.edition_date }}
+      - name: Verify public HTTPS release
+        run: bun run release:probe
+        env:
+          PUBLIC_SITE_URL: https://devpulse.tatsatpandey.com
+          RELEASE_SHA: ${{ github.sha }}
+      - name: Remove runner SSH identity
+        if: always()
+        run: rm -f "$HOME/.ssh/deploy_key" "$HOME/.ssh/known_hosts"

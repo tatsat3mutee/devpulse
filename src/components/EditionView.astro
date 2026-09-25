@@ -1,0 +1,125 @@
+---
+import { isPublicEdition, type Edition } from "../lib/schema";
+import ReadingMap from "./ReadingMap.astro";
+import ShareBlock from "./ShareBlock.astro";
+import StoryCard from "./StoryCard.astro";
+
+interface Props { edition: Edition; preview?: boolean; }
+const { edition, preview = !isPublicEdition(edition) } = Astro.props;
+const date = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${edition.date}T12:00:00Z`));
+const stories = [edition.lead, ...edition.stories];
+const editionShare = {
+  title: `DevPulse Daily Verdict — ${edition.title}`,
+  summary: stories.slice(0, 3).map((story, index) => `${index + 1}. ${story.title}`).join("\n"),
+  url: new URL(`/edition/${edition.date}`, Astro.site).toString(),
+  verdict: `${stories.length} stories · ${edition.readMinutes} min · every claim sourced`,
+};
+---
+<div class="edition shell">
+  {preview && <p role="status" class="preview-notice">Pilot preview · Editorial review and publication pending. Quote matching alone does not verify a claim.</p>}
+  <header class="edition-header">
+    <div class="headline">
+      <p class="eyebrow">Edition · {date}</p>
+      <h1>{edition.title}</h1>
+      <p class="dek">{edition.dek}</p>
+    </div>
+    <aside class="stats">
+      <div><strong>{stories.length}</strong><span>source-linked stories</span></div>
+      <div><strong>{edition.readMinutes}<small>min</small></strong><span>cover to cover</span></div>
+    </aside>
+  </header>
+
+  <div class="map-row">
+    <ReadingMap stories={stories} minutes={edition.readMinutes} />
+    {!preview && <ShareBlock {...editionShare} heading="Share today's edition" />}
+  </div>
+
+  <section aria-labelledby="lead-story">
+    <h2 id="lead-story" class="section-label">The lead</h2>
+    <StoryCard story={edition.lead} lead index={1} preview={preview} editionDate={edition.date} />
+  </section>
+
+  <div class="edition-grid">
+    <section class="stories" aria-labelledby="today-stories">
+      <h2 id="today-stories" class="section-label">Also in today's edition</h2>
+      {edition.stories.map((story, index) => <StoryCard story={story} index={index + 2} preview={preview} editionDate={edition.date} />)}
+    </section>
+    <aside class="desk-notes">
+      <div class="sticky">
+        <p class="eyebrow">Desk notes</p>
+        <h2>What earns a place</h2>
+        <ul>
+          <li>A primary source that readers can inspect</li>
+          <li>A specific engineering consequence</li>
+          <li>A claim tied to an exact source quote</li>
+          <li>A visible status and uncertainty level</li>
+        </ul>
+        <a href="/methodology">Read the full selection policy →</a>
+      </div>
+    </aside>
+  </div>
+
+  {edition.oneLiners.length > 0 && (
+    <section class="noted" aria-labelledby="also-noted">
+      <h2 id="also-noted" class="section-label">Also noted</h2>
+      <ol>
+        {edition.oneLiners.map((item, index) => (
+          <li><span>{String(index + 1).padStart(2, "0")}</span><a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a><small>{item.source}</small></li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  <section class="method-note">
+    <p class="eyebrow">How this edition was made</p>
+    <p>{edition.methodologyNote}</p>
+    <div><span>{preview ? "Review pending" : "Human reviewed"}</span><span>Source-linked quotes</span><span>Corrections stay visible</span></div>
+  </section>
+</div>
+<style>
+  .preview-notice { margin: 0 0 24px; padding: 12px 16px; border-left: 3px solid rgb(var(--warning)); background: rgb(var(--warning-soft)); color: rgb(var(--ink)); font-size: 13px; }
+  .edition { padding-top: 40px; }
+  .edition-header { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 56px; align-items: end; padding-bottom: 28px; border-bottom: 2px solid rgb(var(--ink)); }
+  .edition-header h1 { margin: 14px 0 16px; max-width: 20ch; font: 600 60px/1.04 "Newsreader", serif; letter-spacing: 0; }
+  .dek { margin: 0; max-width: 62ch; color: rgb(var(--soft)); font-size: 17px; line-height: 1.6; }
+  .stats { display: grid; gap: 18px; padding-left: 22px; border-left: 1px solid rgb(var(--line)); }
+  .stats div { display: grid; gap: 4px; }
+  .stats strong { font: 600 34px/1 "Newsreader", serif; }
+  .stats small { margin-left: 4px; font: 500 14px/1 "Manrope", sans-serif; color: rgb(var(--muted)); }
+  .stats span { color: rgb(var(--muted)); font: 500 10px/1.2 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+  .map-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: start; padding: 22px 0 16px; border-bottom: 1px solid rgb(var(--line)); }
+  .section-label { margin: 30px 0 20px; color: rgb(var(--signal)); font: 500 10.5px/1 "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+  .edition-grid { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 56px; }
+  .stories :global(article.story:first-of-type) { padding-top: 0; }
+  .desk-notes { border-left: 1px solid rgb(var(--line)); padding-left: 24px; }
+  .sticky { position: sticky; top: 24px; padding-top: 30px; }
+  .desk-notes h2 { margin: 10px 0 16px; font: 600 25px/1.1 "Newsreader", serif; }
+  .desk-notes ul { margin: 0; padding: 0; list-style: none; }
+  .desk-notes li { padding: 12px 0; border-top: 1px solid rgb(var(--line)); color: rgb(var(--soft)); font-size: 12px; line-height: 1.5; }
+  .desk-notes a { display: block; margin-top: 18px; color: rgb(var(--signal)); font: 600 10px/1.4 "DM Mono", monospace; }
+  .noted { margin-top: 54px; border-top: 2px solid rgb(var(--ink)); }
+  .noted ol { margin: 0; padding: 0; list-style: none; }
+  .noted li { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 15px 0; border-top: 1px solid rgb(var(--line)); }
+  .noted li > span, .noted small { color: rgb(var(--muted)); font: 400 9px/1 "DM Mono", monospace; }
+  .noted a { font: 600 14px/1.4 "Newsreader", serif; }
+  .noted a:hover { color: rgb(var(--signal)); }
+  .method-note { margin-top: 60px; padding: 28px; background: rgb(var(--ink)); color: rgb(var(--paper)); }
+  .method-note .eyebrow { color: rgb(var(--paper)); }
+  .method-note > p:not(.eyebrow) { max-width: 760px; font: 500 19px/1.45 "Newsreader", serif; }
+  .method-note div { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .method-note div span { padding: 6px 8px; border: 1px solid rgb(var(--paper) / .35); font: 400 9px/1 "DM Mono", monospace; text-transform: uppercase; }
+  @media (max-width: 840px) {
+    .edition-grid { grid-template-columns: 1fr; }
+    .desk-notes { border-left: 0; border-top: 1px solid rgb(var(--line)); padding-left: 0; }
+    .sticky { position: static; }
+  }
+  @media (max-width: 620px) {
+    .edition-header h1 { font-size: 38px; }
+    .edition { padding-top: 28px; }
+    .edition-header { grid-template-columns: 1fr; gap: 22px; }
+    .stats { grid-auto-flow: column; justify-content: start; gap: 32px; border-left: 0; padding-left: 0; }
+    .map-row { grid-template-columns: 1fr; gap: 16px; }
+    .noted li { grid-template-columns: 28px minmax(0, 1fr); }
+    .noted small { grid-column: 2; }
+  }
+</style>

@@ -1,0 +1,256 @@
+{
+  "date": "2026-09-24",
+  "publishedAt": "2026-09-24T06:30:00.000Z",
+  "status": "draft",
+  "readMinutes": 6,
+  "title": "The authority boundary is becoming the architecture",
+  "dek": "Six changes worth an engineer's attention, each tied to a primary source and labelled by what the evidence can actually support.",
+  "lead": {
+    "id": "execution-authority-needs-a-preflight",
+    "section": "ai-systems",
+    "title": "Agent execution authority is moving outside the model",
+    "originalTitle": "Models should not hold definition, verdict, and execution authority",
+    "whatChanged": "A proposed execution-state-preflight specification separates values, verdicts and execution permission from the model that proposes an action. Humans or deterministic policy define those boundaries before an agent can act.",
+    "whyItMatters": "The useful shift is architectural: model output becomes an untrusted proposal, not permission. That creates an inspectable control point for approvals, policy checks and replay-safe execution.",
+    "whoShouldCare": ["Agent builders", "Platform engineers", "Security teams"],
+    "status": "developing",
+    "confidence": "medium",
+    "confidenceReason": "The specification is public, but there is not yet independent production evidence for the design.",
+    "primarySource": {
+      "label": "Execution State Preflight specification",
+      "url": "https://github.com/Jang-woo-AnnaSoft/execution-state-preflight/blob/main/spec.en.md",
+      "type": "specification",
+      "publishedAt": "2026-09-22",
+      "vendorAuthored": false
+    },
+    "claims": [
+      {
+          "text": "The specification identifies definition, verdict and execution as co-located in the model today.",
+          "quote": "Until now, definition, verdict, and execution all happened in one place: the model.",
+        "sourceUrl": "https://github.com/Jang-woo-AnnaSoft/execution-state-preflight/blob/main/spec.en.md"
+      }
+    ],
+    "corroboration": [],
+    "pushback": {
+      "summary": "This is a proposal, not a demonstrated standard; the missing evidence is how teams express policy without rebuilding a brittle rule engine.",
+      "url": "https://news.ycombinator.com/item?id=49800747",
+      "label": "Hacker News discussion"
+    },
+    "discussion": {
+      "label": "Hacker News",
+      "url": "https://news.ycombinator.com/item?id=49800747"
+    },
+    "provenance": {
+      "summarizedBy": "DevPulse editorial pipeline",
+      "humanReviewed": false,
+      "fetchedAt": "2026-09-24T05:25:00.000Z"
+    }
+  },
+  "stories": [
+    {
+      "id": "quantization-follows-the-kernel",
+      "section": "ai-systems",
+      "title": "A smaller model file is not automatically a faster model",
+      "originalTitle": "Quantization",
+      "whatChanged": "Serving runtimes now expose a widening set of weight, activation and cache formats, but their support matrices differ by accelerator generation. The deployment decision starts with the runtime and hardware, not the smallest advertised bit width.",
+      "whyItMatters": "A format can reduce memory yet fall back to a slow execution path. Teams need to benchmark the exact model, format, runtime and accelerator combination they will deploy.",
+      "whoShouldCare": ["Inference teams", "ML platform engineers"],
+      "status": "holds",
+      "confidence": "high",
+      "confidenceReason": "The tradeoff and hardware matrix are documented by the serving runtime and model library.",
+      "primarySource": {
+        "label": "vLLM quantization documentation",
+        "url": "https://github.com/vllm-project/vllm/blob/main/docs/features/quantization/README.md",
+        "type": "official-docs",
+        "vendorAuthored": false
+      },
+      "claims": [
+        {
+          "text": "vLLM documents compatibility by quantization implementation and hardware platform.",
+          "quote": "The table below shows the compatibility of various quantization implementations with different hardware platforms in vLLM:",
+          "sourceUrl": "https://github.com/vllm-project/vllm/blob/main/docs/features/quantization/README.md"
+        }
+      ],
+      "corroboration": [
+        {
+          "label": "Hugging Face quantization overview",
+          "url": "https://huggingface.co/docs/transformers/main/en/quantization/overview",
+          "type": "official-docs",
+          "vendorAuthored": false
+        }
+      ],
+      "pushback": {
+        "summary": "Compatibility tables change quickly; documentation support still does not prove throughput on a team's own prompt and batch distribution.",
+        "url": "https://docs.vllm.ai/en/latest/features/quantization/",
+        "label": "Known limitation"
+      },
+      "provenance": {
+        "summarizedBy": "DevPulse editorial pipeline",
+        "humanReviewed": false,
+        "fetchedAt": "2026-09-24T05:28:00.000Z"
+      }
+    },
+    {
+      "id": "scheduled-workflows-can-arrive-late",
+      "section": "developer-tools",
+      "title": "A scheduled GitHub Action is a trigger, not a clock",
+      "originalTitle": "Events that trigger workflows: schedule",
+      "whatChanged": "GitHub's scheduled workflow documentation now includes timezone configuration, but it still warns that runs can be delayed during high load and only execute from the default branch.",
+      "whyItMatters": "A publishing pipeline needs idempotent reruns, a manual trigger and an external freshness check. Cron syntax alone is not an availability guarantee.",
+      "whoShouldCare": ["Release engineers", "Solo publishers"],
+      "status": "holds",
+      "confidence": "high",
+      "confidenceReason": "The behavior is explicitly documented by GitHub.",
+      "primarySource": {
+        "label": "GitHub Actions schedule documentation",
+        "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows.md",
+        "type": "official-docs",
+        "vendorAuthored": true
+      },
+      "claims": [
+        {
+          "text": "Scheduled workflows can be delayed during periods of high load.",
+          "quote": "The `schedule` event can be delayed during periods of high loads of GitHub Actions workflow runs.",
+          "sourceUrl": "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows.md"
+        }
+      ],
+      "corroboration": [],
+      "pushback": {
+        "summary": "For a once-daily edition, a delayed trigger is acceptable if freshness is monitored and manual recovery exists.",
+        "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule",
+        "label": "Operational tradeoff"
+      },
+      "provenance": {
+        "summarizedBy": "DevPulse editorial pipeline",
+        "humanReviewed": false,
+        "fetchedAt": "2026-09-24T05:31:00.000Z"
+      }
+    },
+    {
+      "id": "arxiv-metadata-is-open-not-unlimited",
+      "section": "research",
+      "title": "arXiv metadata is open, but its legacy API is deliberately slow",
+      "originalTitle": "arXiv API Terms of Use",
+      "whatChanged": "The arXiv API terms allow broad reuse of metadata, including abstracts, while limiting legacy API clients to one request every three seconds and one connection at a time.",
+      "whyItMatters": "Research ingestion should batch queries, cache responses and link to abstract pages instead of mirroring papers. Parallel workers do not remove a provider-wide rate limit.",
+      "whoShouldCare": ["Research tooling teams", "Data pipeline engineers"],
+      "status": "holds",
+      "confidence": "high",
+      "confidenceReason": "The licensing and request limits are stated in arXiv's own terms.",
+      "primarySource": {
+        "label": "arXiv API Terms of Use",
+        "url": "https://info.arxiv.org/help/api/tou.html",
+        "type": "official-docs",
+        "vendorAuthored": true
+      },
+      "claims": [
+        {
+          "text": "Clients should make no more than one request every three seconds.",
+          "quote": "When using the legacy APIs (including OAI-PMH, RSS, and the arXiv API), make no more than one request every three seconds, and limit requests to a single connection at a time.",
+          "sourceUrl": "https://info.arxiv.org/help/api/tou.html"
+        }
+      ],
+      "corroboration": [],
+      "pushback": {
+        "summary": "The constraint applies to the legacy API, RSS and OAI-PMH; other arXiv services can have different policies.",
+        "url": "https://info.arxiv.org/help/api/tou.html",
+        "label": "Scope note"
+      },
+      "provenance": {
+        "summarizedBy": "DevPulse editorial pipeline",
+        "humanReviewed": false,
+        "fetchedAt": "2026-09-24T05:34:00.000Z"
+      }
+    },
+    {
+      "id": "static-content-is-an-audit-log",
+      "section": "practice",
+      "title": "Static content can make an automated newsroom easier to audit",
+      "originalTitle": "Astro content collections",
+      "whatChanged": "Astro's build-time content collections validate local files against schemas and generate static routes from those entries. That lets an edition live as reviewable data rather than mutable database state.",
+      "whyItMatters": "The pull request becomes the editorial record: source changes, summary edits, selection decisions and corrections can all be reviewed and reverted before deployment.",
+      "whoShouldCare": ["Content platform teams", "Solo publishers"],
+      "status": "holds",
+      "confidence": "high",
+      "confidenceReason": "The framework behavior is documented and directly testable at build time.",
+      "primarySource": {
+        "label": "Astro content collections guide",
+        "url": "https://docs.astro.build/en/guides/content-collections/",
+        "type": "official-docs",
+        "vendorAuthored": true
+      },
+      "claims": [
+        {
+          "text": "Astro distinguishes build-time content from live collections fetched at runtime.",
+          "quote": "Live content collections fetch their data at runtime rather than build time.",
+          "sourceUrl": "https://docs.astro.build/en/guides/content-collections/"
+        }
+      ],
+      "corroboration": [],
+      "pushback": {
+        "summary": "Static publication is a poor fit for per-user feeds or real-time alerts; this edition intentionally does neither.",
+        "url": "https://docs.astro.build/en/guides/on-demand-rendering/",
+        "label": "Architecture boundary"
+      },
+      "provenance": {
+        "summarizedBy": "DevPulse editorial pipeline",
+        "humanReviewed": false,
+        "fetchedAt": "2026-09-24T05:37:00.000Z"
+      }
+    },
+    {
+      "id": "prompt-injection-is-a-system-boundary",
+      "section": "ai-systems",
+      "title": "Prompt injection cannot be solved inside the prompt",
+      "originalTitle": "LLM01:2025 Prompt Injection",
+      "whatChanged": "OWASP's current guidance treats prompt injection as a systems risk and recommends constrained behavior, validated output formats, least privilege and human approval rather than relying on an instruction that tells a model to ignore hostile text.",
+      "whyItMatters": "A news pipeline reads attacker-controlled pages and repositories. The summarizer must have no tools or secrets, and deterministic code must reject unsupported quotes, numbers and links.",
+      "whoShouldCare": ["AI application teams", "Security engineers"],
+      "status": "holds",
+      "confidence": "high",
+      "confidenceReason": "The risk and mitigations are documented in the OWASP LLM Top 10.",
+      "primarySource": {
+        "label": "OWASP LLM01:2025 Prompt Injection",
+        "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+        "type": "advisory",
+        "vendorAuthored": false
+      },
+      "claims": [
+        {
+          "text": "OWASP states that foolproof prompt-injection prevention is unclear.",
+          "quote": "it is unclear if there are fool-proof methods of prevention for prompt injection.",
+          "sourceUrl": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"
+        }
+      ],
+      "corroboration": [],
+      "pushback": {
+        "summary": "Output validation reduces impact but cannot determine whether every plausible summary has been manipulated; review remains part of the control.",
+        "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+        "label": "Residual risk"
+      },
+      "provenance": {
+        "summarizedBy": "DevPulse editorial pipeline",
+        "humanReviewed": false,
+        "fetchedAt": "2026-09-24T05:40:00.000Z"
+      }
+    }
+  ],
+  "oneLiners": [
+    {
+      "title": "Hacker News exposes up to 500 IDs per top/new/best story list and currently documents no rate limit.",
+      "url": "https://github.com/HackerNews/API",
+      "source": "HN API"
+    },
+    {
+      "title": "GitHub's authenticated REST API generally allows 5,000 requests an hour, while search endpoints have separate limits.",
+      "url": "https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api",
+      "source": "GitHub Docs"
+    },
+    {
+      "title": "Cloudflare recommends Workers rather than Pages for new static Astro deployments.",
+      "url": "https://docs.astro.build/en/guides/deploy/cloudflare/",
+      "source": "Astro Docs"
+    }
+  ],
+  "methodologyNote": "Pilot preview assembled from primary documentation and one active engineering discussion. Source quotes matched during a live audit, but editorial review and publication have not happened."
+}

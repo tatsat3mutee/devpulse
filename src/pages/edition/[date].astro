@@ -1,0 +1,16 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import EditionView from "../../components/EditionView.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { isPublicEdition } from "../../lib/schema";
+
+export async function getStaticPaths() {
+  const editions = (await getCollection("editions")).filter((edition) => import.meta.env.DEV || isPublicEdition(edition.data));
+  return editions.map((edition) => ({ params: { date: edition.data.date }, props: { edition } }));
+}
+
+const { edition } = Astro.props as { edition: CollectionEntry<"editions"> };
+---
+<BaseLayout title={`${edition.data.date} · DevPulse Daily Verdict`} description={edition.data.dek} canonicalPath={`/edition/${edition.data.date}`} preview={!isPublicEdition(edition.data)}>
+  <EditionView edition={edition.data} />
+</BaseLayout>

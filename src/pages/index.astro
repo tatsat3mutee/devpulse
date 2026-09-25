@@ -1,0 +1,17 @@
+---
+import { getCollection } from "astro:content";
+import EditionView from "../components/EditionView.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { isPublicEdition } from "../lib/schema";
+
+const editions = (await getCollection("editions")).sort((a, b) => b.data.date.localeCompare(a.data.date));
+const latest = editions.find((edition) => isPublicEdition(edition.data)) ?? (import.meta.env.DEV ? editions[0] : undefined);
+---
+<BaseLayout title="DevPulse Daily Verdict" description={latest?.data.dek} preview={latest ? !isPublicEdition(latest.data) : false}>
+  {latest ? <EditionView edition={latest.data} /> : <section class="shell pending"><p class="eyebrow">Editorial desk</p><h1>No edition published yet</h1><p>The first edition is awaiting editorial review.</p><a href="/methodology">Read the editorial policy →</a></section>}
+</BaseLayout>
+<style>
+  .pending { padding-block: 48px; }
+  .pending h1 { font: 600 36px/1.1 "Newsreader", serif; }
+  .pending a { color: rgb(var(--signal)); text-decoration: underline; }
+</style>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const stages = [
+  ["Collect", "The collection job checks Hacker News engineering signals, six tracked GitHub release repositories, and the official Hugging Face, PyTorch and Kubernetes feeds. Source failures are recorded separately from empty feeds."],
+  ["Resolve", "Official-feed links must remain within their publisher's article domain and path. Other candidates require an editor to establish that the linked page is the original source, not a repost or unsupported social claim."],
+  ["Cluster", "Reports about the same event are grouped before ranking so repetition cannot masquerade as importance."],
+  ["Rank", "Source category, publication recency and capped Hacker News engagement determine the shortlist. Independent corroboration and engineering consequence are editorial judgments, not automated ranking signals."],
+  ["Draft", "A model may extract claims and draft context. It has no tools, network access or secrets."],
+  ["Verify", "Code checks source URLs and whether a quote appears in the fetched text. Text matching alone cannot establish that a claim is true or that the quote supports it."],
+  ["Review", "A human checks claim support, context and counterpoints before approving the edition pull request. One lead and two to six supporting stories survive."],
+  ["Revisit", "Editors can publish a dated correction or a later follow-up when material evidence changes. There is no automatic seven-day reassessment. Corrections remain visible."],
+];
+---
+<BaseLayout title="Methodology · DevPulse Daily Verdict" description="How DevPulse selects, verifies and corrects its daily engineering edition.">
+  <article class="policy shell">
+    <header><p class="eyebrow">Editorial contract</p><h1>Popularity finds candidates.<br />Evidence earns publication.</h1><p>DevPulse is not an automated summary feed. It is a bounded edition whose claims can be inspected, challenged and corrected.</p></header>
+    <section class="promise"><strong>We publish at most seven stories.</strong><span>If the evidence is weak, the edition gets shorter.</span></section>
+    <ol>{stages.map(([name, description], index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{name}</h2><p>{description}</p></div></li>)}</ol>
+    <section class="rules">
+      <div><p class="eyebrow">Model boundary</p><h2>What the model cannot decide</h2><ul><li>The source URL, source date or shortlist score</li><li>Whether a proposed claim is factually correct</li><li>Whether counter-evidence has been adequately considered</li><li>Human approval or final publication</li></ul><p>Exact-quote and numeric-claim checks are safeguards, not semantic fact-checking. An editor must still examine every headline, summary and conclusion.</p></div>
+      <div><p class="eyebrow">Correction policy</p><h2>When we get it wrong</h2><p>The card is updated with a dated note, the original claim remains in version history, and the correction appears in the public log. Significant reversals return in a later edition.</p><a href="/corrections">Open corrections log →</a></div>
+    </section>
+  </article>
+</BaseLayout>
+<style>
+  .policy { max-width: 940px; padding-top: 52px; }
+  header { max-width: 850px; }
+  h1 { margin: 12px 0 20px; font: 700 64px/1.05 "Newsreader", serif; }
+  header > p:last-child { max-width: 680px; color: rgb(var(--soft)); font-size: 16px; line-height: 1.65; }
+  .promise { display: flex; justify-content: space-between; gap: 24px; margin: 42px 0 20px; padding: 22px; background: rgb(var(--ink)); color: rgb(var(--paper)); }
+  .promise strong { font: 600 24px/1.2 "Newsreader", serif; }
+  .promise span { color: rgb(var(--paper) / .72); font: 400 10px/1.5 "DM Mono", monospace; }
+  ol { margin: 0; padding: 0; list-style: none; }
+  li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 18px; padding: 24px 0; border-bottom: 1px solid rgb(var(--line)); }
+  li > span { color: rgb(var(--signal)); font: 500 11px/1 "DM Mono", monospace; }
+  li h2 { margin: 0; font: 600 28px/1 "Newsreader", serif; }
+  li p { margin: 8px 0 0; color: rgb(var(--soft)); line-height: 1.65; }
+  .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; margin-top: 52px; }
+  .rules > div { border-top: 2px solid rgb(var(--ink)); padding-top: 20px; }
+  .rules h2 { font: 600 28px/1.1 "Newsreader", serif; }
+  .rules p, .rules li { color: rgb(var(--soft)); font-size: 13px; line-height: 1.65; }
+  .rules ul { padding-left: 18px; }
+  .rules li { display: list-item; padding: 3px 0; border: 0; }
+  .rules a { color: rgb(var(--signal)); font-size: 12px; }
+  @media (max-width: 650px) { h1 { font-size: 38px; } .promise, .rules { display: grid; grid-template-columns: 1fr; } }
+</style>
