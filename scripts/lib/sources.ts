@@ -187,7 +187,7 @@ export async function collectSources(options: { date: string; now?: Date; fetche
         const publishedAt = Number.isFinite(timestamp) && Math.abs(timestamp) <= 8.64e15 ? inWindow(new Date(timestamp).toISOString(), until, 3) : undefined;
         const title = text(item.title);
         const link = text(item.url);
-        if (item.type !== "story" || !Number.isSafeInteger(item.id) || !publishedAt || !/^https?:\/\//.test(link) || typeof item.score !== "number" || item.score < 10 || !/\b(ai|llm|model|inference|compiler|database|kubernetes|linux|rust|python|javascript|typescript|api|sdk|software|developer|programming|security|vulnerability|runtime|gpu|cache|distributed)\b/i.test(title)) { report.rejected++; continue; }
+        if (item.type !== "story" || !Number.isSafeInteger(item.id) || !publishedAt || !/^https?:\/\//.test(link) || typeof item.score !== "number" || item.score < 10 || !/\b(llm|inference|compiler|database|kubernetes|linux|rust|python|javascript|typescript|api|sdk|software|developer|programming|security|vulnerability|runtime|gpu|cache|distributed)\b/i.test(title)) { report.rejected++; continue; }
         let canonical: string;
         try {
           const article = new URL(link);

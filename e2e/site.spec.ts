@@ -85,7 +85,7 @@ test("capture reader views", async ({ page }, testInfo) => {
 });
 
 test("copy handler reports clipboard failure without changing pilot approval", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/edition/2026-09-24");
   await page.evaluate(() => {
     Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText: async () => { throw new Error("Permission denied"); } } });
     const fixture = document.createElement("div");
@@ -98,8 +98,8 @@ test("copy handler reports clipboard failure without changing pilot approval", a
   await expect(page.locator(".preview-notice")).toBeVisible();
 });
 
-test("latest edition is finite and evidence-forward", async ({ page }) => {
-  await page.goto("/");
+test("pilot edition is finite and evidence-forward", async ({ page }) => {
+  await page.goto("/edition/2026-09-24");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("The authority boundary is becoming the architecture");
   await expect(page.locator("article.story")).toHaveCount(6);
   await expect(page.getByText("No ads. No endless feed. No claim without a receipt.")).toBeVisible();
@@ -119,11 +119,11 @@ test("story page exposes quotes, source and counterweight", async ({ page }) => 
 test("unapproved pilot is not published in machine-readable feeds", async ({ request }) => {
   const latest = await request.get("/latest.json");
   expect(latest.ok()).toBe(true);
-  expect(await latest.json()).toBeNull();
+  expect((await latest.json())?.date).not.toBe("2026-09-24");
 
   const json = await request.get("/json");
   expect(json.ok()).toBe(true);
-  expect(await json.json()).toBeNull();
+  expect((await json.json())?.date).not.toBe("2026-09-24");
 
   const markdown = await request.get("/edition/2026-09-24.md");
   expect(markdown.status()).toBe(404);
@@ -148,7 +148,7 @@ test("unapproved stories cannot be shared as published verdicts", async ({ page 
 });
 
 test("reading map links and evidence chain are accessible", async ({ page, isMobile }) => {
-  await page.goto("/");
+  await page.goto("/edition/2026-09-24");
   if (!isMobile) await expect(page.getByRole("img", { name: /Reading map for this edition/ })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Jump to a story" })).toBeVisible();
   await expect(page.locator(".reading-map a")).toHaveCount(6);

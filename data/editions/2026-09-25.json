@@ -1,0 +1,183 @@
+{
+  "date": "2026-09-25",
+  "publishedAt": "2026-09-25T18:06:36.436Z",
+  "status": "published",
+  "readMinutes": 4,
+  "title": "Topcoat 0.9 adds server-push UI updates",
+  "dek": "Server-push lands in a Rust web framework, Git-native issue tracking resurfaces, coding agents get a design canvas, and PyTorch opens a certification path.",
+  "lead": {
+    "id": "hn-49842332",
+    "section": "developer-tools",
+    "title": "Topcoat 0.9 adds server-push UI updates",
+    "originalTitle": "Topcoat is pushing the boundary of server applications with Rust",
+    "whatChanged": "Topcoat 0.9 adds support for opening a WebSocket connection so browser clients can subscribe to UI changes over long-lived connections. The post also describes server-rendered updates triggered by client-side signals and updates to Toasty, Topcoat’s database client.",
+    "whyItMatters": "The release extends Topcoat’s server-rendered approach with ways to update interfaces in response to client and server state changes, including use cases such as chat interfaces and streaming page content.",
+    "whoShouldCare": [
+      "Rust web developers",
+      "Web framework developers",
+      "Backend engineers"
+    ],
+    "status": "developing",
+    "confidence": "high",
+    "confidenceReason": "The excerpt directly describes Topcoat 0.9’s server-push support and gives examples of its use.",
+    "primarySource": {
+      "label": "Topcoat is pushing the boundary of server applications with Rust",
+      "url": "https://tokio.rs/blog/2026-09-24-topcoat-server-applications",
+      "type": "article",
+      "vendorAuthored": false
+    },
+    "claims": [
+      {
+        "text": "Topcoat 0.9 supports server-push UI changes over WebSocket connections.",
+        "quote": "Starting with version 0.9, Topcoat also supports server-push.",
+        "sourceUrl": "https://tokio.rs/blog/2026-09-24-topcoat-server-applications"
+      }
+    ],
+    "corroboration": [],
+    "discussion": {
+      "label": "Hacker News",
+      "url": "https://news.ycombinator.com/item?id=49842332",
+      "points": 99,
+      "comments": 84
+    },
+    "provenance": {
+      "summarizedBy": "openai/gpt-6-luna",
+      "humanReviewed": true,
+      "fetchedAt": "2026-09-25T18:04:13.353Z"
+    }
+  },
+  "stories": [
+    {
+      "id": "hn-49843174",
+      "section": "developer-tools",
+      "title": "git-bug stores and syncs issues through Git",
+      "originalTitle": "Git-bug: Distributed, offline-first bug tracker embedded in Git",
+      "whatChanged": "The project describes git-bug as a bug tracker integrated with Git repositories. Users can create and edit issues with its CLI, terminal UI, or local web UI, and push or pull bug data through Git remotes. It also offers bridges for importing from and exporting to GitHub, GitLab, Jira, and Launchpad.",
+      "whyItMatters": "Teams can manage issues alongside their Git workflow and continue working offline. The project says the web UI is not yet ready to act as a public portal for outside contributors.",
+      "whoShouldCare": [
+        "small development teams",
+        "Git users",
+        "self-hosters"
+      ],
+      "status": "developing",
+      "confidence": "high",
+      "confidenceReason": "These capabilities and the web UI limitation are stated directly in the supplied project documentation.",
+      "primarySource": {
+        "label": "Git-bug: Distributed, offline-first bug tracker embedded in Git",
+        "url": "https://github.com/git-bug/git-bug",
+        "type": "article",
+        "vendorAuthored": false
+      },
+      "claims": [
+        {
+          "text": "git-bug says it works offline, so issues can be read and written without a network connection.",
+          "quote": "works offline : in a plane or under the sea? Keep reading and writing bugs!",
+          "sourceUrl": "https://github.com/git-bug/git-bug"
+        }
+      ],
+      "corroboration": [],
+      "discussion": {
+        "label": "Hacker News",
+        "url": "https://news.ycombinator.com/item?id=49843174",
+        "points": 207,
+        "comments": 64
+      },
+      "provenance": {
+        "summarizedBy": "openai/gpt-6-luna",
+        "humanReviewed": true,
+        "fetchedAt": "2026-09-25T18:04:08.374Z"
+      }
+    },
+    {
+      "id": "hn-49833867",
+      "section": "developer-tools",
+      "title": "Whiteboard pairs coding agents with a visual software-design workspace",
+      "originalTitle": "Show HN: Whiteboard (YC W26) – An open-source IDE for thoughtful software design",
+      "whatChanged": "Whiteboard is an open-source desktop app that connects to coding agents such as Claude Code and Codex. Agents can use its SDK to draw on an in-app canvas, while users can link visualizations and agent-trace excerpts to code and review changes with an AST-aware diff viewer.",
+      "whyItMatters": "The app brings diagrams, agent decision traces, and code review into one workspace. It runs against local checkouts, but currently does not support editing files in the app.",
+      "whoShouldCare": [
+        "AI coding-agent users",
+        "Software architects",
+        "Code reviewers"
+      ],
+      "status": "developing",
+      "confidence": "high",
+      "confidenceReason": "These capabilities and the editing limitation are stated directly in the supplied project description.",
+      "primarySource": {
+        "label": "Show HN: Whiteboard (YC W26) – An open-source IDE for thoughtful software design",
+        "url": "https://github.com/devdotfast/whiteboard",
+        "type": "article",
+        "vendorAuthored": false
+      },
+      "claims": [
+        {
+          "text": "Whiteboard describes itself as an open-source desktop app where humans and agents design software in a shared workspace.",
+          "quote": "Whiteboard is an open-source desktop app where humans and agents can architect software together in a common workspace.",
+          "sourceUrl": "https://github.com/devdotfast/whiteboard"
+        }
+      ],
+      "corroboration": [],
+      "discussion": {
+        "label": "Hacker News",
+        "url": "https://news.ycombinator.com/item?id=49833867",
+        "points": 374,
+        "comments": 126
+      },
+      "provenance": {
+        "summarizedBy": "openai/gpt-6-luna",
+        "humanReviewed": true,
+        "fetchedAt": "2026-09-25T18:04:19.972Z"
+      }
+    },
+    {
+      "id": "feed-pytorch-blog-4d7608004e54de0a",
+      "section": "practice",
+      "title": "PyTorch Conference NA 2026 adds an introductory track and Associate training",
+      "originalTitle": "Accelerate Your AI Journey with new Introduction Track at PyTorch Conference NA 2026 and PyTorch Associate Training",
+      "whatChanged": "The PyTorch Foundation announced a new Introduction Track at PyTorch Conference North America and a full-day, instructor-led PyTorch Associate Training session on October 19, 2026, in San Jose.",
+      "whyItMatters": "The track covers PyTorch concepts and workflows, while the training includes guided notebook labs, model-building exercises, and a voucher for the certification exam for attendees who complete it.",
+      "whoShouldCare": [
+        "PyTorch developers",
+        "Machine learning students",
+        "AI engineers",
+        "PyTorch certification candidates"
+      ],
+      "status": "unverified",
+      "confidence": "high",
+      "confidenceReason": "The excerpt directly describes the track, training date and format, course activities, and exam voucher.",
+      "primarySource": {
+        "label": "PyTorch Blog",
+        "url": "https://pytorch.org/blog/accelerate-your-ai-journey-with-new-introduction-track-at-pytorch-conference-na-2026-and-pytorch-associate-training",
+        "type": "vendor-post",
+        "publishedAt": "2026-09-24",
+        "vendorAuthored": false
+      },
+      "claims": [
+        {
+          "text": "Attendees who complete the PyTorch Associate Training will receive a voucher for the official PTCA certification exam.",
+          "quote": "every attendee who completes the training will receive a voucher (valued at $250) for the official PyTorch Certified Associate (PTCA) certification exam.",
+          "sourceUrl": "https://pytorch.org/blog/accelerate-your-ai-journey-with-new-introduction-track-at-pytorch-conference-na-2026-and-pytorch-associate-training"
+        }
+      ],
+      "corroboration": [],
+      "provenance": {
+        "summarizedBy": "openai/gpt-6-luna",
+        "humanReviewed": true,
+        "fetchedAt": "2026-09-25T18:04:25.961Z"
+      }
+    }
+  ],
+  "oneLiners": [
+    {
+      "title": "LangChain Fireworks 1.6.3 clarifies PDF and tool-argument handling",
+      "url": "https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.6.3",
+      "source": "LangChain release notes"
+    },
+    {
+      "title": "PyTorchCon NA invites academic projects to adoption workshop",
+      "url": "https://pytorch.org/blog/from-research-project-to-open-source-ecosystem-bring-your-academic-pytorch-project-to-pytorchcon-na",
+      "source": "PyTorch Blog"
+    }
+  ],
+  "methodologyNote": "Drafted by a model from a deterministic shortlist of Hacker News, GitHub releases and official engineering blogs. Every quote matched its source text exactly. The editor narrowed claims to what each quote supports, moved minor items to one-liners, and approved publication."
+}

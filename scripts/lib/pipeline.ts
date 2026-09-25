@@ -59,7 +59,7 @@ export function scoreCandidate(candidate: Candidate, now = new Date()): number {
   const ageHours = Math.max(0, (now.getTime() - new Date(candidate.publishedAt).getTime()) / 3_600_000);
   const recency = Math.max(0, 18 - ageHours / 6);
   const discussion = Math.min(24, Math.log2(1 + (candidate.metrics.points ?? 0)) * 3 + Math.log2(1 + (candidate.metrics.comments ?? 0)) * 2);
-  const authority = candidate.source === "github-release" || candidate.source === "official-feed" ? 30 : 20;
+  const authority = candidate.source === "official-feed" ? 42 : candidate.source === "github-release" ? 36 : 20;
   return Number((authority + discussion + recency).toFixed(3));
 }
 
