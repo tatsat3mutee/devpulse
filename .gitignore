@@ -1,11 +1,18 @@
 node_modules/
 dist/
+.astro/
+data/collection/
 .env
+.env.*
+!.env.example
+.dev.vars
+.wrangler/
+coverage/
 *.log
 .DS_Store
 Thumbs.db
 .vite/
+playwright-report/
+test-results/
 
 .sdlc/
-
-demo/

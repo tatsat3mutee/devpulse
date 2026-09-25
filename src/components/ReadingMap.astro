@@ -1,0 +1,60 @@
+---
+import type { Story } from "../lib/schema";
+import { STATUS_LABELS } from "../lib/share";
+
+interface Props { stories: Story[]; minutes: number; }
+const { stories, minutes } = Astro.props;
+const weights = stories.map((_, index) => (index === 0 ? 2 : 1));
+const total = weights.reduce((sum, weight) => sum + weight, 0);
+const gap = 4;
+const width = 600 - gap * (stories.length - 1);
+let cursor = 0;
+const segments = stories.map((story, index) => {
+  const segmentWidth = (weights[index] / total) * width;
+  const segment = { story, x: cursor, width: segmentWidth, index };
+  cursor += segmentWidth + gap;
+  return segment;
+});
+const counts = stories.reduce<Record<string, number>>((acc, story) => ({ ...acc, [story.status]: (acc[story.status] ?? 0) + 1 }), {});
+---
+<figure class="reading-map">
+  <svg viewBox="0 0 600 64" role="img" aria-labelledby="reading-map-title reading-map-desc">
+    <title id="reading-map-title">Reading map for this edition</title>
+    <desc id="reading-map-desc">{stories.length} stories, about {minutes} minutes. The lead has a wider segment for emphasis, not a measured reading time. Numbered links below jump to each story.</desc>
+    {segments.map(({ story, x, width: w, index }) => (
+      <g>
+        <rect x={x} y="10" width={w} height="30" class:list={["seg", `seg-${story.status}`]} />
+        <text x={x + 10} y="30" class="seg-label">{String(index + 1).padStart(2, "0")}</text>
+      </g>
+    ))}
+    <line x1="0" y1="54" x2="600" y2="54" class="axis" />
+    <text x="0" y="63" class="axis-label">Start</text>
+    <text x="600" y="63" text-anchor="end" class="axis-label">{minutes} min</text>
+  </svg>
+  <nav aria-label="Jump to a story" style={`--segments: ${stories.length}`}>
+    {stories.map((story, index) => <a href={`#${story.id}`} title={story.title} aria-label={`${index + 1}. ${story.title} — ${STATUS_LABELS[story.status]}`}>{String(index + 1).padStart(2, "0")}</a>)}
+  </nav>
+  <figcaption>
+    {Object.entries(counts).map(([status, count]) => (
+      <span><i class:list={["dot", `seg-${status}`]}></i>{count} {STATUS_LABELS[status as Story["status"]].toLowerCase()}</span>
+    ))}
+  </figcaption>
+</figure>
+<style>
+  .reading-map { margin: 0; }
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .seg { fill: rgb(var(--line)); transition: opacity .15s; }
+  nav { display: grid; grid-template-columns: repeat(var(--segments), minmax(0, 1fr)); gap: 4px; margin-top: 8px; }
+  nav a { display: grid; place-items: center; min-height: 44px; border-bottom: 2px solid rgb(var(--line)); color: rgb(var(--soft)); font: 500 13px/1 "DM Mono", monospace; }
+  nav a:hover { color: rgb(var(--signal)); border-color: rgb(var(--signal)); }
+  .seg-holds { fill: rgb(var(--verified)); background: rgb(var(--verified)); }
+  .seg-developing { fill: rgb(var(--blue)); background: rgb(var(--blue)); }
+  .seg-contested, .seg-unverified { fill: rgb(var(--warning)); background: rgb(var(--warning)); }
+  .seg-label { fill: rgb(var(--paper)); font: 600 12px "DM Mono", monospace; pointer-events: none; }
+  .axis { stroke: rgb(var(--line)); stroke-width: 1; }
+  .axis-label { fill: rgb(var(--muted)); font: 500 9px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  figcaption { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; color: rgb(var(--muted)); font-size: 12px; }
+  figcaption span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { display: inline-block; width: 8px; height: 8px; }
+  @media (max-width: 620px) { svg { display: none; } }
+</style>

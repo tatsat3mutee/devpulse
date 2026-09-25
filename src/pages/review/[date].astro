@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EditionView from "../../components/EditionView.astro";
+import { editionSchema, type Edition } from "../../lib/schema";
+
+export function getStaticPaths() {
+  if (!import.meta.env.DEV) return [];
+  const modules = import.meta.glob<{ default: Edition }>("../../../data/review/*.json", { eager: true });
+  return Object.entries(modules).map(([path, module]) => ({
+    params: { date: path.split("/").pop()!.replace(".json", "") },
+    props: { edition: editionSchema.parse(module.default) },
+  }));
+}
+const { edition } = Astro.props as { edition: Edition };
+---
+<BaseLayout title={`REVIEW: ${edition.date} · DevPulse`} description={edition.dek} canonicalPath={`/review/${edition.date}`} preview>
+  <div class="review-banner"><strong>Draft for editorial review</strong><span>Check every quote, confidence label and counterpoint. Run <code>bun run edition:publish {edition.date}</code> only after approval.</span></div>
+  <EditionView edition={edition} preview />
+</BaseLayout>
+<style>
+  .review-banner { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; padding: 12px 20px; background: rgb(var(--warning-soft)); color: rgb(var(--ink)); font-size: 13px; }
+  .review-banner code { font-family: "DM Mono", monospace; }
+  @media (max-width: 700px) { .review-banner { position: static; display: grid; } }
+</style>

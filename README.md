@@ -1,70 +1,92 @@
-# DevPulse
+# DevPulse Daily Verdict
 
-> One ranked feed of what actually matters in AI dev — no account needed.
+**What changed in AI and software engineering — and whether it held up.**
 
-**Live:** [devpulse-q71w.onrender.com](https://devpulse-q71w.onrender.com)
+DevPulse aims to publish one finite weekday edition: one lead, two to six supporting stories and up to five one-line mentions. Every story carries a primary source, a quoted claim, confidence and visible provenance. The current front page is an unapproved pilot preview; it does not enter RSS or JSON feeds.
 
-DevPulse pulls from arXiv, GitHub Trending, Hacker News, HuggingFace, Reddit, and more into a single ranked feed, clustered by topic. No newsletter. No algorithm. Just signal.
+## Product rules
 
----
+- Seven stories is a hard maximum. Weak evidence makes the edition shorter.
+- Hacker News and other communities are discovery and discussion signals, not primary evidence.
+- Homepages, reposts and unsupported social claims cannot become stories.
+- Models may propose summaries but cannot choose source URLs, source dates, rankings or final publication. Editors must verify all factual statements; quote matching is not semantic fact-checking.
+- Every generated quote must appear verbatim in the cited source.
+- Publication requires a human-reviewed pull request.
+- Material corrections remain visible.
 
-## What it covers
+## Run locally
 
-- **Papers** — arXiv cs.AI, cs.CL, cs.LG — daily
-- **Repos** — GitHub Trending (AI category) — daily
-- **Discussions** — Hacker News AI threads — every 2 hours
-- **Models** — HuggingFace trending models and spaces — daily
-- **Communities** — Reddit r/MachineLearning, r/LocalLLaMA — every 2 hours
-
-## Tech stack
-
-| Layer | Tech |
-|-------|------|
-| Frontend | React 19 + Vite + Tailwind CSS |
-| Backend | Express + Bun |
-| Database | Neon (PostgreSQL) |
-| AI Briefing | Groq (llama-3.1-8b-instant) |
-| Deploy | Docker on Railway + Vercel |
-
-## Local development
+Fill the local [.env](.env) file directly in your editor. The blank [.env.example](.env.example) documents the settings; never add real secrets to the example. Bun loads the local file automatically. EC2 entries are setup references only: the deployment workflow still requires the corresponding GitHub Secrets and Variables.
 
 ```bash
-# 1. Clone
-git clone https://github.com/tatsat3mutee/devpulse.git
-cd devpulse
-
-# 2. Backend
-cd backend
 bun install
-cp .env.example .env          # fill in DATABASE_URL, GROQ_API_KEY
-bun run src/server.ts         # starts on :3000
-
-# 3. Frontend (new terminal)
-cd frontend
-bun install
-bun run dev                   # starts on :5173
-
-# 4. Seed database (run in order against your Neon connection string)
-psql $DATABASE_URL -f sql/001_schema.sql
-psql $DATABASE_URL -f sql/002_seed.sql
-
-# 5. Trigger first fetch
-curl -X POST http://localhost:3000/api/fetch
+bun run dev
 ```
 
-## Environment variables
+Astro serves the site at `http://localhost:4321`.
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `DATABASE_URL` | Yes | Neon connection string (`postgresql://...@...neon.tech/...?sslmode=require`) |
-| `GROQ_API_KEY` | Yes | [Get free at console.groq.com](https://console.groq.com) |
-| `GITHUB_TOKEN` | No | Raises GitHub API rate limits |
-| `PORT` | No | Default 3000 |
+## Validate
 
-## Contributing
+```bash
+bun test ./tests
+bun run build
+bunx playwright install chromium
+bun run test:e2e
+```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+## Edition workflow
 
-## License
+A weekday GitHub Actions workflow collects candidates and source-health evidence without a model by default. Manual dispatch with `collect_only: false` prepares `data/review/YYYY-MM-DD.json` and opens an editorial-review pull request. Set repository variable `EDITORIAL_DRAFTS_ENABLED=true` to enable scheduled drafting after validating the first editorial cycle and its model cost.
 
-MIT © 2026 Tatsat Pandey
+```bash
+bun run edition:prepare --dry-run
+bun run edition:prepare --dry-run --official-only
+```
+
+Collection uses Hacker News engineering signals, six GitHub release repositories, and official Hugging Face, PyTorch and Kubernetes feeds. Requests have bounded concurrency and response sizes. Each run retains candidates and source status (`ok`, `empty`, `partial`, `error`) under `data/collection/YYYY-MM-DD/`; Actions keeps those artifacts for 14 days. A dry run does not call a model, fetch full evidence, or create a review draft. arXiv and independent corroboration are not automated yet.
+
+Review every receipt and status. Mark `provenance.humanReviewed: true` on **each** approved story in the draft, then publish it:
+
+```bash
+bun run edition:publish YYYY-MM-DD
+bun test ./tests
+bun run build
+```
+
+Commit the published file to the review pull request. Merging that pull request is the publication decision. Protect `main` on GitHub with a required approving review and passing verification checks before enabling deployment; without branch protection, this human gate is a process convention, not an enforced control.
+
+Publishing re-fetches and validates all claim receipts, checks the file's date, and atomically creates the destination without replacing an existing edition. Failure preserves the draft. Corrections to an already published issue belong in a separate reviewed change with `status: corrected` and an explicit dated story correction; the publish command deliberately refuses overwrites. The pilot is not a current-news draft and must not be approved merely to satisfy a deployment gate. Production builds omit unapproved story and review pages; local development can display them.
+
+Network checks block non-public IP ranges and credentialed URLs, strip credentials on cross-origin redirects, and bound evidence downloads. DNS validation does not pin the subsequent fetch connection; isolated runners and outbound-network restrictions remain necessary for a strong SSRF boundary. Never run collection on a privileged host with access to internal services.
+
+Required repository secret:
+
+- `OPENROUTER_API_KEY`
+
+Optional repository variable:
+
+- `EDITORIAL_MODEL` (defaults to `google/gemini-2.5-flash`)
+- `EDITORIAL_DRAFTS_ENABLED` (defaults to disabled for scheduled model calls)
+
+## Existing EC2 deployment
+
+The Astro build is static: no Bun process, Docker image or database is required on EC2. The existing Caddy service and `devpulse.tatsatpandey.com` DNS stay on the current instance. The old app remains available until the new static release passes checks.
+
+1. Review an edition and merge its published JSON into `main`. `bun run release:check` must pass; the current unapproved pilot intentionally fails this gate.
+2. Inspect the live `/etc/caddy/Caddyfile` and confirm the DevPulse block contains only the recognized `reverse_proxy localhost:3000` configuration, or the exact static block generated by [the release script](deploy/ec2/release.sh). Other site blocks are preserved byte-for-byte. Unfamiliar or duplicate DevPulse blocks are refused. Read-only inspection on 2026-09-25 confirmed the existing host also serves `rca.tatsatpandey.com`; it must remain untouched.
+3. For manual GitHub Actions deployment, add repository secrets `EC2_HOST` (the existing host or Elastic IP), `EC2_SSH_KEY` (the private key) and `EC2_KNOWN_HOSTS` (the independently verified SSH host-key line). Set repository variable `EC2_USER` only if it differs from `ubuntu`. Enter secrets in GitHub directly, never in chat or tracked files. Protect `main` with required review and passing checks. Configure required reviewers and a main-only branch policy on the `production` environment; declaring the environment in YAML does not configure approvals. Confirm the SSH account has passwordless sudo and the host has Bash, Caddy, curl, GNU tar/coreutils and flock.
+4. Run the **Verify and publish** workflow manually on `main`. It runs tests, builds Astro, transfers a commit-labelled archive over SSH and runs the release script with `sudo`. The script stages the archive at `/srv/devpulse-static/releases/<commit>`, validates Caddy, saves the old config and switches Caddy to the static files. It restores the previous config if the HTTPS smoke checks fail. The old Docker container is not stopped or removed.
+5. The same SHA-bound archive tested in verification is checksum-checked before transfer and on EC2. The script rejects archive links/path traversal and changes only the exact recognized DevPulse site block, preserving the other sites. It compares live response bodies against the staged artifact and rolls back on reload or probe failure. A final `release:probe` checks content types, parsed RSS, reviewed JSON, freshness (no more than four days), HTML and `/release-sha.txt`. For a manual probe, set `PUBLIC_SITE_URL` and `RELEASE_SHA` to the deployed origin and 40-character commit SHA. Keep the old app available until the new site has been observed in production.
+
+Rollback tests run with temporary files and mocked Caddy/systemctl/curl commands, never against the live host. Windows uses a mocked lock; real Linux locking and host permissions must still be verified on EC2. Successful local tests are not evidence of a successful deployment.
+
+No AWS account keys or DNS changes are needed for this existing-instance route. The workflow cannot run until this branch has been reviewed, merged and the EC2 SSH secrets are configured. After cutover, use an independent uptime check for HTTPS and freshness; GitHub Actions only checks immediately after manual deployment.
+
+Machine-readable surfaces are generated from the same edition data:
+
+- `/rss.xml`
+- `/json`
+- `/latest.json`
+- `/edition/YYYY-MM-DD.json`
+- `/edition/YYYY-MM-DD.md`
+- `/llms.txt`
