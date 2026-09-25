@@ -54,13 +54,13 @@ export async function prepareEdition(
     const evidenced: Candidate[] = [];
     for (const candidate of clusterCandidates(pipelineCandidates).slice(0, 16)) {
       try { evidenced.push(await dependencies.evidence(candidate)); }
-      catch { manifest.evidenceRejected.push(candidate.id); }
+      catch (error) { manifest.evidenceRejected.push(`${candidate.id}: ${String((error as Error).message).slice(0, 200)}`); }
     }
     const drafted = [];
     for (const candidate of evidenced) {
       if (drafted.length >= 6) break;
       try { drafted.push(await dependencies.draft(candidate, options.apiKey!, options.model)); }
-      catch { manifest.draftRejected.push(candidate.id); }
+      catch (error) { manifest.draftRejected.push(`${candidate.id}: ${String((error as Error).message).slice(0, 300)}`); }
     }
     manifest.draftedCount = drafted.length;
     if (drafted.length < 3) throw new Error(`Only ${drafted.length} stories passed verification; refusing to create an edition`);
