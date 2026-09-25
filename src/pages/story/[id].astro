@@ -64,7 +64,7 @@ const share = storyShare(story, Astro.site!, editionDate);
     </section>
     {!preview && <section class="share-section"><ShareBlock {...share} variant="full" /></section>}
     <footer>
-      <p>Prepared by {story.provenance.summarizedBy}. {story.provenance.humanReviewed ? "Human reviewed before publication." : "Not yet human reviewed."}</p>
+      <p>Prepared by {story.provenance.summarizedBy}. {story.provenance.humanReviewed ? "Approved for publication by the editor." : "Not yet human reviewed."}</p>
       <p>Evidence fetched <time datetime={story.provenance.fetchedAt}>{new Date(story.provenance.fetchedAt).toLocaleString("en-US", { timeZone: "UTC" })} UTC</time>.</p>
       {story.correction && <p class="correction"><strong>Correction:</strong> {story.correction}</p>}
     </footer>

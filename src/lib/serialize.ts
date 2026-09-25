@@ -26,7 +26,7 @@ function storyMarkdown(story: Story, index: number): string {
       `[Quoted source](${claim.sourceUrl})`,
       "",
     ]),
-    `**Provenance:** Prepared by ${story.provenance.summarizedBy}; human reviewed: ${story.provenance.humanReviewed ? "yes" : "no"}; evidence fetched: ${story.provenance.fetchedAt}.`,
+    `**Provenance:** Prepared by ${story.provenance.summarizedBy}; editor approved: ${story.provenance.humanReviewed ? "yes" : "no"}; evidence fetched: ${story.provenance.fetchedAt}.`,
   ];
   if (story.pushback) lines.push("", `**Strongest pushback:** ${story.pushback.summary} ([${story.pushback.label}](${story.pushback.url}))`);
   else lines.push("", "**Counterweight:** Not recorded; absence of a counterpoint is not independent confirmation.");

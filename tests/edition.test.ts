@@ -99,7 +99,7 @@ describe("pilot edition", () => {
     const corrected = structuredClone(edition);
     corrected.lead.correction = "The earlier scope was too broad.";
     expect(editionMarkdown(corrected)).toContain("**Correction:** The earlier scope was too broad.");
-    expect(markdown).toContain("human reviewed: no");
+    expect(markdown).toContain("editor approved: no");
   });
 
   test("evidence index excludes drafts and states when there is nothing to cite", () => {
