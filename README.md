@@ -2,7 +2,7 @@
 
 **The engineering stories worth your time, every day.** https://devpulse.tatsatpandey.com
 
-Every morning DevPulse collects about 250 fresh candidates. Sources: the Hacker News front page and best list, Lobsters, fast-rising new GitHub repositories, Hugging Face daily papers, and about 18 engineering blogs. A model scores each candidate on whether a senior engineer would want to read it. For each story it writes a plain headline and one reason to read it, using only that source's own text. The best 50 are published, grouped by topic, with limits so no single topic dominates.
+Every morning DevPulse collects a few hundred fresh candidates for engineers who build AI and large-scale systems. Sources: the Hacker News front page, best list and keyword searches, Lobsters, fast-rising new GitHub repositories, release notes from inference and agent frameworks, Hugging Face daily papers and trending models, and about 70 engineering and AI blogs. A model scores each candidate for quality (1–10) and for fit with the beat (0–3), and writes a plain headline and a reason to read it from that source's own text; picked stories also get a short What / How / Why-it-matters brief and, where the article describes one, an architecture diagram. Up to 50 are published, with most of the edition reserved for AI and systems, caps on general security and launches, and nothing already published in the last week.
 
 ## Run locally
 
@@ -41,4 +41,4 @@ sudo systemctl daemon-reload && sudo systemctl enable --now devpulse-pull.timer
 
 ## Outputs
 
-`/` (today), `/topic/<slug>`, `/edition/YYYY-MM-DD`, `/archive`, `/rss.xml`, `/json`, `/latest.json`, `/digest/YYYY-MM-DD.md`, `/llms.txt`.
+`/` (today), `/topic/<slug>`, `/edition/YYYY-MM-DD`, `/pulse` (trends and source health), `/og/YYYY-MM-DD.png` (share card), `/archive`, `/rss.xml`, `/json`, `/latest.json`, `/digest/YYYY-MM-DD.md`, `/llms.txt`.

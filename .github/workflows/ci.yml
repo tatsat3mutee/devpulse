@@ -5,7 +5,7 @@ on:
     branches: [main]
   push:
     branches: [main]
-    paths-ignore: ['data/digests/**']
+    paths-ignore: ['data/digests/**', 'public/covers/**']
 
 permissions:
   contents: read

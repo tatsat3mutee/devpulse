@@ -5,7 +5,7 @@ export function digestMarkdown(digest: Digest): string {
   for (const group of groupByTopic(digest.items)) {
     lines.push(`## ${group.label}`, "");
     for (const item of group.items) {
-      lines.push(`- **[${item.headline}](${item.url})** (${domainOf(item.url)})${item.discussionUrl && item.discussionUrl !== item.url ? ` · [discussion](${item.discussionUrl})` : ""}`, `  ${item.whyRead}`);
+      lines.push(`- **[${item.headline}](${item.url})** (${domainOf(item.url)})${item.discussionUrl && item.discussionUrl !== item.url ? ` · [discussion](${item.discussionUrl})` : ""}`, `  ${item.whyRead}`, ...(item.brief ?? []).map((point) => `  - ${point}`));
     }
     lines.push("");
   }

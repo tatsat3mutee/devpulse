@@ -1,0 +1,70 @@
+---
+import { DESKS, type Desk, type DigestItem } from "../lib/digest";
+import { deskOf, pulseLine } from "../lib/visual";
+
+interface Props { items: DigestItem[]; label: string }
+const { items, label } = Astro.props;
+const pulse = pulseLine(items, 1000, 110);
+const desks = (Object.keys(DESKS) as Desk[])
+  .map((desk) => ({ desk, label: DESKS[desk].label, count: items.filter((item) => deskOf(item) === desk).length }))
+  .filter((entry) => entry.count > 0);
+const total = items.length;
+---
+<figure class="pulse" aria-labelledby="pulse-caption" data-pagefind-ignore="all">
+  <figcaption id="pulse-caption"><span class="pulse-title">{label}</span><span class="pulse-note">One beat per story, in page order. Taller beats scored higher.</span></figcaption>
+  <div class="pulse-plot">
+  <svg viewBox={`0 0 ${pulse.width} ${pulse.height}`} preserveAspectRatio="none" class="pulse-line" role="img" aria-label={`${total} stories. ${desks.map((d) => `${d.label}: ${d.count}`).join(", ")}.`}>
+    <path d={`M0 ${pulse.base}H${pulse.width}`} class="pulse-base" />
+    <path d={pulse.d} class="pulse-trace" vector-effect="non-scaling-stroke" />
+  </svg>
+  <div class="pulse-dots" aria-hidden="true">
+    {pulse.points.map((point) => (
+      <a href={`#${point.id}`} tabindex="-1" data-desk={point.desk} data-edge={point.x < 250 ? "start" : point.x > 750 ? "end" : undefined} style={`left:${point.x / 10}%;top:${(point.y / pulse.height) * 100}%`}>
+        <span class="pulse-tip">{point.headline}<small>Score {point.score}/10</small></span>
+      </a>
+    ))}
+  </div>
+  </div>
+  {desks.length > 1 && <div class="mix" aria-hidden="true">
+    {desks.map((entry) => (
+      <div class="mix-seg" data-desk={entry.desk} style={`flex:${entry.count}`}>
+        <span class="mix-bar"></span>
+        <span class="mix-label"><b>{entry.count}</b> {entry.label}</span>
+      </div>
+    ))}
+  </div>}
+</figure>
+<style>
+  .pulse { position: relative; margin: 0; padding: 16px 0 4px; }
+  figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; margin-bottom: 6px; font: 500 11px/1.4 "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+  .pulse-title { color: rgb(var(--muted)); }
+  .pulse-note { color: rgb(var(--muted)); letter-spacing: 0; text-transform: none; }
+  .pulse-line { display: block; width: 100%; height: 96px; overflow: visible; }
+  .pulse-base { stroke: rgb(var(--line)); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .pulse-trace { fill: none; stroke: rgb(var(--ink)); stroke-width: 1.6; stroke-linejoin: round; }
+  .pulse-plot { position: relative; overflow-x: clip; overflow-y: visible; }
+  .pulse-dots { position: absolute; inset: 0; pointer-events: none; }
+  .pulse-dots a { position: absolute; width: 18px; height: 18px; margin: -9px 0 0 -9px; pointer-events: auto; }
+  .pulse-dots a::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: rgb(var(--desk)); box-shadow: 0 0 0 2px rgb(var(--paper)); transition: transform .12s ease; }
+  .pulse-dots a:hover::before { transform: scale(1.5); }
+  .pulse-tip { position: absolute; bottom: calc(100% + 6px); left: 50%; z-index: 5; width: max-content; max-width: 260px; transform: translateX(-50%); padding: 8px 10px; background: rgb(var(--ink)); color: rgb(var(--paper)); font: 600 12.5px/1.35 "Manrope", sans-serif; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .12s ease; }
+  .pulse-tip small { display: block; margin-top: 3px; opacity: .7; font: 400 10.5px/1.2 "DM Mono", monospace; }
+  .pulse-dots a[data-edge="start"] .pulse-tip { left: 0; transform: none; }
+  .pulse-dots a[data-edge="end"] .pulse-tip { left: auto; right: 0; transform: none; }
+  .pulse-dots a:hover .pulse-tip { opacity: 1; visibility: visible; }
+  .mix { display: flex; gap: 2px; margin-top: 12px; }
+  .mix-seg { min-width: 0; }
+  .mix-bar { display: block; height: 8px; background: rgb(var(--desk)); }
+  .mix-seg:first-child .mix-bar { border-radius: 4px 0 0 4px; }
+  .mix-seg:last-child .mix-bar { border-radius: 0 4px 4px 0; }
+  .mix-label { display: block; overflow: hidden; margin-top: 6px; padding-right: 6px; color: rgb(var(--soft)); font: 500 11.5px/1.3 "Manrope", sans-serif; text-overflow: ellipsis; white-space: nowrap; }
+  .mix-label b { color: rgb(var(--ink)); font: 500 11.5px/1 "DM Mono", monospace; }
+  @media (max-width: 720px) {
+    .pulse-line { height: 72px; }
+    .pulse-dots a { width: 12px; height: 12px; margin: -6px 0 0 -6px; }
+    .pulse-dots a::before { inset: 3px; }
+    .pulse-dots { display: none; }
+    .mix-label { font-size: 10.5px; }
+    .mix-label b { display: block; }
+  }
+</style>

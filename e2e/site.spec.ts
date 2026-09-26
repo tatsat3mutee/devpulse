@@ -4,13 +4,14 @@ import { join } from "node:path";
 
 const dir = join(process.cwd(), "data/digests");
 const latest = JSON.parse(readFileSync(join(dir, readdirSync(dir).filter((f) => f.endsWith(".json")).sort().at(-1)!), "utf8")) as {
-  date: string; items: Array<{ headline: string; url: string; topic: string; mustRead: boolean }>;
+  date: string; items: Array<{ headline: string; url: string; topic: string; mustRead: boolean; score: number }>;
 };
 
 test("homepage lists every story with must-reads first and outbound links", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Today in engineering");
-  await expect(page.locator(".must li")).toHaveCount(latest.items.filter((item) => item.mustRead).length);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Today in AI & systems");
+  await expect(page.locator(".must .story")).toHaveCount(latest.items.filter((item) => item.mustRead).length);
+  await expect(page.locator(".must .story--lead .cover")).toBeVisible();
   await expect(page.locator("main h3 a")).toHaveCount(latest.items.length);
   const first = latest.items.find((item) => item.mustRead)!;
   await expect(page.locator(".must h3 a").first()).toHaveAttribute("href", first.url);
@@ -31,6 +32,28 @@ test("dated edition page matches the latest digest", async ({ page }) => {
   await expect(page.locator("main h3 a")).toHaveCount(latest.items.length);
 });
 
+test("score filter narrows stories and can be reset", async ({ page }) => {
+  await page.goto("/");
+  const strong = latest.items.filter((item) => item.score >= 8).length;
+  await page.getByRole("button", { name: /^Strong/ }).click();
+  await expect(page.getByRole("button", { name: /^Strong/ })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("main .story:not([hidden]) h3 a")).toHaveCount(strong);
+  await page.getByRole("button", { name: /^All/ }).click();
+  await expect(page.locator("main .story:not([hidden]) h3 a")).toHaveCount(latest.items.length);
+});
+
+test("pulse page and social card describe the editions", async ({ page, request }) => {
+  await page.goto("/pulse");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("What engineering is talking about");
+  await expect(page.locator(".days li")).not.toHaveCount(0);
+  await expect(page.locator(".health tbody tr")).not.toHaveCount(0);
+  await page.goto("/");
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", new RegExp(`/og/${latest.date}\\.png$`));
+  const card = await request.get(`/og/${latest.date}.png`);
+  expect(card.ok()).toBe(true);
+  expect(card.headers()["content-type"]).toContain("image/png");
+});
+
 test("keyboard users can skip to content and reach stories", async ({ page }) => {
   await page.goto("/");
   await page.keyboard.press("Tab");
@@ -44,7 +67,7 @@ test("keyboard users can skip to content and reach stories", async ({ page }) =>
 
 test("pages fit narrow screens without horizontal scrolling", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 });
-  for (const path of ["/", `/topic/${latest.items[0].topic}`, "/archive", "/methodology"]) {
+  for (const path of ["/", `/topic/${latest.items[0].topic}`, `/edition/${latest.date}`, "/archive", "/methodology", "/pulse"]) {
     await page.goto(path);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), path).toBe(true);
   }

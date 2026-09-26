@@ -1,5 +1,5 @@
 // Network-first so readers always get today's edition; the cache only serves offline reads.
-const CACHE = "devpulse-v2";
+const CACHE = "devpulse-v3";
 
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (event) => {

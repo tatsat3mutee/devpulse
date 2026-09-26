@@ -115,6 +115,26 @@ export async function readBoundedText(response: Response, limit: number): Promis
   } finally { await reader.cancel(); }
 }
 
+export async function readBoundedBytes(response: Response, limit: number): Promise<Uint8Array> {
+  const reader = response.body?.getReader();
+  if (!reader) return new Uint8Array();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  try {
+    while (true) {
+      const chunk = await reader.read();
+      if (chunk.done) break;
+      size += chunk.value.byteLength;
+      if (size > limit) throw new Error("Response exceeds byte limit");
+      chunks.push(chunk.value);
+    }
+  } finally { await reader.cancel(); }
+  const out = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) { out.set(chunk, offset); offset += chunk.byteLength; }
+  return out;
+}
+
 const entities: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
 export function htmlToText(html: string): string {
   const primaryRegion = html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)?.[1]

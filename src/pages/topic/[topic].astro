@@ -10,6 +10,6 @@ export async function getStaticPaths() {
 }
 const { digest, topic } = Astro.props as { digest: Digest; topic: TopicSlug };
 ---
-<BaseLayout title={`${topicLabel(topic)} · DevPulse`} description={`Today's ${topicLabel(topic).toLowerCase()} stories for engineers.`} feed={{ title: `DevPulse · ${topicLabel(topic)}`, path: `/topic/${topic}/rss.xml` }}>
+<BaseLayout image={`/og/${digest.date}.png`} title={`${topicLabel(topic)} · DevPulse`} description={`Today's ${topicLabel(topic).toLowerCase()} stories for engineers.`} feed={{ title: `DevPulse · ${topicLabel(topic)}`, path: `/topic/${topic}/rss.xml` }}>
   <DigestView digest={digest} topic={topic} />
 </BaseLayout>

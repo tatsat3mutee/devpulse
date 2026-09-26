@@ -6,6 +6,7 @@ interface Props {
   ogType?: "website" | "article";
   preview?: boolean;
   feed?: { title: string; path: string };
+  image?: string;
 }
 
 const {
@@ -15,8 +16,12 @@ const {
   ogType = "website",
   preview = false,
   feed,
+  image,
 } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site);
+const imageUrl = image ? new URL(image, Astro.site).toString() : undefined;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const nav = [["/", "Today"], ["/pulse", "Pulse"], ["/archive", "Archive"], ["/search", "Search"], ["/methodology", "How we pick"]] as const;
 ---
 <!doctype html>
 <html lang="en">
@@ -31,7 +36,11 @@ const canonical = new URL(canonicalPath, Astro.site);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    {imageUrl && <meta property="og:image:width" content="1200" />}
+    {imageUrl && <meta property="og:image:height" content="630" />}
+    <meta name="twitter:card" content={imageUrl ? "summary_large_image" : "summary"} />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/mark.svg" />
@@ -55,26 +64,21 @@ const canonical = new URL(canonicalPath, Astro.site);
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
     <header class="site-header">
-      <div class="utility-bar shell">
-        <a class="utility-link" href="/archive">Archive</a>
-        <span class="utility-rule"></span>
-        <span>Independent engineering desk</span>
-        <nav aria-label="Utility navigation">
-          <a href="/search">Search</a>
-          <a href="/methodology">How we pick</a>
-          <a href="/rss.xml">RSS</a>
-          <button id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme" aria-pressed="false">◐</button>
-        </nav>
-      </div>
       <div class="masthead shell">
         <a href="/" class="brand" aria-label="DevPulse home">
-          <img src="/mark.svg" alt="" width="52" height="52" />
-          <span>DevPulse</span>
-          <strong>Engineering daily</strong>
+          <img src="/mark.svg" alt="" width="40" height="40" />
+          <span class="brand-name">DevPulse</span>
+          <span class="brand-tag">Engineering daily</span>
         </a>
-        <p>The engineering stories worth your time, picked from hundreds of candidates every day.</p>
+        <nav class="site-nav" aria-label="Site">
+          {nav.map(([href, label]) => <a href={href} aria-current={path === href ? "page" : undefined}>{label}</a>)}
+          <a href="/rss.xml" class="icon-link" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 5a14 14 0 0 1 14 14M5 11a8 8 0 0 1 8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="6" cy="18" r="1.8" fill="currentColor"/></svg></a>
+        </nav>
+        <button id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme" aria-pressed="false">
+            <svg class="sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg class="moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          </button>
       </div>
-      <div class="edition-rule"></div>
     </header>
     <main id="content" tabindex="-1"><slot /></main>
     <footer class="site-footer shell">
@@ -84,6 +88,7 @@ const canonical = new URL(canonicalPath, Astro.site);
       </div>
       <nav aria-label="Footer navigation">
         <a href="/archive">Archive</a>
+        <a href="/pulse">Pulse: trends across editions</a>
         <a href="/methodology">How stories are picked</a>
         <a href="/json">JSON</a>
         <a href="/llms.txt">llms.txt</a>
@@ -116,11 +121,13 @@ const canonical = new URL(canonicalPath, Astro.site);
     --line: 205 201 192;
     --signal: 190 45 35;
     --signal-soft: 250 231 226;
-    --verified: 15 116 79;
-    --verified-soft: 224 243 233;
-    --warning: 148 80 0;
-    --warning-soft: 250 235 207;
-    --blue: 30 72 145;
+    --rule-strong: 143 138 128;
+    /* Desk colours mark topic groups only (dots, rules, charts). Brand red is kept for brand and urgency. */
+    --desk-ai: 90 60 165;
+    --desk-systems: 58 132 202;
+    --desk-security: 189 130 26;
+    --desk-software: 17 134 89;
+    --desk: var(--signal);
   }
   :root[data-theme="dark"] {
     color-scheme: dark;
@@ -132,12 +139,16 @@ const canonical = new URL(canonicalPath, Astro.site);
     --line: 72 69 63;
     --signal: 255 103 87;
     --signal-soft: 75 31 27;
-    --verified: 81 211 153;
-    --verified-soft: 25 69 51;
-    --warning: 245 180 72;
-    --warning-soft: 76 52 17;
-    --blue: 134 174 238;
+    --rule-strong: 111 106 97;
+    --desk-ai: 115 88 194;
+    --desk-systems: 77 151 222;
+    --desk-security: 182 124 13;
+    --desk-software: 66 168 120;
   }
+  [data-desk="ai"] { --desk: var(--desk-ai); }
+  [data-desk="systems"] { --desk: var(--desk-systems); }
+  [data-desk="security"] { --desk: var(--desk-security); }
+  [data-desk="software"] { --desk: var(--desk-software); }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
   html { background: rgb(var(--paper)); color: rgb(var(--ink)); font-family: "Manrope", sans-serif; }
@@ -145,47 +156,52 @@ const canonical = new URL(canonicalPath, Astro.site);
   a { color: inherit; text-decoration: none; }
   a, button { touch-action: manipulation; }
   main { overflow-wrap: anywhere; }
-  h1, h2, h3, [id] { scroll-margin-top: 16px; }
+  h1, h2, h3, [id] { scroll-margin-top: 84px; }
   button, input { font: inherit; }
   button { color: inherit; }
-  :focus-visible { outline: 2px solid rgb(var(--signal)); outline-offset: 3px; }
+  :focus-visible { outline: 2px solid rgb(var(--ink)); outline-offset: 3px; }
   .shell { width: min(1160px, calc(100% - 32px)); margin-inline: auto; }
   .skip-link { position: fixed; top: 8px; left: 8px; z-index: 100; transform: translateY(-160%); padding: 8px 12px; background: rgb(var(--ink)); color: rgb(var(--paper)); }
   .skip-link:focus { transform: translateY(0); }
-  .site-header { padding-top: 10px; }
-  .utility-bar { min-height: 44px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: rgb(var(--muted)); font: 500 11px/1.4 "DM Mono", monospace; letter-spacing: 0; text-transform: uppercase; }
-  .utility-bar nav { margin-left: auto; display: flex; align-items: center; gap: 18px; }
-  .utility-bar a:hover { color: rgb(var(--signal)); }
-  .utility-rule { width: 18px; height: 1px; background: rgb(var(--line)); }
-  .utility-bar a { display: inline-flex; align-items: center; min-height: 44px; }
-  #theme-toggle { width: 44px; height: 44px; border: 1px solid transparent; background: transparent; cursor: pointer; padding: 4px; font-size: 22px; }
-  #theme-toggle:hover { color: rgb(var(--signal)); border-color: rgb(var(--line)); }
-  .masthead { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 40px; padding: 28px 0 22px; }
-  .brand { display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; align-items: center; column-gap: 14px; row-gap: 6px; font-family: "Newsreader", serif; }
-  .brand img { grid-row: 1 / span 2; width: 52px; height: 52px; }
-  .brand span { font-size: 56px; font-weight: 700; line-height: .95; letter-spacing: 0; }
-  .brand strong { grid-column: 2; color: rgb(var(--signal)); font: 500 10.5px/1 "DM Mono", monospace; letter-spacing: .18em; text-transform: uppercase; }
-  .masthead p { justify-self: end; margin: 0; max-width: 300px; text-align: right; color: rgb(var(--soft)); font: 500 14px/1.5 "Manrope", sans-serif; }
-  .edition-rule { height: 7px; border-block: 1px solid rgb(var(--ink)); }
+  .site-header { border-bottom: 3px double rgb(var(--ink)); }
+  .masthead { display: flex; align-items: center; gap: 12px; min-height: 76px; }
+  .site-nav { margin-left: auto; }
+  .brand { display: grid; grid-template-columns: auto auto; column-gap: 12px; align-items: center; }
+  .brand img { grid-row: 1 / span 2; width: 40px; height: 40px; }
+  :root[data-theme="dark"] .brand img { filter: invert(1) hue-rotate(180deg); }
+  .brand-name { font: 700 34px/.95 "Newsreader", serif; }
+  .brand-tag { color: rgb(var(--signal)); font: 500 10px/1.4 "DM Mono", monospace; letter-spacing: .18em; text-transform: uppercase; }
+  .site-nav { display: flex; align-items: center; gap: 4px; }
+  .site-nav a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 10px; color: rgb(var(--soft)); font: 600 13px/1 "Manrope", sans-serif; }
+  .site-nav a:hover { color: rgb(var(--ink)); }
+  .site-nav a[aria-current="page"] { color: rgb(var(--ink)); box-shadow: inset 0 -2px rgb(var(--signal)); }
+  .icon-link { justify-content: center; width: 40px; padding: 0 !important; }
+  #theme-toggle { display: inline-grid; place-items: center; width: 40px; height: 40px; border: 1px solid rgb(var(--line)); border-radius: 50%; background: transparent; cursor: pointer; margin-left: 4px; }
+  #theme-toggle:hover { border-color: rgb(var(--ink)); }
+  #theme-toggle .moon, :root[data-theme="dark"] #theme-toggle .sun { display: none; }
+  :root[data-theme="dark"] #theme-toggle .moon { display: block; }
   .site-footer { display: grid; grid-template-columns: 1.2fr 1fr .8fr; gap: 32px; border-top: 7px double rgb(var(--ink)); margin-top: 72px; padding: 30px 0 48px; }
   .site-footer strong { font-family: "Newsreader", serif; font-size: 22px; }
   .site-footer p { color: rgb(var(--muted)); font-size: 12px; line-height: 1.6; }
   .site-footer nav { display: grid; gap: 8px; font-size: 12px; }
-  .site-footer nav a:hover { color: rgb(var(--signal)); }
+  .site-footer nav a:hover { color: rgb(var(--ink)); text-decoration: underline; }
   .footer-note { text-align: right; }
-  .eyebrow { margin: 0; color: rgb(var(--signal)); font: 500 10.5px/1.3 "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+  .eyebrow { margin: 0; color: rgb(var(--muted)); font: 500 10.5px/1.3 "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
   h1, h2, h3 { text-wrap: balance; letter-spacing: 0; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
   p { text-wrap: pretty; }
   .mono { font-family: "DM Mono", monospace; }
+  @media (max-width: 820px) {
+    .masthead { flex-wrap: wrap; gap: 0; padding-top: 10px; }
+    .site-nav { order: 2; width: calc(100% + 20px); overflow-x: auto; scrollbar-width: none; margin-inline: -10px; mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 24px; }
+    .site-nav::-webkit-scrollbar { display: none; }
+    .site-nav a { flex: none; }
+    #theme-toggle { position: absolute; top: 14px; right: 16px; }
+    .site-header { position: relative; }
+    .brand-name { font-size: 28px; }
+    .brand img { width: 34px; height: 34px; }
+  }
   @media (max-width: 720px) {
-    .utility-bar > span, .utility-bar > .utility-rule { display: none; }
-    .utility-bar nav { gap: 12px; }
-    .utility-bar nav { flex-wrap: wrap; gap: 8px; }
-    .masthead { grid-template-columns: 1fr; gap: 14px; padding: 22px 0 18px; }
-    .brand img { width: 44px; height: 44px; }
-    .brand span { font-size: 40px; }
-    .masthead p { justify-self: start; text-align: left; font-size: 13px; }
     .site-footer { grid-template-columns: 1fr; }
     .footer-note { text-align: left; }
   }

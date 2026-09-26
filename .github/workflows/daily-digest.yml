@@ -38,7 +38,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/digests
+          mkdir -p public/covers
+          git add -A -- data/digests public/covers
           git diff --cached --quiet || git commit -m "content(digest): $(date -u +%F)"
           git push origin HEAD:main
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
