@@ -28,6 +28,16 @@ export function titleSimilarity(left: string, right: string): number {
   return overlap / (a.size + b.size - overlap);
 }
 
+export function sharesBigram(left: string, right: string): boolean {
+  const a = [...tokens(left)];
+  const b = tokens(right);
+  if (a.filter((token) => b.has(token)).length < 3) return false;
+  const pairs = (words: string[]) => new Set(words.slice(1).map((word, index) => `${words[index]} ${word}`));
+  const leftPairs = pairs(a);
+  for (const pair of pairs([...b])) if (leftPairs.has(pair)) return true;
+  return false;
+}
+
 export function validateDate(value: string): string {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) throw new Error("Date must be YYYY-MM-DD");
   const parsed = new Date(`${value}T00:00:00.000Z`);

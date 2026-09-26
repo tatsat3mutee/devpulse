@@ -1,0 +1,34 @@
+name: Freshness check
+
+on:
+  schedule:
+    - cron: '45 8 * * *'
+      timezone: 'Asia/Kolkata'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Confirm today's edition is live
+        id: probe
+        run: |
+          today="$(TZ=Asia/Kolkata date +%F)"
+          live="$(curl --fail --silent --show-error --max-time 20 https://devpulse.tatsatpandey.com/latest.json | jq -r '.date // empty' || true)"
+          echo "today=$today live=${live:-none}"
+          echo "live=${live:-none}" >> "$GITHUB_OUTPUT"
+          [[ "$live" == "$today" ]]
+      - name: Open an issue when the site is stale
+        if: failure()
+        run: |
+          title="DevPulse is stale: live edition ${LIVE}, expected $(TZ=Asia/Kolkata date +%F)"
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "DevPulse is stale in:title" --json number --jq 'length')"
+          [[ "$existing" != "0" ]] || gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "Check the latest Daily digest run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/workflows/daily-digest.yml. If it passed, check the EC2 puller with journalctl -u devpulse-pull.service."
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LIVE: ${{ steps.probe.outputs.live }}

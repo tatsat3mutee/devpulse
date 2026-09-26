@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: daily-digest
@@ -68,3 +69,9 @@ jobs:
           path: data/collection/
           if-no-files-found: ignore
           retention-days: 14
+      - name: Open an issue when the daily run fails
+        if: failure()
+        run: |
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "Daily digest failed on $(date -u +%F)" --body "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+        env:
+          GH_TOKEN: ${{ github.token }}

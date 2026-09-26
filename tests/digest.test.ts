@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { scoreItems, selectItems } from "../scripts/lib/score";
+import { isSameStory, scoreItems, selectItems } from "../scripts/lib/score";
 import { canonicalizeUrl, htmlToText, isPrivateAddress, readBoundedText, safeFetch, titleSimilarity, validateDate } from "../scripts/lib/net";
 import { collectAll } from "../scripts/lib/collect";
 import { digestSchema, groupByTopic, type DigestItem } from "../src/lib/digest";
@@ -17,22 +17,22 @@ const item = (id: string, overrides: Partial<DigestItem> = {}): DigestItem => ({
 
 describe("scoring", () => {
   test("keeps only judgements for known candidates in the batch and rejects URLs in model text", async () => {
-    const candidates = [raw("a"), raw("b")];
+    const candidates = [raw("a", { words: 2300 }), raw("b")];
     const { judged } = await scoreItems(candidates, async () => ({ items: [
-      { id: "a", score: 8, topic: "systems", headline: "A factual kernel headline", whyRead: "It explains scheduler internals clearly." },
-      { id: "a", score: 1, topic: "ai", headline: "Duplicate judgement ignored", whyRead: "This duplicate must be ignored entirely." },
-      { id: "b", score: 9, topic: "security", headline: "Visit https://evil.example now", whyRead: "Contains a link and must be dropped." },
-      { id: "ghost", score: 10, topic: "ai", headline: "Invented candidate", whyRead: "The model invented this candidate id." },
+      { id: "a", score: 8, topic: "systems", kind: "deep-dive", headline: "A factual kernel headline", whyRead: "It explains scheduler internals clearly." },
+      { id: "a", score: 1, topic: "ai", kind: "news", headline: "Duplicate judgement ignored", whyRead: "This duplicate must be ignored entirely." },
+      { id: "b", score: 9, topic: "security", kind: "vulnerability", headline: "Visit https://evil.example now", whyRead: "Contains a link and must be dropped." },
+      { id: "ghost", score: 10, topic: "ai", kind: "news", headline: "Invented candidate", whyRead: "The model invented this candidate id." },
     ] }));
     expect(judged.map((entry) => entry.id)).toEqual(["a"]);
-    expect(judged[0]).toMatchObject({ url: "https://example.com/a", score: 8, originalTitle: candidates[0].title });
+    expect(judged[0]).toMatchObject({ url: "https://example.com/a", score: 8, kind: "deep-dive", readMinutes: 10, originalTitle: candidates[0].title });
   });
 
   test("a failed batch is recorded without losing other batches", async () => {
     let calls = 0;
     const { judged, failures } = await scoreItems([raw("a"), raw("b")], async (batch) => {
       if (calls++ === 0) throw new Error("rate limited");
-      return { items: batch.map((entry) => ({ id: entry.id, score: 7, topic: "systems" as const, headline: "A valid factual headline", whyRead: "A valid reason to read this story." })) };
+      return { items: batch.map((entry) => ({ id: entry.id, score: 7, topic: "systems" as const, kind: "tool" as const, headline: "A valid factual headline", whyRead: "A valid reason to read this story." })) };
     }, 1);
     expect(failures).toHaveLength(1);
     expect(judged.map((entry) => entry.id)).toEqual(["b"]);
@@ -54,6 +54,15 @@ describe("scoring", () => {
     expect(picked.slice(0, 3).every((entry) => entry.mustRead)).toBe(true);
     expect(picked.filter((entry) => entry.mustRead)).toHaveLength(3);
   });
+
+  test("reworded coverage of the same story is treated as a duplicate within a topic", () => {
+    const lobsters = item("l", { topic: "security", headline: "File-notification systems leak activity across Linux, Android, Windows, and macOS", originalTitle: "Notification leaks" });
+    const lwn = item("w", { topic: "security", headline: "Researchers detail file-notification attacks across operating systems", originalTitle: "[$] File-notification attacks" });
+    const other = item("o", { topic: "security", headline: "Linux kernel fixes a use-after-free in io_uring", originalTitle: "io_uring UAF" });
+    expect(isSameStory(lobsters, lwn)).toBe(true);
+    expect(isSameStory(lobsters, other)).toBe(false);
+    expect(isSameStory(lobsters, { ...lwn, topic: "systems" })).toBe(false);
+  });
 });
 
 describe("collection", () => {
@@ -63,6 +72,7 @@ describe("collection", () => {
     const fetcher = async (url: string) => {
       if (url.endsWith("topstories.json")) return Response.json([1, 2, 3]);
       if (url.endsWith("beststories.json")) return Response.json([2]);
+      if (url.endsWith("showstories.json")) return Response.json([]);
       if (url.endsWith("/1.json")) return Response.json({ id: 1, type: "story", title: "Deep dive into io_uring", url: "https://blog.example/io?utm_source=hn", score: 300, descendants: 50, time: t });
       if (url.endsWith("/2.json")) return Response.json({ id: 2, type: "story", title: "Low score", url: "https://x.example/", score: 3, time: t });
       if (url.endsWith("/3.json")) return Response.json({ id: 3, type: "story", title: "Old story", url: "https://y.example/", score: 900, time: t - 10 * 86400 });
@@ -74,6 +84,10 @@ describe("collection", () => {
     const { items, reports } = await collectAll({ now, fetcher });
     expect(items).toHaveLength(1);
     expect(items[0]).toMatchObject({ title: "Deep dive into io_uring", points: 300, discussionUrl: "https://news.ycombinator.com/item?id=1" });
+    expect(items[0].discussions).toEqual([
+      { label: "Hacker News", url: "https://news.ycombinator.com/item?id=1", comments: 50, points: 300 },
+      { label: "Lobsters", url: "https://lobste.rs/s/abc", comments: 5, points: 40 },
+    ]);
     expect(reports.find((report) => report.id === "github")).toMatchObject({ status: "error" });
     expect(reports.find((report) => report.id === "hn")).toMatchObject({ status: "ok", count: 1 });
   });

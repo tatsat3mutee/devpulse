@@ -18,6 +18,18 @@ export const topicLabel = (slug: TopicSlug) => TOPICS.find((topic) => topic.slug
 
 export const sourceKinds = ["hn", "lobsters", "github", "papers", "blog"] as const;
 
+export const KINDS = {
+  "deep-dive": "Deep dive",
+  release: "Release",
+  paper: "Paper",
+  vulnerability: "Vulnerability",
+  tool: "Tool",
+  postmortem: "Postmortem",
+  essay: "Essay",
+  news: "News",
+} as const;
+export const kindSlugs = Object.keys(KINDS) as [keyof typeof KINDS, ...(keyof typeof KINDS)[]];
+
 const webUrl = z.url().refine((value) => {
   const url = new URL(value);
   return (url.protocol === "https:" || url.protocol === "http:") && !url.username && !url.password;
@@ -31,6 +43,9 @@ export const itemSchema = z.object({
   source: z.enum(sourceKinds),
   sourceLabel: z.string().min(1),
   discussionUrl: webUrl.optional(),
+  discussions: z.array(z.object({ label: z.string().min(1), url: webUrl, comments: z.number().int().nonnegative().optional(), points: z.number().int().nonnegative().optional() })).max(4).optional(),
+  kind: z.enum(kindSlugs).optional(),
+  readMinutes: z.number().int().min(1).max(120).optional(),
   points: z.number().int().nonnegative().optional(),
   comments: z.number().int().nonnegative().optional(),
   stars: z.number().int().nonnegative().optional(),
