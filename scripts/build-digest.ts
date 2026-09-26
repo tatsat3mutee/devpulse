@@ -40,7 +40,10 @@ async function publish(judged: DigestItem[], reports: SourceReport[], candidateC
 
 const { items, reports } = await collectAll({ githubToken: process.env.GITHUB_TOKEN });
 for (const report of reports) console.log(`${report.id}: ${report.status} ${report.count}${report.error ? ` (${report.error})` : ""}`);
-const ranked = items.sort((a, b) => (b.points ?? 0) + (b.stars ?? 0) / 10 - ((a.points ?? 0) + (a.stars ?? 0) / 10)).slice(0, 240);
+const hnScore = (item: { points?: number; stars?: number }) => (item.points ?? 0) + (item.stars ?? 0) / 10;
+const alwaysScored = items.filter((item) => item.source !== "hn");
+const hnBudget = Math.max(120, 320 - alwaysScored.length);
+const ranked = [...alwaysScored.slice(0, 200), ...items.filter((item) => item.source === "hn").sort((a, b) => hnScore(b) - hnScore(a)).slice(0, hnBudget)];
 console.log(`Collected ${items.length} unique candidates; scoring ${ranked.length}`);
 await write(join(runDir, "candidates.json"), ranked);
 if (dryRun) process.exit(0);

@@ -10,5 +10,5 @@ export async function getStaticPaths() {
 const { digest } = Astro.props as { digest: Digest };
 ---
 <BaseLayout title={`${digest.date} · DevPulse`} description={`${digest.items.length} engineering stories from ${digest.date}.`} canonicalPath={`/edition/${digest.date}`}>
-  <DigestView digest={digest} />
+  <DigestView digest={digest} searchable />
 </BaseLayout>

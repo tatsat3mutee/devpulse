@@ -2,6 +2,8 @@ import { XMLParser } from "fast-xml-parser";
 import { canonicalizeUrl, createLimiter, htmlToText, readBoundedText, safeFetch } from "./net";
 import type { sourceKinds } from "../../src/lib/digest";
 
+export type Discussion = { label: string; url: string; comments?: number; points?: number };
+
 export type RawItem = {
   id: string;
   title: string;
@@ -9,11 +11,13 @@ export type RawItem = {
   source: (typeof sourceKinds)[number];
   sourceLabel: string;
   discussionUrl?: string;
+  discussions?: Discussion[];
   points?: number;
   comments?: number;
   stars?: number;
   publishedAt: string;
   snippet?: string;
+  words?: number;
 };
 
 export type SourceReport = { id: string; label: string; status: "ok" | "empty" | "error"; count: number; error?: string };
@@ -36,6 +40,31 @@ export const BLOGS = [
   ["lilianweng", "Lilian Weng", "https://lilianweng.github.io/index.xml"],
   ["raschka", "Sebastian Raschka", "https://magazine.sebastianraschka.com/feed"],
   ["rust-blog", "Rust Blog", "https://blog.rust-lang.org/feed.xml"],
+  ["go-blog", "Go Blog", "https://go.dev/blog/feed.atom"],
+  ["v8", "V8", "https://v8.dev/blog.atom"],
+  ["webkit", "WebKit", "https://webkit.org/feed/"],
+  ["mozilla-hacks", "Mozilla Hacks", "https://hacks.mozilla.org/feed/"],
+  ["oldnewthing", "The Old New Thing", "https://devblogs.microsoft.com/oldnewthing/feed"],
+  ["deepmind", "Google DeepMind", "https://deepmind.google/blog/rss.xml"],
+  ["semianalysis", "SemiAnalysis", "https://semianalysis.com/feed/"],
+  ["chipsandcheese", "Chips and Cheese", "https://chipsandcheese.com/feed/"],
+  ["brendangregg", "Brendan Gregg", "https://www.brendangregg.com/blog/rss.xml"],
+  ["brooker", "Marc Brooker", "https://brooker.co.za/blog/rss.xml"],
+  ["murat", "Metadata (Murat Demirbas)", "https://muratbuffalo.blogspot.com/feeds/posts/default"],
+  ["martinfowler", "Martin Fowler", "https://martinfowler.com/feed.atom"],
+  ["postgres-weekly", "Postgres Weekly", "https://postgresweekly.com/rss/"],
+  ["duckdb", "DuckDB", "https://duckdb.org/feed.xml"],
+  ["planetscale", "PlanetScale", "https://planetscale.com/blog/feed.atom"],
+  ["trailofbits", "Trail of Bits", "https://blog.trailofbits.com/feed/"],
+  ["aws-arch", "AWS Architecture", "https://aws.amazon.com/blogs/architecture/feed/"],
+  ["gcloud", "Google Cloud", "https://cloudblog.withgoogle.com/rss/"],
+  ["fly", "Fly.io", "https://fly.io/blog/feed.xml"],
+  ["discord", "Discord Engineering", "https://discord.com/blog/rss.xml"],
+  ["figma", "Figma Engineering", "https://www.figma.com/blog/feed/atom.xml"],
+  ["janestreet", "Jane Street Tech", "https://blog.janestreet.com/feed.xml"],
+  ["shopify-eng", "Shopify Engineering", "https://shopify.engineering/blog.atom"],
+  ["airbnb", "Airbnb Engineering", "https://medium.com/feed/airbnb-engineering"],
+  ["slack-eng", "Slack Engineering", "https://slack.engineering/feed/"],
 ] as const;
 
 const DAY = 86_400_000;
@@ -70,8 +99,8 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
   };
 
   const hn = run("hn", "Hacker News", async () => {
-    const [top, best] = await Promise.all([json<number[]>("https://hacker-news.firebaseio.com/v0/topstories.json"), json<number[]>("https://hacker-news.firebaseio.com/v0/beststories.json")]);
-    const ids = [...new Set([...top.slice(0, 150), ...best.slice(0, 100)])];
+    const [top, best, show] = await Promise.all(["topstories", "beststories", "showstories"].map((list) => json<number[]>(`https://hacker-news.firebaseio.com/v0/${list}.json`)));
+    const ids = [...new Set([...top.slice(0, 150), ...best.slice(0, 100), ...show.slice(0, 40)])];
     const items = await Promise.all(ids.map((id) => json<Record<string, unknown>>(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).catch(() => null)));
     return items.flatMap((item) => {
       if (!item || item.type !== "story" || item.dead || item.deleted || typeof item.title !== "string" || typeof item.time !== "number") return [];
@@ -79,7 +108,8 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
       const points = typeof item.score === "number" ? item.score : 0;
       if (points < 25 || !within(publishedAt, 3)) return [];
       const discussionUrl = `https://news.ycombinator.com/item?id=${item.id}`;
-      return [{ id: `hn-${item.id}`, title: item.title, url: isWebUrl(item.url) ? item.url : discussionUrl, source: "hn" as const, sourceLabel: "Hacker News", discussionUrl, points, comments: typeof item.descendants === "number" ? item.descendants : 0, publishedAt, snippet: typeof item.text === "string" ? htmlToText(item.text).slice(0, 1200) : undefined }];
+      const comments = typeof item.descendants === "number" ? item.descendants : 0;
+      return [{ id: `hn-${item.id}`, title: item.title, url: isWebUrl(item.url) ? item.url : discussionUrl, source: "hn" as const, sourceLabel: "Hacker News", discussionUrl, discussions: [{ label: "Hacker News", url: discussionUrl, comments, points }], points, comments, publishedAt, snippet: typeof item.text === "string" ? htmlToText(item.text).slice(0, 1200) : undefined }];
     });
   });
 
@@ -91,7 +121,8 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
       const discussionUrl = isWebUrl(story.comments_url) ? story.comments_url : undefined;
       const url = isWebUrl(story.url) && story.url ? story.url : discussionUrl;
       if (!url) return [];
-      return [{ id: `lobsters-${slug(String(story.short_id))}`, title: story.title, url, source: "lobsters" as const, sourceLabel: "Lobsters", discussionUrl, points: Number(story.score) || 0, comments: Number(story.comment_count) || 0, publishedAt, snippet: typeof story.description_plain === "string" ? story.description_plain.slice(0, 1200) : undefined }];
+      const points = Number(story.score) || 0, comments = Number(story.comment_count) || 0;
+      return [{ id: `lobsters-${slug(String(story.short_id))}`, title: story.title, url, source: "lobsters" as const, sourceLabel: "Lobsters", discussionUrl, discussions: discussionUrl ? [{ label: "Lobsters", url: discussionUrl, comments, points }] : undefined, points, comments, publishedAt, snippet: typeof story.description_plain === "string" ? story.description_plain.slice(0, 1200) : undefined }];
     });
   });
 
@@ -143,6 +174,7 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
     if (!existing) { seen.set(key, item); continue; }
     existing.points = Math.max(existing.points ?? 0, item.points ?? 0) || undefined;
     existing.discussionUrl ??= item.discussionUrl;
+    existing.discussions = [...(existing.discussions ?? []), ...(item.discussions ?? []).filter((d) => !existing.discussions?.some((e) => e.url === d.url))];
     existing.snippet ??= item.snippet;
   }
   reports.sort((a, b) => a.id.localeCompare(b.id));
@@ -153,12 +185,15 @@ export async function enrichSnippets(items: RawItem[], options: { fetcher?: Fetc
   const fetcher = options.fetcher ?? safeFetch;
   const limit = createLimiter(options.concurrency ?? 8);
   await Promise.all(items.map((item) => limit(async () => {
-    if ((item.snippet?.length ?? 0) >= 400 || item.source === "github" || item.source === "papers") return;
+    if (item.source === "github" || item.source === "papers") return;
     try {
       const response = await fetcher(item.url, { signal: AbortSignal.timeout(10_000), headers: { "User-Agent": "DevPulse/3.0 (+https://devpulse.tatsatpandey.com)", Accept: "text/html" } });
       if (!response.ok || !(response.headers.get("content-type") ?? "").includes("html")) { await response.body?.cancel(); return; }
       const body = htmlToText(await readBoundedText(response, 1_500_000));
-      if (body.length > 200) item.snippet = body.slice(0, 1500);
+      if (body.length > 200) {
+        item.words = body.split(/\s+/).length;
+        if ((item.snippet?.length ?? 0) < 400) item.snippet = body.slice(0, 1500);
+      }
     } catch { /* keep title-only candidate */ }
   })));
   return items;

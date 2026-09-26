@@ -1,8 +1,8 @@
 ---
-import { TOPICS, domainOf, groupByTopic, topicLabel, type Digest, type DigestItem } from "../lib/digest";
+import { KINDS, TOPICS, domainOf, groupByTopic, topicLabel, type Digest, type DigestItem } from "../lib/digest";
 
-interface Props { digest: Digest; topic?: (typeof TOPICS)[number]["slug"]; }
-const { digest, topic } = Astro.props;
+interface Props { digest: Digest; topic?: (typeof TOPICS)[number]["slug"]; searchable?: boolean; }
+const { digest, topic, searchable = false } = Astro.props;
 const items = topic ? digest.items.filter((item) => item.topic === topic) : digest.items;
 const mustRead = topic ? [] : items.filter((item) => item.mustRead);
 const rest = topic ? items : items.filter((item) => !item.mustRead);
@@ -13,11 +13,16 @@ const dateLabel = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "lo
 const compact = new Intl.NumberFormat("en-US", { notation: "compact" });
 const meta = (item: DigestItem) => [
   domainOf(item.url),
-  item.points ? `${compact.format(item.points)} ${item.source === "papers" ? "upvotes" : "points"}` : "",
+  item.readMinutes && item.readMinutes >= 3 ? `~${item.readMinutes} min read` : "",
   item.stars ? `${compact.format(item.stars)} stars` : "",
+  item.source === "papers" && item.points ? `${compact.format(item.points)} upvotes` : "",
 ].filter(Boolean);
+const discussions = (item: DigestItem) => item.discussions?.length
+  ? item.discussions
+  : item.discussionUrl && item.discussionUrl !== item.url ? [{ label: item.sourceLabel, url: item.discussionUrl, comments: item.comments, points: item.points }] : [];
+const discussionText = (d: { label: string; comments?: number; points?: number }) => `${d.label === "Hacker News" ? "HN" : d.label}${d.points ? ` ${compact.format(d.points)} pts` : ""}${d.comments ? ` · ${compact.format(d.comments)} comments` : ""}`;
 ---
-<div class="digest shell">
+<div class="digest shell" data-pagefind-body={searchable ? "" : undefined}>
   <header class="digest-head">
     <p class="eyebrow"><time datetime={digest.date}>{dateLabel}</time></p>
     <h1>{topic ? topicLabel(topic) : "Today in engineering"}</h1>
@@ -36,10 +41,10 @@ const meta = (item: DigestItem) => [
       <ol>
         {mustRead.map((item) => (
           <li>
-            <p class="kicker">{topicLabel(item.topic)}</p>
-            <h3><a href={item.url} rel="noopener noreferrer" target="_blank">{item.headline}</a></h3>
+            <p class="kicker">{topicLabel(item.topic)}{item.kind && <span class="badge" data-kind={item.kind}>{KINDS[item.kind]}</span>}</p>
+            <h3 id={item.id}><a href={item.url} rel="noopener noreferrer" target="_blank">{item.headline}</a></h3>
             <p class="why">{item.whyRead}</p>
-            <p class="meta">{meta(item).map((part) => <span>{part}</span>)}{item.discussionUrl && item.discussionUrl !== item.url && <a href={item.discussionUrl} rel="noopener noreferrer" target="_blank">{item.comments ? `${compact.format(item.comments)} comments` : "discussion"}</a>}</p>
+            <p class="meta">{meta(item).map((part) => <span>{part}</span>)}{discussions(item).map((d) => <a href={d.url} rel="noopener noreferrer" target="_blank">{discussionText(d)}</a>)}</p>
           </li>
         ))}
       </ol>
@@ -52,9 +57,9 @@ const meta = (item: DigestItem) => [
       <ol>
         {group.items.map((item) => (
           <li>
-            <h3><a href={item.url} rel="noopener noreferrer" target="_blank">{item.headline}</a></h3>
+            <h3 id={item.id}>{item.kind && item.kind !== "news" && <span class="badge" data-kind={item.kind}>{KINDS[item.kind]}</span>}<a href={item.url} rel="noopener noreferrer" target="_blank">{item.headline}</a></h3>
             <p class="why">{item.whyRead}</p>
-            <p class="meta">{meta(item).map((part) => <span>{part}</span>)}{item.discussionUrl && item.discussionUrl !== item.url && <a href={item.discussionUrl} rel="noopener noreferrer" target="_blank">{item.comments ? `${compact.format(item.comments)} comments` : "discussion"}</a>}</p>
+            <p class="meta">{meta(item).map((part) => <span>{part}</span>)}{discussions(item).map((d) => <a href={d.url} rel="noopener noreferrer" target="_blank">{discussionText(d)}</a>)}</p>
           </li>
         ))}
       </ol>
@@ -63,13 +68,13 @@ const meta = (item: DigestItem) => [
 
   <footer class="digest-foot">
     <p>Sources today: {digest.sources.filter((source) => source.count > 0).map((source) => source.label).join(", ")}. Headlines and summaries are written by {digest.model.split("/").pop()} from each source's own text; follow the link before relying on a claim.</p>
-    <p><a href="/rss.xml">RSS</a> · <a href="/json">JSON</a> · <a href={`/digest/${digest.date}.md`}>Markdown</a> · <a href="/archive">Previous days</a></p>
+    <p>{topic ? <><a href={`/topic/${topic}/rss.xml`}>{topicLabel(topic)} RSS</a> · </> : null}<a href="/rss.xml">RSS</a> · <a href="/json">JSON</a> · <a href={`/digest/${digest.date}.md`}>Markdown</a> · <a href="/search">Search</a> · <a href="/archive">Previous days</a></p>
   </footer>
 </div>
 <style>
   .digest { max-width: 1040px; padding-top: 36px; }
   .digest-head { padding-bottom: 22px; border-bottom: 2px solid rgb(var(--ink)); }
-  h1 { margin: 8px 0 10px; font: 700 clamp(34px, 5vw, 52px)/1.05 "Newsreader", serif; }
+  h1 { margin: 8px 0 10px; font: 700 52px/1.05 "Newsreader", serif; }
   .dek { margin: 0 0 18px; color: rgb(var(--soft)); font-size: 15px; line-height: 1.5; }
   .topics { display: flex; flex-wrap: wrap; gap: 6px; }
   .topics a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border: 1px solid rgb(var(--line)); color: rgb(var(--soft)); font: 600 12.5px/1 "Manrope", sans-serif; }
@@ -90,7 +95,13 @@ const meta = (item: DigestItem) => [
   .must ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 28px; }
   .must li { border-bottom: 0; border-top: 3px solid rgb(var(--ink)); padding-top: 14px; }
   .must h3 { font-size: 23px; line-height: 1.22; }
-  .kicker { margin: 0 0 8px; color: rgb(var(--muted)); font: 500 10.5px/1 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  .kicker { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; color: rgb(var(--muted)); font: 500 10.5px/1 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  .badge { display: inline-block; margin-right: 8px; padding: 3px 6px; border: 1px solid rgb(var(--line)); color: rgb(var(--soft)); font: 500 10px/1 "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; vertical-align: 3px; }
+  .kicker .badge { margin: 0; }
+  .badge[data-kind="vulnerability"] { border-color: rgb(var(--signal)); color: rgb(var(--signal)); }
+  .badge[data-kind="deep-dive"], .badge[data-kind="postmortem"] { border-color: rgb(var(--ink)); color: rgb(var(--ink)); }
+  .badge[data-kind="paper"] { border-color: rgb(var(--blue)); color: rgb(var(--blue)); }
+  h3[id] { scroll-margin-top: 16px; }
   .digest-foot { margin-top: 36px; color: rgb(var(--muted)); font-size: 12.5px; line-height: 1.6; }
   .digest-foot a { color: rgb(var(--signal)); }
   @media (max-width: 820px) { .must ol { grid-template-columns: 1fr; } .must li { padding-bottom: 12px; } }
@@ -99,5 +110,5 @@ const meta = (item: DigestItem) => [
     .topics::-webkit-scrollbar { display: none; }
     .topics a { flex: none; min-height: 34px; padding: 0 10px; }
   }
-  @media (max-width: 520px) { h3 { font-size: 18.5px; } .must h3 { font-size: 21px; } }
+  @media (max-width: 520px) { h1 { font-size: 34px; } h3 { font-size: 18.5px; } .must h3 { font-size: 21px; } }
 </style>

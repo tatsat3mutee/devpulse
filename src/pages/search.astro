@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Search · DevPulse" description="Search every DevPulse edition.">
+  <div class="search shell">
+    <header><p class="eyebrow">Search</p><h1>Every story, every day</h1></header>
+    <div id="search"></div>
+    <noscript><p>Search needs JavaScript. Browse the <a href="/archive">archive</a> instead.</p></noscript>
+  </div>
+</BaseLayout>
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+<script is:inline src="/pagefind/pagefind-ui.js"></script>
+<script is:inline>
+  window.addEventListener("DOMContentLoaded", () => {
+    if (!window.PagefindUI) { document.querySelector("#search").textContent = "Search index is not available in development builds."; return; }
+    new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetStyles: false, autofocus: !matchMedia("(pointer: coarse)").matches });
+  });
+</script>
+<style is:global>
+  .search { max-width: 860px; padding-top: 44px; }
+  .search header { padding-bottom: 18px; margin-bottom: 20px; border-bottom: 2px solid rgb(var(--ink)); }
+  .search h1 { margin: 8px 0 0; font: 700 44px/1.05 "Newsreader", serif; }
+  #search {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: rgb(var(--signal));
+    --pagefind-ui-text: rgb(var(--ink));
+    --pagefind-ui-background: rgb(var(--surface));
+    --pagefind-ui-border: rgb(var(--line));
+    --pagefind-ui-tag: rgb(var(--paper));
+    --pagefind-ui-border-radius: 0;
+    --pagefind-ui-font: "Manrope", sans-serif;
+  }
+  #search .pagefind-ui__result-link { font-family: "Newsreader", serif; }
+</style>

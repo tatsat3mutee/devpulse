@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { titleSimilarity } from "./net";
-import { topicSlugs, type DigestItem } from "../../src/lib/digest";
+import { sharesBigram, titleSimilarity } from "./net";
+import { kindSlugs, topicSlugs, type DigestItem } from "../../src/lib/digest";
 import type { RawItem } from "./collect";
 
 const judgementSchema = z.object({
@@ -8,6 +8,7 @@ const judgementSchema = z.object({
     id: z.string(),
     score: z.number().int().min(1).max(10),
     topic: z.enum(topicSlugs),
+    kind: z.enum(kindSlugs),
     headline: z.string().min(8).max(140),
     whyRead: z.string().min(20).max(420),
   })),
@@ -24,6 +25,8 @@ Score 1-10:
 - 1-4: not engineering reading. Business/funding/earnings news, politics, drama, product marketing, generic AI hype or opinion without technical substance, listicles, job posts, consumer gadget news.
 
 topic: ai (models, inference, agents, ML systems), systems (OS, kernels, compilers, performance, hardware), infra (cloud, networking, distributed systems, DevOps), security, data (databases, storage, data engineering), languages (programming languages, libraries, developer tools), web (browsers, frontend, web platform), research (papers and academic work not better filed elsewhere), craft (engineering practice, careers, architecture essays).
+
+kind: deep-dive (long technical explanation or investigation), release (new version of existing software), paper (academic or research paper), vulnerability (security flaw, exploit or advisory), tool (new project, library or product), postmortem (incident or outage analysis), essay (opinion or reflection), news (event reporting).
 
 headline: a plain, specific, factual rewrite of the title, max 100 characters. No clickbait, no questions, no hype words.
 whyRead: one or two sentences saying what the reader will learn or why it matters, max 280 characters. Use ONLY the title and excerpt. If there is no excerpt, describe only what the title states. Never invent numbers, names, or results.
@@ -89,6 +92,9 @@ export async function scoreItems(items: RawItem[], judge: Judge, batchSize = 20)
           source: item.source,
           sourceLabel: item.sourceLabel,
           discussionUrl: item.discussionUrl,
+          discussions: item.discussions?.slice(0, 4),
+          kind: judgement.kind,
+          readMinutes: item.words && item.words >= 600 ? Math.min(120, Math.round(item.words / 230)) : undefined,
           points: item.points,
           comments: item.comments,
           stars: item.stars,
@@ -106,6 +112,12 @@ export async function scoreItems(items: RawItem[], judge: Judge, batchSize = 20)
   return { judged, failures };
 }
 
+export function isSameStory(a: DigestItem, b: DigestItem) {
+  if (titleSimilarity(a.headline, b.headline) >= 0.45 || titleSimilarity(a.originalTitle, b.originalTitle) >= 0.6) return true;
+  return a.topic === b.topic && [[a.headline, b.headline], [a.originalTitle, b.originalTitle], [a.headline, b.originalTitle], [a.originalTitle, b.headline]]
+    .some(([x, y]) => titleSimilarity(x, y) >= 0.25 && sharesBigram(x, y));
+}
+
 export function selectItems(judged: DigestItem[], options: { minScore?: number; max?: number; mustRead?: number; topicCap?: number; papersCap?: number } = {}) {
   const engagement = (item: DigestItem) => Math.log2(1 + (item.points ?? 0) + (item.comments ?? 0) + (item.stars ?? 0) / 10);
   const ranked = judged
@@ -118,7 +130,7 @@ export function selectItems(judged: DigestItem[], options: { minScore?: number; 
     if (picked.length >= (options.max ?? 50)) break;
     if ((perTopic.get(item.topic) ?? 0) >= (options.topicCap ?? 14)) continue;
     if (item.source === "papers" && papers >= (options.papersCap ?? 6)) continue;
-    if (picked.some((other) => titleSimilarity(other.headline, item.headline) >= 0.45 || titleSimilarity(other.originalTitle, item.originalTitle) >= 0.6)) continue;
+    if (picked.some((other) => isSameStory(other, item))) continue;
     picked.push(item);
     perTopic.set(item.topic, (perTopic.get(item.topic) ?? 0) + 1);
     if (item.source === "papers") papers++;
