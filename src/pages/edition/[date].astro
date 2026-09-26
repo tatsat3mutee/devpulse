@@ -6,10 +6,13 @@ import type { Digest } from "../../lib/digest";
 
 export async function getStaticPaths() {
   const digests = await allDigests();
-  return digests.map((digest) => ({ params: { date: digest.date }, props: { digest, ...editionContext(digests, digest.date) } }));
+  return digests.map((digest) => {
+    const context = editionContext(digests, digest.date);
+    return { params: { date: digest.date }, props: { digest, ...context, previous: digests.find((entry) => entry.date === context.prev) } };
+  });
 }
-const { digest, prev, next, issue } = Astro.props as { digest: Digest; prev?: string; next?: string; issue: number };
+const { digest, prev, next, issue, previous } = Astro.props as { digest: Digest; prev?: string; next?: string; issue: number; previous?: Digest };
 ---
 <BaseLayout title={`${digest.date} · DevPulse`} description={`${digest.items.length} engineering stories from ${digest.date}.`} canonicalPath={`/edition/${digest.date}`} image={`/og/${digest.date}.png`}>
-  <DigestView digest={digest} searchable prev={prev} next={next} issue={issue} />
+  <DigestView digest={digest} prev={prev} next={next} issue={issue} previous={previous} />
 </BaseLayout>

@@ -1,34 +1,144 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+const examples = ["vLLM", "KV cache", "MCP", "agent sandbox", "postmortem", "Postgres"];
 ---
-<BaseLayout title="Search · DevPulse" description="Search every DevPulse edition.">
+<BaseLayout title="Search · DevPulse" description="Search every story DevPulse has published, by topic, kind and date.">
   <div class="search shell">
-    <header><p class="eyebrow">Search</p><h1>Every story, every day</h1></header>
-    <div id="search"></div>
+    <header>
+      <p class="eyebrow">Search</p>
+      <h1>Every story, every day</h1>
+      <p class="dek">Every story DevPulse has kept, searchable by what it is about. Use it to see what has been written about a tool before you adopt it, to find the postmortem you half remember, or to follow one topic across editions.</p>
+    </header>
+    <form class="bar" role="search" action="/search">
+      <label class="sr-only" for="q">Search stories</label>
+      <input id="q" name="q" type="search" placeholder="Search headlines, summaries and sources" autocomplete="off" enterkeyhint="search" />
+      <select id="sort" name="sort" aria-label="Sort results">
+        <option value="">Best match</option>
+        <option value="date">Newest first</option>
+        <option value="score">Highest score</option>
+      </select>
+    </form>
+    <div class="examples" id="examples">
+      <span>Try</span>
+      {examples.map((term) => <button type="button" data-term={term}>{term}</button>)}
+    </div>
+    <div class="filters">
+      <nav class="chips" id="topics" aria-label="Filter by topic"></nav>
+      <select id="kind" aria-label="Filter by kind of story"><option value="">Any kind</option></select>
+    </div>
+    <p class="status" id="status" aria-live="polite">Loading the index…</p>
+    <ol class="results" id="results"></ol>
+    <button type="button" class="more" id="more" hidden>Show more</button>
     <noscript><p>Search needs JavaScript. Browse the <a href="/archive">archive</a> instead.</p></noscript>
   </div>
 </BaseLayout>
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
-<script is:inline src="/pagefind/pagefind-ui.js"></script>
+
 <script is:inline>
-  window.addEventListener("DOMContentLoaded", () => {
-    if (!window.PagefindUI) { document.querySelector("#search").textContent = "Search index is not available in development builds."; return; }
-    new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetStyles: false, autofocus: !matchMedia("(pointer: coarse)").matches });
-  });
+  (async () => {
+    const $ = (selector) => document.querySelector(selector);
+    const input = $("#q"), sort = $("#sort"), kindSelect = $("#kind"), topicsNav = $("#topics");
+    const status = $("#status"), list = $("#results"), more = $("#more");
+    const params = new URLSearchParams(location.search);
+    const state = { q: params.get("q") ?? "", topic: params.get("topic") ?? "", kind: params.get("kind") ?? "", sort: params.get("sort") ?? "" };
+    input.value = state.q; sort.value = state.sort;
+    if (!matchMedia("(pointer: coarse)").matches) input.focus();
+
+    let pagefind;
+    try { pagefind = await import("/pagefind/pagefind.js"); await pagefind.init(); }
+    catch { status.textContent = "The search index is not available in development builds. Run a production build to search."; return; }
+
+    const escape = (value) => String(value).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+    const excerptHtml = (value) => escape(value).replace(/&lt;mark&gt;/g, "<mark>").replace(/&lt;\/mark&gt;/g, "</mark>");
+    const shortDate = (date) => new Date(`${date}T12:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+
+    const filters = await pagefind.filters();
+    const topics = Object.entries(filters.topic ?? {}).sort((a, b) => b[1] - a[1]);
+    const chip = (label, count, value) => `<button type="button" data-topic="${escape(value)}" aria-pressed="${state.topic === value}">${escape(label)}${count === undefined ? "" : ` <span>${count}</span>`}</button>`;
+    topicsNav.innerHTML = chip("All topics", undefined, "") + topics.map(([label, count]) => chip(label, count, label)).join("");
+    for (const [label] of Object.entries(filters.kind ?? {}).sort()) kindSelect.add(new Option(label, label, false, state.kind === label));
+
+    let results = [], shown = 0, run = 0;
+    const render = async (reset) => {
+      if (reset) { list.innerHTML = ""; shown = 0; }
+      const page = await Promise.all(results.slice(shown, shown + 20).map((result) => result.data()));
+      list.insertAdjacentHTML("beforeend", page.map((data) => `
+        <li class="result">
+          <p class="meta"><span>${escape(data.meta.topic)}</span>${data.meta.kind ? `<span class="kind">${escape(data.meta.kind)}</span>` : ""}<span>${escape(shortDate(data.meta.date))}</span></p>
+          <h2><a href="${escape(data.meta.link)}" rel="noopener noreferrer" target="_blank">${escape(data.meta.title)}</a></h2>
+          <p class="excerpt">${excerptHtml(data.excerpt)}</p>
+          <p class="source"><span>${escape(data.meta.domain)}</span>${data.meta.author ? `<span>${escape(data.meta.author)}</span>` : ""}<a href="${escape(data.url)}" class="edition-link">In the ${escape(shortDate(data.meta.date))} edition</a></p>
+        </li>`).join(""));
+      shown += page.length;
+      more.hidden = shown >= results.length;
+    };
+
+    const search = async () => {
+      const mine = ++run;
+      const url = new URL(location.href);
+      for (const key of ["q", "topic", "kind", "sort"]) state[key] ? url.searchParams.set(key, state[key]) : url.searchParams.delete(key);
+      history.replaceState(null, "", url);
+      topicsNav.querySelectorAll("button").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.topic === state.topic)));
+      const options = { filters: { ...(state.topic ? { topic: [state.topic] } : {}), ...(state.kind ? { kind: [state.kind] } : {}) } };
+      if (state.sort) options.sort = { [state.sort]: "desc" };
+      else if (!state.q) options.sort = { date: "desc" };
+      const response = await pagefind.search(state.q || null, options);
+      if (mine !== run || !response) return;
+      results = response.results;
+      status.textContent = results.length
+        ? `${results.length} ${results.length === 1 ? "story" : "stories"}${state.q ? ` for “${state.q}”` : ""}${state.topic ? ` in ${state.topic}` : ""}`
+        : `No stories${state.q ? ` for “${state.q}”` : ""}${state.topic ? ` in ${state.topic}` : ""}. Try a broader word or another topic.`;
+      await render(true);
+    };
+
+    let timer;
+    input.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => { state.q = input.value.trim(); search(); }, 180); });
+    $(".bar").addEventListener("submit", (event) => { event.preventDefault(); state.q = input.value.trim(); search(); });
+    sort.addEventListener("change", () => { state.sort = sort.value; search(); });
+    kindSelect.addEventListener("change", () => { state.kind = kindSelect.value; search(); });
+    topicsNav.addEventListener("click", (event) => { const button = event.target.closest("button"); if (button) { state.topic = button.dataset.topic; search(); } });
+    $("#examples").addEventListener("click", (event) => { const button = event.target.closest("button"); if (button) { input.value = state.q = button.dataset.term; search(); } });
+    more.addEventListener("click", () => render(false));
+    // Anything typed while the index was loading still counts.
+    state.q = input.value.trim();
+    search();
+  })();
 </script>
-<style is:global>
-  .search { max-width: 860px; padding-top: 44px; }
-  .search header { padding-bottom: 18px; margin-bottom: 20px; border-bottom: 2px solid rgb(var(--ink)); }
-  .search h1 { margin: 8px 0 0; font: 700 44px/1.05 "Newsreader", serif; }
-  #search {
-    --pagefind-ui-scale: 0.9;
-    --pagefind-ui-primary: rgb(var(--ink));
-    --pagefind-ui-text: rgb(var(--ink));
-    --pagefind-ui-background: rgb(var(--surface));
-    --pagefind-ui-border: rgb(var(--line));
-    --pagefind-ui-tag: rgb(var(--paper));
-    --pagefind-ui-border-radius: 0;
-    --pagefind-ui-font: "Manrope", sans-serif;
+
+<style>
+  .search { max-width: 880px; padding-top: 44px; }
+  header { padding-bottom: 18px; margin-bottom: 20px; border-bottom: 2px solid rgb(var(--ink)); }
+  h1 { margin: 8px 0 10px; font: 700 44px/1.05 "Newsreader", serif; }
+  .dek { margin: 0; max-width: 64ch; color: rgb(var(--soft)); line-height: 1.6; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .bar { display: flex; gap: 8px; }
+  .bar input { flex: 1; min-width: 0; min-height: 48px; padding: 0 14px; border: 1px solid rgb(var(--ink)); background: rgb(var(--surface)); color: rgb(var(--ink)); font-size: 16px; }
+  select { min-height: 48px; padding: 0 10px; border: 1px solid rgb(var(--line)); background: rgb(var(--surface)); color: rgb(var(--ink)); font: 600 13px/1 "Manrope", sans-serif; }
+  .examples { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; color: rgb(var(--muted)); font: 500 11px/1 "DM Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
+  .examples button { min-height: 32px; padding: 0 10px; border: 1px dashed rgb(var(--rule-strong)); background: transparent; cursor: pointer; color: rgb(var(--soft)); font: 600 12.5px/1 "Manrope", sans-serif; text-transform: none; letter-spacing: 0; }
+  .examples button:hover { border-style: solid; color: rgb(var(--ink)); }
+  .filters { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px; margin-top: 16px; padding-bottom: 14px; border-bottom: 1px solid rgb(var(--line)); }
+  .chips { display: flex; flex: 1; flex-wrap: wrap; gap: 6px; min-width: 0; }
+  .chips :global(button) { min-height: 34px; padding: 0 11px; border: 1px solid rgb(var(--line)); border-radius: 17px; background: transparent; cursor: pointer; color: rgb(var(--soft)); font: 600 12.5px/1 "Manrope", sans-serif; }
+  .chips :global(button span) { color: rgb(var(--muted)); font: 500 11px/1 "DM Mono", monospace; }
+  .chips :global(button[aria-pressed="true"]) { background: rgb(var(--ink)); border-color: rgb(var(--ink)); color: rgb(var(--paper)); }
+  .chips :global(button[aria-pressed="true"] span) { color: rgb(var(--paper) / .7); }
+  .filters select { min-height: 34px; }
+  .status { margin: 16px 0 4px; color: rgb(var(--muted)); font: 500 11.5px/1.4 "DM Mono", monospace; }
+  .results { margin: 0; padding: 0; list-style: none; }
+  .results :global(.result) { padding: 18px 0; border-bottom: 1px solid rgb(var(--line)); }
+  .results :global(.meta), .results :global(.source) { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; color: rgb(var(--muted)); font: 400 11.5px/1.5 "DM Mono", monospace; }
+  .results :global(.meta) { margin-bottom: 6px; text-transform: uppercase; letter-spacing: .06em; font-size: 10.5px; }
+  .results :global(.kind) { color: rgb(var(--soft)); }
+  .results :global(h2) { margin: 0; font: 600 21px/1.28 "Newsreader", serif; }
+  .results :global(h2 a:hover) { text-decoration: underline; text-underline-offset: 3px; }
+  .results :global(.excerpt) { margin: 6px 0 8px; color: rgb(var(--soft)); font-size: 14px; line-height: 1.55; }
+  .results :global(mark) { background: rgb(var(--desk-security) / .22); color: inherit; }
+  .results :global(.edition-link) { color: rgb(var(--ink)); text-decoration: underline; text-decoration-color: rgb(var(--rule-strong)); text-underline-offset: 3px; }
+  .more { margin-top: 18px; min-height: 42px; padding: 0 18px; border: 1px solid rgb(var(--ink)); background: transparent; cursor: pointer; font: 600 13px/1 "Manrope", sans-serif; }
+  @media (max-width: 640px) {
+    h1 { font-size: 34px; }
+    .bar { flex-wrap: wrap; }
+    .bar select { flex: 1; }
+    .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   }
-  #search .pagefind-ui__result-link { font-family: "Newsreader", serif; }
 </style>

@@ -23,7 +23,24 @@ export type RawItem = {
   excerpt?: string;
   /** The page's own og:image/twitter:image URL. */
   imageUrl?: string;
+  /** Byline as the source states it. */
+  author?: string;
+  /** A paper's own code repository, as Hugging Face Papers lists it. */
+  codeUrl?: string;
+  codeStars?: number;
 };
+
+export type Radar = {
+  models: { id: string; task?: string; library?: string; likes: number; downloads?: number; createdAt: string }[];
+  repos: { name: string; description?: string; language?: string; stars: number; createdAt: string }[];
+};
+
+/** "A. Author" or "A. Author, B. Author" or "A. Author et al." from a list of names. */
+export function byline(names: string[]): string | undefined {
+  const clean = names.map((name) => name.replace(/\s+/g, " ").trim()).filter((name) => name && !name.includes("@") && name.length <= 60);
+  if (!clean.length) return undefined;
+  return clean.length > 2 ? `${clean[0]} et al.` : clean.join(", ");
+}
 
 export type SourceReport = { id: string; label: string; status: "ok" | "empty" | "error"; count: number; error?: string };
 
@@ -143,6 +160,7 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
   });
   const json = async <T>(url: string, headers: HeadersInit = {}) => JSON.parse(await get(url, { Accept: "application/json", ...headers })) as T;
   const reports: SourceReport[] = [];
+  const radar: Radar = { models: [], repos: [] };
   const within = (iso: string, days: number) => { const t = Date.parse(iso); return Number.isFinite(t) && t <= now.getTime() + 3_600_000 && t >= now.getTime() - days * DAY; };
   const run = async (id: string, label: string, work: () => Promise<RawItem[]>) => {
     try {
@@ -190,6 +208,7 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
     return (result.items ?? []).flatMap((repo) => {
       if (typeof repo.full_name !== "string" || !isWebUrl(repo.html_url) || repo.fork || repo.archived) return [];
       const description = typeof repo.description === "string" ? repo.description : "";
+      if (radar.repos.length < 30 && /^[\w.-]+\/[\w.-]+$/.test(repo.full_name)) radar.repos.push({ name: repo.full_name, description: htmlToText(description).slice(0, 300) || undefined, language: typeof repo.language === "string" ? repo.language.slice(0, 40) : undefined, stars: Number(repo.stargazers_count) || 0, createdAt: new Date(String(repo.created_at)).toISOString() });
       return [{ id: `github-${slug(repo.full_name)}`, title: description ? `${repo.full_name}: ${description}` : repo.full_name, url: repo.html_url, source: "github" as const, sourceLabel: "GitHub", stars: Number(repo.stargazers_count) || 0, publishedAt: new Date(String(repo.created_at)).toISOString(), snippet: [description, typeof repo.language === "string" ? `Language: ${repo.language}` : "", Array.isArray(repo.topics) ? `Topics: ${repo.topics.join(", ")}` : ""].filter(Boolean).join(". ") }];
     });
   });
@@ -200,7 +219,9 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
       if (!paper || typeof paper.id !== "string" || typeof paper.title !== "string") return [];
       const upvotes = Number(paper.upvotes) || 0;
       if (upvotes < 5) return [];
-      return [{ id: `paper-${slug(paper.id)}`, title: paper.title.replace(/\s+/g, " ").trim(), url: `https://huggingface.co/papers/${paper.id}`, source: "papers" as const, sourceLabel: "Hugging Face Papers", points: upvotes, publishedAt: new Date(publishedAt ?? now).toISOString(), snippet: typeof paper.summary === "string" ? paper.summary.replace(/\s+/g, " ").slice(0, 1400) : undefined }];
+      const authors = Array.isArray(paper.authors) ? paper.authors.flatMap((author) => author && typeof author === "object" && typeof (author as Record<string, unknown>).name === "string" ? [(author as Record<string, string>).name] : []) : [];
+      const codeUrl = typeof paper.githubRepo === "string" && /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/?$/.test(paper.githubRepo) ? paper.githubRepo.replace(/\/$/, "") : undefined;
+      return [{ id: `paper-${slug(paper.id)}`, title: paper.title.replace(/\s+/g, " ").trim(), url: `https://huggingface.co/papers/${paper.id}`, source: "papers" as const, sourceLabel: "Hugging Face Papers", points: upvotes, publishedAt: new Date(publishedAt ?? now).toISOString(), snippet: typeof paper.summary === "string" ? paper.summary.replace(/\s+/g, " ").slice(0, 1400) : undefined, author: byline(authors), codeUrl, codeStars: codeUrl && typeof paper.githubStars === "number" ? paper.githubStars : undefined }];
     });
   });
 
@@ -210,9 +231,10 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
       if (typeof model.id !== "string" || !/^[\w.-]+\/[\w.-]+$/.test(model.id) || typeof model.createdAt !== "string") return [];
       const publishedAt = new Date(model.createdAt).toISOString();
       const likes = Number(model.likes) || 0;
-      if (likes < 50 || !within(publishedAt, 21)) return [];
       const task = typeof model.pipeline_tag === "string" ? model.pipeline_tag : "";
       if (!ON_BEAT_TASKS.has(task)) return [];
+      if (radar.models.length < 20) radar.models.push({ id: model.id, task, library: typeof model.library_name === "string" ? model.library_name.slice(0, 60) : undefined, likes, downloads: typeof model.downloads === "number" ? model.downloads : undefined, createdAt: publishedAt });
+      if (likes < 50 || !within(publishedAt, 21)) return [];
       return [{ id: `model-${slug(model.id)}`, title: task ? `${model.id} (${task.replace(/-/g, " ")} model)` : model.id, url: `https://huggingface.co/${model.id}`, source: "models" as const, sourceLabel: "Hugging Face", points: likes, publishedAt, snippet: [task && `Task: ${task}`, Array.isArray(model.tags) ? `Tags: ${model.tags.filter((tag) => typeof tag === "string" && !tag.includes(":")).slice(0, 12).join(", ")}` : "", typeof model.downloads === "number" ? `Downloads: ${model.downloads}` : ""].filter(Boolean).join(". ") }];
     });
   });
@@ -246,7 +268,8 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
       // Blogs post rarely; a week-long window is safe because already-published stories are excluded before scoring.
       if (!within(publishedAt, 7)) return [];
       const summary = htmlToText(text(entry.summary ?? entry.description ?? entry.content ?? "")).slice(0, 1200);
-      return [{ id: `blog-${id}-${slug(link.split("/").filter(Boolean).pop() ?? title)}`, title, url: link, source: "blog" as const, sourceLabel: label, publishedAt, snippet: summary || undefined }];
+      const authorNames = list(entry.creator ?? entry.author).map((author) => htmlToText(typeof author === "object" && author ? text((author as Record<string, unknown>).name) : text(author)));
+      return [{ id: `blog-${id}-${slug(link.split("/").filter(Boolean).pop() ?? title)}`, title, url: link, source: "blog" as const, sourceLabel: label, publishedAt, snippet: summary || undefined, author: byline(authorNames) }];
     });
   }));
 
@@ -280,7 +303,9 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
     existing.snippet ??= item.snippet;
   }
   reports.sort((a, b) => a.id.localeCompare(b.id));
-  return { items: [...seen.values()], reports };
+  // Models keep the source's trending order; repositories are ranked by stars.
+  radar.repos.sort((a, b) => b.stars - a.stars);
+  return { items: [...seen.values()], reports, radar };
 }
 
 export async function enrichSnippets(items: RawItem[], options: { fetcher?: Fetcher; concurrency?: number } = {}) {

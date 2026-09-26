@@ -1,20 +1,23 @@
 ---
 import { KINDS, domainOf, topicLabel, type DigestItem } from "../lib/digest";
 import { deskOf } from "../lib/visual";
+import { briefLabels, readingBucket } from "../lib/editorial";
 import ArchDiagram from "./ArchDiagram.astro";
 import StoryCover from "./StoryCover.astro";
 
-interface Props { item: DigestItem; variant?: "lead" | "side" | "feature" | "card"; showTopic?: boolean }
+interface Props { item: DigestItem; variant?: "lead" | "side" | "feature" | "card" | "tool"; showTopic?: boolean }
 const { item, variant = "card", showTopic = false } = Astro.props;
 const compact = new Intl.NumberFormat("en-US", { notation: "compact" });
-const rich = variant === "lead" || variant === "feature";
-const hasCover = variant !== "card";
+const rich = variant === "lead" || variant === "feature" || variant === "tool";
+const hasCover = variant !== "card" && variant !== "tool";
+const labels = briefLabels(item);
 const discussions = item.discussions?.length
   ? item.discussions
   : item.discussionUrl && item.discussionUrl !== item.url ? [{ label: item.sourceLabel, url: item.discussionUrl, comments: item.comments, points: item.points }] : [];
 const short = (label: string) => label === "Hacker News" ? "HN" : label;
 const facts = [
   domainOf(item.url),
+  item.author ? `by ${item.author}` : "",
   item.readMinutes && item.readMinutes >= 3 ? `${item.readMinutes} min read` : "",
   item.stars ? `★ ${compact.format(item.stars)}` : "",
   item.source === "papers" && item.points ? `${compact.format(item.points)} upvotes` : "",
@@ -22,7 +25,7 @@ const facts = [
 ].filter(Boolean);
 const bars = Math.max(1, Math.min(5, item.score - 5));
 ---
-<article class={`story story--${variant}`} data-score={item.score} data-desk={deskOf(item)}>
+<article class={`story story--${variant}`} data-score={item.score} data-read-time={readingBucket(item)} data-id={item.id} data-desk={deskOf(item)}>
   {hasCover && <StoryCover item={item} eager={variant === "lead"} />}
   <div class="story-body">
     <p class="kicker">
@@ -35,11 +38,12 @@ const bars = Math.max(1, Math.min(5, item.score - 5));
     <h3 id={item.id}><a href={item.url} rel="noopener noreferrer" target="_blank">{item.headline}</a></h3>
     <p class="why">{item.whyRead}</p>
     {rich && item.brief && (item.brief.length === 3
-      ? <ul class="brief labelled">{item.brief.map((point, index) => <li><b>{["What", "How", "Why it matters"][index]}</b>{point}</li>)}</ul>
+      ? <ul class="brief labelled">{item.brief.map((point, index) => <li><b>{labels[index]}</b>{point}</li>)}</ul>
       : <ul class="brief">{item.brief.map((point) => <li>{point}</li>)}</ul>)}
     {variant === "lead" && item.diagram && <ArchDiagram diagram={item.diagram} id={item.id} />}
     <p class="meta">
       {facts.map((part) => <span>{part}</span>)}
+      {item.codeUrl && <a href={item.codeUrl} rel="noopener noreferrer" target="_blank" class="discuss">Code{item.codeStars ? <> · <b>{compact.format(item.codeStars)}</b> stars</> : null}</a>}
       {discussions.map((d) => (
         <a href={d.url} rel="noopener noreferrer" target="_blank" class="discuss">
           {short(d.label)}{d.points ? <> <b>{compact.format(d.points)}</b> pts</> : null}{d.comments ? <> · <b>{compact.format(d.comments)}</b> {d.comments === 1 ? "comment" : "comments"}</> : null}
@@ -52,6 +56,8 @@ const bars = Math.max(1, Math.min(5, item.score - 5));
 <style>
   .story { min-width: 0; }
   .story[hidden] { display: none; }
+  :global(.story[data-read]) h3 a { color: rgb(var(--muted)); }
+  :global(.story[data-read]) .kicker::after { content: "Read"; order: 9; padding: 2px 5px; border: 1px solid rgb(var(--line)); color: rgb(var(--muted)); font-size: 9.5px; }
   .kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 8px; color: rgb(var(--muted)); font: 500 10.5px/1 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
   .topic-tag { display: inline-flex; align-items: center; gap: 6px; color: rgb(var(--soft)); }
   .topic-tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: rgb(var(--desk)); }
@@ -92,6 +98,8 @@ const bars = Math.max(1, Math.min(5, item.score - 5));
   .story--feature :global(.cover) { aspect-ratio: 16 / 9; align-self: start; }
   .story--feature h3 { font-size: 26px; line-height: 1.16; font-weight: 700; }
   .story--feature .why { font-size: 15px; }
+  .story--tool h3 { font-size: 22px; line-height: 1.2; font-weight: 700; }
+  .story--tool .why { font-size: 14.5px; }
   .feature-diagram { grid-column: 1 / -1; }
   .feature-diagram :global(.diagram) { margin: 0; }
 

@@ -41,4 +41,4 @@ sudo systemctl daemon-reload && sudo systemctl enable --now devpulse-pull.timer
 
 ## Outputs
 
-`/` (today), `/topic/<slug>`, `/edition/YYYY-MM-DD`, `/pulse` (trends and source health), `/og/YYYY-MM-DD.png` (share card), `/archive`, `/rss.xml`, `/json`, `/latest.json`, `/digest/YYYY-MM-DD.md`, `/llms.txt`.
+`/` (today), `/topic/<slug>`, `/edition/YYYY-MM-DD`, `/week/` and `/week/YYYY-Www` (weekly editions, RSS at `/week/rss.xml`), `/radar` (trending models and repositories), `/papers` (papers explained), `/search` (every story, with topic and kind filters), `/pulse` (trends and source health), `/og/YYYY-MM-DD.png` (share card), `/archive`, `/rss.xml`, `/json`, `/latest.json`, `/digest/YYYY-MM-DD.md`, `/llms.txt`.

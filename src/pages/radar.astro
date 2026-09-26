@@ -1,0 +1,31 @@
+---
+import RadarTable from "../components/RadarTable.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { allDigests } from "../lib/digests";
+import { radarWithChanges } from "../lib/radar";
+
+const digests = await allDigests();
+const current = digests.find((digest) => digest.radar);
+const previous = current ? digests.slice(digests.indexOf(current) + 1).find((digest) => digest.radar) : undefined;
+const radar = current?.radar ? radarWithChanges(current.radar, previous?.radar) : undefined;
+const date = current ? new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${current.date}T12:00:00Z`)) : "";
+---
+<BaseLayout title="AI Radar · DevPulse" description="Trending open models and fast-rising AI repositories, with day-over-day movement." image={current ? `/og/${current.date}.png` : undefined}>
+  <div class="radar-page shell">
+    <header>
+      <p class="eyebrow">AI Radar</p>
+      <h1>What engineers are pulling down</h1>
+      <p class="dek">The open models trending on Hugging Face for text, code, speech and agent work, and the new repositories gaining stars fastest on GitHub. Every number is the source's own{previous ? `; movement is since the ${previous.date} edition` : ""}. Nothing here is written by a model.</p>
+      {current && <p class="asof">As of the {date} edition</p>}
+    </header>
+    {radar ? <RadarTable models={radar.models} repos={radar.repos} /> : <p class="empty">The radar fills in from the next daily edition.</p>}
+  </div>
+</BaseLayout>
+<style>
+  .radar-page { max-width: 1040px; padding-top: 44px; }
+  header { padding-bottom: 20px; margin-bottom: 28px; border-bottom: 2px solid rgb(var(--ink)); }
+  h1 { margin: 8px 0 10px; font: 700 clamp(34px, 5vw, 52px)/1.05 "Newsreader", serif; }
+  .dek { margin: 0; max-width: 70ch; color: rgb(var(--soft)); line-height: 1.6; }
+  .asof { margin: 12px 0 0; color: rgb(var(--muted)); font: 500 11px/1.4 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  .empty { color: rgb(var(--soft)); }
+</style>

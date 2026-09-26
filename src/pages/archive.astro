@@ -1,12 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { allDigests } from "../lib/digests";
+import { groupByWeek, weekRange } from "../lib/weekly";
 const digests = await allDigests();
+const weeks = groupByWeek(digests).slice(0, 8);
 const format = new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 ---
 <BaseLayout title="Archive · DevPulse" description="Every past DevPulse daily edition.">
   <div class="archive shell">
-    <header><p class="eyebrow">Archive</p><h1>Previous days</h1></header>
+    <header><p class="eyebrow">Archive</p><h1>Previous days</h1>
+      {weeks.length > 0 && <p class="weeks">Weekly: {weeks.map(({ week }) => <a href={`/week/${week}`}>Week {week.split("-W")[1].replace(/^0/, "")} <span>from {weekRange(week).start}</span></a>)} <a href="/week/">All weeks</a></p>}
+    </header>
     <ol>
       {digests.map((digest) => (
         <li>
@@ -25,6 +29,9 @@ const format = new Intl.DateTimeFormat("en-US", { weekday: "short", month: "shor
   .archive { max-width: 1040px; padding-top: 44px; }
   header { padding-bottom: 20px; border-bottom: 2px solid rgb(var(--ink)); }
   h1 { margin: 8px 0 0; font: 700 44px/1.05 "Newsreader", serif; }
+  .weeks { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 14px 0 0; color: rgb(var(--muted)); font: 500 11px/1.4 "DM Mono", monospace; text-transform: uppercase; letter-spacing: .06em; }
+  .weeks a { color: rgb(var(--ink)); text-decoration: underline; text-decoration-color: rgb(var(--rule-strong)); text-transform: none; letter-spacing: 0; font: 600 13px/1.4 "Manrope", sans-serif; }
+  .weeks a span { color: rgb(var(--muted)); font-weight: 400; }
   ol { margin: 0; padding: 0; list-style: none; }
   li { border-bottom: 1px solid rgb(var(--line)); }
   li a { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 24px; align-items: baseline; padding: 18px 0; }
