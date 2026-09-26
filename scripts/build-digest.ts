@@ -2,7 +2,7 @@ import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { collectAll, enrichSnippets, type SourceReport } from "./lib/collect";
 import { saveCover } from "./lib/media";
-import { coverTargets, excludePublished, openRouterJudge, openRouterWriter, scoreItems, selectItems, writeBriefs } from "./lib/score";
+import { coverTargets, excludePublished, openRouterJudge, openRouterLede, openRouterWriter, scoreItems, selectItems, writeBriefs, writeLede } from "./lib/score";
 import { validateDate } from "./lib/net";
 import { digestSchema, type Digest, type DigestItem } from "../src/lib/digest";
 
@@ -40,6 +40,12 @@ async function publish({ judged, reports, candidateCount, collectedCount, excerp
     for (const failure of failures) console.warn(`Writing ${failure}`);
     console.log(`Briefs for ${picked.filter((item) => item.brief).length} stories, diagrams for ${picked.filter((item) => item.diagram).length}`);
   }
+  let lede: Awaited<ReturnType<typeof writeLede>>["lede"];
+  if (apiKey && !process.argv.includes("--no-briefs")) {
+    const result = await writeLede(picked, openRouterLede(apiKey, model));
+    lede = result.lede;
+    console.log(result.failure ? `Writing ${result.failure}` : `Lede written${lede?.quiet ? " (quiet day)" : ""}`);
+  }
 
   const coverDir = join("public", "covers", date);
   await rm(coverDir, { recursive: true, force: true });
@@ -62,6 +68,7 @@ async function publish({ judged, reports, candidateCount, collectedCount, excerp
     model,
     candidateCount,
     collectedCount,
+    lede,
     items: picked,
     sources: reports.map(({ id, label, status, count }) => ({ id, label, status, count })),
   });

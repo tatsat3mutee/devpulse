@@ -95,9 +95,16 @@ export const digestSchema = z.object({
   model: z.string().min(1),
   candidateCount: z.number().int().nonnegative(),
   collectedCount: z.number().int().nonnegative().optional(),
+  // "Today in one minute": a model-written synthesis of the day that may only point at stories in this edition, by id.
+  lede: z.object({
+    text: z.string().min(80).max(700).refine((value) => !/https?:\/\/|www\./i.test(value), { message: "Model text must not contain URLs" }),
+    refs: z.array(z.string()).min(2).max(5),
+    quiet: z.boolean(),
+  }).optional(),
   items: z.array(itemSchema).min(5).max(100),
   sources: z.array(z.object({ id: z.string(), label: z.string(), status: z.enum(["ok", "empty", "error"]), count: z.number().int().nonnegative() })),
-}).refine((digest) => new Set(digest.items.map((item) => item.id)).size === digest.items.length, { message: "Item IDs must be unique" });
+}).refine((digest) => new Set(digest.items.map((item) => item.id)).size === digest.items.length, { message: "Item IDs must be unique" })
+  .refine((digest) => !digest.lede || digest.lede.refs.every((ref) => digest.items.some((item) => item.id === ref)), { message: "Lede may only refer to stories in the edition" });
 
 export type DigestItem = z.infer<typeof itemSchema>;
 export type Digest = z.infer<typeof digestSchema>;
