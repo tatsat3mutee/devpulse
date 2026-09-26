@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import sharp from "sharp";
 import { extractPreviewImage, saveCover } from "../scripts/lib/media";
+import { minorRelease, offBeatJournal } from "../scripts/lib/collect";
 import { readBoundedBytes } from "../scripts/lib/net";
 import { coverTargets, excludePublished, writeBriefs, type Writer } from "../scripts/lib/score";
 import { digestSchema, type DigestItem } from "../src/lib/digest";
@@ -47,6 +48,24 @@ describe("preview images", () => {
   test("bounded byte reads stop oversized bodies", async () => {
     await expect(readBoundedBytes(new Response(new Uint8Array(20)), 10)).rejects.toThrow("byte limit");
     expect((await readBoundedBytes(new Response(new Uint8Array(8)), 10)).byteLength).toBe(8);
+  });
+});
+
+describe("source filters", () => {
+  test("release feeds keep minor versions and drop patches, pre-releases and build tags", () => {
+    expect(minorRelease("v0.11.0")).toEqual({ version: "v0.11.0", rest: "" });
+    expect(minorRelease("v4.57.0: Qwen3-Next support")).toEqual({ version: "v4.57.0", rest: "Qwen3-Next support" });
+    expect(minorRelease("2.1")?.version).toBe("2.1");
+    expect(minorRelease("v0.11.1")).toBeUndefined();
+    expect(minorRelease("v0.12.0rc1")).toBeUndefined();
+    expect(minorRelease("v1.0.0-beta.2")).toBeUndefined();
+    expect(minorRelease("b6543")).toBeUndefined();
+  });
+
+  test("science journals are off-beat unless the title is about ML", () => {
+    expect(offBeatJournal("https://www.cell.com/cell/fulltext/S0092", "Creatine uptake enhances antitumor immunity")).toBe(true);
+    expect(offBeatJournal("https://www.nature.com/articles/x", "A neural network predicts protein folding")).toBe(false);
+    expect(offBeatJournal("https://blog.example/post", "Creatine and you")).toBe(false);
   });
 });
 

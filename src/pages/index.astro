@@ -6,6 +6,6 @@ const digests = await allDigests();
 const digest = digests[0];
 const context = digest ? editionContext(digests, digest.date) : undefined;
 ---
-<BaseLayout title="DevPulse · Today in engineering" description={digest ? `${digest.items.length} engineering stories worth reading today, grouped by topic.` : "Daily engineering reading."} image={digest ? `/og/${digest.date}.png` : undefined}>
+<BaseLayout title="DevPulse · Today in AI & systems" description={digest ? `${digest.items.length} AI and systems engineering stories worth reading today, grouped by topic.` : "Daily engineering reading."} image={digest ? `/og/${digest.date}.png` : undefined}>
   {digest ? <DigestView digest={digest} latest prev={context?.prev} issue={context?.issue} /> : <section class="shell"><h1>No digest yet</h1></section>}
 </BaseLayout>

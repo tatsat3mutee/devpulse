@@ -9,7 +9,7 @@ const latest = JSON.parse(readFileSync(join(dir, readdirSync(dir).filter((f) => 
 
 test("homepage lists every story with must-reads first and outbound links", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Today in engineering");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Today in AI & systems");
   await expect(page.locator(".must .story")).toHaveCount(latest.items.filter((item) => item.mustRead).length);
   await expect(page.locator(".must .story--lead .cover")).toBeVisible();
   await expect(page.locator("main h3 a")).toHaveCount(latest.items.length);

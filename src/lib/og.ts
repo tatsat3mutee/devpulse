@@ -2,7 +2,7 @@ import { DESKS, type Desk, type Digest } from "./digest";
 import { deskOf, escapeXml, pulseLine } from "./visual";
 
 // Light-theme values of the desk tokens in BaseLayout; social cards are always light.
-const DESK_HEX: Record<Desk, string> = { ai: "#2a78d6", systems: "#eb6834", security: "#1baf7a", software: "#4a3aa7" };
+const DESK_HEX: Record<Desk, string> = { ai: "#5a3ca5", systems: "#3a84ca", security: "#bd821a", software: "#118659" };
 const SERIF = "Newsreader, 'Liberation Serif', 'DejaVu Serif', serif";
 const SANS = "Manrope, 'Liberation Sans', 'DejaVu Sans', sans-serif";
 const MONO = "'DM Mono', 'Liberation Mono', 'DejaVu Sans Mono', monospace";

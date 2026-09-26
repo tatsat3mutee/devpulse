@@ -30,7 +30,24 @@ export function coverSvg(item: DigestItem): string {
   const parts: string[] = [];
   const kind = item.kind ?? (item.source === "papers" ? "paper" : item.source === "github" ? "tool" : "news");
 
-  if (kind === "paper") {
+  const variant = rand();
+  if ((kind === "paper" && variant < 0.67) || kind === "benchmark") {
+    if (kind === "benchmark" || variant < 0.34) {
+      // Bar comparison: one highlighted bar among neutral ones.
+      const bars = 6 + Math.floor(rand() * 3), w = 22, gap = 12, x0 = (W - bars * (w + gap) + gap) / 2, base = 140;
+      const best = Math.floor(rand() * bars);
+      for (let i = 0; i < bars; i++) {
+        const h = 30 + rand() * 80;
+        parts.push(`<rect x="${r1(x0 + i * (w + gap))}" y="${r1(base - h)}" width="${w}" height="${r1(h)}" rx="2" class="${i === best ? "c-fill" : "c-mute"}"/>`);
+      }
+      parts.push(`<path d="M${x0 - 10} ${base}H${W - x0 + 10}" class="c-line"/>`);
+    } else {
+      let d = "M40 130";
+      for (let x = 40; x <= 280; x += 12) d += `L${x} ${r1(130 - 90 * (1 - Math.exp(-(x - 40) / (40 + rand() * 30))) + (rand() - 0.5) * 8)}`;
+      parts.push(`<path d="M36 30V134H286" class="c-line"/>`, `<path d="${d}" class="c-line c-thick"/>`);
+      for (let x = 64; x <= 280; x += 48) parts.push(`<path d="M${x} 134v4" class="c-line"/>`);
+    }
+  } else if (kind === "paper") {
     const cols = 16, rows = 7, gap = 14, x0 = 48, y0 = 30;
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
       const v = rand();
@@ -38,6 +55,9 @@ export function coverSvg(item: DigestItem): string {
       parts.push(`<circle cx="${x0 + x * gap}" cy="${y0 + y * gap}" r="${r}" class="${v > 0.82 ? "c-fill" : "c-mute"}"/>`);
     }
     parts.push(`<path d="M${x0 - 16} ${y0 - 12}v${rows * gap + 4}M${x0 - 16} ${y0 + rows * gap - 8}h${cols * gap + 8}" class="c-line"/>`);
+  } else if (kind === "vulnerability" && variant < 0.5) {
+    for (let y = 30; y < 150; y += 16) parts.push(`<rect x="40" y="${y}" width="${r1(120 + rand() * 120)}" height="6" rx="3" class="c-mute"/>`);
+    parts.push(`<rect x="196" y="72" width="64" height="52" rx="6" class="c-surface c-stroke"/>`, `<path d="M208 72v-12a20 20 0 0 1 40 0v12" class="c-line c-thick"/>`, `<circle cx="228" cy="96" r="6" class="c-fill"/>`);
   } else if (kind === "vulnerability") {
     for (let i = -6; i < 22; i++) parts.push(`<path d="M${i * 22} ${H}l${H * 0.7} -${H}h11l-${H * 0.7} ${H}z" class="c-mute"/>`);
     parts.push(`<path d="M160 36l44 16v34c0 28-19 46-44 56-25-10-44-28-44-56V52z" class="c-surface c-stroke"/>`);
@@ -66,6 +86,14 @@ export function coverSvg(item: DigestItem): string {
       x += 30 + Math.floor(rand() * 26);
     }
     parts.push(`<circle cx="290" cy="${lanes[1]}" r="9" class="c-fill"/>`);
+  } else if (kind === "case-study" || kind === "guide") {
+    // Boxes and arrows: a small system sketch, or numbered steps for guides.
+    const n = 3 + Math.floor(rand() * 2), bw = 50, gap = (W - 60 - n * bw) / (n - 1);
+    for (let i = 0; i < n; i++) {
+      const x = 30 + i * (bw + gap), y = 64 + (kind === "guide" ? i * 8 - 8 : (rand() - 0.5) * 30);
+      parts.push(`<rect x="${r1(x)}" y="${r1(y)}" width="${bw}" height="40" rx="5" class="${i === n - 1 ? "c-fill" : "c-surface c-stroke"}"/>`);
+      if (i < n - 1) parts.push(`<path d="M${r1(x + bw + 4)} ${r1(y + 20)}H${r1(x + bw + gap - 6)}" class="c-line c-thick"/>`);
+    }
   } else if (kind === "deep-dive") {
     let y = 26;
     let i = 0;
@@ -155,10 +183,12 @@ export function pulseLine(items: DigestItem[], width = 1000, height = 120) {
   const step = width / Math.max(1, items.length);
   const engagement = (item: DigestItem) => Math.log2(1 + (item.points ?? 0) + (item.comments ?? 0) + (item.stars ?? 0) / 10);
   const maxEngagement = Math.max(1, ...items.map(engagement));
+  // Stretch across the day's own score range: scores cluster at 7-9, so a fixed 0-10 scale hides the differences.
+  const lo = Math.min(...items.map((item) => item.score)), hi = Math.max(...items.map((item) => item.score));
   let d = `M0 ${base}`;
   const points: PulsePoint[] = items.map((item, index) => {
     const x = step * index + step / 2;
-    const amplitude = ((item.score - 4) / 6) * 0.75 + (engagement(item) / maxEngagement) * 0.25;
+    const amplitude = 0.2 + (hi > lo ? (item.score - lo) / (hi - lo) : 0.5) * 0.6 + (engagement(item) / maxEngagement) * 0.2;
     const peak = base - Math.max(0.15, amplitude) * (base - 8);
     d += `L${r1(x - step * 0.32)} ${base}L${r1(x - step * 0.18)} ${r1(base + 6)}L${r1(x)} ${r1(peak)}L${r1(x + step * 0.16)} ${r1(base + 10)}L${r1(x + step * 0.3)} ${base}`;
     return { id: item.id, x: r1(x), y: r1(peak), desk: deskOf(item), score: item.score, headline: item.headline };

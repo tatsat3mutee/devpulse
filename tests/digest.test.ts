@@ -19,20 +19,20 @@ describe("scoring", () => {
   test("keeps only judgements for known candidates in the batch and rejects URLs in model text", async () => {
     const candidates = [raw("a", { words: 2300 }), raw("b")];
     const { judged } = await scoreItems(candidates, async () => ({ items: [
-      { id: "a", score: 8, topic: "systems", kind: "deep-dive", headline: "A factual kernel headline", whyRead: "It explains scheduler internals clearly." },
-      { id: "a", score: 1, topic: "ai", kind: "news", headline: "Duplicate judgement ignored", whyRead: "This duplicate must be ignored entirely." },
-      { id: "b", score: 9, topic: "security", kind: "vulnerability", headline: "Visit https://evil.example now", whyRead: "Contains a link and must be dropped." },
-      { id: "ghost", score: 10, topic: "ai", kind: "news", headline: "Invented candidate", whyRead: "The model invented this candidate id." },
+      { id: "a", score: 8, relevance: 2, topic: "systems", kind: "deep-dive", headline: "A factual kernel headline", whyRead: "It explains scheduler internals clearly." },
+      { id: "a", score: 1, relevance: 3, topic: "ai", kind: "news", headline: "Duplicate judgement ignored", whyRead: "This duplicate must be ignored entirely." },
+      { id: "b", score: 9, relevance: 1, topic: "security", kind: "vulnerability", headline: "Visit https://evil.example now", whyRead: "Contains a link and must be dropped." },
+      { id: "ghost", score: 10, relevance: 3, topic: "ai", kind: "news", headline: "Invented candidate", whyRead: "The model invented this candidate id." },
     ] }));
     expect(judged.map((entry) => entry.id)).toEqual(["a"]);
-    expect(judged[0]).toMatchObject({ url: "https://example.com/a", score: 8, kind: "deep-dive", readMinutes: 10, originalTitle: candidates[0].title });
+    expect(judged[0]).toMatchObject({ url: "https://example.com/a", score: 8, relevance: 2, kind: "deep-dive", readMinutes: 10, originalTitle: candidates[0].title });
   });
 
   test("a failed batch is recorded without losing other batches", async () => {
     let calls = 0;
     const { judged, failures } = await scoreItems([raw("a"), raw("b")], async (batch) => {
       if (calls++ === 0) throw new Error("rate limited");
-      return { items: batch.map((entry) => ({ id: entry.id, score: 7, topic: "systems" as const, kind: "tool" as const, headline: "A valid factual headline", whyRead: "A valid reason to read this story." })) };
+      return { items: batch.map((entry) => ({ id: entry.id, score: 7, relevance: 2, topic: "systems" as const, kind: "tool" as const, headline: "A valid factual headline", whyRead: "A valid reason to read this story." })) };
     }, 1);
     expect(failures).toHaveLength(1);
     expect(judged.map((entry) => entry.id)).toEqual(["b"]);
@@ -46,13 +46,39 @@ describe("scoring", () => {
       item("dup1", { score: 10, headline: "Linux kernel adds new scheduler class", originalTitle: "Linux adds scheduler" }),
       item("dup2", { score: 9, headline: "Linux kernel adds new scheduler class today", originalTitle: "New scheduler in Linux" }),
     ];
-    const picked = selectItems(judged, { topicCap: 5, papersCap: 3, max: 50 });
+    const picked = selectItems(judged, { topicCap: 5, papersCap: 3, max: 50, now: new Date("2026-09-26T12:00:00Z") });
     expect(picked.find((entry) => entry.id === "low")).toBeUndefined();
     expect(picked.filter((entry) => entry.topic === "ai")).toHaveLength(5);
     expect(picked.filter((entry) => entry.source === "papers")).toHaveLength(3);
     expect(picked.filter((entry) => entry.id.startsWith("dup")).map((entry) => entry.id)).toEqual(["dup1"]);
     expect(picked.slice(0, 3).every((entry) => entry.mustRead)).toBe(true);
     expect(picked.filter((entry) => entry.mustRead)).toHaveLength(3);
+  });
+
+  test("selection keeps the mission: security capped, AI floor held, off-mission dropped, AI must-read first", () => {
+    const judged = [
+      ...Array.from({ length: 15 }, (_, i) => item(`s${i}`, { topic: "security", score: 9, headline: `Security flaw${i} alpha${i} beta${i} gamma${i}` })),
+      ...Array.from({ length: 30 }, (_, i) => item(`a${i}`, { topic: (["agents", "inference", "ai", "research"] as const)[i % 4], score: 7, headline: `Agent result${i} delta${i} epsilon${i} zeta${i}` })),
+      ...Array.from({ length: 20 }, (_, i) => item(`d${i}`, { topic: (["design", "data", "infra", "systems"] as const)[i % 4], score: 7, headline: `Scaling case${i} theta${i} iota${i} kappa${i}` })),
+      item("bio", { topic: "research", score: 9, relevance: 0, headline: "Creatine uptake boosts antitumor immunity in mice" }),
+      ...Array.from({ length: 10 }, (_, i) => item(`show${i}`, { topic: "languages", score: 8, originalTitle: `Show HN: tool ${i}`, headline: `Launch tool${i} lambda${i} sigma${i} omega${i}` })),
+    ];
+    const picked = selectItems(judged, { now: new Date("2026-09-26T12:00:00Z") });
+    expect(picked.filter((entry) => entry.topic === "security")).toHaveLength(6);
+    expect(picked.filter((entry) => ["agents", "inference", "ai", "research"].includes(entry.topic)).length).toBeGreaterThanOrEqual(23);
+    expect(picked.find((entry) => entry.id === "bio")).toBeUndefined();
+    expect(picked.filter((entry) => entry.id.startsWith("show")).length).toBeLessThanOrEqual(6);
+    expect(picked[0].mustRead).toBe(true);
+    expect(picked.filter((entry) => entry.mustRead).map((entry) => entry.topic)).not.toContain(undefined);
+  });
+
+  test("older stories lose priority to fresh ones at equal score", () => {
+    const now = new Date("2026-09-26T12:00:00Z");
+    const picked = selectItems([
+      item("old", { topic: "agents", score: 8, publishedAt: "2026-09-19T12:00:00.000Z", headline: "Old agent story alpha beta" }),
+      item("new", { topic: "agents", score: 8, publishedAt: "2026-09-26T08:00:00.000Z", headline: "Fresh agent story gamma delta" }),
+    ], { now, mustRead: 0 });
+    expect(picked.map((entry) => entry.id)).toEqual(["new", "old"]);
   });
 
   test("reworded coverage of the same story is treated as a duplicate within a topic", () => {

@@ -15,11 +15,12 @@ bun run digest            # needs OPENROUTER_API_KEY; --dry-run collects only; -
 
 ## Architecture
 
-- `scripts/lib/collect.ts`: sources (HN top+best, Lobsters, GitHub new repos, HF papers and trending models, blog RSS), dedupe, excerpt and preview-image fetching
-- `scripts/lib/score.ts`: batched model judging (score, topic, headline, whyRead), balanced selection, then a write pass (brief, diagram) for picked stories
+- `scripts/lib/collect.ts`: sources (HN top+best and keyword search, Lobsters, GitHub new repos, AI framework release feeds, HF papers and trending models, blog RSS), dedupe, excerpt and preview-image fetching
+- `scripts/lib/score.ts`: batched model judging (score, relevance, topic, headline, whyRead), mission-weighted selection (desk floors and caps in `SELECT_DEFAULTS`), then a write pass (brief, diagram) for picked stories
 - `scripts/lib/media.ts`: source preview-image extraction and re-encoding into `public/covers/<date>/`
 - `scripts/lib/net.ts`: SSRF-safe fetch, bounded reads, text helpers
 - `src/lib/digest.ts`: Zod schema, topics and desks; digests live in `data/digests/`
+- Colour: one brand accent (`--signal`) reserved for brand and urgency; desk colours only mark topic groups (dots, rules, charts). Validate any desk palette change with the dataviz validator in both themes, all pairs.
 - `src/lib/visual.ts`, `src/lib/og.ts`: generated cover art, diagram layout, pulse line and social cards (all deterministic, no network)
 - Daily GitHub Action commits the digest and pushes the built site to the `site` branch; EC2 pulls it via a systemd timer and `deploy/ec2/release.sh`
 

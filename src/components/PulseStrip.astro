@@ -25,19 +25,19 @@ const total = items.length;
     ))}
   </div>
   </div>
-  <div class="mix" aria-hidden="true">
+  {desks.length > 1 && <div class="mix" aria-hidden="true">
     {desks.map((entry) => (
       <div class="mix-seg" data-desk={entry.desk} style={`flex:${entry.count}`}>
         <span class="mix-bar"></span>
         <span class="mix-label"><b>{entry.count}</b> {entry.label}</span>
       </div>
     ))}
-  </div>
+  </div>}
 </figure>
 <style>
   .pulse { position: relative; margin: 0; padding: 16px 0 4px; }
   figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; margin-bottom: 6px; font: 500 11px/1.4 "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
-  .pulse-title { color: rgb(var(--signal)); }
+  .pulse-title { color: rgb(var(--muted)); }
   .pulse-note { color: rgb(var(--muted)); letter-spacing: 0; text-transform: none; }
   .pulse-line { display: block; width: 100%; height: 96px; overflow: visible; }
   .pulse-base { stroke: rgb(var(--line)); stroke-width: 1; vector-effect: non-scaling-stroke; }
@@ -63,7 +63,8 @@ const total = items.length;
     .pulse-line { height: 72px; }
     .pulse-dots a { width: 12px; height: 12px; margin: -6px 0 0 -6px; }
     .pulse-dots a::before { inset: 3px; }
-    .mix { flex-wrap: wrap; }
-    .mix-seg { flex: 1 1 40% !important; }
+    .pulse-dots { display: none; }
+    .mix-label { font-size: 10.5px; }
+    .mix-label b { display: block; }
   }
 </style>

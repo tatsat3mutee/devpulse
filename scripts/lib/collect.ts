@@ -86,7 +86,45 @@ export const BLOGS = [
   ["infoq", "InfoQ", "https://feed.infoq.com/"],
   ["pinterest-eng", "Pinterest Engineering", "https://medium.com/feed/pinterest-engineering"],
   ["pragmatic", "The Pragmatic Engineer", "https://newsletter.pragmaticengineer.com/feed"],
+  ["lucumr", "Armin Ronacher", "https://lucumr.pocoo.org/feed.atom"],
+  ["lethain", "Will Larson", "https://lethain.com/feeds/"],
+  ["karpathy", "Andrej Karpathy", "https://karpathy.github.io/feed.xml"],
+  ["msr", "Microsoft Research", "https://www.microsoft.com/en-us/research/feed/"],
+  ["aws-ml", "AWS Machine Learning", "https://aws.amazon.com/blogs/machine-learning/feed/"],
+  ["bair", "Berkeley AI Research", "https://bair.berkeley.edu/blog/feed.xml"],
+  ["lobsters-tags", "Lobsters (AI, distributed, performance)", "https://lobste.rs/t/ai,distributed,performance,databases.rss"],
 ] as const;
+
+// Releases of the frameworks AI engineers run in production; only major and minor versions are kept.
+export const RELEASES = [
+  ["vllm", "vLLM", "vllm-project/vllm"],
+  ["sglang", "SGLang", "sgl-project/sglang"],
+  ["llama-cpp", "llama.cpp", "ggml-org/llama.cpp"],
+  ["transformers", "Transformers", "huggingface/transformers"],
+  ["tensorrt-llm", "TensorRT-LLM", "NVIDIA/TensorRT-LLM"],
+  ["ollama", "Ollama", "ollama/ollama"],
+  ["langgraph", "LangGraph", "langchain-ai/langgraph"],
+  ["openai-agents", "OpenAI Agents SDK", "openai/openai-agents-python"],
+  ["claude-code", "Claude Code", "anthropics/claude-code"],
+  ["mcp-spec", "Model Context Protocol", "modelcontextprotocol/modelcontextprotocol"],
+] as const;
+
+// Hacker News keyword searches that pull on-beat stories the generic front page misses.
+export const HN_QUERIES = ["LLM", "agent", "inference", "GPU", "MCP", "RAG", "fine-tuning", "system design", "distributed systems"] as const;
+
+// Science and medicine journals reach HN often and are never on this beat unless they are about ML itself.
+const JOURNALS = /(^|\.)(nature\.com|science\.org|cell\.com|biorxiv\.org|medrxiv\.org|nejm\.org|thelancet\.com|pnas\.org|jamanetwork\.com|sciencedirect\.com)$/i;
+const ML_TERMS = /\b(ai|ml|llm|model|neural|learning|transformer|gpu|inference|agent)s?\b/i;
+export const offBeatJournal = (url: string, title: string) => {
+  try { return JOURNALS.test(new URL(url).hostname) && !ML_TERMS.test(title); } catch { return false; }
+};
+const ON_BEAT_TASKS = new Set(["text-generation", "text2text-generation", "image-text-to-text", "feature-extraction", "sentence-similarity", "automatic-speech-recognition", "text-to-speech", "any-to-any", "visual-question-answering", "reinforcement-learning", "text-ranking", "token-classification"]);
+/** Parses a release title like "v0.11.0" or "v4.57.0: Qwen3 support"; keeps x.y and x.y.0, drops patches and pre-releases. */
+export function minorRelease(title: string): { version: string; rest: string } | undefined {
+  const match = /\bv?(\d+)\.(\d+)(?:\.(\d+))?(?:[-.]?(rc|alpha|beta|dev|post|pre)[\w.]*)?/i.exec(title);
+  if (!match || match[4] || (match[3] !== undefined && match[3] !== "0")) return undefined;
+  return { version: match[0], rest: title.slice(match.index + match[0].length).replace(/^[\s:\-–—]+/, "").trim() };
+}
 
 const DAY = 86_400_000;
 const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80);
@@ -127,7 +165,7 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
       if (!item || item.type !== "story" || item.dead || item.deleted || typeof item.title !== "string" || typeof item.time !== "number") return [];
       const publishedAt = new Date(item.time * 1000).toISOString();
       const points = typeof item.score === "number" ? item.score : 0;
-      if (points < 25 || !within(publishedAt, 3)) return [];
+      if (points < 25 || !within(publishedAt, 3) || offBeatJournal(isWebUrl(item.url) ? item.url : "", item.title)) return [];
       const discussionUrl = `https://news.ycombinator.com/item?id=${item.id}`;
       const comments = typeof item.descendants === "number" ? item.descendants : 0;
       return [{ id: `hn-${item.id}`, title: item.title, url: isWebUrl(item.url) ? item.url : discussionUrl, source: "hn" as const, sourceLabel: "Hacker News", discussionUrl, discussions: [{ label: "Hacker News", url: discussionUrl, comments, points }], points, comments, publishedAt, snippet: typeof item.text === "string" ? htmlToText(item.text).slice(0, 1200) : undefined }];
@@ -138,7 +176,7 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
     const stories = await json<Array<Record<string, unknown>>>("https://lobste.rs/hottest.json");
     return stories.flatMap((story) => {
       const publishedAt = new Date(String(story.created_at)).toISOString();
-      if (typeof story.title !== "string" || !within(publishedAt, 4)) return [];
+      if (typeof story.title !== "string" || !within(publishedAt, 4) || offBeatJournal(isWebUrl(story.url) ? story.url : "", story.title)) return [];
       const discussionUrl = isWebUrl(story.comments_url) ? story.comments_url : undefined;
       const url = isWebUrl(story.url) && story.url ? story.url : discussionUrl;
       if (!url) return [];
@@ -176,7 +214,22 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
       const likes = Number(model.likes) || 0;
       if (likes < 50 || !within(publishedAt, 21)) return [];
       const task = typeof model.pipeline_tag === "string" ? model.pipeline_tag : "";
+      if (!ON_BEAT_TASKS.has(task)) return [];
       return [{ id: `model-${slug(model.id)}`, title: task ? `${model.id} (${task.replace(/-/g, " ")} model)` : model.id, url: `https://huggingface.co/${model.id}`, source: "models" as const, sourceLabel: "Hugging Face", points: likes, publishedAt, snippet: [task && `Task: ${task}`, Array.isArray(model.tags) ? `Tags: ${model.tags.filter((tag) => typeof tag === "string" && !tag.includes(":")).slice(0, 12).join(", ")}` : "", typeof model.downloads === "number" ? `Downloads: ${model.downloads}` : ""].filter(Boolean).join(". ") }];
+    });
+  });
+
+  const hnSearch = run("hn-search", "Hacker News (AI and systems search)", async () => {
+    const since = Math.floor((now.getTime() - 3 * DAY) / 1000);
+    const pages = await Promise.all(HN_QUERIES.map((query) => json<{ hits?: Array<Record<string, unknown>> }>(`https://hn.algolia.com/api/v1/search?tags=story&query=${encodeURIComponent(query)}&numericFilters=points%3E40,created_at_i%3E${since}&hitsPerPage=30`).catch(() => ({ hits: [] }))));
+    return pages.flatMap((page) => page.hits ?? []).flatMap((hit) => {
+      if (typeof hit.objectID !== "string" || !/^\d+$/.test(hit.objectID) || typeof hit.title !== "string" || typeof hit.created_at !== "string") return [];
+      const publishedAt = new Date(hit.created_at).toISOString();
+      const discussionUrl = `https://news.ycombinator.com/item?id=${hit.objectID}`;
+      const url = isWebUrl(hit.url) ? hit.url : discussionUrl;
+      if (!within(publishedAt, 3) || offBeatJournal(url, hit.title)) return [];
+      const points = Number(hit.points) || 0, comments = Number(hit.num_comments) || 0;
+      return [{ id: `hn-${hit.objectID}`, title: hit.title, url, source: "hn" as const, sourceLabel: "Hacker News", discussionUrl, discussions: [{ label: "Hacker News", url: discussionUrl, comments, points }], points, comments, publishedAt }];
     });
   });
 
@@ -199,7 +252,24 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
     });
   }));
 
-  const all = (await Promise.all([hn, lobsters, github, papers, models, ...blogs])).flat();
+  const releases = RELEASES.map(([id, label, repo]) => run(`release-${id}`, `${label} releases`, async () => {
+    const xml = await get(`https://github.com/${repo}/releases.atom`, { Accept: "application/atom+xml, application/xml" });
+    if (/<!ENTITY/i.test(xml)) throw new Error("Entity declarations are not supported");
+    const doc = parser.parse(xml) as Record<string, any>;
+    return (list(doc.feed?.entry).slice(0, 10) as Array<Record<string, unknown>>).flatMap((entry) => {
+      const tag = htmlToText(text(entry.title));
+      const link = (list(entry.link) as Array<Record<string, string>>).find((l) => !l["@_rel"] || l["@_rel"] === "alternate")?.["@_href"];
+      const date = text(entry.updated ?? entry.published);
+      const release = minorRelease(tag);
+      if (!release || !isWebUrl(link) || !date) return [];
+      const publishedAt = new Date(date).toISOString();
+      if (!within(publishedAt, 7)) return [];
+      const notes = htmlToText(text(entry.content ?? entry.summary ?? "")).slice(0, 1500);
+      return [{ id: `release-${id}-${slug(tag)}`, title: `${label} ${release.version}${release.rest ? `: ${release.rest}` : " released"}`, url: link, source: "blog" as const, sourceLabel: `${label} releases`, publishedAt, snippet: notes || undefined, excerpt: notes || undefined }];
+    });
+  }));
+
+  const all = (await Promise.all([hn, hnSearch, lobsters, github, papers, models, ...blogs, ...releases])).flat();
   const seen = new Map<string, RawItem>();
   for (const item of all) {
     let key: string;

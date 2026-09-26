@@ -2,11 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { BLOGS } from "../../scripts/lib/collect";
 const steps = [
-  ["Collect", "Every morning we pull a few hundred fresh candidates: the Hacker News front page and best list, Lobsters, fast-rising new GitHub repositories, Hugging Face daily papers and trending models, and engineering blogs from AI labs, infrastructure teams and writers worth following. Anything already published in the last week is dropped."],
+  ["Collect", "Every morning we pull a few hundred fresh candidates: the Hacker News front page and best list, Lobsters, fast-rising new GitHub repositories, Hugging Face daily papers and trending models, Hacker News searches for AI and systems topics, release notes from the inference and agent frameworks engineers run in production, and engineering blogs from AI labs, infrastructure teams and writers worth following. Anything already published in the last week is dropped, and so are science and medicine journal links that are not about ML."],
   ["Read", "For each candidate we fetch the linked page and keep an excerpt of its own text, plus the preview image the page itself declares."],
-  ["Judge", "A language model scores every candidate from 1 to 10 on one question: would a senior engineer want to read this? Depth, novelty and hard-won production lessons score high. Funding news, politics, drama, marketing and generic AI hype score low."],
+  ["Judge", "A language model gives every candidate two separate marks. Quality, from 1 to 10: would a senior engineer want to read this? Depth, evidence and hard-won production lessons score high; a bare title with nothing behind it cannot score above 5. Relevance, from 0 to 3: how close it is to our beat of agents, inference, ML and system design. Off-beat stories (biology, politics, gadgets, retrocomputing) are dropped however good they are."],
   ["Write", "The model writes a plain headline and one reason to read it, using only the title and excerpt. For the stories that make the cut it adds two or three brief points and, when the article describes a concrete architecture, a small diagram of the components it names. It never chooses links or images, and anything it writes that contains a URL is thrown away."],
-  ["Balance", "The top 50 are published, with limits per topic and on papers so no single subject crowds out the rest. Near-duplicate stories from different sources are merged."],
+  ["Balance", "Up to 50 are published. Nearly half the edition is reserved for AI (agents, inference, models, research) and a quarter for systems and architecture, filled only with stories scoring 7 or more. General security is capped at 6 and launches at 6, so they cannot crowd out the beat. Must-reads are the best AI story, the best story from another desk, and the next best. Near-duplicates from different sources are merged, and on a thin day the edition is shorter rather than padded."],
   ["Illustrate", "Lead stories carry the source's own preview image, downloaded once and re-encoded so your browser never contacts a third party. Stories without one get cover art generated from their kind and topic. The pulse line and topic mix are drawn from the day's scores."],
 ];
 ---
@@ -26,7 +26,7 @@ const steps = [
   h1 { margin: 10px 0 24px; font: 700 52px/1.05 "Newsreader", serif; }
   ol { margin: 0; padding: 0; list-style: none; border-top: 2px solid rgb(var(--ink)); }
   li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; padding: 20px 0; border-bottom: 1px solid rgb(var(--line)); }
-  li > span { color: rgb(var(--signal)); font: 500 11px/1.8 "DM Mono", monospace; }
+  li > span { color: rgb(var(--muted)); font: 500 11px/1.8 "DM Mono", monospace; }
   li h2 { margin: 0; font: 600 24px/1.1 "Newsreader", serif; }
   li p { margin: 6px 0 0; color: rgb(var(--soft)); line-height: 1.65; }
   .blogs { margin-top: 36px; }

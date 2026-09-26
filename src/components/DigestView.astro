@@ -25,7 +25,7 @@ const sourceCount = digest.sources.filter((source) => source.status === "ok").le
 const date = new Date(`${digest.date}T12:00:00Z`);
 const dateLabel = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(date);
 const shortDate = (value: string) => new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${value}T12:00:00Z`));
-const heading = topic ? topicLabel(topic) : latest ? "Today in engineering" : dateLabel;
+const heading = topic ? topicLabel(topic) : latest ? "Today in AI & systems" : dateLabel;
 const strong = items.filter((item) => item.score >= 8).length;
 const top = items.filter((item) => item.score >= 9).length;
 ---
@@ -52,7 +52,7 @@ const top = items.filter((item) => item.score >= 9).length;
         </dl>
       )}
     </div>
-    <PulseStrip items={pageOrder} label={topic ? `${topicLabel(topic)} pulse` : "Today's pulse"} />
+    <PulseStrip items={pageOrder} label={topic ? "Pulse" : "Today's pulse"} />
   </header>
 
   <div class="toolbar">
@@ -63,6 +63,7 @@ const top = items.filter((item) => item.score >= 9).length;
       ))}
     </nav>
     <div class="signal-filter" role="group" aria-label="Minimum editor score">
+      <span class="filter-label" aria-hidden="true">Score</span>
       <button type="button" data-min="0" aria-pressed="true">All <span>{items.length}</span></button>
       <button type="button" data-min="8" aria-pressed="false">Strong <span>{strong}</span></button>
       <button type="button" data-min="9" aria-pressed="false">Essential <span>{top}</span></button>
@@ -85,7 +86,7 @@ const top = items.filter((item) => item.score >= 9).length;
     const hidden = topic ? [] : others.slice(VISIBLE_PER_TOPIC - 1);
     return (
       <section class={`group${index % 2 ? " flip" : ""}`} id={group.slug} aria-labelledby={`h-${group.slug}`} data-desk={group.desk}>
-        <header class="group-head">
+        <header class={`group-head${topic ? " sr-only" : ""}`}>
           <h2 id={`h-${group.slug}`}>{group.label}</h2>
           <span class="count">{group.items.length} {group.items.length === 1 ? "story" : "stories"}</span>
           {!topic && <a href={`/topic/${group.slug}`} class="more-link">Topic page &rarr;</a>}
@@ -131,6 +132,10 @@ const top = items.filter((item) => item.score >= 9).length;
       });
       if (empty) empty.hidden = shown > 0;
     };
+    // Bring the current topic chip into view inside its own scroller without moving the page.
+    const topics = root.querySelector(".topics");
+    const current = topics?.querySelector('[aria-current="page"]');
+    if (topics && current && topics.scrollWidth > topics.clientWidth) topics.scrollLeft = current.offsetLeft - topics.offsetLeft - (topics.clientWidth - current.clientWidth) / 2;
     root.addEventListener("click", (event) => {
       const button = event.target.closest("button[data-min]");
       if (button) apply(Number(button.dataset.min));
@@ -144,7 +149,7 @@ const top = items.filter((item) => item.score >= 9).length;
   .edition-bar p { margin: 0; text-align: center; color: rgb(var(--ink)); }
   .edition-bar p span { color: rgb(var(--muted)); }
   .step { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; }
-  a.step:hover { color: rgb(var(--signal)); }
+  a.step:hover { color: rgb(var(--ink)); }
   .step.next { justify-self: end; }
   .step.live { color: rgb(var(--signal)); }
   .step.live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: rgb(var(--signal)); animation: beat 1.6s ease-in-out infinite; }
@@ -157,10 +162,9 @@ const top = items.filter((item) => item.score >= 9).length;
   .funnel div:first-child { border-left: 0; }
   .funnel dt { color: rgb(var(--muted)); font: 500 10px/1.2 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
   .funnel dd { margin: 4px 0 0; font: 600 26px/1 "Newsreader", serif; font-variant-numeric: tabular-nums; }
-  .funnel div:nth-child(3) dd { color: rgb(var(--signal)); }
 
   .toolbar { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 16px; margin-top: 18px; padding: 10px 0; border-block: 1px solid rgb(var(--ink)); background: rgb(var(--paper) / .96); backdrop-filter: blur(6px); }
-  .topics { display: flex; gap: 6px; min-width: 0; overflow-x: auto; scrollbar-width: none; mask-image: linear-gradient(90deg, #000 92%, transparent); padding-right: 24px; }
+  .topics { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
   .topics::-webkit-scrollbar { display: none; }
   .topics a { display: inline-flex; flex: none; align-items: center; gap: 6px; min-height: 34px; padding: 0 11px; border: 1px solid rgb(var(--line)); border-radius: 17px; color: rgb(var(--soft)); font: 600 12.5px/1 "Manrope", sans-serif; }
   .topics a[data-desk]::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: rgb(var(--desk)); }
@@ -168,14 +172,16 @@ const top = items.filter((item) => item.score >= 9).length;
   .topics a:hover { border-color: rgb(var(--ink)); color: rgb(var(--ink)); }
   .topics a[aria-current="page"] { background: rgb(var(--ink)); border-color: rgb(var(--ink)); color: rgb(var(--paper)); }
   .topics a[aria-current="page"] span { color: rgb(var(--paper) / .7); }
-  .signal-filter { display: flex; flex: none; margin-left: auto; border: 1px solid rgb(var(--line)); border-radius: 17px; overflow: hidden; }
+  .signal-filter { display: flex; flex: none; align-self: flex-start; margin-left: auto; border: 1px solid rgb(var(--line)); border-radius: 17px; overflow: hidden; }
+  .filter-label { display: inline-flex; align-items: center; padding: 0 10px 0 12px; color: rgb(var(--muted)); font: 500 10px/1 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .signal-filter button { min-height: 34px; padding: 0 12px; border: 0; border-left: 1px solid rgb(var(--line)); background: transparent; cursor: pointer; font: 600 12px/1 "Manrope", sans-serif; }
-  .signal-filter button:first-child { border-left: 0; }
-  .signal-filter button span { color: rgb(var(--muted)); font: 500 10.5px/1 "DM Mono", monospace; }
-  .signal-filter button[aria-pressed="true"] { background: rgb(var(--signal)); color: #fff; }
-  .signal-filter button[aria-pressed="true"] span { color: rgb(255 255 255 / .75); }
 
-  .section-label { margin: 0 0 14px; color: rgb(var(--signal)); font: 500 11px/1.3 "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+  .signal-filter button span { color: rgb(var(--muted)); font: 500 10.5px/1 "DM Mono", monospace; }
+  .signal-filter button[aria-pressed="true"] { background: rgb(var(--ink)); color: rgb(var(--paper)); }
+  .signal-filter button[aria-pressed="true"] span { color: rgb(var(--paper) / .75); }
+
+  .section-label { margin: 0 0 14px; color: rgb(var(--muted)); font: 500 11px/1.3 "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
   .must { padding-top: 30px; }
   .must-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 32px; }
   .must-side { display: grid; align-content: start; gap: 26px; padding-left: 32px; border-left: 1px solid rgb(var(--line)); }
@@ -185,7 +191,7 @@ const top = items.filter((item) => item.score >= 9).length;
   .group-head h2 { margin: 0; font: 700 28px/1.1 "Newsreader", serif; }
   .count { color: rgb(var(--muted)); font: 500 11px/1 "DM Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
   .more-link { margin-left: auto; color: rgb(var(--soft)); font: 600 12.5px/1 "Manrope", sans-serif; }
-  .more-link:hover { color: rgb(var(--signal)); }
+  .more-link:hover { color: rgb(var(--ink)); text-decoration: underline; }
   .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 28px; margin-top: 6px; }
   .grid > :global(.story) { padding: 18px 0; border-bottom: 1px solid rgb(var(--line)); }
   .more { margin-top: 4px; }
@@ -195,10 +201,10 @@ const top = items.filter((item) => item.score >= 9).length;
   .more[open] summary::before { content: "\2212"; }
   .more summary:hover { border-color: rgb(var(--ink)); color: rgb(var(--ink)); }
   .filter-empty { padding: 40px 0; color: rgb(var(--soft)); }
-  .filter-empty button { border: 0; background: none; color: rgb(var(--signal)); cursor: pointer; text-decoration: underline; }
+  .filter-empty button { border: 0; background: none; color: rgb(var(--ink)); cursor: pointer; text-decoration: underline; }
 
   .digest-foot { margin-top: 48px; padding-top: 18px; border-top: 1px solid rgb(var(--line)); color: rgb(var(--muted)); font-size: 12.5px; line-height: 1.6; }
-  .digest-foot a { color: rgb(var(--signal)); }
+  .digest-foot a { color: rgb(var(--ink)); text-decoration: underline; text-decoration-color: rgb(var(--rule-strong)); }
 
   @media (max-width: 980px) {
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -209,8 +215,14 @@ const top = items.filter((item) => item.score >= 9).length;
     .must-grid { grid-template-columns: 1fr; }
     .must-side { padding-left: 0; border-left: 0; }
   }
+  @media (max-width: 820px) {
+    .topics { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; mask-image: linear-gradient(90deg, #000 88%, transparent); padding-right: 28px; }
+    .topics::-webkit-scrollbar { display: none; }
+  }
   @media (max-width: 640px) {
-    .edition-bar { font-size: 10.5px; letter-spacing: .02em; }
+    .edition-bar { grid-template-columns: auto 1fr; font-size: 10.5px; letter-spacing: .02em; }
+    .edition-bar > span.step:first-child { display: none; }
+    .edition-bar p { text-align: left; }
     .step span { display: none; }
     .toolbar { flex-direction: column; align-items: stretch; gap: 8px; }
     .signal-filter { margin-left: 0; align-self: flex-start; }

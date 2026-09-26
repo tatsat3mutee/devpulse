@@ -70,7 +70,7 @@ const statusMark = { ok: "✓", empty: "–", error: "!" } as const;
               <tr data-desk={topic.desk}>
                 <th scope="row"><a href={`/topic/${topic.slug}`}>{topic.label}</a></th>
                 <td><span class="bar" style={`width:${(topic.count / maxTopic) * 100}%`}></span><b>{topic.count}</b></td>
-                <td class="spark" aria-label={`Per day: ${topic.days.join(", ")}`}>{topic.days.map((count) => <i style={`height:${Math.max(2, (count / Math.max(1, ...topic.days)) * 18)}px`} title={String(count)}></i>)}</td>
+                <td class="spark" hidden={week.length < 2} aria-label={`Per day: ${topic.days.join(", ")}`}>{topic.days.map((count) => <i style={`height:${Math.max(2, (count / Math.max(1, ...topic.days)) * 18)}px`} title={String(count)}></i>)}</td>
               </tr>
             ))}
           </tbody>
@@ -129,7 +129,7 @@ const statusMark = { ok: "✓", empty: "–", error: "!" } as const;
   .days { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
   .days li { display: grid; grid-template-columns: 110px minmax(0, 1fr) 36px; align-items: center; gap: 14px; }
   .days a { color: rgb(var(--soft)); font: 500 12px/1 "DM Mono", monospace; }
-  .days a:hover { color: rgb(var(--signal)); }
+  .days a:hover { color: rgb(var(--ink)); text-decoration: underline; }
   .stack { display: flex; gap: 2px; height: 26px; }
   .stack span { min-width: 2px; background: rgb(var(--desk)); }
   .stack span:first-child { border-radius: 4px 0 0 4px; }
@@ -139,7 +139,7 @@ const statusMark = { ok: "✓", empty: "–", error: "!" } as const;
   .bars { width: 100%; border-collapse: collapse; }
   .bars thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .bars th { width: 44%; padding: 7px 12px 7px 0; text-align: left; font: 600 13px/1.3 "Manrope", sans-serif; }
-  .bars th a:hover { color: rgb(var(--signal)); }
+  .bars th a:hover { text-decoration: underline; }
   .mono-bars th { font: 400 12.5px/1.3 "DM Mono", monospace; color: rgb(var(--soft)); }
   .bars td { padding: 7px 0; border-bottom: 1px solid rgb(var(--line) / .6); white-space: nowrap; }
   .bar { display: inline-block; height: 10px; min-width: 2px; max-width: calc(100% - 36px); margin-right: 8px; border-radius: 0 4px 4px 0; background: rgb(var(--desk)); vertical-align: middle; }
@@ -153,14 +153,14 @@ const statusMark = { ok: "✓", empty: "–", error: "!" } as const;
   .kinds span { padding: 5px 10px; border: 1px solid rgb(var(--line)); border-radius: 14px; color: rgb(var(--soft)); font-size: 12.5px; }
   .kinds b { color: rgb(var(--ink)); font: 500 12px/1 "DM Mono", monospace; }
   .health-scroll { overflow-x: auto; }
-  .health { border-collapse: collapse; min-width: 100%; }
+  .health { border-collapse: collapse; min-width: min(100%, 560px); }
   .health th, .health td { padding: 6px 10px; border-bottom: 1px solid rgb(var(--line) / .6); font-size: 12.5px; white-space: nowrap; }
   .health thead th { color: rgb(var(--muted)); font: 500 10.5px/1.2 "DM Mono", monospace; text-transform: uppercase; letter-spacing: .06em; text-align: center; }
   .health thead th:first-child, .health tbody th { text-align: left; }
   .health tbody th { font-weight: 600; }
   .health td { text-align: center; font: 600 13px/1 "DM Mono", monospace; }
   .health td small { margin-left: 4px; color: rgb(var(--muted)); font-size: 10.5px; font-weight: 400; }
-  [data-status="ok"] { color: rgb(var(--verified)); }
+  [data-status="ok"] { color: rgb(var(--ink)); }
   [data-status="empty"], [data-status="none"] { color: rgb(var(--muted)); }
   td[data-status="error"] { background: rgb(var(--signal-soft)); color: rgb(var(--signal)); }
   .legend.status li[data-status="error"] { color: rgb(var(--signal)); }

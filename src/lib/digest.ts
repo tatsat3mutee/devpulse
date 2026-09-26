@@ -2,26 +2,26 @@ import { z } from "zod";
 
 // Desks group topics for color and page rhythm; four hues validated for CVD separation in both themes.
 export const DESKS = {
-  ai: { label: "AI & automation" },
-  systems: { label: "Systems & architecture" },
+  ai: { label: "AI" },
+  systems: { label: "Systems" },
   security: { label: "Security" },
-  software: { label: "Software & craft" },
+  software: { label: "Software" },
 } as const;
 export type Desk = keyof typeof DESKS;
 
 export const TOPICS = [
-  { slug: "agents", label: "Agents & automation", desk: "ai" },
-  { slug: "inference", label: "Inference & serving", desk: "ai" },
-  { slug: "ai", label: "Models & ML systems", desk: "ai" },
-  { slug: "research", label: "Papers & research", desk: "ai" },
-  { slug: "design", label: "System design & architecture", desk: "systems" },
-  { slug: "systems", label: "Systems & performance", desk: "systems" },
-  { slug: "infra", label: "Infrastructure & cloud", desk: "systems" },
-  { slug: "data", label: "Databases & data", desk: "systems" },
+  { slug: "agents", label: "Agents", desk: "ai" },
+  { slug: "inference", label: "Inference", desk: "ai" },
+  { slug: "ai", label: "Models & training", desk: "ai" },
+  { slug: "research", label: "Research", desk: "ai" },
+  { slug: "design", label: "Architecture", desk: "systems" },
+  { slug: "systems", label: "Performance & OS", desk: "systems" },
+  { slug: "infra", label: "Cloud & infra", desk: "systems" },
+  { slug: "data", label: "Databases", desk: "systems" },
   { slug: "security", label: "Security", desk: "security" },
-  { slug: "languages", label: "Languages & tooling", desk: "software" },
-  { slug: "web", label: "Web & frontend", desk: "software" },
-  { slug: "craft", label: "Engineering practice", desk: "software" },
+  { slug: "languages", label: "Languages & tools", desk: "software" },
+  { slug: "web", label: "Web", desk: "software" },
+  { slug: "craft", label: "Practice & careers", desk: "software" },
 ] as const satisfies readonly { slug: string; label: string; desk: Desk }[];
 
 export type TopicSlug = (typeof TOPICS)[number]["slug"];
@@ -33,6 +33,9 @@ export const sourceKinds = ["hn", "lobsters", "github", "papers", "blog", "model
 
 export const KINDS = {
   "deep-dive": "Deep dive",
+  "case-study": "Case study",
+  benchmark: "Benchmark",
+  guide: "Guide",
   release: "Release",
   paper: "Paper",
   vulnerability: "Vulnerability",
@@ -75,6 +78,8 @@ export const itemSchema = z.object({
   stars: z.number().int().nonnegative().optional(),
   topic: z.enum(topicSlugs),
   score: z.number().int().min(1).max(10),
+  // Mission fit, judged separately from quality: 3 core AI/systems, 2 adjacent, 1 peripheral, 0 off-mission.
+  relevance: z.number().int().min(0).max(3).optional(),
   whyRead: z.string().min(20).max(420),
   publishedAt: z.iso.datetime(),
   mustRead: z.boolean().default(false),
