@@ -1,10 +1,10 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
-import { editionSchema } from "./lib/schema";
+import { digestSchema } from "./lib/digest";
 
-const editions = defineCollection({
-  loader: glob({ pattern: "**/*.json", base: "./data/editions" }),
-  schema: editionSchema,
+const digests = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "./data/digests" }),
+  schema: digestSchema,
 });
 
-export const collections = { editions };
+export const collections = { digests };

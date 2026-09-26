@@ -1,20 +1,19 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
-import { isPublicEdition } from "../lib/schema";
+import { allDigests } from "../lib/digests";
 
 export const GET: APIRoute = async (context) => {
-  const editions = (await getCollection("editions")).filter((edition) => isPublicEdition(edition.data)).sort((a, b) => b.data.date.localeCompare(a.data.date));
+  const digests = await allDigests();
   return rss({
-    title: "DevPulse Daily Verdict",
-    description: "What changed in AI and software engineering — and whether it held up.",
+    title: "DevPulse",
+    description: "Engineering stories worth reading, every day.",
     site: context.site!,
-    items: editions.map((edition) => ({
-      title: edition.data.title,
-      description: edition.data.dek,
-      pubDate: new Date(edition.data.publishedAt),
-      link: `/edition/${edition.data.date}`,
-      categories: [...new Set([edition.data.lead, ...edition.data.stories].map((story) => story.section))],
+    items: digests.slice(0, 30).map((digest) => ({
+      title: `${digest.date}: ${digest.items.filter((item) => item.mustRead).map((item) => item.headline).join(" · ")}`,
+      description: `${digest.items.length} stories. ${digest.items.slice(0, 8).map((item) => item.headline).join("; ")}.`,
+      pubDate: new Date(digest.generatedAt),
+      link: `/edition/${digest.date}`,
+      categories: [...new Set(digest.items.map((item) => item.topic))],
     })),
     customData: "<language>en-us</language>",
   });

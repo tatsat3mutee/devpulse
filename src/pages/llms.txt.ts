@@ -1,10 +1,7 @@
-import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
-import { evidenceIndex } from "../lib/serialize";
+import { allDigests } from "../lib/digests";
+import { llmsIndex } from "../lib/format";
 
-export const GET: APIRoute = async ({ site }) => {
-  const editions = (await getCollection("editions")).map((edition) => edition.data);
-  const origin = site?.origin ?? "https://devpulse.tatsatpandey.com";
-  const text = evidenceIndex(editions, origin);
-  return new Response(text, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
-};
+export const GET: APIRoute = async ({ site }) => new Response(llmsIndex(await allDigests(), site?.origin ?? "https://devpulse.tatsatpandey.com"), {
+  headers: { "Content-Type": "text/plain; charset=utf-8" },
+});

@@ -1,6 +1,6 @@
 {
-  "name": "devpulse-daily-verdict",
-  "version": "2.0.0",
+  "name": "devpulse",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,9 +9,7 @@
     "preview": "astro preview",
     "test": "bun test ./tests",
     "test:e2e": "playwright test",
-    "edition:prepare": "bun run scripts/prepare-edition.ts",
-    "edition:publish": "bun run scripts/publish-edition.ts",
-    "edition:audit": "bun run scripts/audit-edition.ts",
+    "digest": "bun run scripts/build-digest.ts",
     "release:check": "bun run scripts/check-release.ts",
     "release:probe": "bun run scripts/check-live.ts"
   },

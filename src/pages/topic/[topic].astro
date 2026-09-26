@@ -1,0 +1,15 @@
+---
+import DigestView from "../../components/DigestView.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { latestDigest } from "../../lib/digests";
+import { TOPICS, topicLabel, type Digest, type TopicSlug } from "../../lib/digest";
+
+export async function getStaticPaths() {
+  const digest = await latestDigest();
+  return digest ? TOPICS.filter((topic) => digest.items.some((item) => item.topic === topic.slug)).map((topic) => ({ params: { topic: topic.slug }, props: { digest, topic: topic.slug } })) : [];
+}
+const { digest, topic } = Astro.props as { digest: Digest; topic: TopicSlug };
+---
+<BaseLayout title={`${topicLabel(topic)} · DevPulse`} description={`Today's ${topicLabel(topic).toLowerCase()} stories for engineers.`}>
+  <DigestView digest={digest} topic={topic} />
+</BaseLayout>

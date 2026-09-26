@@ -17,35 +17,22 @@ const git = process.platform === "win32"
 const bash = process.platform === "win32" ? resolve(dirname(git), "../bin/bash.exe") : "/bin/bash";
 const posix = (path: string) => path.replaceAll("\\", "/").replace(/^([A-Za-z]):/, (_, drive: string) => `/${drive.toLowerCase()}`);
 
-test("Workflow publishes only a manually verified main SHA artifact without rebuilding", () => {
-  const workflow = Bun.YAML.parse(readFileSync(resolve(import.meta.dir, "../.github/workflows/verify-and-publish.yml"), "utf8")) as {
+test("Daily workflow scores, commits, verifies, then publishes the built site branch", () => {
+  const workflow = Bun.YAML.parse(readFileSync(resolve(import.meta.dir, "../.github/workflows/daily-digest.yml"), "utf8")) as {
+    on: { schedule: Array<{ cron: string }> };
     concurrency: { "cancel-in-progress": boolean };
-    jobs: Record<string, { if?: string; needs?: string; environment?: string; outputs?: Record<string, string>; steps: Array<{ name?: string; uses?: string; run?: string; if?: string; with?: Record<string, string>; env?: Record<string, string> }> }>;
+    jobs: { digest: { steps: Array<{ name?: string; run?: string; id?: string; env?: Record<string, string> }> } };
   };
-  const { verify, publish } = workflow.jobs;
-  const gate = "github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'";
-  expect(publish.if).toBe(gate);
-  expect(publish.needs).toBe("verify");
-  expect(publish.environment).toBeUndefined();
+  expect(workflow.on.schedule[0].cron).toBe("0 7 * * *");
   expect(workflow.concurrency["cancel-in-progress"]).toBe(false);
-  for (const job of [verify, publish]) {
-    expect(job.steps.find((step) => step.uses?.startsWith("actions/checkout@"))?.with?.ref).toBe("${{ github.sha }}");
-  }
-  const packageStep = verify.steps.find((step) => step.name === "Package verified release")!;
-  expect(packageStep.if).toBe(gate);
-  expect(packageStep.run).toContain("bun run release:check");
-  expect(packageStep.run).toContain("dist/release-sha.txt");
-  expect(packageStep.run?.indexOf("bun run release:probe")).toBeLessThan(packageStep.run!.indexOf("tar -czf"));
-  expect(verify.steps.indexOf(packageStep)).toBeGreaterThan(verify.steps.findIndex((step) => step.run === "bun run test:e2e"));
-  const uploaded = verify.steps.find((step) => step.name === "Verified static artifact")!;
-  expect(uploaded.if).toBe(gate);
-  expect(uploaded.with?.name).toBe("release-${{ github.sha }}");
-  const downloaded = publish.steps.find((step) => step.name === "Download verified static artifact")!;
-  expect(downloaded.with?.name).toBe(uploaded.with?.name);
-  expect(downloaded.with?.["run-id"]).toBeUndefined();
-  expect(publish.steps.some((step) => step.run?.includes("bun run build"))).toBe(false);
-  expect(publish.steps.find((step) => step.name === "Verify artifact checksum")?.env?.ARCHIVE_SHA256).toBe("${{ needs.verify.outputs.archive_sha256 }}");
-  expect(publish.steps.find((step) => step.name === "Verify public HTTPS release")?.env?.RELEASE_SHA).toBe("${{ github.sha }}");
+  const steps = workflow.jobs.digest.steps;
+  const index = (name: string) => steps.findIndex((step) => step.name === name);
+  expect(steps[index("Collect, score and select today's stories")].env?.OPENROUTER_API_KEY).toBe("${{ secrets.OPENROUTER_API_KEY }}");
+  expect(index("Commit digest to main")).toBeLessThan(index("Verify built site"));
+  expect(index("Verify built site")).toBeLessThan(index("Publish built site to the site branch"));
+  expect(steps[index("Verify built site")].run).toContain("release:probe");
+  expect(steps[index("Publish built site to the site branch")].run).toContain("site");
+  expect(readFileSync(resolve(import.meta.dir, "../deploy/ec2/pull-release.sh"), "utf8")).toContain('release.sh" "$sha" "$digest" "$edition_date"');
 });
 
 function sandbox(mode = "success") {
@@ -251,7 +238,7 @@ describe("Public release probe (mock HTTP)", () => {
     ["wrong release", "/release-sha.txt", { body: `${priorSha}\n` }],
     ["wrong edition", "/latest.json", { body: JSON.stringify({ date: "2026-09-23", status: "published", storyCount: 3 }) }],
     ["draft edition", "/latest.json", { body: JSON.stringify({ date, status: "draft", storyCount: 3 }) }],
-    ["oversized edition", "/latest.json", { body: JSON.stringify({ date, status: "published", storyCount: 8 }) }],
+    ["oversized edition", "/latest.json", { body: JSON.stringify({ date, status: "published", storyCount: 101 }) }],
     ["string count", "/latest.json", { body: JSON.stringify({ date, status: "published", storyCount: "3" }) }],
     ["fractional count", "/latest.json", { body: JSON.stringify({ date, status: "published", storyCount: 3.5 }) }],
     ["stale home", "/", { body: html.replaceAll(date, "2026-09-23") }],

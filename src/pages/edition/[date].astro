@@ -1,16 +1,14 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
-import EditionView from "../../components/EditionView.astro";
+import DigestView from "../../components/DigestView.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { isPublicEdition } from "../../lib/schema";
+import { allDigests } from "../../lib/digests";
+import type { Digest } from "../../lib/digest";
 
 export async function getStaticPaths() {
-  const editions = (await getCollection("editions")).filter((edition) => import.meta.env.DEV || isPublicEdition(edition.data));
-  return editions.map((edition) => ({ params: { date: edition.data.date }, props: { edition } }));
+  return (await allDigests()).map((digest) => ({ params: { date: digest.date }, props: { digest } }));
 }
-
-const { edition } = Astro.props as { edition: CollectionEntry<"editions"> };
+const { digest } = Astro.props as { digest: Digest };
 ---
-<BaseLayout title={`${edition.data.date} · DevPulse Daily Verdict`} description={edition.data.dek} canonicalPath={`/edition/${edition.data.date}`} preview={!isPublicEdition(edition.data)}>
-  <EditionView edition={edition.data} />
+<BaseLayout title={`${digest.date} · DevPulse`} description={`${digest.items.length} engineering stories from ${digest.date}.`} canonicalPath={`/edition/${digest.date}`}>
+  <DigestView digest={digest} />
 </BaseLayout>

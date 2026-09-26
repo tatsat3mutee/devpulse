@@ -1,0 +1,70 @@
+name: Daily digest
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+      timezone: 'Asia/Kolkata'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.3.13
+      - run: bun install --frozen-lockfile
+      - name: Collect, score and select today's stories
+        run: bun run digest
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          EDITORIAL_MODEL: ${{ vars.EDITORIAL_MODEL || 'openai/gpt-6-luna' }}
+          GITHUB_TOKEN: ${{ github.token }}
+      - run: bun test ./tests
+      - name: Commit digest to main
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/digests
+          git diff --cached --quiet || git commit -m "content(digest): $(date -u +%F)"
+          git push origin HEAD:main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - run: bun run build
+      - name: Verify built site
+        run: |
+          printf '%s\n' "$RELEASE_SHA" > dist/release-sha.txt
+          RELEASE_ARTIFACT_DIR=dist bun run release:probe
+        env:
+          RELEASE_SHA: ${{ steps.commit.outputs.sha }}
+          PUBLIC_SITE_URL: https://devpulse.tatsatpandey.com
+      - name: Publish built site to the site branch
+        run: |
+          cd dist
+          git init -q
+          git checkout -q -b site
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "site: $RELEASE_SHA"
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_SHA: ${{ steps.commit.outputs.sha }}
+      - name: Keep run evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: digest-run-${{ github.run_id }}
+          path: data/collection/
+          if-no-files-found: ignore
+          retention-days: 14

@@ -32,7 +32,7 @@ export async function probeSite(siteUrl: string, expectedDate: string, fetcher: 
     expectedSha === undefined ? undefined : read("/release-sha.txt", ["text/plain"]),
   ]);
   const latest = JSON.parse(latestText) as { date?: string; status?: string; storyCount?: number } | null;
-  if (latest?.date !== expectedDate || !["published", "corrected"].includes(latest.status ?? "") || !Number.isInteger(latest.storyCount) || latest.storyCount! < 3 || latest.storyCount! > 7) {
+  if (latest?.date !== expectedDate || !["published", "corrected"].includes(latest.status ?? "") || !Number.isInteger(latest.storyCount) || latest.storyCount! < 3 || latest.storyCount! > 100) {
     throw new Error("Wrong or unapproved live edition");
   }
   if ([home, edition].some((html) => !/<html[\s>]/i.test(html) || !/<title[^>]*>[^<]*DevPulse/i.test(html) || !html.includes(expectedDate))) {
