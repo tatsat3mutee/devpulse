@@ -160,6 +160,20 @@ test("offline reading caches visited pages but never live-status endpoints", asy
   }
 });
 
+test("the header offers Install app as soon as the browser allows it, even on a first visit", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#install-app")).toBeHidden();
+  await page.evaluate(() => {
+    const event = Object.assign(new Event("beforeinstallprompt", { cancelable: true }), { prompt: () => { (window as unknown as { prompted: boolean }).prompted = true; }, userChoice: Promise.resolve({ outcome: "accepted" }) });
+    window.dispatchEvent(event);
+  });
+  await expect(page.locator("#install-app")).toBeVisible();
+  await expect(page.locator("#install-note")).toBeHidden();
+  await page.locator("#install-app").click();
+  expect(await page.evaluate(() => (window as unknown as { prompted?: boolean }).prompted)).toBe(true);
+  await expect(page.locator("#install-app")).toBeHidden();
+});
+
 test("a newer edition is announced without reloading", async ({ page }) => {
   await page.route("**/latest.json", (route) => route.fulfill({ contentType: "application/json", body: JSON.stringify({ date: "2999-01-01", status: "published", storyCount: 50 }) }));
   await page.goto("/");
@@ -176,6 +190,7 @@ test("install prompt shows from the second visit and snoozes when dismissed", as
     window.dispatchEvent(event);
   });
   await expect(page.locator("#install-note")).toBeVisible();
+  await expect(page.locator("#install-app")).toBeVisible();
   await page.getByRole("button", { name: "Not now" }).click();
   await expect(page.locator("#install-note")).toBeHidden();
   expect(Number(await page.evaluate(() => localStorage.getItem("devpulse-install-snooze")))).toBeGreaterThan(Date.now());

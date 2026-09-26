@@ -17,6 +17,19 @@ const git = process.platform === "win32"
 const bash = process.platform === "win32" ? resolve(dirname(git), "../bin/bash.exe") : "/bin/bash";
 const posix = (path: string) => path.replaceAll("\\", "/").replace(/^([A-Za-z]):/, (_, drive: string) => `/${drive.toLowerCase()}`);
 
+test("Merges to main are tested, built and verified before the site branch is published", () => {
+  const workflow = Bun.YAML.parse(readFileSync(resolve(import.meta.dir, "../.github/workflows/publish.yml"), "utf8")) as {
+    on: { push: { branches: string[] } }; jobs: { publish: { steps: Array<{ run?: string; name?: string }> } };
+  };
+  expect(workflow.on.push.branches).toEqual(["main"]);
+  const runs = workflow.jobs.publish.steps.map((step) => `${step.name ?? ""} ${step.run ?? ""}`);
+  const at = (text: string) => runs.findIndex((step) => step.includes(text));
+  expect(at("bun test ./tests")).toBeGreaterThan(-1);
+  expect(at("bun run build")).toBeGreaterThan(at("bun test ./tests"));
+  expect(at("release:probe")).toBeGreaterThan(at("bun run build"));
+  expect(at("git push -f")).toBeGreaterThan(at("release:probe"));
+});
+
 test("Daily workflow scores, commits, verifies, then publishes the built site branch", () => {
   const workflow = Bun.YAML.parse(readFileSync(resolve(import.meta.dir, "../.github/workflows/daily-digest.yml"), "utf8")) as {
     on: { schedule: Array<{ cron: string }> };

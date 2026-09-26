@@ -56,19 +56,34 @@ const { edition } = Astro.props;
     if (!counted) store.set("devpulse-visits", String(Number(store.get("devpulse-visits") ?? 0) + 1));
     const snoozed = Date.now() < Number(store.get("devpulse-install-snooze") ?? 0);
     const eligible = !standalone && !snoozed && Number(store.get("devpulse-visits") ?? 0) >= 2;
+    // The header "Install app" button is always offered when the browser says the site is installable;
+    // the banner below is the gentler nudge, shown from the second visit.
+    const headerButton = document.querySelector("#install-app");
     let deferred = null;
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       deferred = event;
+      if (headerButton && !standalone) headerButton.hidden = false;
       if (eligible) installNote.hidden = false;
     });
     const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !/crios|fxios|edgios/i.test(navigator.userAgent);
-    if (eligible && ios) {
+    const showIosSteps = () => {
       bar.querySelector("#install-text").textContent = "Tap the Share button, then Add to Home Screen.";
       bar.querySelector("#install-button").hidden = true;
       installNote.hidden = false;
-    }
-    window.addEventListener("appinstalled", () => { installNote.hidden = true; });
+    };
+    if (ios && !standalone && headerButton) headerButton.hidden = false;
+    if (eligible && ios) showIosSteps();
+    const install = async () => {
+      if (!deferred) { if (ios) showIosSteps(); return; }
+      deferred.prompt();
+      await deferred.userChoice.catch(() => null);
+      deferred = null;
+      installNote.hidden = true;
+      if (headerButton) headerButton.hidden = true;
+    };
+    headerButton?.addEventListener("click", install);
+    window.addEventListener("appinstalled", () => { installNote.hidden = true; if (headerButton) headerButton.hidden = true; });
 
     bar.addEventListener("click", async (event) => {
       const action = event.target.closest("button")?.dataset.action;
@@ -78,12 +93,7 @@ const { edition } = Astro.props;
         installNote.hidden = true;
         store.set("devpulse-install-snooze", String(Date.now() + 30 * 86_400_000));
       }
-      if (action === "install" && deferred) {
-        deferred.prompt();
-        await deferred.userChoice.catch(() => null);
-        deferred = null;
-        installNote.hidden = true;
-      }
+      if (action === "install") await install();
     });
   })();
 </script>

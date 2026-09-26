@@ -81,6 +81,10 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
           {nav.map(([href, label]) => <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>{label}</a>)}
           <a href="/rss.xml" class="icon-link" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 5a14 14 0 0 1 14 14M5 11a8 8 0 0 1 8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="6" cy="18" r="1.8" fill="currentColor"/></svg></a>
         </nav>
+        <button id="install-app" type="button" hidden>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Install<span class="install-long">&nbsp;app</span>
+        </button>
         <button id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme" aria-pressed="false">
             <svg class="sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             <svg class="moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
@@ -192,6 +196,9 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
   .site-nav a:hover { color: rgb(var(--ink)); }
   .site-nav a[aria-current="page"] { color: rgb(var(--ink)); box-shadow: inset 0 -2px rgb(var(--signal)); }
   .icon-link { justify-content: center; width: 40px; padding: 0 !important; }
+  #install-app { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 1px solid rgb(var(--ink)); border-radius: 20px; background: rgb(var(--ink)); color: rgb(var(--paper)); cursor: pointer; font: 600 13px/1 "Manrope", sans-serif; white-space: nowrap; }
+  #install-app[hidden] { display: none; }
+  #install-app:hover { background: transparent; color: rgb(var(--ink)); }
   #theme-toggle { display: inline-grid; place-items: center; width: 40px; height: 40px; border: 1px solid rgb(var(--line)); border-radius: 50%; background: transparent; cursor: pointer; margin-left: 4px; }
   #theme-toggle:hover { border-color: rgb(var(--ink)); }
   #theme-toggle .moon, :root[data-theme="dark"] #theme-toggle .sun { display: none; }
@@ -213,6 +220,8 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
     .site-nav::-webkit-scrollbar { display: none; }
     .site-nav a { flex: none; }
     #theme-toggle { position: absolute; top: 14px; right: 16px; }
+    #install-app { position: absolute; top: 14px; right: 64px; min-height: 40px; padding: 0 12px; }
+    .install-long { display: none; }
     .site-header { position: relative; }
     .brand-name { font-size: 28px; }
     .brand img { width: 34px; height: 34px; }
