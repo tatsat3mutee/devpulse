@@ -67,7 +67,7 @@ test("keyboard users can skip to content and reach stories", async ({ page }) =>
 
 test("pages fit narrow screens without horizontal scrolling", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 });
-  for (const path of ["/", `/topic/${latest.items[0].topic}`, `/edition/${latest.date}`, "/archive", "/methodology", "/pulse", "/radar", "/papers", "/week/", "/search"]) {
+  for (const path of ["/", `/topic/${latest.items[0].topic}`, `/edition/${latest.date}`, "/archive", "/methodology", "/pulse", "/radar", "/papers", "/week/", "/search", "/saved", `/story/${latest.date}--${latest.items[0].id}/`]) {
     await page.goto(path);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), path).toBe(true);
   }
@@ -237,6 +237,48 @@ test("pressing / opens search", async ({ page }) => {
   await page.goto("/");
   await page.keyboard.press("/");
   await expect(page).toHaveURL(/\/search\/?$/);
+});
+
+test("save and note a story, then find both in the library after a reload", async ({ page }) => {
+  await page.goto("/");
+  const card = page.locator("main .story").first();
+  const headline = (await card.locator("h3 a").textContent())!.trim();
+  await card.getByRole("button", { name: "Save" }).click();
+  await expect(card.getByRole("button", { name: "Saved" })).toHaveAttribute("aria-pressed", "true");
+  await card.getByRole("button", { name: "Note" }).click();
+  await page.locator("#note-text").fill("Try the containment checklist at work");
+  await page.getByRole("button", { name: "Save note" }).click();
+  await expect(card.locator(".my-note")).toHaveText("Try the containment checklist at work");
+  await page.goto("/saved");
+  await page.reload();
+  await expect(page.locator("#items li")).toHaveCount(1);
+  await expect(page.locator("#items h3")).toHaveText(headline);
+  await expect(page.locator("#items .my-note")).toHaveText("Try the containment checklist at work");
+  await page.locator("#filter").fill("checklist");
+  await expect(page.locator("#items li")).toHaveCount(1);
+  await page.locator("#filter").fill("nothing matches this");
+  await expect(page.locator("#items li")).toHaveCount(0);
+  await expect(page.locator(".account-status")).toContainText("Sync is not switched on");
+});
+
+test("following a topic adds a For you view that keeps only that topic", async ({ page }) => {
+  const topic = latest.items[0].topic;
+  await page.goto(`/topic/${topic}`);
+  await page.getByRole("button", { name: "Follow topic" }).click();
+  await expect(page.getByRole("button", { name: "Following" })).toHaveAttribute("aria-pressed", "true");
+  await page.goto("/");
+  await page.getByRole("button", { name: "For you" }).click();
+  await expect(page.locator("main .story:not([hidden]) h3 a")).toHaveCount(latest.items.filter((item) => item.topic === topic).length);
+});
+
+test("each story has its own page with notes and discussion", async ({ page }) => {
+  const story = latest.items[0];
+  await page.goto("/");
+  await page.locator(`main .story[data-id="${story.id}"] .discuss-link`).first().click();
+  await expect(page).toHaveURL(new RegExp(`/story/${latest.date}--${story.id}/?$`));
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(story.headline);
+  await expect(page.locator("h1 a")).toHaveAttribute("href", story.url);
+  await expect(page.getByRole("heading", { name: "Discussion" })).toBeVisible();
 });
 
 test("capture reader views", async ({ page }, testInfo) => {

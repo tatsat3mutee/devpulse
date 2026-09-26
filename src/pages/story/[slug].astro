@@ -1,0 +1,114 @@
+---
+import ArchDiagram from "../../components/ArchDiagram.astro";
+import StoryActions from "../../components/StoryActions.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { allDigests } from "../../lib/digests";
+import { KINDS, domainOf, topicLabel, type DigestItem } from "../../lib/digest";
+import { briefLabels } from "../../lib/editorial";
+import { deskOf } from "../../lib/visual";
+
+export async function getStaticPaths() {
+  const seen = new Set<string>();
+  return (await allDigests()).flatMap((digest) => digest.items.flatMap((item) => {
+    const slug = `${digest.date}--${item.id}`;
+    if (seen.has(slug)) return [];
+    seen.add(slug);
+    return [{ params: { slug }, props: { item, date: digest.date } }];
+  }));
+}
+const { item, date } = Astro.props as { item: DigestItem; date: string };
+const compact = new Intl.NumberFormat("en-US", { notation: "compact" });
+const dateLabel = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
+const labels = briefLabels(item);
+const giscus = {
+  repo: import.meta.env.PUBLIC_GISCUS_REPO as string | undefined,
+  repoId: import.meta.env.PUBLIC_GISCUS_REPO_ID as string | undefined,
+  category: import.meta.env.PUBLIC_GISCUS_CATEGORY as string | undefined,
+  categoryId: import.meta.env.PUBLIC_GISCUS_CATEGORY_ID as string | undefined,
+};
+const discussionReady = Boolean(giscus.repo && giscus.repoId && giscus.category && giscus.categoryId);
+---
+<BaseLayout title={`${item.headline} · DevPulse`} description={item.whyRead} canonicalPath={`/story/${date}--${item.id}/`} ogType="article" image={`/og/${date}.png`}>
+  <article class="story-page shell" data-desk={deskOf(item)}>
+    <p class="crumbs"><a href={`/edition/${date}/#${item.id}`}>&larr; {dateLabel}</a><span class="topic">{topicLabel(item.topic)}</span>{item.kind && <span>{KINDS[item.kind]}</span>}</p>
+    <h1><a href={item.url} rel="noopener noreferrer" target="_blank">{item.headline}</a></h1>
+    <p class="meta">
+      <span>{domainOf(item.url)}</span>
+      {item.author && <span>by {item.author}</span>}
+      {item.readMinutes && item.readMinutes >= 3 && <span>{item.readMinutes} min read</span>}
+      <span>Editor score {item.score}/10</span>
+    </p>
+    {item.image && <img class="cover" src={item.image} alt="" width="800" height="450" />}
+    <p class="why">{item.whyRead}</p>
+    {item.brief && (
+      <dl class="brief">
+        {item.brief.map((point, index) => <><dt>{item.brief!.length === 3 ? labels[index] : "Point"}</dt><dd>{point}</dd></>)}
+      </dl>
+    )}
+    {item.diagram && <ArchDiagram diagram={item.diagram} id={item.id} />}
+    <p class="links">
+      <a href={item.url} rel="noopener noreferrer" target="_blank" class="primary">Read on {domainOf(item.url)} &rarr;</a>
+      {item.discussions?.map((discussion) => <a href={discussion.url} rel="noopener noreferrer" target="_blank">{discussion.label}{discussion.comments ? ` · ${compact.format(discussion.comments)} comments` : ""}</a>)}
+      {item.codeUrl && <a href={item.codeUrl} rel="noopener noreferrer" target="_blank">Code{item.codeStars ? ` · ${compact.format(item.codeStars)} stars` : ""}</a>}
+    </p>
+    <StoryActions item={item} date={date} discuss={false} />
+
+    <section class="discussion" aria-labelledby="discussion-h">
+      <h2 id="discussion-h">Discussion</h2>
+      {discussionReady ? (
+        <>
+          <p class="hint">Comments are hosted on GitHub Discussions through Giscus, and load only when you open them.</p>
+          <button type="button" id="load-discussion" data-repo={giscus.repo} data-repo-id={giscus.repoId} data-category={giscus.category} data-category-id={giscus.categoryId}>Show discussion</button>
+          <div class="giscus"></div>
+        </>
+      ) : <p class="hint">Discussion is not switched on yet. Use <b>Note</b> above to keep your own thoughts on this story.</p>}
+    </section>
+    <p class="notice">Headline, summary, brief and diagram are written by a model from the source's own text; the link, byline and numbers come from the source. Read the original before relying on a claim.</p>
+  </article>
+</BaseLayout>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("#load-discussion");
+  button?.addEventListener("click", () => {
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    const attributes: Record<string, string> = {
+      "data-repo": button.dataset.repo!, "data-repo-id": button.dataset.repoId!,
+      "data-category": button.dataset.category!, "data-category-id": button.dataset.categoryId!,
+      "data-mapping": "pathname", "data-strict": "1", "data-reactions-enabled": "1", "data-emit-metadata": "0",
+      "data-input-position": "top", "data-lang": "en", "data-loading": "lazy",
+      "data-theme": document.documentElement.dataset.theme === "dark" ? "dark" : "light",
+    };
+    for (const [name, value] of Object.entries(attributes)) script.setAttribute(name, value);
+    document.querySelector(".giscus")!.append(script);
+    button.remove();
+  });
+</script>
+
+<style>
+  .story-page { max-width: 760px; padding-top: 32px; }
+  .crumbs { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 0 0 14px; color: rgb(var(--muted)); font: 500 11px/1.4 "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+  .crumbs a { color: rgb(var(--soft)); }
+  .crumbs a:hover { color: rgb(var(--ink)); text-decoration: underline; }
+  .topic::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: rgb(var(--desk)); vertical-align: 1px; }
+  h1 { margin: 0 0 10px; font: 700 clamp(30px, 5vw, 44px)/1.1 "Newsreader", serif; }
+  h1 a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 18px; color: rgb(var(--muted)); font: 400 12px/1.5 "DM Mono", monospace; }
+  .cover { display: block; width: 100%; height: auto; margin: 0 0 18px; border: 1px solid rgb(var(--line)); }
+  .why { margin: 0 0 18px; font: 400 19px/1.55 "Newsreader", serif; }
+  .brief { display: grid; grid-template-columns: max-content 1fr; gap: 10px 16px; margin: 0 0 20px; padding: 16px 0; border-block: 1px solid rgb(var(--line)); }
+  .brief dt { color: rgb(var(--muted)); font: 500 10.5px/1.9 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+  .brief dd { margin: 0; font-size: 15px; line-height: 1.55; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+  .links a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid rgb(var(--line)); font: 600 13px/1 "Manrope", sans-serif; }
+  .links a:hover { border-color: rgb(var(--ink)); }
+  .links .primary { border-color: rgb(var(--ink)); background: rgb(var(--ink)); color: rgb(var(--paper)); }
+  .discussion { margin-top: 36px; padding-top: 18px; border-top: 2px solid rgb(var(--ink)); }
+  .discussion h2 { margin: 0 0 6px; font: 700 22px/1.2 "Newsreader", serif; }
+  .hint { margin: 0 0 12px; color: rgb(var(--soft)); font-size: 14px; }
+  #load-discussion { min-height: 42px; padding: 0 16px; border: 1px solid rgb(var(--ink)); background: transparent; color: rgb(var(--ink)); cursor: pointer; font: 600 13.5px/1 "Manrope", sans-serif; }
+  .notice { margin-top: 32px; color: rgb(var(--muted)); font-size: 12.5px; line-height: 1.6; }
+  @media (max-width: 520px) { .brief { grid-template-columns: 1fr; gap: 2px 0; } .brief dd { margin-bottom: 8px; } }
+</style>

@@ -36,3 +36,16 @@ const description = diagram.edges.map((edge) => {
   </div>
   <figcaption>{diagram.caption} <span>Sketched from the article's own text.</span></figcaption>
 </figure>
+
+<style is:global>
+  .diagram { margin: 4px 0 16px; padding: 12px; border: 1px solid rgb(var(--line)); background: rgb(var(--surface)); }
+  .diagram-scroll { overflow-x: auto; }
+  .diagram svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+  .diagram .d-node { fill: rgb(var(--desk) / .1); stroke: rgb(var(--desk)); stroke-width: 1.5; }
+  .diagram .d-label { fill: rgb(var(--ink)); font: 600 12px "Manrope", sans-serif; }
+  .diagram .d-edge { fill: none; stroke: rgb(var(--soft)); stroke-width: 1.5; }
+  .diagram .d-arrow { fill: rgb(var(--soft)); }
+  .diagram .d-edge-label { fill: rgb(var(--muted)); font: 500 10px "DM Mono", monospace; paint-order: stroke; stroke: rgb(var(--surface)); stroke-width: 4px; }
+  .diagram figcaption { margin-top: 8px; color: rgb(var(--soft)); font-size: 12.5px; line-height: 1.45; }
+  .diagram figcaption span { color: rgb(var(--muted)); }
+</style>

@@ -1,0 +1,56 @@
+# Render Blueprint for DevPulse. In Render: New > Blueprint > this repository.
+# Secrets marked sync: false are entered once in the Render dashboard.
+services:
+  # Accounts and sync: Google/GitHub sign-in, saved stories and notes, on Neon Postgres.
+  - type: web
+    name: devpulse-api
+    runtime: docker
+    dockerfilePath: ./api/Dockerfile
+    dockerContext: .
+    plan: free
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /health
+    buildFilter:
+      paths: ["api/**", "package.json", "bun.lock"]
+    domains:
+      - api.devpulse.tatsatpandey.com
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      - key: SITE_ORIGIN
+        value: https://devpulse.tatsatpandey.com
+      - key: API_ORIGIN
+        value: https://api.devpulse.tatsatpandey.com
+
+  # The site: the built edition the GitHub workflows push to the `site` branch. No build on Render.
+  - type: web
+    name: devpulse-site
+    runtime: static
+    branch: site
+    autoDeploy: true
+    buildCommand: "true"
+    staticPublishPath: .
+    domains:
+      - devpulse.tatsatpandey.com
+    headers:
+      - path: /json
+        name: Content-Type
+        value: application/json; charset=utf-8
+      - path: /sw.js
+        name: Cache-Control
+        value: no-cache
+      - path: /latest.json
+        name: Cache-Control
+        value: no-cache
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff

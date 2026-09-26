@@ -1,5 +1,6 @@
 ---
 import AppBar from "../components/AppBar.astro";
+import Library from "../components/Library.astro";
 import { latestDigest } from "../lib/digests";
 import { isoWeek } from "../lib/weekly";
 
@@ -79,6 +80,7 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
         </a>
         <nav class="site-nav" aria-label="Site">
           {nav.map(([href, label]) => <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>{label}</a>)}
+          <a href="/saved" class="icon-link" aria-label="Your library: saved stories and notes" title="Your library" aria-current={path === "/saved" ? "page" : undefined}><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 3.5h12v17l-6-4-6 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></a>
           <a href="/rss.xml" class="icon-link" aria-label="RSS feed" title="RSS feed"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 5a14 14 0 0 1 14 14M5 11a8 8 0 0 1 8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="6" cy="18" r="1.8" fill="currentColor"/></svg></a>
         </nav>
         <button id="install-app" type="button" hidden>
@@ -93,6 +95,7 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
     </header>
     <main id="content" tabindex="-1"><slot /></main>
     <AppBar edition={edition} />
+    <Library />
     <footer class="site-footer shell">
       <div>
         <strong>DevPulse</strong>
