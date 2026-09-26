@@ -1,6 +1,6 @@
-# DevPulse Daily Verdict
+# DevPulse
 
-DevPulse is a static, evidence-backed engineering newspaper. It is not an aggregator, dashboard, chat product or personalized feed.
+Static Astro site: a daily engineering digest of the ~50 stories worth a senior engineer's time.
 
 ## Commands
 
@@ -10,32 +10,21 @@ bun run dev
 bun test ./tests
 bun run build
 bun run test:e2e
-bun run edition:prepare
-bun run edition:publish YYYY-MM-DD
+bun run digest            # needs OPENROUTER_API_KEY; --dry-run collects only; --reselect reuses saved judgements
 ```
 
 ## Architecture
 
-- Astro static output from root `src/`
-- Zod edition/story contract in `src/lib/schema.ts`
-- Published editions in `data/editions/`
-- Generated review drafts in `data/review/`
-- Deterministic fetch, normalization, clustering, ranking and verification in `scripts/`
-- GitHub Actions opens a draft-edition pull request; a human merge publishes it
-- The existing EC2 instance serves `dist/` through Caddy after a reviewed manual release
+- `scripts/lib/collect.ts`: sources (HN top+best, Lobsters, GitHub new repos, HF papers, blog RSS), dedupe, excerpt fetching
+- `scripts/lib/score.ts`: batched model judging (score, topic, headline, whyRead) and balanced selection
+- `scripts/lib/net.ts`: SSRF-safe fetch, bounded reads, text helpers
+- `src/lib/digest.ts`: Zod schema and topics; digests live in `data/digests/`
+- Daily GitHub Action commits the digest and pushes the built site to the `site` branch; EC2 pulls it via a systemd timer and `deploy/ec2/release.sh`
 
-No database or application server exists. Add neither without evidence that subscriptions or search require one.
+No database or application server.
 
-## Editorial invariants
+## Invariants
 
-- One lead plus two to six supporting stories; never more than seven total
-- Every story must have a primary source and at least one verbatim source quote
-- Community posts are signals/counterpoints, not evidence unless the post itself is the event
-- Model output is untrusted and cannot introduce URLs, facts, numbers or ranking decisions
-- `verifyStory()` must pass before generated content reaches `data/review/`
-- Published stories have `provenance.humanReviewed: true`
-- Corrections are explicit fields, never silent rewrites
-
-## Development guidance
-
-Preserve the print-like editorial layout and semantic HTML. Avoid cards for every section, infinite feeds, account features and decorative dashboards. New code must keep the static build, RSS, JSON, Markdown and HTML surfaces derived from the same edition data.
+- Links and titles come from sources, never from the model. The model only writes headline, whyRead, score and topic, and model text containing URLs is dropped.
+- Source text is untrusted input to the model.
+- `release.sh` only ever edits the DevPulse Caddy block; other sites on the host must be preserved byte-for-byte.

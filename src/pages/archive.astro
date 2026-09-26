@@ -1,36 +1,35 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { isPublicEdition } from "../lib/schema";
-const editions = (await getCollection("editions")).filter((edition) => isPublicEdition(edition.data)).sort((a, b) => b.data.date.localeCompare(a.data.date));
+import { allDigests } from "../lib/digests";
+const digests = await allDigests();
+const format = new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 ---
-<BaseLayout title="Archive · DevPulse Daily Verdict" description="Every finite DevPulse edition, with corrections and evidence preserved.">
+<BaseLayout title="Archive · DevPulse" description="Every past DevPulse daily edition.">
   <div class="archive shell">
-    <header><p class="eyebrow">Permanent record</p><h1>Edition archive</h1><p>Each edition is a dated snapshot. Corrections remain attached rather than silently rewriting the record.</p></header>
+    <header><p class="eyebrow">Archive</p><h1>Previous days</h1></header>
     <ol>
-      {editions.map((edition) => (
+      {digests.map((digest) => (
         <li>
-          <a href={`/edition/${edition.data.date}`}>
-            <time datetime={edition.data.date}>{new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${edition.data.date}T12:00:00Z`))}</time>
-            <strong>{edition.data.title}</strong>
-            <span>{1 + edition.data.stories.length} stories · {edition.data.readMinutes} min · {edition.data.status}</span>
+          <a href={`/edition/${digest.date}`}>
+            <time datetime={digest.date}>{format.format(new Date(`${digest.date}T12:00:00Z`))}</time>
+            <strong>{digest.items.filter((item) => item.mustRead).map((item) => item.headline).join(" · ")}</strong>
+            <span>{digest.items.length} stories</span>
           </a>
         </li>
       ))}
     </ol>
-    {editions.length === 0 && <p>No editions published yet. Editorial review is pending.</p>}
+    {digests.length === 0 && <p>No editions yet.</p>}
   </div>
 </BaseLayout>
 <style>
-  .archive { padding-top: 52px; }
-  header { max-width: 760px; padding-bottom: 34px; border-bottom: 2px solid rgb(var(--ink)); }
-  h1 { margin: 10px 0; font: 700 52px/1.05 "Newsreader", serif; }
-  header > p:last-child { color: rgb(var(--soft)); line-height: 1.6; }
+  .archive { max-width: 1040px; padding-top: 44px; }
+  header { padding-bottom: 20px; border-bottom: 2px solid rgb(var(--ink)); }
+  h1 { margin: 8px 0 0; font: 700 44px/1.05 "Newsreader", serif; }
   ol { margin: 0; padding: 0; list-style: none; }
   li { border-bottom: 1px solid rgb(var(--line)); }
-  li a { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 28px; align-items: baseline; padding: 24px 0; }
+  li a { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 24px; align-items: baseline; padding: 18px 0; }
   li a:hover strong { color: rgb(var(--signal)); }
-  time, li span { color: rgb(var(--muted)); font: 400 10px/1.4 "DM Mono", monospace; text-transform: uppercase; }
-  li strong { font: 600 25px/1.1 "Newsreader", serif; }
-  @media (max-width: 700px) { h1 { font-size: 38px; } li a { grid-template-columns: 1fr; gap: 8px; } }
+  time, li span { color: rgb(var(--muted)); font: 400 11px/1.4 "DM Mono", monospace; text-transform: uppercase; }
+  li strong { font: 600 19px/1.3 "Newsreader", serif; }
+  @media (max-width: 700px) { h1 { font-size: 34px; } li a { grid-template-columns: 1fr; gap: 6px; } }
 </style>

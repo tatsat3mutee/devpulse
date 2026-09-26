@@ -1,0 +1,8 @@
+[Unit]
+Description=Pull and release the latest DevPulse site build
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash /opt/devpulse/pull-release.sh

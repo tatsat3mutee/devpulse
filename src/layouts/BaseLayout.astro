@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = "DevPulse Daily Verdict",
-  description = "What changed in AI and software engineering — and whether it held up.",
+  title = "DevPulse",
+  description = "The engineering stories worth your time, every day.",
   canonicalPath = Astro.url.pathname,
   ogType = "website",
   preview = false,
@@ -25,7 +25,7 @@ const canonical = new URL(canonicalPath, Astro.site);
     {preview && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#f9f8f4" />
     <meta property="og:type" content={ogType} />
-    <meta property="og:site_name" content="DevPulse Daily Verdict" />
+    <meta property="og:site_name" content="DevPulse" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -34,7 +34,7 @@ const canonical = new URL(canonicalPath, Astro.site);
     <meta name="twitter:description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/mark.svg" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" type="application/rss+xml" title="DevPulse Daily Verdict" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="DevPulse" href="/rss.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet" />
@@ -55,35 +55,34 @@ const canonical = new URL(canonicalPath, Astro.site);
         <span class="utility-rule"></span>
         <span>Independent engineering desk</span>
         <nav aria-label="Utility navigation">
-          <a href="/methodology">Methodology</a>
-          <a href="/corrections">Corrections</a>
+          <a href="/methodology">How we pick</a>
           <a href="/rss.xml">RSS</a>
           <button id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme" aria-pressed="false">◐</button>
         </nav>
       </div>
       <div class="masthead shell">
-        <a href="/" class="brand" aria-label="DevPulse Daily Verdict home">
+        <a href="/" class="brand" aria-label="DevPulse home">
           <img src="/mark.svg" alt="" width="52" height="52" />
           <span>DevPulse</span>
-          <strong>Daily Verdict</strong>
+          <strong>Engineering daily</strong>
         </a>
-        <p>What changed in AI &amp; software engineering — and whether it held up.</p>
+        <p>The engineering stories worth your time, picked from hundreds of sources every day.</p>
       </div>
       <div class="edition-rule"></div>
     </header>
     <main id="content" tabindex="-1"><slot /></main>
     <footer class="site-footer shell">
       <div>
-        <strong>DevPulse Daily Verdict</strong>
-        <p>Finite editions. Primary sources. Visible uncertainty.</p>
+        <strong>DevPulse</strong>
+        <p>Hundreds of sources in, the best few dozen out.</p>
       </div>
       <nav aria-label="Footer navigation">
         <a href="/archive">Archive</a>
-        <a href="/methodology">How stories are selected</a>
+        <a href="/methodology">How stories are picked</a>
         <a href="/json">JSON</a>
         <a href="/llms.txt">llms.txt</a>
       </nav>
-      <p class="footer-note">No ads. No endless feed. No claim without a receipt.</p>
+      <p class="footer-note">No ads. No tracking. Every link goes to the original source.</p>
     </footer>
     <script is:inline>
       const themeToggle = document.querySelector("#theme-toggle");
