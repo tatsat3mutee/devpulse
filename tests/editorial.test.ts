@@ -6,7 +6,7 @@ import sharp from "sharp";
 import { extractPreviewImage, saveCover } from "../scripts/lib/media";
 import { minorRelease, offBeatJournal } from "../scripts/lib/collect";
 import { readBoundedBytes } from "../scripts/lib/net";
-import { coverTargets, excludePublished, writeBriefs, type Writer } from "../scripts/lib/score";
+import { coverTargets, excludePublished, isQuietDay, writeBriefs, writeLede, type Writer } from "../scripts/lib/score";
 import { digestSchema, type DigestItem } from "../src/lib/digest";
 import { coverSvg, layoutDiagram, pulseLine } from "../src/lib/visual";
 import { editionCardSvg } from "../src/lib/og";
@@ -115,6 +115,38 @@ describe("editorial passes", () => {
     expect(digestSchema.safeParse({ ...base, items: [{ ...items[0], image: "/covers/2026-09-26/a.webp" }, ...items.slice(1)] }).success).toBe(true);
     expect(digestSchema.safeParse({ ...base, items: [{ ...items[0], image: "https://cdn.example/a.webp" }, ...items.slice(1)] }).success).toBe(false);
     expect(digestSchema.safeParse({ ...base, items: [{ ...items[0], brief: ["See www.example.com now", "Another fine point"] }, ...items.slice(1)] }).success).toBe(false);
+  });
+});
+
+describe("today in one minute", () => {
+  const picked = ["a", "b", "c", "d", "e", "f"].map((id, index) => item(id, { score: index < 5 ? 8 : 7, mustRead: index < 3 }));
+  const text = "Agent platforms spent the day learning isolation the hard way, while inference work kept pushing batching and caching further down the stack.";
+
+  test("keeps only known story ids, in order, and records whether the day is quiet", async () => {
+    let seen: { quiet: boolean; stories: { id: string }[] } | undefined;
+    const { lede, failure } = await writeLede(picked, async (input) => { seen = input; return { text, refs: ["c", "ghost", "a", "c"] }; });
+    expect(failure).toBeUndefined();
+    expect(lede).toEqual({ text, refs: ["c", "a"], quiet: false });
+    expect(seen?.stories.slice(0, 3).map((story) => story.id)).toEqual(["a", "b", "c"]);
+  });
+
+  test("rejects URLs, too few references and writer failures without failing the edition", async () => {
+    expect((await writeLede(picked, async () => ({ text: `${text} See https://evil.example`, refs: ["a", "b"] }))).lede).toBeUndefined();
+    expect((await writeLede(picked, async () => ({ text, refs: ["a"] }))).lede).toBeUndefined();
+    const failed = await writeLede(picked, async () => { throw new Error("rate limited"); });
+    expect(failed.lede).toBeUndefined();
+    expect(failed.failure).toContain("rate limited");
+  });
+
+  test("a quiet day is decided from the scores", () => {
+    expect(isQuietDay(picked)).toBe(false);
+    expect(isQuietDay(picked.map((entry) => ({ ...entry, score: 7 })))).toBe(true);
+  });
+
+  test("the schema only accepts references to stories in the edition", () => {
+    const base = { date: "2026-09-26", generatedAt: "2026-09-26T08:00:00.000Z", model: "test", candidateCount: 10, sources: [], items: picked.slice(0, 5) };
+    expect(digestSchema.safeParse({ ...base, lede: { text, refs: ["a", "b"], quiet: false } }).success).toBe(true);
+    expect(digestSchema.safeParse({ ...base, lede: { text, refs: ["a", "zzz"], quiet: false } }).success).toBe(false);
   });
 });
 

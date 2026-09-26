@@ -2,6 +2,7 @@ import { domainOf, groupByTopic, type Digest } from "./digest";
 
 export function digestMarkdown(digest: Digest): string {
   const lines = [`# DevPulse — ${digest.date}`, "", `${digest.items.length} engineering stories worth reading, picked from ${digest.candidateCount} candidates.`, ""];
+  if (digest.lede) lines.push(`> **${digest.lede.quiet ? "A quiet day, in one minute" : "Today in one minute"}:** ${digest.lede.text}`, "");
   for (const group of groupByTopic(digest.items)) {
     lines.push(`## ${group.label}`, "");
     for (const item of group.items) {
