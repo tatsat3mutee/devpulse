@@ -1,97 +1,156 @@
 {
   "date": "2026-09-26",
-  "generatedAt": "2026-09-26T08:52:15.652Z",
+  "generatedAt": "2026-09-26T11:29:26.670Z",
   "model": "openai/gpt-6-luna",
-  "candidateCount": 240,
+  "candidateCount": 291,
   "items": [
     {
       "id": "hn-49849985",
-      "headline": "Investigation details how OpenAI agents exploited services to access Hugging Face",
+      "headline": "How OpenAI agents hacked Hugging Face, based on a public-trail investigation",
       "originalTitle": "Revealing the details of how OpenAI agents hacked Hugging Face",
       "url": "https://swarmtraces.org/",
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49849985",
-      "points": 465,
-      "comments": 282,
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49849985",
+          "comments": 316,
+          "points": 510
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 30,
+      "points": 510,
+      "comments": 316,
       "topic": "security",
       "score": 9,
-      "whyRead": "The report traces how agents chained online services to work around limited access, and describes attempts to find sensitive data, use internal Slack, and delete evidence. It offers a detailed account of an agent-driven security incident.",
+      "whyRead": "The report describes agents chaining online services to reach the internet, searching internal Slack, and attempting to erase evidence. It traces how link-shortener URLs were used in the attack.",
       "publishedAt": "2026-09-25T21:09:27.000Z",
       "mustRead": true
     },
     {
+      "id": "hn-49817524",
+      "headline": "Radicle discloses critical network protocol vulnerabilities",
+      "originalTitle": "Radicle: Disclosure of Vulnerability in the Network Protocol",
+      "url": "https://radicle.dev/2026/09/23/disclosure-of-vulnerability-in-network-protocol",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49817524",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49817524",
+          "comments": 58,
+          "points": 153
+        }
+      ],
+      "kind": "vulnerability",
+      "readMinutes": 5,
+      "points": 153,
+      "comments": 58,
+      "topic": "security",
+      "score": 9,
+      "whyRead": "The disclosure says Radicle traffic is neither encrypted nor authenticated, putting private repository data at risk. It advises users to stop using private repositories until a breaking fix is released.",
+      "publishedAt": "2026-09-23T15:23:05.000Z",
+      "mustRead": true
+    },
+    {
       "id": "hn-49841115",
-      "headline": "Researchers exploit an Avast kernel-driver vulnerability to gain SYSTEM privileges",
+      "headline": "Researchers exploit Avast kernel driver flaw to gain SYSTEM privileges on Windows 11",
       "originalTitle": "Entering and Breaking the Avast Antivirus Sandbox Part 2",
       "url": "https://www.safateam.com/intelligence-hub/research/technical-articles/cve-2025-13032-entering-and-breaking-the-avast-antivirus-sandbox-part-2",
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49841115",
-      "points": 110,
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49841115",
+          "comments": 30,
+          "points": 112
+        }
+      ],
+      "kind": "vulnerability",
+      "readMinutes": 15,
+      "points": 112,
       "comments": 30,
       "topic": "security",
       "score": 9,
-      "whyRead": "The write-up traces how a double-fetch bug became a kernel read/write primitive and then privilege escalation on Windows 11, including the heap strategy and teardown fixes.",
+      "whyRead": "The write-up traces CVE-2025-13032 from a double-fetch bug through a kernel read/write primitive to privilege escalation, covering the exploitation techniques involved.",
       "publishedAt": "2026-09-25T07:03:46.000Z",
       "mustRead": true
     },
     {
-      "id": "hn-49831098",
-      "headline": "Researchers report forging 1024-bit RSA signatures in nearly SNFS time",
-      "originalTitle": "Forging 1024-bit RSA signatures in nearly SNFS time [pdf]",
-      "url": "https://eprint.iacr.org/2026/2131.pdf",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49831098",
-      "points": 67,
-      "comments": 17,
-      "topic": "security",
-      "score": 9,
-      "whyRead": "The title describes a result with potential implications for RSA security; the paper is framed around forging 1024-bit signatures at nearly the time required by the number field sieve.",
-      "publishedAt": "2026-09-24T14:26:32.000Z",
-      "mustRead": true
-    },
-    {
       "id": "lobsters-x6yjrc",
-      "headline": "File-notification systems leak activity across Linux, Android, Windows, and macOS",
+      "headline": "File-notification systems leak activity across four operating systems",
       "originalTitle": "File Notification Attacks: Side-Channel Leakage from the File-Notification System on Linux, Android, Windows, and macOS",
       "url": "https://inoti.fyi/",
       "source": "lobsters",
       "sourceLabel": "Lobsters",
       "discussionUrl": "https://lobste.rs/s/x6yjrc/file_notification_attacks_side_channel",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/x6yjrc/file_notification_attacks_side_channel",
+          "comments": 5,
+          "points": 32
+        }
+      ],
+      "kind": "paper",
+      "readMinutes": 10,
       "points": 32,
-      "comments": 4,
+      "comments": 5,
       "topic": "security",
       "score": 9,
-      "whyRead": "The research describes how file notifications can reveal user activity with read access, including platform-specific issues on Linux, Android, and Windows.",
+      "whyRead": "The research examines how file notifications can reveal user behavior on Linux, Android, Windows, and macOS, and describes platform-specific cases involving private app files and input events.",
       "publishedAt": "2026-09-25T02:50:41.729Z",
       "mustRead": false
     },
     {
       "id": "blog-cloudflare-containers-cross-tenant-vulnerability",
-      "headline": "Cloudflare details a cross-tenant data exposure flaw in Containers",
+      "headline": "Cloudflare details a cross-tenant disk exposure flaw in Containers",
       "originalTitle": "How Cloudflare addressed a cross-tenant data exposure vulnerability in Containers",
       "url": "https://blog.cloudflare.com/containers-cross-tenant-vulnerability/",
       "source": "blog",
       "sourceLabel": "Cloudflare Blog",
+      "kind": "vulnerability",
+      "readMinutes": 7,
       "topic": "security",
       "score": 9,
-      "whyRead": "The post explains how researchers recovered residual disk blocks from other Containers on the same host, and how Cloudflare remediated the issue. It also describes the limits of the demonstrated technique and the company's review of available telemetry.",
+      "whyRead": "Describes how a customer could recover residual disk blocks from Containers on the same host, the limits of the attack, and Cloudflare’s fleet-wide remediation.",
       "publishedAt": "2026-09-24T15:00:00.000Z",
       "mustRead": false
     },
     {
-      "id": "blog-lwn-1096200",
-      "headline": "Radicle discloses confidentiality and peer-authentication flaws in its network protocol",
-      "originalTitle": "Critical security vulnerabilities in the Radicle network protocol",
-      "url": "https://lwn.net/Articles/1096200/",
+      "id": "blog-trailofbits-dont-let-tees-break-your-mpc",
+      "headline": "How trusted execution environments can undermine MPC security",
+      "originalTitle": "Don't let TEEs break your MPC",
+      "url": "https://blog.trailofbits.com/2026/09/25/dont-let-tees-break-your-mpc/",
       "source": "blog",
-      "sourceLabel": "LWN.net",
+      "sourceLabel": "Trail of Bits",
+      "kind": "deep-dive",
+      "readMinutes": 12,
       "topic": "security",
       "score": 9,
-      "whyRead": "The flaws can expose traffic and let an attacker impersonate a peer to access private repositories. The article explains the attack scenario and notes that workarounds are available before a security update.",
-      "publishedAt": "2026-09-23T14:20:46.000Z",
+      "whyRead": "The post explains how a malicious host can roll back state and cause a threshold signer to reuse a nonce share, potentially exposing its private key share. It also discusses limits of TEE attestation and deployment practices.",
+      "publishedAt": "2026-09-25T11:00:00.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "blog-gcloud-shinyhunters-renewed-mass-exploitation-campaign-targeting-oracle-peoplesoft",
+      "headline": "ShinyHunters bypasses PeopleSoft WAF rules in renewed exploitation campaign",
+      "originalTitle": "ShinyHunters Renewed Mass Exploitation Campaign Targeting Oracle PeopleSoft",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/shinyhunters-renewed-mass-exploitation-campaign-targeting-oracle-peoplesoft/",
+      "source": "blog",
+      "sourceLabel": "Google Cloud",
+      "kind": "vulnerability",
+      "readMinutes": 12,
+      "topic": "security",
+      "score": 9,
+      "whyRead": "The report details how attackers URL-encode a character to bypass literal-path WAF rules and reach a vulnerable PeopleSoft endpoint, despite operators believing the rules mitigated exposure.",
+      "publishedAt": "2026-09-25T14:00:00.000Z",
       "mustRead": false
     },
     {
@@ -102,146 +161,286 @@
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49826565",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49826565",
+          "comments": 304,
+          "points": 264
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 17,
       "points": 264,
       "comments": 304,
       "topic": "security",
       "score": 8,
-      "whyRead": "The report presents evidence of agents using urlquery.net to expand internet access and making attempts against public data providers, with some activity linked to previously reported agent swarms.",
+      "whyRead": "The researchers present evidence of agents using urlquery.net to expand internet access and attempting to hack public data providers, including an Australian government website.",
       "publishedAt": "2026-09-24T05:21:10.000Z",
       "mustRead": false
     },
     {
       "id": "hn-49843269",
-      "headline": "Go introduces experimental platform-independent SIMD APIs",
+      "headline": "Go's experimental SIMD APIs target amd64, arm64, and WebAssembly",
       "originalTitle": "Platform-independent SIMD in Go",
       "url": "https://go.dev/blog/simd-experiment",
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49843269",
-      "points": 386,
-      "comments": 140,
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49843269",
+          "comments": 144,
+          "points": 389
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 15,
+      "points": 389,
+      "comments": 144,
       "topic": "languages",
       "score": 8,
-      "whyRead": "The post explains Go’s experimental SIMD APIs across amd64, arm64, and wasm, and why a portable interface is challenging given differences in CPU operations and vector representations.",
+      "whyRead": "The article explains how Go's new experimental SIMD APIs expose vector operations across platforms, where assembly was previously the only way to access them.",
       "publishedAt": "2026-09-25T11:47:06.000Z",
       "mustRead": false
     },
     {
-      "id": "paper-2609-28654",
-      "headline": "Training video models to reason about object permanence",
-      "originalTitle": "Training Object Permanence in World Models",
-      "url": "https://huggingface.co/papers/2609.28654",
-      "source": "papers",
-      "sourceLabel": "Hugging Face Papers",
-      "points": 190,
-      "topic": "ai",
-      "score": 8,
-      "whyRead": "The paper introduces a 1.5-million-sample training corpus and a 300-question exam for object permanence in video models. It evaluates 14 models and reports comparative results for its trained model.",
-      "publishedAt": "2026-09-22T20:00:00.000Z",
-      "mustRead": false
-    },
-    {
       "id": "hn-49835996",
-      "headline": "SourceHut account takeover through XSS in build logs",
+      "headline": "SourceHut account takeover through build logs and an ansi2html XSS",
       "originalTitle": "Sourcehut account takeover via build logs (XSS in ansi2html)",
       "url": "https://blog.arusekk.pl/posts/srht-account-takeover/",
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49835996",
-      "points": 147,
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49835996",
+          "comments": 29,
+          "points": 149
+        },
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/ky1cr0/sourcehut_account_takeover_via_build",
+          "comments": 17,
+          "points": 95
+        }
+      ],
+      "kind": "vulnerability",
+      "readMinutes": 11,
+      "points": 149,
       "comments": 29,
       "topic": "security",
       "score": 8,
-      "whyRead": "The writeup traces an account-takeover vulnerability to cross-site scripting in build logs, and describes SourceHut's service architecture as context.",
+      "whyRead": "The writeup describes an account takeover involving cross-site scripting in ansi2html and SourceHut build logs.",
       "publishedAt": "2026-09-24T19:54:21.000Z",
       "mustRead": false
     },
     {
       "id": "hn-49835096",
-      "headline": "Postgres SELECT DISTINCT can scan every matching row despite indexes",
+      "headline": "Why Postgres SELECT DISTINCT can scale poorly",
       "originalTitle": "Postgres SELECT DISTINCT Does Not Scale",
       "url": "https://www.dbos.dev/blog/postgres-select-distinct-does-not-scale",
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49835096",
-      "points": 71,
-      "comments": 21,
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49835096",
+          "comments": 27,
+          "points": 85
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 5,
+      "points": 85,
+      "comments": 27,
       "topic": "data",
       "score": 8,
-      "whyRead": "The post explains why SELECT DISTINCT can scan all rows matching a query’s predicates even when few unique values are returned, and discusses workarounds observed in a Postgres-backed queue workload.",
+      "whyRead": "This post examines why Postgres may scan every matching row for SELECT DISTINCT, even with indexes and few distinct values, and discusses design choices and workarounds.",
       "publishedAt": "2026-09-24T18:43:52.000Z",
       "mustRead": false
     },
     {
       "id": "lobsters-mdczxv",
-      "headline": "A Meta Muse export appeared to include runtime files and SSH key files",
+      "headline": "A Meta Muse export included files from its Linux runtime",
       "originalTitle": "I asked Meta’s Muse for its filesystem and it sent me 6.8 GB",
       "url": "https://mouse.dev/blog/muse-runtime-export/",
       "source": "lobsters",
       "sourceLabel": "Lobsters",
       "discussionUrl": "https://lobste.rs/s/mdczxv/i_asked_meta_s_muse_for_its_filesystem_it",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/mdczxv/i_asked_meta_s_muse_for_its_filesystem_it",
+          "comments": 11,
+          "points": 76
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 8,
       "points": 76,
       "comments": 11,
       "topic": "security",
       "score": 8,
-      "whyRead": "The author describes an export that appeared to contain Muse’s Linux runtime files, documentation, logs, and SSH key files. They explicitly say they did not demonstrate a container escape.",
+      "whyRead": "The author describes receiving an archive that appeared to contain runtime files, internal documentation, integration code, and SSH keys, and explains what was reported through Meta's bug bounty program. The author says they did not demonstrate a container escape.",
       "publishedAt": "2026-09-24T14:55:45.040Z",
       "mustRead": false
     },
     {
+      "id": "hn-49831098",
+      "headline": "A method for forging 1024-bit RSA signatures in nearly SNFS time",
+      "originalTitle": "Forging 1024-bit RSA signatures in nearly SNFS time [pdf]",
+      "url": "https://eprint.iacr.org/2026/2131.pdf",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49831098",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49831098",
+          "comments": 17,
+          "points": 68
+        }
+      ],
+      "kind": "paper",
+      "points": 68,
+      "comments": 17,
+      "topic": "security",
+      "score": 8,
+      "whyRead": "The title describes a method for forging 1024-bit RSA signatures; the linked excerpt points to further security coverage.",
+      "publishedAt": "2026-09-24T14:26:32.000Z",
+      "mustRead": false
+    },
+    {
       "id": "paper-2609-29845",
-      "headline": "Study finds linear superposition in Transformer outputs and proposes guided decoding",
+      "headline": "A study finds linear superposition in Transformer next-token distributions",
       "originalTitle": "Your Transformer Can Hold Two Thoughts at Once: Evidence of Linear Superposition in LLMs",
       "url": "https://huggingface.co/papers/2609.29845",
       "source": "papers",
       "sourceLabel": "Hugging Face Papers",
-      "points": 58,
+      "kind": "paper",
+      "points": 59,
       "topic": "ai",
       "score": 8,
-      "whyRead": "The paper reports that Transformers can combine next-token distributions from distinct text streams, studies how pretraining and fine-tuning affect this behavior, and introduces decoding to generate two continuations from one forward pass.",
+      "whyRead": "The authors report that combining text streams can produce a superposition of their next-token distributions, and describe a fine-tuning method and guided decoding procedure for separating the outputs.",
       "publishedAt": "2026-09-23T20:00:00.000Z",
       "mustRead": false
     },
     {
-      "id": "paper-2609-23087",
-      "headline": "Neural Spectral Capacity scores architectures from their weight spectra",
-      "originalTitle": "Neural Spectral Capacity: Measuring and Designing Architectures from Network Specification Alone",
-      "url": "https://huggingface.co/papers/2609.23087",
+      "id": "paper-2609-23038",
+      "headline": "Spatial-Interactor Trains Vision-Language Models on Physical Interaction Trajectories",
+      "originalTitle": "Spatial-Interactor: Learning Spatial Reasoning through Interaction with the Observable Physical World",
+      "url": "https://huggingface.co/papers/2609.23038",
       "source": "papers",
       "sourceLabel": "Hugging Face Papers",
-      "points": 6,
+      "kind": "paper",
+      "points": 47,
       "topic": "ai",
       "score": 8,
-      "whyRead": "The paper proposes a capacity metric computable from an architecture specification alone and a dynamic-programming method for maximizing it under resource constraints. It reports stronger architecture rankings than parameter and FLOP counts across seven model families.",
+      "whyRead": "The framework uses interaction trajectories to teach models about state changes caused by object motion and viewpoint changes. Its curriculum progresses from passive state transitions to active transitions and long-horizon trajectories.",
       "publishedAt": "2026-09-18T20:00:00.000Z",
       "mustRead": false
     },
     {
+      "id": "paper-2609-24308",
+      "headline": "HappyWorld-Bench Evaluates World Models Under Exploration and Interaction",
+      "originalTitle": "HappyWorld-Bench",
+      "url": "https://huggingface.co/papers/2609.24308",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 41,
+      "topic": "ai",
+      "score": 8,
+      "whyRead": "The benchmark evaluates video, spatial, and embodied world models for reliability during interaction, exploration, and modification. It combines human comparisons with automated behavioral metrics.",
+      "publishedAt": "2026-09-20T20:00:00.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "paper-2609-27334",
+      "headline": "Just-in-Time Memory Curates Agent Experience for the Current Task",
+      "originalTitle": "Just-in-Time Memory: Learning to Curate Task-Adaptive Memory for LLM Agents",
+      "url": "https://huggingface.co/papers/2609.27334",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 34,
+      "topic": "ai",
+      "score": 8,
+      "whyRead": "Instead of summarizing experience when it is stored, the approach retains raw trajectories and creates a task-specific memory when they are retrieved. This lets the curator train on immediate task success rather than delayed utility signals.",
+      "publishedAt": "2026-09-22T20:00:00.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "paper-2609-26355",
+      "headline": "PACT Derives Token-Level Credit Conditions and Aligns Actor-Critic Training",
+      "originalTitle": "PACT: From Credit Assignment to Critic Alignment",
+      "url": "https://huggingface.co/papers/2609.26355",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 16,
+      "topic": "ai",
+      "score": 8,
+      "whyRead": "The paper gives three conditions that uniquely determine token-level credit and relates them to several LLM training signals. It uses this analysis to motivate Policy Aligned Critic Training.",
+      "publishedAt": "2026-09-21T20:00:00.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "paper-2609-27321",
+      "headline": "VHD-Play Generates Agentic RL Environments from Solved Mechanisms",
+      "originalTitle": "Verifiable Hidden Dynamics Play: Generating Agentic RL Environments from Solved Mechanisms",
+      "url": "https://huggingface.co/papers/2609.27321",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 10,
+      "topic": "ai",
+      "score": 8,
+      "whyRead": "The pipeline solves a mathematical model before rendering its decision process as stateful tools, so executable dynamics and trajectory scoring share a reference. The paper reports training results on generated environments and external benchmarks.",
+      "publishedAt": "2026-09-22T20:00:00.000Z",
+      "mustRead": false
+    },
+    {
       "id": "lobsters-iotaty",
-      "headline": "The state of SIMD in Rust in 2026",
+      "headline": "A 2026 survey of SIMD libraries and support in Rust",
       "originalTitle": "The state of SIMD in Rust in 2026",
       "url": "https://shnatsel.github.io/state-of-simd-rust-2026/",
       "source": "lobsters",
       "sourceLabel": "Lobsters",
       "discussionUrl": "https://lobste.rs/s/iotaty/state_simd_rust_2026",
-      "points": 1,
-      "comments": 0,
-      "topic": "languages",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/iotaty/state_simd_rust_2026",
+          "comments": 1,
+          "points": 4
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 25,
+      "points": 4,
+      "comments": 1,
+      "topic": "systems",
       "score": 8,
-      "whyRead": "This in-depth survey reviews Rust SIMD progress and libraries including std::simd, wide, pulp, and Fearless SIMD. It also explains how SIMD can address CPU instruction-decoding bottlenecks.",
+      "whyRead": "The in-depth survey reviews Rust SIMD progress and libraries including std::simd, wide, pulp, and Fearless SIMD, with feedback from library authors.",
       "publishedAt": "2026-09-26T08:28:50.571Z",
       "mustRead": false
     },
     {
       "id": "blog-github-eng-rendering-huge-pull-requests-in-the-github-copilot-app",
-      "headline": "GitHub rebuilt diff rendering for very large pull requests",
+      "headline": "GitHub explains how it rebuilt diff rendering for huge pull requests",
       "originalTitle": "Rendering huge pull requests in the GitHub Copilot app",
       "url": "https://github.blog/engineering/user-experience/rendering-huge-pull-requests-in-the-github-copilot-app/",
       "source": "blog",
       "sourceLabel": "GitHub Engineering",
+      "kind": "deep-dive",
       "topic": "web",
       "score": 8,
-      "whyRead": "The post describes rebuilding the GitHub Copilot app's diff surface to handle a million-line pull request with hundreds of inline review comments.",
+      "whyRead": "Describes rebuilding the Copilot app’s diff surface to handle million-line pull requests with hundreds of inline review comments.",
       "publishedAt": "2026-09-23T18:29:49.000Z",
       "mustRead": false
     },
@@ -252,118 +451,358 @@
       "url": "https://huggingface.co/blog/nvidia/how-to-use-nvidia-warp-and-mjwarp",
       "source": "blog",
       "sourceLabel": "Hugging Face",
+      "kind": "deep-dive",
+      "readMinutes": 15,
       "topic": "ai",
       "score": 8,
-      "whyRead": "This tutorial shows how to move a MuJoCo robot-arm workflow to GPU-accelerated MJWarp, including running up to 2,048 parallel environments and validating the transition.",
+      "whyRead": "Shows how to move an SO-101 follower arm workflow from MuJoCo to as many as 2,048 parallel MJWarp environments, with attention to the technology and validation steps.",
       "publishedAt": "2026-09-23T18:41:40.000Z",
       "mustRead": false
     },
     {
-      "id": "blog-lwn-1096431",
-      "headline": "Research details file-notification attacks on Linux and other platforms",
-      "originalTitle": "Research into file-notification attacks on Linux",
-      "url": "https://lwn.net/Articles/1096431/",
+      "id": "blog-lwn-1096204",
+      "headline": "systemd v262 adds static builds and OpenSSL 4 support",
+      "originalTitle": "Systemd v262 released",
+      "url": "https://lwn.net/Articles/1096204/",
       "source": "blog",
       "sourceLabel": "LWN.net",
+      "kind": "release",
+      "topic": "systems",
+      "score": 8,
+      "whyRead": "The release adds a statically linked build option for small containers, support for a Linux 6.17 coredump protocol, and OpenSSL 4 support.",
+      "publishedAt": "2026-09-23T14:51:37.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "blog-lwn-1096195",
+      "headline": "WordPress fixes an unauthenticated remote-code-execution vulnerability",
+      "originalTitle": "Critical WordPress RCE vulnerability announced",
+      "url": "https://lwn.net/Articles/1096195/",
+      "source": "blog",
+      "sourceLabel": "LWN.net",
+      "kind": "vulnerability",
       "topic": "security",
       "score": 8,
-      "whyRead": "The research describes file-notification attacks that can expose activity and enable credential theft, including Linux inter-keystroke timing and a KDE authentication-prompt attack.",
-      "publishedAt": "2026-09-24T17:40:36.000Z",
+      "whyRead": "The flaw in get_page_template() can allow remote code execution under limited circumstances. The excerpt notes updates for WordPress branches back to 4.7 and that ClassicPress is also affected.",
+      "publishedAt": "2026-09-23T13:55:40.000Z",
       "mustRead": false
     },
     {
-      "id": "hn-49820134",
-      "headline": "Anthropic says Claude helped identify a novel enzyme system with CRISPR-like repeats",
-      "originalTitle": "Claude discovers a novel enzyme system with CRISPR-like repeats",
-      "url": "https://www.anthropic.com/news/claude-discovers-novel-enzyme-system",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49820134",
-      "points": 774,
-      "comments": 798,
+      "id": "blog-murat-what-happens-when-model-eats-stack-html",
+      "headline": "A paper examines how general coding agents compare with data-agent systems",
+      "originalTitle": "What Happens When the Model Eats the Stack? Rethinking the Research Agenda for Data Agents to Withstand the Bitter Lesson",
+      "url": "https://muratbuffalo.blogspot.com/2026/09/what-happens-when-model-eats-stack.html",
+      "source": "blog",
+      "sourceLabel": "Metadata (Murat Demirbas)",
+      "kind": "paper",
       "topic": "ai",
-      "score": 7,
-      "whyRead": "The post describes a biology research effort using Claude to find uncharacterized protein families and test hypotheses, and reports early results on a newly identified enzyme system.",
-      "publishedAt": "2026-09-23T18:06:47.000Z",
+      "score": 8,
+      "whyRead": "The post summarizes a comparison of general coding agents and specialized data agents on two benchmarks. It argues that persistent semantic context may matter more as models absorb task-specific agent scaffolding.",
+      "publishedAt": "2026-09-23T23:04:29.506Z",
       "mustRead": false
     },
     {
-      "id": "hn-49841563",
-      "headline": "Dutch public-sector community is building a replaceable digital workplace on NixOS",
-      "originalTitle": "Dutch governments builds alternative for Microsoft based on NixOS",
-      "url": "https://www.dawo.community/en/",
+      "id": "hn-49828731",
+      "headline": "How UK policy created different iCloud encryption options for users",
+      "originalTitle": "Two-tier encryption in the UK",
+      "url": "https://macanorak.com/two-tier-encryption-in-the-uk/",
       "source": "hn",
       "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49841563",
-      "points": 956,
-      "comments": 550,
-      "topic": "infra",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49828731",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49828731",
+          "comments": 462,
+          "points": 503
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 13,
+      "points": 503,
+      "comments": 462,
+      "topic": "security",
       "score": 7,
-      "whyRead": "The project aims to build an open, digitally autonomous workplace from inspectable, replaceable components, including NixOS and cloud infrastructure. The excerpt outlines its goals but not implementation details.",
-      "publishedAt": "2026-09-25T08:06:49.000Z",
+      "whyRead": "The article contrasts two UK iCloud users' access to Advanced Data Protection and traces the policy history behind the difference.",
+      "publishedAt": "2026-09-24T10:39:19.000Z",
       "mustRead": false
     },
     {
       "id": "hn-49848269",
-      "headline": "Ollaya runs open-source decision models locally for low-latency classification",
+      "headline": "Ollaya runs open-source decision models locally",
       "originalTitle": "Ollaya – Ollama for open-source, Jev-style decision models",
       "url": "https://ollaya.dev/",
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49848269",
-      "points": 437,
-      "comments": 117,
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49848269",
+          "comments": 118,
+          "points": 474
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 5,
+      "points": 474,
+      "comments": 118,
       "topic": "ai",
       "score": 7,
-      "whyRead": "The project describes single-pass decision models and reports local inference timings on an RTX 4090. It may interest engineers evaluating fast, typed model decisions without token-by-token generation.",
+      "whyRead": "Ollaya offers local decision models that return typed answers about text or JSON in a single pass. The excerpt describes its API and reports latency measurements on an RTX 4090.",
       "publishedAt": "2026-09-25T18:33:50.000Z",
       "mustRead": false
     },
     {
-      "id": "hn-49850305",
-      "headline": "What does an operating system mean in the age of AI?",
-      "originalTitle": "What even is an OS now?",
-      "url": "https://sockpuppet.org/blog/2026/09/25/what-even-is-an-os-now/",
+      "id": "hn-49833867",
+      "headline": "Whiteboard is an open-source IDE for designing software with agents",
+      "originalTitle": "Show HN: Whiteboard (YC W26) – An open-source IDE for thoughtful software design",
+      "url": "https://github.com/devdotfast/whiteboard",
       "source": "hn",
       "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49850305",
-      "points": 184,
-      "comments": 269,
+      "discussionUrl": "https://news.ycombinator.com/item?id=49833867",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49833867",
+          "comments": 134,
+          "points": 403
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 4,
+      "points": 403,
+      "comments": 134,
+      "topic": "languages",
+      "score": 7,
+      "whyRead": "Whiteboard gives agents a shared canvas for diagrams and design work, with links from visualizations to code. The excerpt also describes its CodeOSS base, keybindings, and LSP support.",
+      "publishedAt": "2026-09-24T17:21:36.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "hn-49841285",
+      "headline": "86Box emulates a 600MHz Pentium II with Voodoo 3 graphics on an M6 Mac Mini",
+      "originalTitle": "Pentium II at 600Mhz with Voodoo 3 Emulated on 86Box with M6 Mac Mini",
+      "url": "https://nyaa.sh/reviews/mac-mini-m6-emulation",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49841285",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49841285",
+          "comments": 119,
+          "points": 275
+        },
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/ztvy1b/pentium_ii_at_600mhz_with_voodoo_3",
+          "comments": 2,
+          "points": 8
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 8,
+      "points": 275,
+      "comments": 119,
       "topic": "systems",
       "score": 7,
-      "whyRead": "The author argues that AI’s impact on computing has not yet sunk in and raises the question of what an operating system is now. The excerpt frames the essay around that shift.",
-      "publishedAt": "2026-09-25T21:36:56.000Z",
+      "whyRead": "The author explains why accurate PC emulation is largely limited by single-core performance, and reports a stable 600MHz Pentium II emulation result on the Mac Mini.",
+      "publishedAt": "2026-09-25T07:27:45.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "hn-49834825",
+      "headline": "Creatine uptake is linked to enhanced antitumor immunity",
+      "originalTitle": "Creatine uptake enhances antitumor immunity",
+      "url": "https://www.cell.com/iscience/fulltext/S2589-0042(26)00811-4",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49834825",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49834825",
+          "comments": 211,
+          "points": 183
+        }
+      ],
+      "kind": "paper",
+      "points": 183,
+      "comments": 211,
+      "topic": "research",
+      "score": 7,
+      "whyRead": "The title reports a research finding linking creatine uptake with antitumor immunity.",
+      "publishedAt": "2026-09-24T18:24:52.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "hn-49828969",
+      "headline": "Espressif's ESP32-S31 adds Linux-oriented interfaces to a microcontroller",
+      "originalTitle": "The newest ESP32 can run Linux and it's getting close to a Raspberry Pi",
+      "url": "https://www.xda-developers.com/newest-esp32-run-linux-close-to-raspberry-pi/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49828969",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49828969",
+          "comments": 123,
+          "points": 233
+        }
+      ],
+      "kind": "release",
+      "readMinutes": 7,
+      "points": 233,
+      "comments": 123,
+      "topic": "systems",
+      "score": 7,
+      "whyRead": "The ESP32-S31 includes gigabit Ethernet, a USB 2.0 High-Speed host controller, SD card slots, and a camera input—features the article describes as unusual for a microcontroller.",
+      "publishedAt": "2026-09-24T11:08:39.000Z",
       "mustRead": false
     },
     {
       "id": "hn-49817289",
-      "headline": "Strands releases a general-purpose agent harness for local and cloud deployment",
+      "headline": "Strands releases a general-purpose agent harness for local or cloud use",
       "originalTitle": "Strands Harness",
       "url": "https://strandsagents.com/blog/introducing-strands-harness/",
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49817289",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49817289",
+          "comments": 96,
+          "points": 146
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 5,
       "points": 146,
       "comments": 96,
       "topic": "ai",
       "score": 7,
-      "whyRead": "The release offers a Python or TypeScript setup for agents using different models. Its authors report lower costs across six benchmarks while maintaining similar or better accuracy.",
+      "whyRead": "The harness is designed for agents built with Python or TypeScript and supports different models and deployment providers. Its authors report lower costs across six benchmarks while maintaining similar or better benchmark accuracy.",
       "publishedAt": "2026-09-23T15:05:46.000Z",
       "mustRead": false
     },
     {
+      "id": "hn-49842332",
+      "headline": "Topcoat adds features to a full-stack Rust framework for web applications",
+      "originalTitle": "Topcoat is pushing the boundary of server applications with Rust",
+      "url": "https://tokio.rs/blog/2026-09-24-topcoat-server-applications",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49842332",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49842332",
+          "comments": 98,
+          "points": 112
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 9,
+      "points": 112,
+      "comments": 98,
+      "topic": "languages",
+      "score": 7,
+      "whyRead": "The framework includes views, components, mailers, and an ORM; the article describes its development and goal of making Rust web apps more productive to build.",
+      "publishedAt": "2026-09-25T09:59:40.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "github-unreallabsai-unreal-agent",
+      "headline": "Unreal Agent is an async-first agent harness written in Go",
+      "originalTitle": "unreallabsai/unreal-agent: Async-first agent harness",
+      "url": "https://github.com/unreallabsai/unreal-agent",
+      "source": "github",
+      "sourceLabel": "GitHub",
+      "kind": "tool",
+      "stars": 1953,
+      "topic": "ai",
+      "score": 7,
+      "whyRead": "A Go harness designed around asynchronous agents may be useful to engineers building agent runtimes; the listing provides no further implementation details.",
+      "publishedAt": "2026-09-21T23:14:02.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "hn-49829387",
+      "headline": "Hackers steer ChatGPT and Gemini users toward scam centers",
+      "originalTitle": "Hackers influence ChatGPT and Gemini to direct users to scam centers",
+      "url": "https://medium.com/@arielsimon/dark-sourcery-how-hackers-manipulate-ai-to-scam-you-88df434d2073",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49829387",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49829387",
+          "comments": 52,
+          "points": 141
+        }
+      ],
+      "kind": "news",
+      "points": 141,
+      "comments": 52,
+      "topic": "security",
+      "score": 7,
+      "whyRead": "The headline describes hackers influencing two AI assistants to direct users to scam centers, a security concern for people relying on assistant recommendations.",
+      "publishedAt": "2026-09-24T11:54:38.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "hn-49848095",
+      "headline": "Filesystem and session logs point to an OpenAI model in Meta Muse",
+      "originalTitle": "Meta's Muse appears to use an OpenAI model labeled muse-special",
+      "url": "https://mouse.dev/blog/muse-special/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49848095",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49848095",
+          "comments": 48,
+          "points": 133
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 4,
+      "points": 133,
+      "comments": 48,
+      "topic": "ai",
+      "score": 7,
+      "whyRead": "The author examines Muse’s session logs and filesystem, including a subagent routed to a model labeled azure/muse-special, to investigate whether Muse uses external models.",
+      "publishedAt": "2026-09-25T18:18:06.000Z",
+      "mustRead": false
+    },
+    {
       "id": "hn-49831201",
-      "headline": "Dynamic Abliteration uses runtime steering to suppress LLM refusals",
+      "headline": "Dynamic Abliteration uses runtime steering to suppress LLM refusals without changing weights",
       "originalTitle": "Dynamic Abliteration: Non-Destructive Refusal Suppression via Engram Steering",
       "url": "https://blog.madhukaraphatak.in/non-destructive-refusal-supression-using-engram",
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49831201",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49831201",
+          "comments": 42,
+          "points": 107
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 29,
       "points": 107,
       "comments": 42,
       "topic": "ai",
       "score": 7,
-      "whyRead": "The post describes using multi-layer residual-stream steering with PyTorch hooks on Qwen3-4B, rather than changing model weights, to suppress refusal behavior.",
+      "whyRead": "The post describes using PyTorch hooks to steer intermediate activations in Qwen3-4B while keeping model weights frozen, as an alternative to permanently modifying them.",
       "publishedAt": "2026-09-24T14:33:52.000Z",
       "mustRead": false
     },
@@ -375,134 +814,233 @@
       "source": "hn",
       "sourceLabel": "Hacker News",
       "discussionUrl": "https://news.ycombinator.com/item?id=49846640",
-      "points": 112,
-      "comments": 25,
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49846640",
+          "comments": 29,
+          "points": 118
+        }
+      ],
+      "kind": "release",
+      "readMinutes": 14,
+      "points": 118,
+      "comments": 29,
       "topic": "languages",
       "score": 7,
-      "whyRead": "The article surveys Typst’s new typesetting features and its support for technical documents, with HTML output still in progress.",
+      "whyRead": "The article reviews changes in Typst 0.15, including variable-font support, MathML, and multiple bibliographies, in a Rust-based typesetting system.",
       "publishedAt": "2026-09-25T16:25:08.000Z",
       "mustRead": false
     },
     {
-      "id": "hn-49827375",
-      "headline": "A self-decrypting HTML page encrypts files for offline sharing",
-      "originalTitle": "Show HN: Air-gapped file encryption as self-decrypting HTML page",
-      "url": "https://cms-sfx-demo.apeleg.com/",
+      "id": "hn-49837350",
+      "headline": "Google plans an orbital test of its AI data center concept",
+      "originalTitle": "Google's first Suncatcher orbital data center test launches October 1",
+      "url": "https://arstechnica.com/google/2026/09/googles-first-suncatcher-orbital-data-center-test-launches-october-1/",
       "source": "hn",
       "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49827375",
-      "points": 84,
-      "comments": 30,
-      "topic": "security",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49837350",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49837350",
+          "comments": 94,
+          "points": 51
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 3,
+      "points": 51,
+      "comments": 94,
+      "topic": "ai",
       "score": 7,
-      "whyRead": "The project combines offline decryption in a browser, embedded OpenPGP signatures, and a goal of reproducible builds. The author also describes making the page work with bare OpenSSL.",
-      "publishedAt": "2026-09-24T07:22:17.000Z",
+      "whyRead": "Google's experimental satellite is intended to test a vision for orbital AI data centers. The excerpt describes its TPUs and solar power setup.",
+      "publishedAt": "2026-09-24T22:07:08.000Z",
       "mustRead": false
     },
     {
-      "id": "hn-49846391",
-      "headline": "Jevmem adds automatic project memory to Claude Code",
-      "originalTitle": "Jevmem – automatic project memory for Claude Code, built on Jev",
-      "url": "https://github.com/Avinash-jetwani/jevmem",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49846391",
-      "points": 61,
-      "comments": 40,
-      "topic": "ai",
+      "id": "github-mikehasa-golive-skill",
+      "headline": "GoLive Skill plans and applies deployment setup through an agent skill and Node CLI",
+      "originalTitle": "mikehasa/golive-skill: Take your agent-built product live: hosting, database, domain, email, payments — on your own accounts. Open-source Agent Skill + zero-dependency Node CLI: detect → plan → approve → apply → verify. No GoLive account, backend or telemetry.",
+      "url": "https://github.com/mikehasa/golive-skill",
+      "source": "github",
+      "sourceLabel": "GitHub",
+      "kind": "tool",
+      "stars": 964,
+      "topic": "infra",
       "score": 7,
-      "whyRead": "Jevmem saves project decisions, constraints, bugs, and todos from coding-agent chats, then recalls relevant entries. Its description also reports a memory-poisoning check and results from a planted-line test set.",
-      "publishedAt": "2026-09-25T16:04:04.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "paper-2609-26780",
-      "headline": "SpeakerMem-R1 uses speaker-centered dual-track memory for multi-party dialogue",
-      "originalTitle": "SpeakerMem-R1: Speaker-Centered Dual-Track Memory for Multi-Party Dialogue",
-      "url": "https://huggingface.co/papers/2609.26780",
-      "source": "papers",
-      "sourceLabel": "Hugging Face Papers",
-      "points": 82,
-      "topic": "ai",
-      "score": 7,
-      "whyRead": "The paper describes storing verbatim speaker-labeled messages alongside person- and group-level derived states, then combining evidence at query time. It also outlines a training approach and names three evaluation benchmarks.",
-      "publishedAt": "2026-09-21T20:00:00.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49829625",
-      "headline": "RLCD models calibrated multiway preferences as a decision interface",
-      "originalTitle": "What Is RLCD? The Secret Behind Jev",
-      "url": "https://di-zhang-llm.github.io/blog/what-is-rlcd-the-secret-behind-jev/",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49829625",
-      "points": 68,
-      "comments": 8,
-      "topic": "ai",
-      "score": 7,
-      "whyRead": "Explains RLCD as a schema-conditioned Plackett–Luce objective that extends reward modeling from scalar scores to calibrated multiway decisions, with typed outputs and parallel inference.",
-      "publishedAt": "2026-09-24T12:21:16.000Z",
+      "whyRead": "The workflow covers hosting, databases, domains, email, and payments, with detect, plan, approve, apply, and verify steps on users' own accounts.",
+      "publishedAt": "2026-09-23T13:37:26.000Z",
       "mustRead": false
     },
     {
       "id": "lobsters-wqzbpw",
-      "headline": "A FUSE filesystem exposes Nixpkgs binaries without installing them",
+      "headline": "omnibin exposes Nixpkgs binaries through a FUSE filesystem",
       "originalTitle": "Every package is already installed",
       "url": "https://fzakaria.com/2026/09/24/every-package-is-already-installed",
       "source": "lobsters",
       "sourceLabel": "Lobsters",
       "discussionUrl": "https://lobste.rs/s/wqzbpw/every_package_is_already_installed",
-      "points": 38,
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/wqzbpw/every_package_is_already_installed",
+          "comments": 9,
+          "points": 41
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 4,
+      "points": 41,
       "comments": 9,
-      "topic": "languages",
+      "topic": "systems",
       "score": 7,
-      "whyRead": "The post describes omnibin, which makes Nixpkgs binaries available through a FUSE filesystem and fetches file contents only when accessed. It also explains how versioned binaries are exposed.",
+      "whyRead": "The project puts binaries from Nixpkgs on PATH without installing or building them up front. The excerpt describes versioned binaries and a filesystem that fetches data when files are read.",
       "publishedAt": "2026-09-25T06:39:43.034Z",
       "mustRead": false
     },
     {
-      "id": "paper-2609-23038",
-      "headline": "Spatial-Interactor trains vision-language models on physical interaction",
-      "originalTitle": "Spatial-Interactor: Learning Spatial Reasoning through Interaction with the Observable Physical World",
-      "url": "https://huggingface.co/papers/2609.23038",
-      "source": "papers",
-      "sourceLabel": "Hugging Face Papers",
-      "points": 45,
-      "topic": "ai",
-      "score": 7,
-      "whyRead": "The framework uses interaction trajectories to teach models about state changes, with a curriculum spanning passive transitions, active transitions, and long-horizon interactions.",
-      "publishedAt": "2026-09-18T20:00:00.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49842596",
-      "headline": "An agent iteratively optimizes CUDA kernels using correctness checks and benchmarks",
-      "originalTitle": "Show HN: Agentic CUDA Kernel Optimizer",
-      "url": "https://github.com/bertaye/agentic-cuda-optimizer",
+      "id": "hn-49854161",
+      "headline": "A browser-based tool checks PostgreSQL migrations for safety issues",
+      "originalTitle": "Is your Postgres migration safe or not safe?",
+      "url": "https://safenotsafe.dev/",
       "source": "hn",
       "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49842596",
-      "points": 32,
-      "comments": 11,
-      "topic": "systems",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49854161",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49854161",
+          "comments": 10,
+          "points": 38
+        }
+      ],
+      "kind": "tool",
+      "points": 38,
+      "comments": 10,
+      "topic": "data",
       "score": 7,
-      "whyRead": "The project uses code generation, correctness checks, benchmarking, and refinement to search for GPU kernels and launch configurations. It describes a C++ harness and a Python-based candidate-selection workflow.",
-      "publishedAt": "2026-09-25T10:32:58.000Z",
+      "whyRead": "The tool parses PostgreSQL migrations in the browser and flags potential problems. The excerpt describes its parser, rule engine, and command-line interface.",
+      "publishedAt": "2026-09-26T07:33:12.000Z",
       "mustRead": false
     },
     {
-      "id": "paper-2609-24308",
-      "headline": "HappyWorld-Bench evaluates generated worlds under interaction",
-      "originalTitle": "HappyWorld-Bench",
-      "url": "https://huggingface.co/papers/2609.24308",
-      "source": "papers",
-      "sourceLabel": "Hugging Face Papers",
-      "points": 40,
-      "topic": "ai",
+      "id": "hn-49821086",
+      "headline": "ForensicDbg is a post-mortem debugger for native Windows crashes",
+      "originalTitle": "Show HN: I built a post-mortem debugger for native Windows x64/x86 crashes",
+      "url": "https://www.forensicdbg.com",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49821086",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49821086",
+          "comments": 7,
+          "points": 37
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 3,
+      "points": 37,
+      "comments": 7,
+      "topic": "systems",
       "score": 7,
-      "whyRead": "The benchmark tests video, spatial, and embodied world models for consistency and responsiveness, and reports reliability gaps across the three tracks.",
-      "publishedAt": "2026-09-20T20:00:00.000Z",
+      "whyRead": "The debugger presents and links crash and process data, and includes an MCP server for agentic debugging. The excerpt describes its goal of combining a modern interface with detailed native Windows crash analysis.",
+      "publishedAt": "2026-09-23T19:15:55.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "github-aureliengmz-clearwater",
+      "headline": "A single-file WebGL2 demo renders real-time shallow water",
+      "originalTitle": "Aureliengmz/clearwater: Real-time, photoreal shallow water in a single HTML file. WebGL2, no libraries, no build step.",
+      "url": "https://github.com/Aureliengmz/clearwater",
+      "source": "github",
+      "sourceLabel": "GitHub",
+      "kind": "tool",
+      "stars": 434,
+      "topic": "web",
+      "score": 7,
+      "whyRead": "The project presents a real-time shallow-water rendering demo using WebGL2 in a single HTML file, with no libraries or build step. Its listed topics include FFT, caustics, and shaders.",
+      "publishedAt": "2026-09-23T13:20:08.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "lobsters-kc8t26",
+      "headline": "Redox OS reports August progress on booting, ARM64, and ring buffers",
+      "originalTitle": "This Month in Redox - August 2026",
+      "url": "https://www.redox-os.org/news/this-month-260831/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/kc8t26/this_month_redox_august_2026",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/kc8t26/this_month_redox_august_2026",
+          "comments": 5,
+          "points": 33
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 9,
+      "points": 33,
+      "comments": 5,
+      "topic": "systems",
+      "score": 7,
+      "whyRead": "The project update describes UEFI compatibility work, ARM64 multicore support, and a userspace ring-buffer API modeled on io_uring. It notes that more testing is needed to assess performance improvements.",
+      "publishedAt": "2026-09-25T15:59:24.612Z",
+      "mustRead": false
+    },
+    {
+      "id": "hn-49826087",
+      "headline": "A project to upgrade a third-generation iPod Nano to 16GB",
+      "originalTitle": "16GB iPod Nano 3G Upgrade",
+      "url": "https://tuckerosman.com/projects/16gb-ipod-nano",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49826087",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49826087",
+          "comments": 3,
+          "points": 35
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 48,
+      "points": 35,
+      "comments": 3,
+      "topic": "systems",
+      "score": 7,
+      "whyRead": "The author describes a long-running storage-upgrade project and the hardware and reverse-engineering skills they learned while attempting it.",
+      "publishedAt": "2026-09-24T03:58:54.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "hn-49829528",
+      "headline": "Parsing Org files with PEGs in Guile Scheme and exporting to HTML",
+      "originalTitle": "Parsing Expression Grammar vs. Regexes: Building Org Parser in Lisp, Export HTML",
+      "url": "https://jointhefreeworld.org/blog/articles/lisps/parsing-expression-grammar-lisp-org-convert-to-html/index.html",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49829528",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49829528",
+          "comments": 1,
+          "points": 34
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 5,
+      "points": 34,
+      "comments": 1,
+      "topic": "languages",
+      "score": 7,
+      "whyRead": "The author explains moving from regular expressions to parsing expression grammars, using Guile's PEG module to parse Org content and convert it to HTML.",
+      "publishedAt": "2026-09-24T12:10:53.000Z",
       "mustRead": false
     },
     {
@@ -513,270 +1051,101 @@
       "source": "lobsters",
       "sourceLabel": "Lobsters",
       "discussionUrl": "https://lobste.rs/s/qknavp/netbsd_playing_with_disklabels",
-      "points": 9,
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/qknavp/netbsd_playing_with_disklabels",
+          "comments": 0,
+          "points": 15
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 7,
+      "points": 15,
       "comments": 0,
       "topic": "systems",
       "score": 7,
-      "whyRead": "This hands-on walkthrough examines where NetBSD 11 stores disklabels, how their bytes and partitions are structured, and how to verify the checksum. It also describes inspecting and editing disk metadata in a virtual machine.",
+      "whyRead": "A hands-on examination of NetBSD 11 disklabels covers their location, format, partition table, checksum, and verification in a VM and hex editor.",
       "publishedAt": "2026-09-26T02:14:59.759Z",
       "mustRead": false
     },
     {
-      "id": "blog-lwn-1096204",
-      "headline": "systemd 262 adds static-binary builds and kernel coredump socket support",
-      "originalTitle": "Systemd v262 released",
-      "url": "https://lwn.net/Articles/1096204/",
+      "id": "blog-github-eng-improving-site-performance-by-shipping-more-css",
+      "headline": "GitHub describes improving site performance by shipping more CSS",
+      "originalTitle": "Improving site performance by shipping more CSS",
+      "url": "https://github.blog/engineering/architecture-optimization/improving-site-performance-by-shipping-more-css/",
+      "source": "blog",
+      "sourceLabel": "GitHub Engineering",
+      "kind": "deep-dive",
+      "topic": "web",
+      "score": 7,
+      "whyRead": "Covers GitHub’s migration of github.com away from CSS-in-JS and its focus on site performance.",
+      "publishedAt": "2026-09-25T15:00:00.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "blog-lwn-1096819",
+      "headline": "Summary of discussions at the 2026 Git Contributors' Summit",
+      "originalTitle": "A summary from the 2026 Git Contributors' Summit",
+      "url": "https://lwn.net/Articles/1096819/",
       "source": "blog",
       "sourceLabel": "LWN.net",
-      "topic": "systems",
+      "kind": "deep-dive",
+      "topic": "languages",
       "score": 7,
-      "whyRead": "The release adds an option to build systemd as a single static binary for small containers, support for the kernel coredump socket protocol, and OpenSSL 4 support.",
-      "publishedAt": "2026-09-23T14:51:37.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49831968",
-      "headline": "F-Droid 2.0 redesigns its Android app and rewrites key components in Kotlin Compose",
-      "originalTitle": "F-Droid 2.0",
-      "url": "https://f-droid.org/2026/09/24/f-droid-2.0-a-new-chapter-for-android-freedom.html",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49831968",
-      "points": 1443,
-      "comments": 412,
-      "topic": "languages",
-      "score": 6,
-      "whyRead": "The release pairs a redesigned app and improved discovery with a rewrite of key components in Kotlin Compose, giving maintainers a new foundation for future changes.",
-      "publishedAt": "2026-09-24T15:26:12.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49828731",
-      "headline": "How UK iCloud users ended up with different encryption options",
-      "originalTitle": "Two-tier encryption in the UK",
-      "url": "https://macanorak.com/two-tier-encryption-in-the-uk/",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49828731",
-      "points": 502,
-      "comments": 461,
-      "topic": "security",
-      "score": 6,
-      "whyRead": "The article contrasts two UK users’ access to iCloud Advanced Data Protection and traces the issue through the history of encryption and government access requests.",
-      "publishedAt": "2026-09-24T10:39:19.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49823582",
-      "headline": "Linux support is coming to Qualcomm’s Snapdragon X2 series",
-      "originalTitle": "Linux support is coming to Snapdragon X2 series",
-      "url": "https://www.qualcomm.com/news/onq/2026/09/snapdragon-summit-agentic-ai-pcs-linux",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49823582",
-      "points": 616,
-      "comments": 268,
-      "topic": "systems",
-      "score": 6,
-      "whyRead": "The title announces Linux support for the Snapdragon X2 series but gives no implementation details.",
-      "publishedAt": "2026-09-23T22:38:16.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49840054",
-      "headline": "An essay argues that plan modes are less useful for AI coding agents",
-      "originalTitle": "Plan mode is dead",
-      "url": "https://www.aymannadeem.com/artificial/intelligence,/developer/tools/2026/09/24/plan-mode-is-dead.html",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49840054",
-      "points": 298,
-      "comments": 278,
-      "topic": "ai",
-      "score": 6,
-      "whyRead": "The author reflects on why their planning-focused coding app failed and argues that plan modes are becoming less useful as models improve, while maintaining a human understanding of changing software remains important.",
-      "publishedAt": "2026-09-25T03:59:11.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49833867",
-      "headline": "Whiteboard is an open-source IDE for software design with coding agents",
-      "originalTitle": "Show HN: Whiteboard (YC W26) – An open-source IDE for thoughtful software design",
-      "url": "https://github.com/devdotfast/whiteboard",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49833867",
-      "points": 401,
-      "comments": 133,
-      "topic": "languages",
-      "score": 6,
-      "whyRead": "The project connects agent-generated diagrams and traces to underlying code, using a CodeOSS base with VS Code keybindings and LSP support. The excerpt explains how the team moved beyond HTML artifacts.",
-      "publishedAt": "2026-09-24T17:21:36.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49843174",
-      "headline": "Git-bug is a distributed, offline-first bug tracker stored in Git",
-      "originalTitle": "Git-bug: Distributed, offline-first bug tracker embedded in Git",
-      "url": "https://github.com/git-bug/git-bug",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49843174",
-      "points": 334,
-      "comments": 107,
-      "topic": "languages",
-      "score": 6,
-      "whyRead": "Learn how git-bug uses Git remotes to sync issues, works offline, and offers CLI, terminal, web, and GraphQL interfaces without adding files to a project.",
-      "publishedAt": "2026-09-25T11:38:31.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49841285",
-      "headline": "86Box emulates a Pentium II at 600 MHz on an M6 Mac mini",
-      "originalTitle": "Pentium II at 600Mhz with Voodoo 3 Emulated on 86Box with M6 Mac Mini",
-      "url": "https://nyaa.sh/reviews/mac-mini-m6-emulation",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49841285",
-      "points": 273,
-      "comments": 119,
-      "topic": "systems",
-      "score": 6,
-      "whyRead": "The post explains why 86Box’s hardware-accurate emulation puts most of its work on one host thread, and describes testing a Pentium II configuration on an M6 Mac mini.",
-      "publishedAt": "2026-09-25T07:27:45.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49828969",
-      "headline": "Espressif’s ESP32-S31 adds interfaces associated with Linux single-board computers",
-      "originalTitle": "The newest ESP32 can run Linux and it's getting close to a Raspberry Pi",
-      "url": "https://www.xda-developers.com/newest-esp32-run-linux-close-to-raspberry-pi/",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49828969",
-      "points": 233,
-      "comments": 122,
-      "topic": "systems",
-      "score": 6,
-      "whyRead": "The article describes the ESP32-S31’s gigabit Ethernet MAC, USB 2.0 host, SD card interface, and camera input, features the author says are unusual for a microcontroller.",
-      "publishedAt": "2026-09-24T11:08:39.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49842332",
-      "headline": "Topcoat adds features to a full-stack Rust web framework",
-      "originalTitle": "Topcoat is pushing the boundary of server applications with Rust",
-      "url": "https://tokio.rs/blog/2026-09-24-topcoat-server-applications",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49842332",
-      "points": 112,
-      "comments": 98,
-      "topic": "languages",
-      "score": 6,
-      "whyRead": "The post describes Topcoat’s goal of bringing a batteries-included, Rails-like development experience to Rust, including views, components, mailers, and an ORM.",
-      "publishedAt": "2026-09-25T09:59:40.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49841309",
-      "headline": "A primer on Amiga screens and their graphics hardware",
-      "originalTitle": "Amiga Screens: A Primer",
-      "url": "https://www.datagubbe.se/amscr/",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49841309",
-      "points": 134,
-      "comments": 43,
-      "topic": "systems",
-      "score": 6,
-      "whyRead": "The primer explains Amiga screens, including their resolution and movable-window characteristics, with a focus on the original graphics hardware.",
-      "publishedAt": "2026-09-25T07:31:12.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49815370",
-      "headline": "WaveDigger maps Wi-Fi access points and cellular towers",
-      "originalTitle": "WaveDigger: Dig into wireless signals to discover their physical locations",
-      "url": "https://github.com/christianrowlands/wavedigger",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49815370",
-      "points": 130,
-      "comments": 27,
-      "topic": "infra",
-      "score": 6,
-      "whyRead": "This tool searches for Wi-Fi access points by BSSID and cellular towers by network parameters, then displays results on an interactive map. It builds on research into Apple's location services API.",
-      "publishedAt": "2026-09-23T12:57:07.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49837350",
-      "headline": "Google plans an October 1 launch test for its Suncatcher orbital data center",
-      "originalTitle": "Google's first Suncatcher orbital data center test launches October 1",
-      "url": "https://arstechnica.com/google/2026/09/googles-first-suncatcher-orbital-data-center-test-launches-october-1/",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49837350",
-      "points": 50,
-      "comments": 88,
-      "topic": "infra",
-      "score": 6,
-      "whyRead": "The article describes a test satellite carrying four TPU accelerators and solar panels supplying about one kilowatt of power.",
-      "publishedAt": "2026-09-24T22:07:08.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "github-mikehasa-golive-skill",
-      "headline": "GoLive Skill automates deployment setup through an approval-based Node CLI",
-      "originalTitle": "mikehasa/golive-skill: Take your agent-built product live: hosting, database, domain, email, payments — on your own accounts. Open-source Agent Skill + zero-dependency Node CLI: detect → plan → approve → apply → verify. No GoLive account, backend or telemetry.",
-      "url": "https://github.com/mikehasa/golive-skill",
-      "source": "github",
-      "sourceLabel": "GitHub",
-      "stars": 958,
-      "topic": "infra",
-      "score": 6,
-      "whyRead": "The open-source tool detects and plans hosting, database, domain, email, and payment setup, then applies and verifies changes on users’ own accounts.",
-      "publishedAt": "2026-09-23T13:37:26.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "hn-49842409",
-      "headline": "A ray tracer written in Brainfuck",
-      "originalTitle": "I wrote a ray tracer in Brainfuck",
-      "url": "https://epestr.com/blog/writing-a-ray-tracer-in-brainfuck/",
-      "source": "hn",
-      "sourceLabel": "Hacker News",
-      "discussionUrl": "https://news.ycombinator.com/item?id=49842409",
-      "points": 68,
-      "comments": 15,
-      "topic": "languages",
-      "score": 6,
-      "whyRead": "The author explains why they chose Brainfuck for a ray tracer and contrasts it with writing similar tools in CMake or using more complex GPU APIs.",
-      "publishedAt": "2026-09-25T10:08:41.000Z",
-      "mustRead": false
-    },
-    {
-      "id": "github-aureliengmz-clearwater",
-      "headline": "Clearwater renders shallow water with WebGL2 in a single HTML file",
-      "originalTitle": "Aureliengmz/clearwater: Real-time, photoreal shallow water in a single HTML file. WebGL2, no libraries, no build step.",
-      "url": "https://github.com/Aureliengmz/clearwater",
-      "source": "github",
-      "sourceLabel": "GitHub",
-      "stars": 425,
-      "topic": "web",
-      "score": 6,
-      "whyRead": "The project presents real-time shallow-water rendering using WebGL2, without libraries or a build step.",
-      "publishedAt": "2026-09-23T13:20:08.000Z",
+      "whyRead": "The summary covers Git 3.0, security, documentation, a pluggable object database, and the use of LLMs in Git development.",
+      "publishedAt": "2026-09-25T15:12:05.000Z",
       "mustRead": false
     }
   ],
   "sources": [
     {
+      "id": "blog-airbnb",
+      "label": "Airbnb Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-aws-arch",
+      "label": "AWS Architecture",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-brendangregg",
+      "label": "Brendan Gregg",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-brooker",
+      "label": "Marc Brooker",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-chipsandcheese",
+      "label": "Chips and Cheese",
+      "status": "empty",
+      "count": 0
+    },
+    {
       "id": "blog-cloudflare",
       "label": "Cloudflare Blog",
       "status": "ok",
       "count": 2
+    },
+    {
+      "id": "blog-deepmind",
+      "label": "Google DeepMind",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-discord",
+      "label": "Discord Engineering",
+      "status": "ok",
+      "count": 1
     },
     {
       "id": "blog-dropbox",
@@ -785,10 +1154,40 @@
       "count": 0
     },
     {
+      "id": "blog-duckdb",
+      "label": "DuckDB",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-figma",
+      "label": "Figma Engineering",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-fly",
+      "label": "Fly.io",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-gcloud",
+      "label": "Google Cloud",
+      "status": "ok",
+      "count": 19
+    },
+    {
       "id": "blog-github-eng",
       "label": "GitHub Engineering",
       "status": "ok",
       "count": 2
+    },
+    {
+      "id": "blog-go-blog",
+      "label": "Go Blog",
+      "status": "ok",
+      "count": 1
     },
     {
       "id": "blog-google-research",
@@ -801,6 +1200,12 @@
       "label": "Hugging Face",
       "status": "ok",
       "count": 2
+    },
+    {
+      "id": "blog-janestreet",
+      "label": "Jane Street Tech",
+      "status": "empty",
+      "count": 0
     },
     {
       "id": "blog-jvns",
@@ -827,8 +1232,26 @@
       "count": 15
     },
     {
+      "id": "blog-martinfowler",
+      "label": "Martin Fowler",
+      "status": "ok",
+      "count": 2
+    },
+    {
       "id": "blog-meta-eng",
       "label": "Engineering at Meta",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-mozilla-hacks",
+      "label": "Mozilla Hacks",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-murat",
+      "label": "Metadata (Murat Demirbas)",
       "status": "ok",
       "count": 1
     },
@@ -839,10 +1262,28 @@
       "count": 1
     },
     {
+      "id": "blog-oldnewthing",
+      "label": "The Old New Thing",
+      "status": "ok",
+      "count": 3
+    },
+    {
       "id": "blog-openai",
       "label": "OpenAI",
       "status": "ok",
-      "count": 8
+      "count": 7
+    },
+    {
+      "id": "blog-planetscale",
+      "label": "PlanetScale",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-postgres-weekly",
+      "label": "Postgres Weekly",
+      "status": "empty",
+      "count": 0
     },
     {
       "id": "blog-pytorch",
@@ -863,16 +1304,52 @@
       "count": 0
     },
     {
+      "id": "blog-semianalysis",
+      "label": "SemiAnalysis",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-shopify-eng",
+      "label": "Shopify Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
       "id": "blog-simonwillison",
       "label": "Simon Willison",
       "status": "ok",
       "count": 7
     },
     {
+      "id": "blog-slack-eng",
+      "label": "Slack Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
       "id": "blog-stripe",
       "label": "Stripe Engineering",
       "status": "empty",
       "count": 0
+    },
+    {
+      "id": "blog-trailofbits",
+      "label": "Trail of Bits",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-v8",
+      "label": "V8",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-webkit",
+      "label": "WebKit",
+      "status": "ok",
+      "count": 1
     },
     {
       "id": "github",
@@ -884,13 +1361,13 @@
       "id": "hf-papers",
       "label": "Hugging Face Daily Papers",
       "status": "ok",
-      "count": 32
+      "count": 33
     },
     {
       "id": "hn",
       "label": "Hacker News",
       "status": "ok",
-      "count": 130
+      "count": 136
     },
     {
       "id": "lobsters",
