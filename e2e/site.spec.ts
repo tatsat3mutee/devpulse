@@ -97,7 +97,12 @@ test("topic feeds, app manifest and search are available", async ({ page, reques
   expect(feed).toContain("<rss");
   expect(feed).toContain(latest.items.find((item) => item.topic === topic)!.url);
   const manifest = await (await request.get("/manifest.webmanifest")).json();
-  expect(manifest).toMatchObject({ name: "DevPulse", start_url: "/", display: "standalone" });
+  expect(manifest).toMatchObject({ id: "/", short_name: "DevPulse", start_url: "/", display: "standalone" });
+  expect(manifest.shortcuts.map((shortcut: { url: string }) => shortcut.url)).toEqual(["/", "/pulse", "/search", "/archive"]);
+  for (const icon of manifest.icons.filter((entry: { purpose: string }) => entry.purpose === "maskable")) expect((await request.get(icon.src)).headers()["content-type"]).toContain("image/png");
+  expect(manifest.icons.some((entry: { purpose: string }) => entry.purpose === "maskable")).toBe(true);
+  for (const shot of manifest.screenshots) expect((await request.get(shot.src)).ok()).toBe(true);
+  for (const shortcut of manifest.shortcuts) expect((await request.get(shortcut.icons[0].src)).ok()).toBe(true);
   for (const size of [192, 512]) {
     expect(manifest.icons).toContainEqual({ src: `/icon-${size}.png`, sizes: `${size}x${size}`, type: "image/png", purpose: "any" });
     const icon = await request.get(`/icon-${size}.png`);
@@ -140,11 +145,35 @@ test("offline reading caches visited pages but never live-status endpoints", asy
     await context.setOffline(true);
     await page.reload();
     await expect(page.locator("main h3 a")).toHaveCount(latest.items.length);
+    await page.goto("/pulse");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("What engineering is talking about");
     await page.goto("/edition/not-cached");
     await expect(page.locator("body")).toContainText("not saved for offline reading");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("You're offline");
   } finally {
     await context.setOffline(false);
   }
+});
+
+test("a newer edition is announced without reloading", async ({ page }) => {
+  await page.route("**/latest.json", (route) => route.fulfill({ contentType: "application/json", body: JSON.stringify({ date: "2999-01-01", status: "published", storyCount: 50 }) }));
+  await page.goto("/");
+  await expect(page.locator("#edition-note")).toBeVisible();
+  await expect(page.locator("#edition-note")).toContainText("Today's edition is ready");
+});
+
+test("install prompt shows from the second visit and snoozes when dismissed", async ({ page }) => {
+  await page.addInitScript(() => { localStorage.setItem("devpulse-visits", "3"); sessionStorage.setItem("devpulse-counted", "1"); });
+  await page.goto("/");
+  await expect(page.locator("#install-note")).toBeHidden();
+  await page.evaluate(() => {
+    const event = Object.assign(new Event("beforeinstallprompt", { cancelable: true }), { prompt: () => {}, userChoice: Promise.resolve({ outcome: "dismissed" }) });
+    window.dispatchEvent(event);
+  });
+  await expect(page.locator("#install-note")).toBeVisible();
+  await page.getByRole("button", { name: "Not now" }).click();
+  await expect(page.locator("#install-note")).toBeHidden();
+  expect(Number(await page.evaluate(() => localStorage.getItem("devpulse-install-snooze")))).toBeGreaterThan(Date.now());
 });
 
 test("capture reader views", async ({ page }, testInfo) => {

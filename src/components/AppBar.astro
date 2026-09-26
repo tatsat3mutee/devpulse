@@ -1,0 +1,104 @@
+---
+interface Props { edition?: string }
+const { edition } = Astro.props;
+---
+<div class="app-bar" data-edition={edition} aria-live="polite">
+  <div class="app-note" id="edition-note" hidden>
+    <p><strong>Today's edition is ready.</strong> <span class="detail">A newer edition was published since this page loaded.</span></p>
+    <div class="app-actions">
+      <button type="button" class="primary" data-action="reload">Read it</button>
+      <button type="button" class="close" data-action="dismiss-edition" aria-label="Dismiss">&times;</button>
+    </div>
+  </div>
+  <div class="app-note" id="install-note" hidden>
+    <img src="/icon-192.png" alt="" width="36" height="36" />
+    <p><strong>Read DevPulse like an app.</strong> <span id="install-text">Install it for one-tap access and offline reading.</span></p>
+    <div class="app-actions">
+      <button type="button" class="primary" data-action="install" id="install-button">Install</button>
+      <button type="button" class="close" data-action="dismiss-install" aria-label="Not now">&times;</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const bar = document.querySelector(".app-bar");
+    if (!bar) return;
+    const editionNote = bar.querySelector("#edition-note");
+    const installNote = bar.querySelector("#install-note");
+    const store = {
+      get: (key) => { try { return localStorage.getItem(key); } catch { return null; } },
+      set: (key, value) => { try { localStorage.setItem(key, value); } catch {} },
+    };
+    const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+
+    // New edition: compare the edition this page was built with against the live one.
+    const edition = bar.dataset.edition;
+    let announced = false;
+    const checkEdition = async () => {
+      if (!edition || announced || document.visibilityState !== "visible") return;
+      try {
+        const response = await fetch("/latest.json", { cache: "no-store" });
+        const latest = response.ok ? await response.json() : null;
+        if (latest?.date && latest.date > edition) {
+          announced = true;
+          editionNote.hidden = false;
+          navigator.serviceWorker?.controller?.postMessage({ type: "save-latest" });
+        }
+      } catch {}
+    };
+    setTimeout(checkEdition, 1500);
+    document.addEventListener("visibilitychange", checkEdition);
+
+    // Install prompt: second visit onwards, never when already installed, snoozed 30 days on dismiss.
+    let counted = true;
+    try { counted = sessionStorage.getItem("devpulse-counted") === "1"; sessionStorage.setItem("devpulse-counted", "1"); } catch {}
+    if (!counted) store.set("devpulse-visits", String(Number(store.get("devpulse-visits") ?? 0) + 1));
+    const snoozed = Date.now() < Number(store.get("devpulse-install-snooze") ?? 0);
+    const eligible = !standalone && !snoozed && Number(store.get("devpulse-visits") ?? 0) >= 2;
+    let deferred = null;
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferred = event;
+      if (eligible) installNote.hidden = false;
+    });
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !/crios|fxios|edgios/i.test(navigator.userAgent);
+    if (eligible && ios) {
+      bar.querySelector("#install-text").textContent = "Tap the Share button, then Add to Home Screen.";
+      bar.querySelector("#install-button").hidden = true;
+      installNote.hidden = false;
+    }
+    window.addEventListener("appinstalled", () => { installNote.hidden = true; });
+
+    bar.addEventListener("click", async (event) => {
+      const action = event.target.closest("button")?.dataset.action;
+      if (action === "reload") location.href = "/";
+      if (action === "dismiss-edition") editionNote.hidden = true;
+      if (action === "dismiss-install") {
+        installNote.hidden = true;
+        store.set("devpulse-install-snooze", String(Date.now() + 30 * 86_400_000));
+      }
+      if (action === "install" && deferred) {
+        deferred.prompt();
+        await deferred.userChoice.catch(() => null);
+        deferred = null;
+        installNote.hidden = true;
+      }
+    });
+  })();
+</script>
+
+<style>
+  .app-bar { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 50; display: grid; gap: 8px; justify-items: center; pointer-events: none; }
+  .app-note { display: flex; align-items: center; gap: 12px; width: min(560px, 100%); padding: 12px 12px 12px 16px; border: 1px solid rgb(var(--ink)); background: rgb(var(--surface)); box-shadow: 0 8px 24px rgb(0 0 0 / .14); pointer-events: auto; }
+  .app-note[hidden] { display: none; }
+  .app-note img { flex: none; }
+  .app-note p { flex: 1; margin: 0; color: rgb(var(--soft)); font-size: 13.5px; line-height: 1.4; }
+  .app-note strong { display: block; color: rgb(var(--ink)); font: 700 16px/1.25 "Newsreader", serif; }
+  .app-actions { display: flex; align-items: center; gap: 4px; }
+  .app-actions button { min-height: 40px; border: 0; cursor: pointer; font: 600 13px/1 "Manrope", sans-serif; }
+  .app-actions .primary { padding: 0 14px; background: rgb(var(--ink)); color: rgb(var(--paper)); }
+  .app-actions .close { width: 40px; background: transparent; color: rgb(var(--muted)); font-size: 22px; }
+  .app-actions .close:hover { color: rgb(var(--ink)); }
+  @media (max-width: 520px) { .app-note .detail { display: none; } }
+</style>
