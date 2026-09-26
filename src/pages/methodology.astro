@@ -2,11 +2,12 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { BLOGS } from "../../scripts/lib/collect";
 const steps = [
-  ["Collect", "Every morning we pull about 250 fresh candidates: the Hacker News front page and best list, Lobsters, fast-rising new GitHub repositories, Hugging Face daily papers, and engineering blogs from teams and writers worth following."],
-  ["Read", "For each candidate we fetch the linked page and keep a short excerpt of its own text."],
+  ["Collect", "Every morning we pull a few hundred fresh candidates: the Hacker News front page and best list, Lobsters, fast-rising new GitHub repositories, Hugging Face daily papers and trending models, and engineering blogs from AI labs, infrastructure teams and writers worth following. Anything already published in the last week is dropped."],
+  ["Read", "For each candidate we fetch the linked page and keep an excerpt of its own text, plus the preview image the page itself declares."],
   ["Judge", "A language model scores every candidate from 1 to 10 on one question: would a senior engineer want to read this? Depth, novelty and hard-won production lessons score high. Funding news, politics, drama, marketing and generic AI hype score low."],
-  ["Write", "The model writes a plain headline and one reason to read it, using only the title and excerpt. It never chooses or edits links, and never invents numbers or results."],
+  ["Write", "The model writes a plain headline and one reason to read it, using only the title and excerpt. For the stories that make the cut it adds two or three brief points and, when the article describes a concrete architecture, a small diagram of the components it names. It never chooses links or images, and anything it writes that contains a URL is thrown away."],
   ["Balance", "The top 50 are published, with limits per topic and on papers so no single subject crowds out the rest. Near-duplicate stories from different sources are merged."],
+  ["Illustrate", "Lead stories carry the source's own preview image, downloaded once and re-encoded so your browser never contacts a third party. Stories without one get cover art generated from their kind and topic. The pulse line and topic mix are drawn from the day's scores."],
 ];
 ---
 <BaseLayout title="How we pick · DevPulse" description="How DevPulse picks the daily engineering stories.">

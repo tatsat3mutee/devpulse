@@ -1,0 +1,169 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { allDigests } from "../lib/digests";
+import { DESKS, KINDS, TOPICS, domainOf, type Desk } from "../lib/digest";
+import { deskOf } from "../lib/visual";
+
+const digests = await allDigests();
+const recent = digests.slice(0, 30);
+const week = digests.slice(0, 7);
+const desks = Object.keys(DESKS) as Desk[];
+const format = new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" });
+const day = (date: string) => format.format(new Date(`${date}T12:00:00Z`));
+const weekItems = week.flatMap((digest) => digest.items);
+
+const topics = TOPICS.map((topic) => ({ ...topic, count: weekItems.filter((item) => item.topic === topic.slug).length, days: week.map((digest) => digest.items.filter((item) => item.topic === topic.slug).length).reverse() }))
+  .filter((topic) => topic.count > 0)
+  .sort((a, b) => b.count - a.count);
+const maxTopic = Math.max(1, ...topics.map((topic) => topic.count));
+
+const domainCounts = new Map<string, number>();
+for (const item of weekItems) domainCounts.set(domainOf(item.url), (domainCounts.get(domainOf(item.url)) ?? 0) + 1);
+const domains = [...domainCounts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 12);
+const maxDomain = Math.max(1, ...domains.map(([, count]) => count));
+
+const kinds = (Object.keys(KINDS) as (keyof typeof KINDS)[]).map((kind) => ({ kind, label: KINDS[kind], count: weekItems.filter((item) => item.kind === kind).length })).filter((entry) => entry.count > 0).sort((a, b) => b.count - a.count);
+
+const sourceIds = [...new Set(week.flatMap((digest) => digest.sources.map((source) => source.id)))];
+const sourceRows = sourceIds.map((id) => {
+  const label = week.flatMap((digest) => digest.sources).find((source) => source.id === id)!.label;
+  const cells = [...week].reverse().map((digest) => digest.sources.find((source) => source.id === id));
+  return { id, label, cells, errors: cells.filter((cell) => cell?.status === "error").length, total: cells.reduce((sum, cell) => sum + (cell?.count ?? 0), 0) };
+}).sort((a, b) => b.errors - a.errors || b.total - a.total || a.label.localeCompare(b.label));
+const statusMark = { ok: "✓", empty: "–", error: "!" } as const;
+---
+<BaseLayout title="Pulse · DevPulse" description="What engineering is talking about: topic mix, recurring sites and source health across DevPulse editions." image={digests[0] ? `/og/${digests[0].date}.png` : undefined}>
+  <div class="pulse-page shell">
+    <header class="page-head">
+      <p class="eyebrow">Pulse</p>
+      <h1>What engineering is talking about</h1>
+      <p class="dek">Trends across the last {week.length === 1 ? "edition" : `${week.length} editions`}: which subjects keep coming back, which sites earn a place, and whether every source is still reporting. {digests.length < 7 && "The charts fill in as more editions are published."}</p>
+    </header>
+
+    <section aria-labelledby="mix-h">
+      <div class="section-head"><h2 id="mix-h">Topic mix by edition</h2>
+        <ul class="legend">{desks.map((desk) => <li data-desk={desk}>{DESKS[desk].label}</li>)}</ul>
+      </div>
+      <ol class="days">
+        {recent.map((digest) => (
+          <li>
+            <a href={`/edition/${digest.date}`}>{day(digest.date)}</a>
+            <div class="stack" role="img" aria-label={desks.map((desk) => `${DESKS[desk].label} ${digest.items.filter((item) => deskOf(item) === desk).length}`).join(", ")}>
+              {desks.map((desk) => {
+                const count = digest.items.filter((item) => deskOf(item) === desk).length;
+                return count > 0 && <span data-desk={desk} style={`flex:${count}`} title={`${DESKS[desk].label}: ${count}`}></span>;
+              })}
+            </div>
+            <span class="num">{digest.items.length}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <div class="two">
+      <section aria-labelledby="topics-h">
+        <div class="section-head"><h2 id="topics-h">Stories per topic</h2><span class="hint">last {week.length === 1 ? "edition" : `${week.length} editions`}</span></div>
+        <table class="bars">
+          <thead><tr><th scope="col">Topic</th><th scope="col">Stories</th><th scope="col"><span class="sr">By day</span></th></tr></thead>
+          <tbody>
+            {topics.map((topic) => (
+              <tr data-desk={topic.desk}>
+                <th scope="row"><a href={`/topic/${topic.slug}`}>{topic.label}</a></th>
+                <td><span class="bar" style={`width:${(topic.count / maxTopic) * 100}%`}></span><b>{topic.count}</b></td>
+                <td class="spark" aria-label={`Per day: ${topic.days.join(", ")}`}>{topic.days.map((count) => <i style={`height:${Math.max(2, (count / Math.max(1, ...topic.days)) * 18)}px`} title={String(count)}></i>)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section aria-labelledby="domains-h">
+        <div class="section-head"><h2 id="domains-h">Sites that keep earning a place</h2></div>
+        <table class="bars mono-bars">
+          <thead><tr><th scope="col">Site</th><th scope="col">Stories</th></tr></thead>
+          <tbody>
+            {domains.map(([domain, count]) => (
+              <tr><th scope="row">{domain}</th><td><span class="bar" style={`width:${(count / maxDomain) * 100}%`}></span><b>{count}</b></td></tr>
+            ))}
+          </tbody>
+        </table>
+        <h3 class="sub">Kinds of story</h3>
+        <p class="kinds">{kinds.map((entry) => <span><b>{entry.count}</b> {entry.label.toLowerCase()}</span>)}</p>
+      </section>
+    </div>
+
+    <section aria-labelledby="sources-h">
+      <div class="section-head"><h2 id="sources-h">Source health</h2>
+        <ul class="legend status"><li data-status="ok">{statusMark.ok} Reported stories</li><li data-status="empty">{statusMark.empty} Nothing new</li><li data-status="error">{statusMark.error} Failed</li></ul>
+      </div>
+      <div class="health-scroll">
+        <table class="health">
+          <thead><tr><th scope="col">Source</th>{[...week].reverse().map((digest) => <th scope="col">{day(digest.date)}</th>)}</tr></thead>
+          <tbody>
+            {sourceRows.map((row) => (
+              <tr>
+                <th scope="row">{row.label}</th>
+                {row.cells.map((cell) => cell
+                  ? <td data-status={cell.status} title={`${cell.status}: ${cell.count}`}>{statusMark[cell.status]}{cell.count > 0 && <small>{cell.count}</small>}</td>
+                  : <td data-status="none">&middot;</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+<style>
+  .pulse-page { padding-top: 40px; }
+  .page-head { padding-bottom: 22px; border-bottom: 2px solid rgb(var(--ink)); }
+  h1 { margin: 8px 0 10px; font: 700 clamp(34px, 5vw, 52px)/1.05 "Newsreader", serif; }
+  .dek { margin: 0; max-width: 70ch; color: rgb(var(--soft)); line-height: 1.6; }
+  section { padding-top: 36px; }
+  .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; margin-bottom: 14px; }
+  h2 { margin: 0; font: 700 24px/1.15 "Newsreader", serif; }
+  .hint { color: rgb(var(--muted)); font: 500 11px/1 "DM Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; color: rgb(var(--soft)); font-size: 12.5px; }
+  .legend li { display: inline-flex; align-items: center; gap: 6px; }
+  .legend li[data-desk]::before { content: ""; width: 10px; height: 10px; border-radius: 2px; background: rgb(var(--desk)); }
+  .days { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .days li { display: grid; grid-template-columns: 110px minmax(0, 1fr) 36px; align-items: center; gap: 14px; }
+  .days a { color: rgb(var(--soft)); font: 500 12px/1 "DM Mono", monospace; }
+  .days a:hover { color: rgb(var(--signal)); }
+  .stack { display: flex; gap: 2px; height: 26px; }
+  .stack span { min-width: 2px; background: rgb(var(--desk)); }
+  .stack span:first-child { border-radius: 4px 0 0 4px; }
+  .stack span:last-child { border-radius: 0 4px 4px 0; }
+  .num { color: rgb(var(--muted)); font: 500 12px/1 "DM Mono", monospace; text-align: right; }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
+  .bars { width: 100%; border-collapse: collapse; }
+  .bars thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .bars th { width: 44%; padding: 7px 12px 7px 0; text-align: left; font: 600 13px/1.3 "Manrope", sans-serif; }
+  .bars th a:hover { color: rgb(var(--signal)); }
+  .mono-bars th { font: 400 12.5px/1.3 "DM Mono", monospace; color: rgb(var(--soft)); }
+  .bars td { padding: 7px 0; border-bottom: 1px solid rgb(var(--line) / .6); white-space: nowrap; }
+  .bar { display: inline-block; height: 10px; min-width: 2px; max-width: calc(100% - 36px); margin-right: 8px; border-radius: 0 4px 4px 0; background: rgb(var(--desk)); vertical-align: middle; }
+  .mono-bars .bar { background: rgb(var(--soft)); }
+  .bars b { font: 500 12px/1 "DM Mono", monospace; }
+  .spark { width: 72px; text-align: right; }
+  .spark i { display: inline-block; width: 6px; margin-left: 2px; border-radius: 2px 2px 0 0; background: rgb(var(--desk) / .8); vertical-align: bottom; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .sub { margin: 26px 0 8px; font: 700 18px/1.2 "Newsreader", serif; }
+  .kinds { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+  .kinds span { padding: 5px 10px; border: 1px solid rgb(var(--line)); border-radius: 14px; color: rgb(var(--soft)); font-size: 12.5px; }
+  .kinds b { color: rgb(var(--ink)); font: 500 12px/1 "DM Mono", monospace; }
+  .health-scroll { overflow-x: auto; }
+  .health { border-collapse: collapse; min-width: 100%; }
+  .health th, .health td { padding: 6px 10px; border-bottom: 1px solid rgb(var(--line) / .6); font-size: 12.5px; white-space: nowrap; }
+  .health thead th { color: rgb(var(--muted)); font: 500 10.5px/1.2 "DM Mono", monospace; text-transform: uppercase; letter-spacing: .06em; text-align: center; }
+  .health thead th:first-child, .health tbody th { text-align: left; }
+  .health tbody th { font-weight: 600; }
+  .health td { text-align: center; font: 600 13px/1 "DM Mono", monospace; }
+  .health td small { margin-left: 4px; color: rgb(var(--muted)); font-size: 10.5px; font-weight: 400; }
+  [data-status="ok"] { color: rgb(var(--verified)); }
+  [data-status="empty"], [data-status="none"] { color: rgb(var(--muted)); }
+  td[data-status="error"] { background: rgb(var(--signal-soft)); color: rgb(var(--signal)); }
+  .legend.status li[data-status="error"] { color: rgb(var(--signal)); }
+  @media (max-width: 820px) { .two { grid-template-columns: 1fr; gap: 0; } }
+  @media (max-width: 520px) { .days li { grid-template-columns: 76px minmax(0, 1fr) 28px; gap: 8px; } .days a { font-size: 11px; } }
+</style>

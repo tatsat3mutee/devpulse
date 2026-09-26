@@ -1,4 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
+import { extractPreviewImage } from "./media";
 import { canonicalizeUrl, createLimiter, htmlToText, readBoundedText, safeFetch } from "./net";
 import type { sourceKinds } from "../../src/lib/digest";
 
@@ -18,6 +19,10 @@ export type RawItem = {
   publishedAt: string;
   snippet?: string;
   words?: number;
+  /** Longer run of the page's own text, used only to write briefs for picked stories. */
+  excerpt?: string;
+  /** The page's own og:image/twitter:image URL. */
+  imageUrl?: string;
 };
 
 export type SourceReport = { id: string; label: string; status: "ok" | "empty" | "error"; count: number; error?: string };
@@ -65,6 +70,22 @@ export const BLOGS = [
   ["shopify-eng", "Shopify Engineering", "https://shopify.engineering/blog.atom"],
   ["airbnb", "Airbnb Engineering", "https://medium.com/feed/airbnb-engineering"],
   ["slack-eng", "Slack Engineering", "https://slack.engineering/feed/"],
+  // AI systems, inference and agents
+  ["vllm", "vLLM Blog", "https://blog.vllm.ai/feed.xml"],
+  ["lmsys", "LMSYS", "https://lmsys.org/rss.xml"],
+  ["nvidia-dev", "NVIDIA Technical Blog", "https://developer.nvidia.com/blog/feed/"],
+  ["latent-space", "Latent Space", "https://www.latent.space/feed"],
+  ["interconnects", "Interconnects", "https://www.interconnects.ai/feed"],
+  ["import-ai", "Import AI", "https://importai.substack.com/feed"],
+  ["chip-huyen", "Chip Huyen", "https://huyenchip.com/feed.xml"],
+  ["eugene-yan", "Eugene Yan", "https://eugeneyan.com/rss/"],
+  ["hamel", "Hamel Husain", "https://hamel.dev/index.xml"],
+  // System design and architecture
+  ["highscalability", "High Scalability", "https://highscalability.com/rss/"],
+  ["bytebytego", "ByteByteGo", "https://blog.bytebytego.com/feed"],
+  ["infoq", "InfoQ", "https://feed.infoq.com/"],
+  ["pinterest-eng", "Pinterest Engineering", "https://medium.com/feed/pinterest-engineering"],
+  ["pragmatic", "The Pragmatic Engineer", "https://newsletter.pragmaticengineer.com/feed"],
 ] as const;
 
 const DAY = 86_400_000;
@@ -147,6 +168,18 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
     });
   });
 
+  const models = run("hf-models", "Hugging Face trending models", async () => {
+    const entries = await json<Array<Record<string, unknown>>>("https://huggingface.co/api/models?sort=trendingScore&direction=-1&limit=40");
+    return entries.flatMap((model) => {
+      if (typeof model.id !== "string" || !/^[\w.-]+\/[\w.-]+$/.test(model.id) || typeof model.createdAt !== "string") return [];
+      const publishedAt = new Date(model.createdAt).toISOString();
+      const likes = Number(model.likes) || 0;
+      if (likes < 50 || !within(publishedAt, 21)) return [];
+      const task = typeof model.pipeline_tag === "string" ? model.pipeline_tag : "";
+      return [{ id: `model-${slug(model.id)}`, title: task ? `${model.id} (${task.replace(/-/g, " ")} model)` : model.id, url: `https://huggingface.co/${model.id}`, source: "models" as const, sourceLabel: "Hugging Face", points: likes, publishedAt, snippet: [task && `Task: ${task}`, Array.isArray(model.tags) ? `Tags: ${model.tags.filter((tag) => typeof tag === "string" && !tag.includes(":")).slice(0, 12).join(", ")}` : "", typeof model.downloads === "number" ? `Downloads: ${model.downloads}` : ""].filter(Boolean).join(". ") }];
+    });
+  });
+
   const parser = new XMLParser({ ignoreAttributes: false, removeNSPrefix: true, parseTagValue: false, processEntities: true });
   const blogs = BLOGS.map(([id, label, url]) => run(`blog-${id}`, label, async () => {
     const xml = await get(url, { Accept: "application/rss+xml, application/atom+xml, application/xml, text/xml" });
@@ -159,13 +192,14 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
       const date = text(entry.published ?? entry.pubDate ?? entry.updated ?? entry.date);
       if (!title || !isWebUrl(link) || !date) return [];
       const publishedAt = new Date(date).toISOString();
-      if (!within(publishedAt, 3)) return [];
+      // Blogs post rarely; a week-long window is safe because already-published stories are excluded before scoring.
+      if (!within(publishedAt, 7)) return [];
       const summary = htmlToText(text(entry.summary ?? entry.description ?? entry.content ?? "")).slice(0, 1200);
       return [{ id: `blog-${id}-${slug(link.split("/").filter(Boolean).pop() ?? title)}`, title, url: link, source: "blog" as const, sourceLabel: label, publishedAt, snippet: summary || undefined }];
     });
   }));
 
-  const all = (await Promise.all([hn, lobsters, github, papers, ...blogs])).flat();
+  const all = (await Promise.all([hn, lobsters, github, papers, models, ...blogs])).flat();
   const seen = new Map<string, RawItem>();
   for (const item of all) {
     let key: string;
@@ -189,9 +223,12 @@ export async function enrichSnippets(items: RawItem[], options: { fetcher?: Fetc
     try {
       const response = await fetcher(item.url, { signal: AbortSignal.timeout(10_000), headers: { "User-Agent": "DevPulse/3.0 (+https://devpulse.tatsatpandey.com)", Accept: "text/html" } });
       if (!response.ok || !(response.headers.get("content-type") ?? "").includes("html")) { await response.body?.cancel(); return; }
-      const body = htmlToText(await readBoundedText(response, 1_500_000));
+      const html = await readBoundedText(response, 1_500_000);
+      item.imageUrl = extractPreviewImage(html, response.url || item.url);
+      const body = htmlToText(html);
       if (body.length > 200) {
         item.words = body.split(/\s+/).length;
+        item.excerpt = body.slice(0, 4000);
         if ((item.snippet?.length ?? 0) < 400) item.snippet = body.slice(0, 1500);
       }
     } catch { /* keep title-only candidate */ }

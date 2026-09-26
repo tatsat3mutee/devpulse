@@ -1,0 +1,15 @@
+---
+import { KINDS, domainOf, type DigestItem } from "../lib/digest";
+import { coverSvg, deskOf } from "../lib/visual";
+
+interface Props { item: DigestItem; eager?: boolean }
+const { item, eager = false } = Astro.props;
+const compact = new Intl.NumberFormat("en-US", { notation: "compact" });
+const stat = item.stars ? `\u2605 ${compact.format(item.stars)}` : item.points ? `${compact.format(item.points)} ${item.source === "papers" ? "upvotes" : item.source === "models" ? "likes" : "pts"}` : "";
+---
+<a class="cover" href={item.url} rel="noopener noreferrer" target="_blank" tabindex="-1" aria-hidden="true" data-desk={deskOf(item)}>
+  {item.image
+    ? <img src={item.image} alt="" width="640" height="360" loading={eager ? "eager" : "lazy"} decoding="async" />
+    : <Fragment set:html={coverSvg(item)} />}
+  {!item.image && <span class="cover-cap"><span>{item.kind ? KINDS[item.kind] : domainOf(item.url)}</span>{stat && <span>{stat}</span>}</span>}
+</a>

@@ -1,0 +1,38 @@
+---
+import type { Diagram } from "../lib/digest";
+import { layoutDiagram } from "../lib/visual";
+
+interface Props { diagram: Diagram; id: string }
+const { diagram, id } = Astro.props;
+const layout = layoutDiagram(diagram);
+const marker = `arrow-${id}`;
+const description = diagram.edges.map((edge) => {
+  const from = diagram.nodes.find((node) => node.id === edge.from)!.label;
+  const to = diagram.nodes.find((node) => node.id === edge.to)!.label;
+  return `${from} to ${to}${edge.label ? ` (${edge.label})` : ""}`;
+}).join("; ");
+---
+<figure class="diagram">
+  <div class="diagram-scroll">
+    <svg viewBox={`0 0 ${layout.width} ${layout.height}`} width={layout.width} height={layout.height} role="img" aria-label={`${diagram.caption}. ${description}.`}>
+      <defs>
+        <marker id={marker} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" class="d-arrow" /></marker>
+      </defs>
+      {layout.edges.map((edge) => (
+        <g>
+          <path d={edge.d} class="d-edge" marker-end={`url(#${marker})`} />
+          {edge.label && <text x={edge.lx} y={edge.ly} text-anchor="middle" class="d-edge-label">{edge.label}</text>}
+        </g>
+      ))}
+      {layout.nodes.map((node) => (
+        <g>
+          <rect x={node.x} y={node.y} width={node.w} height={node.h} rx="4" class="d-node" />
+          {node.lines.map((line, index) => (
+            <text x={node.x + node.w / 2} y={node.y + node.h / 2 + (index - (node.lines.length - 1) / 2) * 14 + 4} text-anchor="middle" class="d-label">{line}</text>
+          ))}
+        </g>
+      ))}
+    </svg>
+  </div>
+  <figcaption>{diagram.caption} <span>Sketched from the article's own text.</span></figcaption>
+</figure>
