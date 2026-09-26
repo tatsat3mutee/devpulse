@@ -1,0 +1,74 @@
+---
+import type { RadarModel, RadarRepo } from "../lib/radar";
+
+interface Props { models: RadarModel[]; repos: RadarRepo[]; compact?: boolean }
+const { models, repos, compact = false } = Astro.props;
+const number = new Intl.NumberFormat("en-US", { notation: "compact" });
+const move = (entry: { move: "new" | number }) => entry.move === "new" ? { label: "New", cls: "new" } : entry.move > 0 ? { label: `▲ ${entry.move}`, cls: "up" } : entry.move < 0 ? { label: `▼ ${-entry.move}`, cls: "down" } : { label: "–", cls: "same" };
+const moveText = (entry: { move: "new" | number }) => entry.move === "new" ? "new on the radar" : entry.move === 0 ? "unchanged" : `${entry.move > 0 ? "up" : "down"} ${Math.abs(entry.move)}`;
+const task = (value?: string) => value?.replace(/-/g, " ");
+---
+<div class={`radar-tables${compact ? " compact" : ""}`}>
+  {models.length > 0 && (
+    <section aria-label="Trending models">
+      <h3>Trending models <span>Hugging Face</span></h3>
+      <table>
+        <thead><tr><th scope="col">#</th><th scope="col">Model</th>{!compact && <th scope="col">Task</th>}<th scope="col" class="num">Likes</th>{!compact && <th scope="col" class="num">Downloads</th>}<th scope="col" class="num">Move</th></tr></thead>
+        <tbody>
+          {models.map((model) => (
+            <tr>
+              <td class="rank">{model.rank}</td>
+              <th scope="row"><a href={`https://huggingface.co/${model.id}`} rel="noopener noreferrer" target="_blank"><span class="org">{model.id.split("/")[0]}/</span>{model.id.split("/")[1]}</a>{compact && model.task && <small>{task(model.task)}</small>}</th>
+              {!compact && <td>{task(model.task)}{model.library && <small>{model.library}</small>}</td>}
+              <td class="num">{number.format(model.likes)}{model.delta ? <small>+{number.format(model.delta)}</small> : null}</td>
+              {!compact && <td class="num">{model.downloads !== undefined ? number.format(model.downloads) : "–"}</td>}
+              <td class="num"><span class={`move ${move(model).cls}`} title={moveText(model)}>{move(model).label}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  )}
+  {repos.length > 0 && (
+    <section aria-label="Fast-rising repositories">
+      <h3>Fast-rising repositories <span>GitHub, created this week</span></h3>
+      <table>
+        <thead><tr><th scope="col">#</th><th scope="col">Repository</th>{!compact && <th scope="col">Language</th>}<th scope="col" class="num">Stars</th><th scope="col" class="num">Move</th></tr></thead>
+        <tbody>
+          {repos.map((repo) => (
+            <tr>
+              <td class="rank">{repo.rank}</td>
+              <th scope="row"><a href={`https://github.com/${repo.name}`} rel="noopener noreferrer" target="_blank"><span class="org">{repo.name.split("/")[0]}/</span>{repo.name.split("/")[1]}</a>{repo.description && !compact && <small class="desc">{repo.description}</small>}</th>
+              {!compact && <td>{repo.language ?? "–"}</td>}
+              <td class="num">{number.format(repo.stars)}{repo.delta ? <small>+{number.format(repo.delta)}</small> : null}</td>
+              <td class="num"><span class={`move ${move(repo).cls}`} title={moveText(repo)}>{move(repo).label}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  )}
+</div>
+<style>
+  .radar-tables { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  .radar-tables:not(.compact) { grid-template-columns: 1fr; gap: 36px; }
+  h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0 0 8px; font: 700 18px/1.2 "Newsreader", serif; }
+  h3 span { color: rgb(var(--muted)); font: 500 10.5px/1 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { padding: 0 8px 6px 0; border-bottom: 1px solid rgb(var(--ink)); color: rgb(var(--muted)); font: 500 10px/1.2 "DM Mono", monospace; letter-spacing: .08em; text-align: left; text-transform: uppercase; }
+  td, tbody th { padding: 7px 8px 7px 0; border-bottom: 1px solid rgb(var(--line)); vertical-align: top; text-align: left; font-weight: 400; }
+  tbody th { font-weight: 600; overflow-wrap: anywhere; }
+  tbody th a:hover { text-decoration: underline; }
+  .org { color: rgb(var(--muted)); font-weight: 500; }
+  small { display: block; margin-top: 2px; color: rgb(var(--muted)); font: 400 11px/1.35 "DM Mono", monospace; }
+  small.desc { font: 400 12px/1.4 "Manrope", sans-serif; }
+  .rank { width: 24px; color: rgb(var(--muted)); font: 500 11.5px/1.5 "DM Mono", monospace; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  thead .num { text-align: right; }
+  .num small { color: rgb(var(--soft)); }
+  .move { font: 500 11px/1.5 "DM Mono", monospace; }
+  .move.up { color: rgb(var(--ink)); }
+  .move.down, .move.same { color: rgb(var(--muted)); }
+  .move.new { padding: 1px 5px; border: 1px solid rgb(var(--ink)); color: rgb(var(--ink)); font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; }
+  @media (max-width: 820px) { .radar-tables { grid-template-columns: 1fr; } }
+</style>

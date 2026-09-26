@@ -83,6 +83,10 @@ export const itemSchema = z.object({
   whyRead: z.string().min(20).max(420),
   publishedAt: z.iso.datetime(),
   mustRead: z.boolean().default(false),
+  // Byline and code link as the source states them (feed author, paper authors, the paper's own repository).
+  author: z.string().min(1).max(120).optional(),
+  codeUrl: webUrl.optional(),
+  codeStars: z.number().int().nonnegative().optional(),
   // Re-encoded copy of the source page's own preview image, stored with the site; never chosen by the model.
   image: z.string().regex(/^\/covers\/\d{4}-\d{2}-\d{2}\/[a-z0-9-]+\.webp$/).optional(),
   brief: z.array(shortText(200)).min(2).max(3).optional(),
@@ -95,6 +99,24 @@ export const digestSchema = z.object({
   model: z.string().min(1),
   candidateCount: z.number().int().nonnegative(),
   collectedCount: z.number().int().nonnegative().optional(),
+  // AI Radar: trending models and fast-rising repositories exactly as the source APIs report them; no model text.
+  radar: z.object({
+    models: z.array(z.object({
+      id: z.string().regex(/^[\w.-]+\/[\w.-]+$/),
+      task: z.string().max(60).optional(),
+      library: z.string().max(60).optional(),
+      likes: z.number().int().nonnegative(),
+      downloads: z.number().int().nonnegative().optional(),
+      createdAt: z.iso.datetime(),
+    })).max(40),
+    repos: z.array(z.object({
+      name: z.string().regex(/^[\w.-]+\/[\w.-]+$/),
+      description: z.string().max(300).optional(),
+      language: z.string().max(40).optional(),
+      stars: z.number().int().nonnegative(),
+      createdAt: z.iso.datetime(),
+    })).max(30),
+  }).optional(),
   // "Today in one minute": a model-written synthesis of the day that may only point at stories in this edition, by id.
   lede: z.object({
     text: z.string().min(80).max(700).refine((value) => !/https?:\/\/|www\./i.test(value), { message: "Model text must not contain URLs" }),
@@ -108,6 +130,7 @@ export const digestSchema = z.object({
 
 export type DigestItem = z.infer<typeof itemSchema>;
 export type Digest = z.infer<typeof digestSchema>;
+export type Radar = NonNullable<Digest["radar"]>;
 
 export const domainOf = (url: string) => new URL(url).hostname.replace(/^www\./, "");
 

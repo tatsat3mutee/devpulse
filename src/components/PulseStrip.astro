@@ -10,7 +10,7 @@ const desks = (Object.keys(DESKS) as Desk[])
   .filter((entry) => entry.count > 0);
 const total = items.length;
 ---
-<figure class="pulse" aria-labelledby="pulse-caption" data-pagefind-ignore="all">
+<figure class="pulse" aria-labelledby="pulse-caption">
   <figcaption id="pulse-caption"><span class="pulse-title">{label}</span><span class="pulse-note">One beat per story, in page order. Taller beats scored higher.</span></figcaption>
   <div class="pulse-plot">
   <svg viewBox={`0 0 ${pulse.width} ${pulse.height}`} preserveAspectRatio="none" class="pulse-line" role="img" aria-label={`${total} stories. ${desks.map((d) => `${d.label}: ${d.count}`).join(", ")}.`}>

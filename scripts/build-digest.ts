@@ -1,6 +1,6 @@
 import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { collectAll, enrichSnippets, type SourceReport } from "./lib/collect";
+import { collectAll, enrichSnippets, type Radar, type SourceReport } from "./lib/collect";
 import { saveCover } from "./lib/media";
 import { coverTargets, excludePublished, openRouterJudge, openRouterLede, openRouterWriter, scoreItems, selectItems, writeBriefs, writeLede } from "./lib/score";
 import { validateDate } from "./lib/net";
@@ -11,7 +11,7 @@ async function write(path: string, value: unknown) {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`);
 }
 
-type Saved = { judged: DigestItem[]; reports: SourceReport[]; candidateCount: number; collectedCount?: number; excerpts?: Record<string, string>; media?: Record<string, string> };
+type Saved = { judged: DigestItem[]; reports: SourceReport[]; candidateCount: number; collectedCount?: number; excerpts?: Record<string, string>; media?: Record<string, string>; radar?: Radar };
 
 const date = validateDate(process.env.EDITION_DATE ?? new Date().toISOString().slice(0, 10));
 const dryRun = process.argv.includes("--dry-run");
@@ -32,7 +32,7 @@ async function recentDigests(days: number): Promise<Digest[]> {
   return Promise.all(files.map(async (file) => digestSchema.parse(JSON.parse(await readFile(join(digestDir, file), "utf8")))));
 }
 
-async function publish({ judged, reports, candidateCount, collectedCount, excerpts = {}, media = {} }: Saved) {
+async function publish({ judged, reports, candidateCount, collectedCount, excerpts = {}, media = {}, radar }: Saved) {
   const picked = selectItems(judged.map(({ brief: _brief, diagram: _diagram, image: _image, ...item }) => ({ ...item, mustRead: false })));
 
   if (apiKey && !process.argv.includes("--no-briefs")) {
@@ -69,6 +69,7 @@ async function publish({ judged, reports, candidateCount, collectedCount, excerp
     candidateCount,
     collectedCount,
     lede,
+    radar: radar && (radar.models.length || radar.repos.length) ? radar : undefined,
     items: picked,
     sources: reports.map(({ id, label, status, count }) => ({ id, label, status, count })),
   });
@@ -76,7 +77,7 @@ async function publish({ judged, reports, candidateCount, collectedCount, excerp
   console.log(`Published ${digest.items.length} of ${judged.length} judged items to data/digests/${date}.json`);
 }
 
-const { items, reports } = await collectAll({ githubToken: process.env.GITHUB_TOKEN });
+const { items, reports, radar } = await collectAll({ githubToken: process.env.GITHUB_TOKEN });
 for (const report of reports) console.log(`${report.id}: ${report.status} ${report.count}${report.error ? ` (${report.error})` : ""}`);
 const fresh = excludePublished(items, await recentDigests(7));
 console.log(`Collected ${items.length} unique candidates; ${items.length - fresh.length} already published this week`);
@@ -93,6 +94,6 @@ const { judged, failures } = await scoreItems(ranked, openRouterJudge(apiKey!, m
 for (const failure of failures) console.warn(`Scoring ${failure}`);
 const excerpts = Object.fromEntries(ranked.flatMap((item) => (item.excerpt ?? item.snippet) ? [[item.id, (item.excerpt ?? item.snippet)!.slice(0, 4000)]] : []));
 const media = Object.fromEntries(ranked.flatMap((item) => item.imageUrl ? [[item.id, item.imageUrl]] : []));
-const saved: Saved = { judged, reports, candidateCount: ranked.length, collectedCount: items.length, excerpts, media };
+const saved: Saved = { judged, reports, candidateCount: ranked.length, collectedCount: items.length, excerpts, media, radar };
 await write(join(runDir, "judged.json"), saved);
 await publish(saved);

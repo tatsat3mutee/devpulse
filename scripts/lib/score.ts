@@ -127,6 +127,9 @@ export async function scoreItems(items: RawItem[], judge: Judge, batchSize = 20)
           relevance: judgement.relevance,
           whyRead: judgement.whyRead.trim(),
           publishedAt: item.publishedAt,
+          author: item.author,
+          codeUrl: item.codeUrl,
+          codeStars: item.codeStars,
           mustRead: false,
         });
       }

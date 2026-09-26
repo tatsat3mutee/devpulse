@@ -2,7 +2,7 @@
 // Pages are network-first so readers always get today's edition; the caches only serve offline reads.
 // Install (and every new edition) saves the latest edition, Pulse, the offline page and their assets,
 // so an installed app works offline even before the reader has opened anything.
-const VERSION = "v4";
+const VERSION = "v5";
 const PAGES = `devpulse-pages-${VERSION}`;
 const ASSETS = `devpulse-assets-${VERSION}`;
 const IMAGES = `devpulse-images-${VERSION}`;
@@ -45,8 +45,12 @@ async function fetchAndStore(path) {
 /** Saves the latest edition page, its cover images and the assets its HTML references. */
 async function saveLatestEdition() {
   const digest = await fetch("/json", { cache: "no-store" }).then((response) => response.ok ? response.json() : null).catch(() => null);
-  const pages = ["/", "/pulse/", OFFLINE, ...(digest ? [`/edition/${digest.date}/`] : [])];
+  const pages = ["/", "/pulse/", "/radar/", "/papers/", OFFLINE, ...(digest ? [`/edition/${digest.date}/`] : [])];
   const responses = await Promise.all(pages.map(fetchAndStore));
+  // The latest weekly is linked from the masthead; save it too.
+  const home = await responses[0]?.clone().text().catch(() => "");
+  const week = home?.match(/href="(\/week\/\d{4}-W\d{2})"/)?.[1];
+  if (week) responses.push(await fetchAndStore(`${week}/`));
   const html = await Promise.all(responses.filter(Boolean).map((response) => response.clone().text().catch(() => "")));
   const assets = new Set(["/manifest.webmanifest", "/mark.svg", "/icon-192.png"]);
   for (const text of html) for (const match of text.matchAll(/(?:href|src)="(\/_astro\/[^"]+)"/g)) assets.add(match[1]);
