@@ -11,7 +11,8 @@
     "test:e2e": "playwright test",
     "digest": "bun run scripts/build-digest.ts",
     "release:check": "bun run scripts/check-release.ts",
-    "release:probe": "bun run scripts/check-live.ts"
+    "release:probe": "bun run scripts/check-live.ts",
+    "icons": "bun run scripts/make-pwa-icons.ts"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",

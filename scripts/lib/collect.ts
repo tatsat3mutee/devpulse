@@ -71,12 +71,10 @@ export const BLOGS = [
   ["airbnb", "Airbnb Engineering", "https://medium.com/feed/airbnb-engineering"],
   ["slack-eng", "Slack Engineering", "https://slack.engineering/feed/"],
   // AI systems, inference and agents
-  ["vllm", "vLLM Blog", "https://blog.vllm.ai/feed.xml"],
-  ["lmsys", "LMSYS", "https://lmsys.org/rss.xml"],
   ["nvidia-dev", "NVIDIA Technical Blog", "https://developer.nvidia.com/blog/feed/"],
   ["latent-space", "Latent Space", "https://www.latent.space/feed"],
   ["interconnects", "Interconnects", "https://www.interconnects.ai/feed"],
-  ["import-ai", "Import AI", "https://importai.substack.com/feed"],
+  ["import-ai", "Import AI", "https://jack-clark.net/feed/"],
   ["chip-huyen", "Chip Huyen", "https://huyenchip.com/feed.xml"],
   ["eugene-yan", "Eugene Yan", "https://eugeneyan.com/rss/"],
   ["hamel", "Hamel Husain", "https://hamel.dev/index.xml"],

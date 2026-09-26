@@ -22,6 +22,7 @@ bun run digest            # needs OPENROUTER_API_KEY; --dry-run collects only; -
 - `src/lib/digest.ts`: Zod schema, topics and desks; digests live in `data/digests/`
 - Colour: one brand accent (`--signal`) reserved for brand and urgency; desk colours only mark topic groups (dots, rules, charts). Validate any desk palette change with the dataviz validator in both themes, all pairs.
 - `src/lib/visual.ts`, `src/lib/og.ts`: generated cover art, diagram layout, pulse line and social cards (all deterministic, no network)
+- Installable app: `public/manifest.webmanifest`, `public/sw.js` (saves the latest edition, Pulse and the offline page on install and on each new edition; separate page, asset and image caches) and `src/components/AppBar.astro` (new-edition notice and install prompt). Regenerate icons with `bun run icons`; bump `VERSION` in `sw.js` when its caching changes.
 - Daily GitHub Action commits the digest and pushes the built site to the `site` branch; EC2 pulls it via a systemd timer and `deploy/ec2/release.sh`
 
 No database or application server.

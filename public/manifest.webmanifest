@@ -1,15 +1,30 @@
 {
-  "name": "DevPulse",
+  "id": "/",
+  "name": "DevPulse: AI and systems engineering, daily",
   "short_name": "DevPulse",
-  "description": "The engineering stories worth your time, every day.",
+  "description": "The AI and systems engineering stories worth a senior engineer's time, picked every day, with briefs, diagrams and offline reading.",
+  "lang": "en",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#f9f8f4",
   "theme_color": "#f9f8f4",
+  "categories": ["news", "developer", "education"],
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
     { "src": "/mark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Today's edition", "short_name": "Today", "url": "/", "icons": [{ "src": "/shortcut-today.png", "sizes": "96x96", "type": "image/png" }] },
+    { "name": "Pulse: trends and source health", "short_name": "Pulse", "url": "/pulse", "icons": [{ "src": "/shortcut-pulse.png", "sizes": "96x96", "type": "image/png" }] },
+    { "name": "Search every edition", "short_name": "Search", "url": "/search", "icons": [{ "src": "/shortcut-search.png", "sizes": "96x96", "type": "image/png" }] },
+    { "name": "Previous editions", "short_name": "Archive", "url": "/archive", "icons": [{ "src": "/shortcut-archive.png", "sizes": "96x96", "type": "image/png" }] }
+  ],
+  "screenshots": [
+    { "src": "/screenshot-wide.jpg", "sizes": "1280x800", "type": "image/jpeg", "form_factor": "wide", "label": "Today's edition with the lead story, must-reads and the day's pulse" },
+    { "src": "/screenshot-narrow.jpg", "sizes": "412x915", "type": "image/jpeg", "form_factor": "narrow", "label": "Today's edition on a phone" }
   ]
 }
