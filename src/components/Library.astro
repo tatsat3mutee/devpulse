@@ -1,0 +1,131 @@
+---
+// Save, notes, share and follow: one shared dialog and one script for every page.
+---
+<dialog id="note-dialog" aria-labelledby="note-title">
+  <form method="dialog">
+    <p class="eyebrow">Your note</p>
+    <h2 id="note-title"></h2>
+    <label class="sr-only" for="note-text">Note</label>
+    <textarea id="note-text" rows="7" maxlength="5000" placeholder="What stood out, what to try, who to send it to…"></textarea>
+    <p class="hint">Private to you. Stored in this browser, and synced to your account when you are signed in.</p>
+    <div class="row">
+      <button type="button" value="delete" data-note="delete" class="quiet">Delete note</button>
+      <span></span>
+      <button type="button" value="cancel" data-note="cancel" class="quiet">Cancel</button>
+      <button type="submit" value="save" data-note="save" class="primary">Save note</button>
+    </div>
+  </form>
+</dialog>
+<div class="toast" id="library-toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+  import * as lib from "../lib/library-client";
+
+  const toast = document.querySelector<HTMLElement>("#library-toast")!;
+  let toastTimer: ReturnType<typeof setTimeout> | undefined;
+  const say = (message: string) => {
+    toast.textContent = message;
+    toast.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.hidden = true; }, 2400);
+  };
+
+  const metaOf = (el: HTMLElement): lib.StoryMeta => ({ storyId: el.dataset.storyId!, url: el.dataset.url!, headline: el.dataset.headline!, date: el.dataset.date!, topic: el.dataset.topic! });
+
+  function paint() {
+    document.querySelectorAll<HTMLElement>(".story-actions").forEach((el) => {
+      const entry = lib.entry(el.dataset.storyId!);
+      const save = el.querySelector<HTMLButtonElement>('[data-action="save"]');
+      if (save) {
+        save.setAttribute("aria-pressed", String(Boolean(entry?.saved)));
+        save.querySelector("span")!.textContent = entry?.saved ? "Saved" : "Save";
+      }
+      const note = el.querySelector('[data-action="note"] span');
+      if (note) note.textContent = entry?.note.trim() ? "Edit note" : "Note";
+      const preview = el.nextElementSibling;
+      if (preview?.classList.contains("my-note")) {
+        preview.textContent = entry?.note.trim() ?? "";
+        (preview as HTMLElement).hidden = !entry?.note.trim();
+      }
+    });
+    const follow = lib.prefs().follow;
+    document.querySelectorAll<HTMLButtonElement>('[data-action="follow"]').forEach((button) => {
+      const on = follow.includes(button.dataset.topic!);
+      button.setAttribute("aria-pressed", String(on));
+      // Topic pages show a single Follow button; the library's topic list keeps its labels.
+      if (button.hasAttribute("data-follow-label")) button.textContent = on ? "Following" : "Follow topic";
+    });
+  }
+
+  const dialog = document.querySelector<HTMLDialogElement>("#note-dialog")!;
+  const text = dialog.querySelector<HTMLTextAreaElement>("#note-text")!;
+  let editing: lib.StoryMeta | undefined;
+  const openNote = (meta: lib.StoryMeta) => {
+    editing = meta;
+    dialog.querySelector("#note-title")!.textContent = meta.headline;
+    text.value = lib.entry(meta.storyId)?.note ?? "";
+    dialog.showModal();
+    text.focus();
+  };
+  dialog.addEventListener("click", (event) => {
+    const action = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-note]")?.dataset.note;
+    if (!action || !editing) return;
+    event.preventDefault();
+    if (action === "save") { lib.update(editing, { note: text.value.slice(0, 5000) }); say("Note saved"); }
+    if (action === "delete") { lib.update(editing, { note: "" }); say("Note deleted"); }
+    dialog.close();
+  });
+
+  async function share(meta: lib.StoryMeta) {
+    const data = { title: meta.headline, text: `${meta.headline} (via DevPulse)`, url: meta.url };
+    if (navigator.share) {
+      try { await navigator.share(data); return; } catch (error) { if ((error as Error).name === "AbortError") return; }
+    }
+    const note = lib.entry(meta.storyId)?.note.trim();
+    const markdown = `[${meta.headline}](${meta.url})${note ? `\n\n> ${note.split("\n").join("\n> ")}` : ""}`;
+    try { await navigator.clipboard.writeText(markdown); say("Copied as Markdown"); } catch { say("Could not copy"); }
+  }
+
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLElement>("[data-action]");
+    if (!button) return;
+    const host = button.closest<HTMLElement>(".story-actions");
+    const action = button.dataset.action;
+    if (host && action === "save") {
+      const saved = !lib.entry(host.dataset.storyId!)?.saved;
+      lib.update(metaOf(host), { saved });
+      say(saved ? "Saved to your library" : "Removed from your library");
+    } else if (host && action === "note") openNote(metaOf(host));
+    else if (host && action === "share") void share(metaOf(host));
+    else if (action === "follow") {
+      const topic = button.dataset.topic!;
+      const follow = lib.prefs().follow;
+      lib.updatePrefs({ follow: follow.includes(topic) ? follow.filter((entry) => entry !== topic) : [...follow, topic] });
+      say(follow.includes(topic) ? "Unfollowed" : "Following. It shows up in For you");
+    }
+  });
+
+  window.addEventListener("devpulse:library", paint);
+  paint();
+
+  // Pull changes from other devices when signed in: on load and whenever the tab comes back.
+  const pull = () => { if (document.visibilityState === "visible") void lib.sync(); };
+  if (lib.API_URL) { pull(); document.addEventListener("visibilitychange", pull); }
+</script>
+
+<style>
+  dialog { width: min(560px, calc(100% - 32px)); padding: 0; border: 1px solid rgb(var(--ink)); background: rgb(var(--surface)); color: rgb(var(--ink)); box-shadow: 0 20px 60px rgb(0 0 0 / .25); }
+  dialog::backdrop { background: rgb(0 0 0 / .35); }
+  form { display: grid; gap: 10px; padding: 20px; }
+  h2 { margin: 0; font: 700 20px/1.25 "Newsreader", serif; }
+  textarea { width: 100%; padding: 10px 12px; border: 1px solid rgb(var(--line)); background: rgb(var(--paper)); color: rgb(var(--ink)); font: 400 15px/1.5 "Manrope", sans-serif; resize: vertical; }
+  textarea:focus { outline: 2px solid rgb(var(--ink)); outline-offset: 0; }
+  .hint { margin: 0; color: rgb(var(--muted)); font-size: 12px; }
+  .row { display: grid; grid-template-columns: auto 1fr auto auto; gap: 8px; align-items: center; }
+  .row button { min-height: 40px; padding: 0 14px; border: 1px solid rgb(var(--line)); background: transparent; color: rgb(var(--ink)); cursor: pointer; font: 600 13px/1 "Manrope", sans-serif; }
+  .row .primary { border-color: rgb(var(--ink)); background: rgb(var(--ink)); color: rgb(var(--paper)); }
+  .row .quiet { border-color: transparent; color: rgb(var(--soft)); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .toast { position: fixed; left: 50%; bottom: 92px; z-index: 60; transform: translateX(-50%); padding: 10px 16px; background: rgb(var(--ink)); color: rgb(var(--paper)); font: 600 13px/1.3 "Manrope", sans-serif; box-shadow: 0 8px 24px rgb(0 0 0 / .2); }
+  .toast[hidden] { display: none; }
+</style>

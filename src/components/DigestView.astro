@@ -46,7 +46,10 @@ const top = items.filter((item) => item.score >= 9).length;
     </div>
     <div class="head-grid">
       <div>
-        <h1>{heading}</h1>
+        <div class="title-row">
+          <h1>{heading}</h1>
+          {topic && <button type="button" class="follow" data-action="follow" data-follow-label data-topic={topic} aria-pressed="false">Follow topic</button>}
+        </div>
         {lede ? (
           <div class="lede" data-quiet={lede.quiet ? "" : undefined}>
             <p class="lede-label">{lede.quiet ? "A quiet day, in one minute" : latest ? "Today in one minute" : "The day in one minute"}</p>
@@ -74,6 +77,7 @@ const top = items.filter((item) => item.score >= 9).length;
   </header>
 
   <div class="toolbar">
+    <button type="button" class="for-you" data-foryou aria-pressed="false" hidden title="Only the topics you follow, without the sites you muted">For you</button>
     <nav class="topics" aria-label="Topics">
       <a href="/" aria-current={!topic ? "page" : undefined}>All <span>{digest.items.length}</span></a>
       {TOPICS.filter((entry) => counts.has(entry.slug)).map((entry) => (
@@ -98,8 +102,8 @@ const top = items.filter((item) => item.score >= 9).length;
     <section class="must" aria-labelledby="must-read">
       <h2 id="must-read" class="section-label">Must read</h2>
       <div class="must-grid">
-        <StoryCard item={lead} variant="lead" />
-        {side.length > 0 && <div class="must-side">{side.map((item) => <StoryCard item={item} variant="side" />)}</div>}
+        <StoryCard date={digest.date} item={lead} variant="lead" />
+        {side.length > 0 && <div class="must-side">{side.map((item) => <StoryCard date={digest.date} item={item} variant="side" />)}</div>}
       </div>
     </section>
   )}
@@ -109,7 +113,7 @@ const top = items.filter((item) => item.score >= 9).length;
       {tool && (
         <section class="tool-of-day" aria-labelledby="tool-of-day">
           <h2 id="tool-of-day" class="section-label">Tool of the day</h2>
-          <StoryCard item={tool} variant="tool" showTopic />
+          <StoryCard date={digest.date} item={tool} variant="tool" showTopic />
         </section>
       )}
       {radar && (
@@ -132,12 +136,12 @@ const top = items.filter((item) => item.score >= 9).length;
           <span class="count">{group.items.length} {group.items.length === 1 ? "story" : "stories"}</span>
           {!topic && <a href={`/topic/${group.slug}`} class="more-link">Topic page &rarr;</a>}
         </header>
-        <StoryCard item={feature} variant="feature" />
-        {visible.length > 0 && <div class="grid">{visible.map((item) => <StoryCard item={item} />)}</div>}
+        <StoryCard date={digest.date} item={feature} variant="feature" />
+        {visible.length > 0 && <div class="grid">{visible.map((item) => <StoryCard date={digest.date} item={item} />)}</div>}
         {hidden.length > 0 && (
           <details class="more">
             <summary>{hidden.length} more {hidden.length === 1 ? "story" : "stories"}</summary>
-            <div class="grid">{hidden.map((item) => <StoryCard item={item} />)}</div>
+            <div class="grid">{hidden.map((item) => <StoryCard date={digest.date} item={item} />)}</div>
           </details>
         )}
       </section>
@@ -157,12 +161,22 @@ const top = items.filter((item) => item.score >= 9).length;
     const root = document.querySelector(".digest");
     if (!root) return;
     const empty = root.querySelector(".filter-empty");
-    const state = { min: 0, time: "" };
+    const state = { min: 0, time: "", foryou: false };
+    // "For you" uses the reader's library preferences (followed topics, muted sites) from this browser.
+    const forYou = root.querySelector("[data-foryou]");
+    let prefs = { follow: [], muted: [] };
+    const readPrefs = () => {
+      try { prefs = { follow: [], muted: [], ...(JSON.parse(localStorage.getItem("devpulse-library-v1") ?? "{}").prefs ?? {}) }; } catch {}
+      if (forYou) forYou.hidden = !prefs.follow.length && !prefs.muted.length;
+      if (forYou?.hidden) state.foryou = false;
+    };
+    const matches = (story) => (!prefs.follow.length || prefs.follow.includes(story.dataset.topic)) && !prefs.muted.some((site) => story.dataset.domain === site || story.dataset.domain?.endsWith(`.${site}`));
     const apply = () => {
       root.querySelectorAll("[data-min]:not(.digest)").forEach((button) => button.setAttribute("aria-pressed", String(Number(button.dataset.min) === state.min)));
       root.querySelectorAll("[data-time]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.time === state.time)));
+      forYou?.setAttribute("aria-pressed", String(state.foryou));
       root.querySelectorAll(".story[data-score]").forEach((story) => {
-        story.hidden = Number(story.dataset.score) < state.min || (state.time !== "" && story.dataset.readTime !== state.time);
+        story.hidden = Number(story.dataset.score) < state.min || (state.time !== "" && story.dataset.readTime !== state.time) || (state.foryou && !matches(story));
       });
       let shown = 0;
       root.querySelectorAll(".must, .group, .tool-of-day").forEach((section) => {
@@ -170,7 +184,7 @@ const top = items.filter((item) => item.score >= 9).length;
         section.hidden = visible === 0;
         shown += visible;
         const more = section.querySelector("details.more");
-        if (more && (state.min > 0 || state.time) && more.querySelector(".story:not([hidden])")) more.open = true;
+        if (more && (state.min > 0 || state.time || state.foryou) && more.querySelector(".story:not([hidden])")) more.open = true;
         if (more) more.hidden = !more.querySelector(".story:not([hidden])");
       });
       if (empty) empty.hidden = shown > 0;
@@ -187,11 +201,14 @@ const top = items.filter((item) => item.score >= 9).length;
     const readSet = new Set(Array.isArray(read) ? read : []);
     root.querySelectorAll(".story[data-id]").forEach((story) => { if (readSet.has(story.dataset.id)) story.dataset.read = ""; });
 
+    readPrefs();
+    window.addEventListener("devpulse:library", () => { readPrefs(); apply(); });
     root.addEventListener("click", (event) => {
       const button = event.target.closest("button");
       if (button?.dataset.min !== undefined) { state.min = Number(button.dataset.min); apply(); }
       else if (button?.dataset.time !== undefined) { state.time = button.dataset.time; apply(); }
-      else if (button?.hasAttribute("data-reset")) { state.min = 0; state.time = ""; apply(); }
+      else if (button?.hasAttribute("data-foryou")) { state.foryou = !state.foryou; apply(); }
+      else if (button?.hasAttribute("data-reset")) { state.min = 0; state.time = ""; state.foryou = false; apply(); }
       const story = event.target.closest(".story[data-id]");
       if (story && event.target.closest("h3 a, .cover")) {
         story.dataset.read = "";
@@ -243,6 +260,13 @@ const top = items.filter((item) => item.score >= 9).length;
   .topics a[aria-current="page"] span { color: rgb(var(--paper) / .7); }
   .signal-filter { display: flex; flex: none; align-self: flex-start; margin-left: auto; border: 1px solid rgb(var(--line)); border-radius: 17px; overflow: hidden; }
   .time-filter { margin-left: 0; }
+  .title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+  .title-row h1 { margin-bottom: 10px; }
+  .follow { min-height: 36px; padding: 0 14px; border: 1px solid rgb(var(--ink)); border-radius: 18px; background: transparent; color: rgb(var(--ink)); cursor: pointer; font: 600 13px/1 "Manrope", sans-serif; }
+  .follow[aria-pressed="true"] { background: rgb(var(--ink)); color: rgb(var(--paper)); }
+  .for-you { flex: none; min-height: 34px; padding: 0 14px; border: 1px dashed rgb(var(--ink)); border-radius: 17px; background: transparent; color: rgb(var(--ink)); cursor: pointer; font: 700 12.5px/1 "Manrope", sans-serif; }
+  .for-you[hidden] { display: none; }
+  .for-you[aria-pressed="true"] { border-style: solid; background: rgb(var(--ink)); color: rgb(var(--paper)); }
   .filter-label { display: inline-flex; align-items: center; padding: 0 10px 0 12px; color: rgb(var(--muted)); font: 500 10px/1 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .signal-filter button { min-height: 34px; padding: 0 12px; border: 0; border-left: 1px solid rgb(var(--line)); background: transparent; cursor: pointer; font: 600 12px/1 "Manrope", sans-serif; }

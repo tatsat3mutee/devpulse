@@ -42,3 +42,22 @@ sudo systemctl daemon-reload && sudo systemctl enable --now devpulse-pull.timer
 ## Outputs
 
 `/` (today), `/topic/<slug>`, `/edition/YYYY-MM-DD`, `/week/` and `/week/YYYY-Www` (weekly editions, RSS at `/week/rss.xml`), `/radar` (trending models and repositories), `/papers` (papers explained), `/search` (every story, with topic and kind filters), `/pulse` (trends and source health), `/og/YYYY-MM-DD.png` (share card), `/archive`, `/rss.xml`, `/json`, `/latest.json`, `/digest/YYYY-MM-DD.md`, `/llms.txt`.
+
+## Accounts, sync and discussion (optional)
+
+Every reader feature (save, notes, follow topics, For you, export) works without an account and stays in the browser. Sign-in adds sync across devices; Giscus adds a discussion thread to each story page.
+
+**1. Database.** Create a Neon Postgres database and copy its connection string. The API creates its own `dp_*` tables on start.
+
+**2. OAuth apps.**
+- Google Cloud Console → Credentials → OAuth client (Web). Authorized redirect URI: `https://api.devpulse.tatsatpandey.com/auth/google/callback`.
+- GitHub → Settings → Developer settings → OAuth Apps. Callback URL: `https://api.devpulse.tatsatpandey.com/auth/github/callback`.
+
+**3. Render.** New → Blueprint → this repository (`render.yaml`). It creates `devpulse-api` (Docker, `api/`) and `devpulse-site` (static, `site` branch). Fill in `DATABASE_URL`, `GOOGLE_CLIENT_ID/SECRET` and `GITHUB_CLIENT_ID/SECRET` on the API service.
+
+**4. DNS.** Point `devpulse.tatsatpandey.com` and `api.devpulse.tatsatpandey.com` at the CNAMEs Render shows for each service.
+
+**5. Site settings.** In GitHub → Settings → Secrets and variables → Actions → Variables, add `PUBLIC_API_URL=https://api.devpulse.tatsatpandey.com`. For discussion, enable Discussions on the repository, install the Giscus app, and add `PUBLIC_GISCUS_REPO`, `PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY` and `PUBLIC_GISCUS_CATEGORY_ID` from giscus.app. The next publish picks them up.
+
+Run the API locally with `DATABASE_URL=… SITE_ORIGIN=http://localhost:4321 API_ORIGIN=http://localhost:3000 bun run api/src/main.ts`.
+

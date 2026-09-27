@@ -23,7 +23,7 @@ const label = (date: string) => new Intl.DateTimeFormat("en-US", { weekday: "lon
     {days.map((day) => (
       <section aria-labelledby={`d-${day.date}`}>
         <h2 id={`d-${day.date}`}><a href={`/edition/${day.date}`}>{label(day.date)}</a></h2>
-        <div class="list">{day.papers.map((item) => <StoryCard item={item} variant="tool" showTopic />)}</div>
+        <div class="list">{day.papers.map((item) => <StoryCard item={item} variant="tool" showTopic date={day.date} />)}</div>
       </section>
     ))}
     {days.length === 0 && <p>No papers yet.</p>}

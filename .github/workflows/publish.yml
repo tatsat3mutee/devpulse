@@ -1,0 +1,55 @@
+name: Publish site
+
+# Merged code reaches readers without waiting for the next daily digest: rebuild the current
+# edition from main, verify the artifact, and push it to the site branch the server pulls.
+# Digest commits made by the daily workflow use GITHUB_TOKEN, so they do not trigger this.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-site
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.3.13
+      - run: bun install --frozen-lockfile
+      - run: bun test ./tests
+      - run: bun run build
+        env:
+          PUBLIC_API_URL: ${{ vars.PUBLIC_API_URL }}
+          PUBLIC_GISCUS_REPO: ${{ vars.PUBLIC_GISCUS_REPO }}
+          PUBLIC_GISCUS_REPO_ID: ${{ vars.PUBLIC_GISCUS_REPO_ID }}
+          PUBLIC_GISCUS_CATEGORY: ${{ vars.PUBLIC_GISCUS_CATEGORY }}
+          PUBLIC_GISCUS_CATEGORY_ID: ${{ vars.PUBLIC_GISCUS_CATEGORY_ID }}
+      - name: Verify built site
+        run: |
+          printf '%s\n' "$RELEASE_SHA" > dist/release-sha.txt
+          RELEASE_ARTIFACT_DIR=dist bun run release:probe
+        env:
+          RELEASE_SHA: ${{ github.sha }}
+          PUBLIC_SITE_URL: https://devpulse.tatsatpandey.com
+      - name: Publish built site to the site branch
+        run: |
+          cd dist
+          git init -q
+          git checkout -q -b site
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "site: $RELEASE_SHA"
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_SHA: ${{ github.sha }}

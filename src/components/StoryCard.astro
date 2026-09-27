@@ -3,10 +3,11 @@ import { KINDS, domainOf, topicLabel, type DigestItem } from "../lib/digest";
 import { deskOf } from "../lib/visual";
 import { briefLabels, readingBucket } from "../lib/editorial";
 import ArchDiagram from "./ArchDiagram.astro";
+import StoryActions from "./StoryActions.astro";
 import StoryCover from "./StoryCover.astro";
 
-interface Props { item: DigestItem; variant?: "lead" | "side" | "feature" | "card" | "tool"; showTopic?: boolean }
-const { item, variant = "card", showTopic = false } = Astro.props;
+interface Props { item: DigestItem; variant?: "lead" | "side" | "feature" | "card" | "tool"; showTopic?: boolean; date?: string }
+const { item, variant = "card", showTopic = false, date } = Astro.props;
 const compact = new Intl.NumberFormat("en-US", { notation: "compact" });
 const rich = variant === "lead" || variant === "feature" || variant === "tool";
 const hasCover = variant !== "card" && variant !== "tool";
@@ -25,7 +26,7 @@ const facts = [
 ].filter(Boolean);
 const bars = Math.max(1, Math.min(5, item.score - 5));
 ---
-<article class={`story story--${variant}`} data-score={item.score} data-read-time={readingBucket(item)} data-id={item.id} data-desk={deskOf(item)}>
+<article class={`story story--${variant}`} data-score={item.score} data-read-time={readingBucket(item)} data-id={item.id} data-topic={item.topic} data-domain={domainOf(item.url)} data-desk={deskOf(item)}>
   {hasCover && <StoryCover item={item} eager={variant === "lead"} />}
   <div class="story-body">
     <p class="kicker">
@@ -50,6 +51,7 @@ const bars = Math.max(1, Math.min(5, item.score - 5));
         </a>
       ))}
     </p>
+    <StoryActions item={item} date={date} />
   </div>
   {variant === "feature" && item.diagram && <div class="feature-diagram"><ArchDiagram diagram={item.diagram} id={item.id} /></div>}
 </article>
@@ -129,14 +131,4 @@ const bars = Math.max(1, Math.min(5, item.score - 5));
   .cover .c-glyph { fill: rgb(var(--desk) / .35); font: 700 200px/1 "Newsreader", serif; }
   .cover-cap { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; gap: 8px; padding: 5px 8px; background: rgb(var(--surface) / .9); color: rgb(var(--soft)); font: 500 10.5px/1.3 "DM Mono", monospace; letter-spacing: .04em; text-transform: uppercase; }
   .cover-cap span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .diagram { margin: 4px 0 16px; padding: 12px; border: 1px solid rgb(var(--line)); background: rgb(var(--surface)); }
-  .diagram-scroll { overflow-x: auto; }
-  .diagram svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
-  .diagram .d-node { fill: rgb(var(--desk) / .1); stroke: rgb(var(--desk)); stroke-width: 1.5; }
-  .diagram .d-label { fill: rgb(var(--ink)); font: 600 12px "Manrope", sans-serif; }
-  .diagram .d-edge { fill: none; stroke: rgb(var(--soft)); stroke-width: 1.5; }
-  .diagram .d-arrow { fill: rgb(var(--soft)); }
-  .diagram .d-edge-label { fill: rgb(var(--muted)); font: 500 10px "DM Mono", monospace; paint-order: stroke; stroke: rgb(var(--surface)); stroke-width: 4px; }
-  .diagram figcaption { margin-top: 8px; color: rgb(var(--soft)); font-size: 12.5px; line-height: 1.45; }
-  .diagram figcaption span { color: rgb(var(--muted)); }
 </style>
