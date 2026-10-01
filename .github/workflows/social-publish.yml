@@ -1,0 +1,58 @@
+name: Publish social posts
+
+on:
+  workflow_run:
+    workflows: ["Daily digest"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: publish-social
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.3.13
+      - run: bun install --frozen-lockfile
+      - name: Publish top two stories
+        id: social
+        continue-on-error: true
+        run: bun run social:publish
+        env:
+          SOCIAL_POSTING_ENABLED: ${{ vars.SOCIAL_POSTING_ENABLED }}
+          SITE_URL: https://devpulse.tatsatpandey.com
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+          LINKEDIN_VERSION: ${{ vars.LINKEDIN_VERSION }}
+          X_USER_ACCESS_TOKEN: ${{ secrets.X_USER_ACCESS_TOKEN }}
+      - name: Save publication receipts
+        if: always()
+        run: |
+          git add data/social-posts.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(social): save publication receipts"
+          git push origin HEAD:main
+      - name: Report publishing failure
+        if: steps.social.outcome == 'failure'
+        run: exit 1
+      - name: Open an issue when publishing fails
+        if: failure()
+        run: |
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "Social publishing failed on $(date -u +%F)" --body "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+        env:
+          GH_TOKEN: ${{ github.token }}

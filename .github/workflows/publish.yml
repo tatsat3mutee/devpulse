@@ -6,6 +6,8 @@ name: Publish site
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - data/social-posts.json
   workflow_dispatch:
 
 permissions:
@@ -35,6 +37,8 @@ jobs:
           PUBLIC_GISCUS_REPO_ID: ${{ vars.PUBLIC_GISCUS_REPO_ID }}
           PUBLIC_GISCUS_CATEGORY: ${{ vars.PUBLIC_GISCUS_CATEGORY }}
           PUBLIC_GISCUS_CATEGORY_ID: ${{ vars.PUBLIC_GISCUS_CATEGORY_ID }}
+          PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.PUBLIC_GOOGLE_SITE_VERIFICATION }}
+          PUBLIC_BING_SITE_VERIFICATION: ${{ vars.PUBLIC_BING_SITE_VERIFICATION }}
       - name: Verify built site
         run: |
           printf '%s\n' "$RELEASE_SHA" > dist/release-sha.txt

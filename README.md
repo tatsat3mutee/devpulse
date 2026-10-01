@@ -30,6 +30,16 @@ bun run test:e2e
 2. **The existing EC2 instance pulls.** A systemd timer runs [deploy/ec2/pull-release.sh](deploy/ec2/pull-release.sh) every 15 minutes. When the `site` branch changes, it hands the build to [deploy/ec2/release.sh](deploy/ec2/release.sh). That script switches only the DevPulse Caddy site block, checks the live pages, and rolls back automatically on failure. No inbound SSH is needed.
 3. **[CI](.github/workflows/ci.yml)** runs unit, build and browser tests on pull requests.
 
+## Social publishing (optional)
+
+[`Publish social posts`](.github/workflows/social-publish.yml) runs after a successful daily digest, waits for the new story pages to become live, and publishes the top two stories with links to their DevPulse story pages. Successful post IDs are committed to `data/social-posts.json`, so retries do not create duplicates. The workflow remains inert until the repository variable `SOCIAL_POSTING_ENABLED` is set to `true`.
+
+For LinkedIn, add the Actions secrets `LINKEDIN_ACCESS_TOKEN` and `LINKEDIN_AUTHOR_URN` (for example `urn:li:person:...`) plus the `LINKEDIN_VERSION` repository variable. The app needs the `w_member_social` scope for a personal profile or approved organization publishing access for a company page. For X, add the `X_USER_ACCESS_TOKEN` secret with permission to create posts. Either platform can be configured independently.
+
+## Search engine registration
+
+Add the repository variables `PUBLIC_GOOGLE_SITE_VERIFICATION` and `PUBLIC_BING_SITE_VERIFICATION` from Google Search Console and Bing Webmaster Tools. After the next publish, submit `https://devpulse.tatsatpandey.com/sitemap-index.xml` in both dashboards.
+
 Install or update the puller on the server:
 
 ```bash
@@ -60,4 +70,3 @@ Every reader feature (save, notes, follow topics, For you, export) works without
 **5. Site settings.** In GitHub → Settings → Secrets and variables → Actions → Variables, add `PUBLIC_API_URL=https://api.devpulse.tatsatpandey.com`. For discussion, enable Discussions on the repository, install the Giscus app, and add `PUBLIC_GISCUS_REPO`, `PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY` and `PUBLIC_GISCUS_CATEGORY_ID` from giscus.app. The next publish picks them up.
 
 Run the API locally with `DATABASE_URL=… SITE_ORIGIN=http://localhost:4321 API_ORIGIN=http://localhost:3000 bun run api/src/main.ts`.
-

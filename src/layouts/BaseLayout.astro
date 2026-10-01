@@ -12,6 +12,13 @@ interface Props {
   preview?: boolean;
   feed?: { title: string; path: string };
   image?: string;
+  article?: {
+    publishedTime: string;
+    section: string;
+    tags?: string[];
+    author?: string;
+  };
+  breadcrumbs?: Array<{ name: string; path: string }>;
 }
 
 const {
@@ -22,10 +29,67 @@ const {
   preview = false,
   feed,
   image,
+  article,
+  breadcrumbs = [],
 } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site);
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION as string | undefined;
+const bingSiteVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION as string | undefined;
 const edition = (await latestDigest())?.date;
 const imageUrl = image ? new URL(image, Astro.site).toString() : undefined;
+const siteUrl = new URL("/", Astro.site).toString();
+const organizationId = new URL("/#organization", Astro.site).toString();
+const websiteId = new URL("/#website", Astro.site).toString();
+const schemaGraph: Record<string, unknown>[] = [
+  {
+    "@type": "Organization",
+    "@id": organizationId,
+    name: "DevPulse",
+    url: siteUrl,
+    logo: { "@type": "ImageObject", url: new URL("/icon-192.png", Astro.site).toString(), width: 192, height: 192 },
+  },
+  {
+    "@type": "WebSite",
+    "@id": websiteId,
+    name: "DevPulse",
+    url: siteUrl,
+    description: "The engineering stories worth your time, every day.",
+    publisher: { "@id": organizationId },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: { "@type": "EntryPoint", urlTemplate: new URL("/search/?q={search_term_string}", Astro.site).toString() },
+      "query-input": "required name=search_term_string",
+    },
+  },
+];
+if (article) {
+  schemaGraph.push({
+    "@type": "NewsArticle",
+    headline: title.replace(/ · DevPulse$/, ""),
+    description,
+    mainEntityOfPage: canonical.toString(),
+    url: canonical.toString(),
+    datePublished: article.publishedTime,
+    articleSection: article.section,
+    keywords: article.tags,
+    image: imageUrl ? [imageUrl] : undefined,
+    author: article.author ? [{ "@type": "Person", name: article.author }] : { "@type": "Organization", "@id": organizationId },
+    publisher: { "@id": organizationId },
+    isPartOf: { "@id": websiteId },
+  });
+}
+if (breadcrumbs.length) {
+  schemaGraph.push({
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.name,
+      item: new URL(crumb.path, Astro.site).toString(),
+    })),
+  });
+}
+const structuredData = JSON.stringify({ "@context": "https://schema.org", "@graph": schemaGraph }).replaceAll("<", "\\u003c");
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const weekHref = edition ? `/week/${isoWeek(edition)}` : "/week/";
 const nav = [["/", "Today"], [weekHref, "Weekly"], ["/radar", "Radar"], ["/papers", "Papers"], ["/pulse", "Pulse"], ["/archive", "Archive"], ["/search", "Search"]] as const;
@@ -37,6 +101,8 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
+    {bingSiteVerification && <meta name="msvalidate.01" content={bingSiteVerification} />}
     {preview && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#f9f8f4" />
     <meta property="og:type" content={ogType} />
@@ -44,6 +110,9 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    {article && <meta property="article:published_time" content={article.publishedTime} />}
+    {article && <meta property="article:section" content={article.section} />}
+    {article?.tags?.map((tag) => <meta property="article:tag" content={tag} />)}
     {imageUrl && <meta property="og:image" content={imageUrl} />}
     {imageUrl && <meta property="og:image:width" content="1200" />}
     {imageUrl && <meta property="og:image:height" content="630" />}
@@ -60,6 +129,7 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={structuredData} />
     <title>{title}</title>
     <script is:inline>
       let savedTheme;
@@ -73,7 +143,7 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
     <a class="skip-link" href="#content">Skip to content</a>
     <header class="site-header">
       <div class="masthead shell">
-        <a href="/" class="brand" aria-label="DevPulse home">
+        <a href="/" class="brand">
           <img src="/mark.svg" alt="" width="40" height="40" />
           <span class="brand-name">DevPulse</span>
           <span class="brand-tag">Engineering daily</span>

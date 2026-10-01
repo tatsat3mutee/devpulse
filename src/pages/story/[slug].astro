@@ -27,8 +27,23 @@ const giscus = {
   categoryId: import.meta.env.PUBLIC_GISCUS_CATEGORY_ID as string | undefined,
 };
 const discussionReady = Boolean(giscus.repo && giscus.repoId && giscus.category && giscus.categoryId);
+const section = topicLabel(item.topic);
+const tags: string[] = [section];
+if (item.kind) tags.push(KINDS[item.kind]);
 ---
-<BaseLayout title={`${item.headline} · DevPulse`} description={item.whyRead} canonicalPath={`/story/${date}--${item.id}/`} ogType="article" image={`/og/${date}.png`}>
+<BaseLayout
+  title={`${item.headline} · DevPulse`}
+  description={item.whyRead}
+  canonicalPath={`/story/${date}--${item.id}/`}
+  ogType="article"
+  image={`/og/${date}.png`}
+  article={{ publishedTime: item.publishedAt, section, tags, author: item.author }}
+  breadcrumbs={[
+    { name: "DevPulse", path: "/" },
+    { name: dateLabel, path: `/edition/${date}/` },
+    { name: item.headline, path: `/story/${date}--${item.id}/` },
+  ]}
+>
   <article class="story-page shell" data-desk={deskOf(item)}>
     <p class="crumbs"><a href={`/edition/${date}/#${item.id}`}>&larr; {dateLabel}</a><span class="topic">{topicLabel(item.topic)}</span>{item.kind && <span>{KINDS[item.kind]}</span>}</p>
     <h1><a href={item.url} rel="noopener noreferrer" target="_blank">{item.headline}</a></h1>
@@ -38,7 +53,7 @@ const discussionReady = Boolean(giscus.repo && giscus.repoId && giscus.category 
       {item.readMinutes && item.readMinutes >= 3 && <span>{item.readMinutes} min read</span>}
       <span>Editor score {item.score}/10</span>
     </p>
-    {item.image && <img class="cover" src={item.image} alt="" width="800" height="450" />}
+    {item.image && <img class="cover" src={item.image} alt={`Preview image for ${item.headline}`} width="800" height="450" />}
     <p class="why">{item.whyRead}</p>
     {item.brief && (
       <dl class="brief">

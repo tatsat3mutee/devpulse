@@ -8,6 +8,8 @@ import StoryCover from "./StoryCover.astro";
 
 interface Props { item: DigestItem; variant?: "lead" | "side" | "feature" | "card" | "tool"; showTopic?: boolean; date?: string }
 const { item, variant = "card", showTopic = false, date } = Astro.props;
+const storyDate = date ?? item.publishedAt.slice(0, 10);
+const storyPath = `/story/${storyDate}--${item.id}/`;
 const compact = new Intl.NumberFormat("en-US", { notation: "compact" });
 const rich = variant === "lead" || variant === "feature" || variant === "tool";
 const hasCover = variant !== "card" && variant !== "tool";
@@ -17,7 +19,6 @@ const discussions = item.discussions?.length
   : item.discussionUrl && item.discussionUrl !== item.url ? [{ label: item.sourceLabel, url: item.discussionUrl, comments: item.comments, points: item.points }] : [];
 const short = (label: string) => label === "Hacker News" ? "HN" : label;
 const facts = [
-  domainOf(item.url),
   item.author ? `by ${item.author}` : "",
   item.readMinutes && item.readMinutes >= 3 ? `${item.readMinutes} min read` : "",
   item.stars ? `★ ${compact.format(item.stars)}` : "",
@@ -36,13 +37,14 @@ const bars = Math.max(1, Math.min(5, item.score - 5));
         {[1, 2, 3, 4, 5].map((n) => <i class={n <= bars ? "on" : undefined}></i>)}
       </span>
     </p>
-    <h3 id={item.id}><a href={item.url} rel="noopener noreferrer" target="_blank">{item.headline}</a></h3>
+    <h3 id={item.id}><a href={storyPath}>{item.headline}</a></h3>
     <p class="why">{item.whyRead}</p>
     {rich && item.brief && (item.brief.length === 3
       ? <ul class="brief labelled">{item.brief.map((point, index) => <li><b>{labels[index]}</b>{point}</li>)}</ul>
       : <ul class="brief">{item.brief.map((point) => <li>{point}</li>)}</ul>)}
     {variant === "lead" && item.diagram && <ArchDiagram diagram={item.diagram} id={item.id} />}
     <p class="meta">
+      <a href={item.url} rel="noopener noreferrer" target="_blank" class="discuss">Original · {domainOf(item.url)}</a>
       {facts.map((part) => <span>{part}</span>)}
       {item.codeUrl && <a href={item.codeUrl} rel="noopener noreferrer" target="_blank" class="discuss">Code{item.codeStars ? <> · <b>{compact.format(item.codeStars)}</b> stars</> : null}</a>}
       {discussions.map((d) => (
@@ -51,7 +53,7 @@ const bars = Math.max(1, Math.min(5, item.score - 5));
         </a>
       ))}
     </p>
-    <StoryActions item={item} date={date} />
+    <StoryActions item={item} date={storyDate} />
   </div>
   {variant === "feature" && item.diagram && <div class="feature-diagram"><ArchDiagram diagram={item.diagram} id={item.id} /></div>}
 </article>

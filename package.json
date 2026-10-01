@@ -10,6 +10,7 @@
     "test": "bun test ./tests",
     "test:e2e": "playwright test",
     "digest": "bun run scripts/build-digest.ts",
+    "social:publish": "bun run scripts/publish-social.ts",
     "release:check": "bun run scripts/check-release.ts",
     "release:probe": "bun run scripts/check-live.ts",
     "icons": "bun run scripts/make-pwa-icons.ts",
