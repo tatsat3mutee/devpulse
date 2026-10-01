@@ -86,7 +86,7 @@ async function publishX(text: string): Promise<string | undefined> {
 }
 
 async function waitForLive(url: string) {
-  const attempts = Number(process.env.SOCIAL_LIVE_CHECK_ATTEMPTS || 20);
+  const attempts = Number(process.env.SOCIAL_LIVE_CHECK_ATTEMPTS || 34);
   const delayMs = Number(process.env.SOCIAL_LIVE_CHECK_DELAY_MS || 45_000);
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {

@@ -1,21 +1,25 @@
 import { expect, test } from "@playwright/test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { topicLabel, type TopicSlug } from "../src/lib/digest";
 
 const dir = join(process.cwd(), "data/digests");
 const latest = JSON.parse(readFileSync(join(dir, readdirSync(dir).filter((f) => f.endsWith(".json")).sort().at(-1)!), "utf8")) as {
   date: string; items: Array<{ id: string; headline: string; url: string; topic: string; mustRead: boolean; score: number; kind?: string; readMinutes?: number }>;
 };
 
-test("homepage lists every story with must-reads first and outbound links", async ({ page }) => {
+test("homepage lists every story with must-reads first, linking to the story page and the original", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Today in AI & systems");
   await expect(page.locator(".must .story")).toHaveCount(latest.items.filter((item) => item.mustRead).length);
   await expect(page.locator(".must .story--lead .cover")).toBeVisible();
   await expect(page.locator("main h3 a")).toHaveCount(latest.items.length);
   const first = latest.items.find((item) => item.mustRead)!;
-  await expect(page.locator(".must h3 a").first()).toHaveAttribute("href", first.url);
-  await expect(page.locator(".must h3 a").first()).toHaveAttribute("rel", /noopener/);
+  const card = page.locator(".must .story").first();
+  await expect(card.locator("h3 a")).toHaveAttribute("href", `/story/${latest.date}--${first.id}/`);
+  const original = card.locator(`.meta a[href="${first.url}"]`).first();
+  await expect(original).toContainText("Original");
+  await expect(original).toHaveAttribute("rel", /noopener/);
 });
 
 test("topic navigation filters to one topic", async ({ page }) => {
@@ -127,8 +131,10 @@ test("production search finds individual stories and links to the source and the
   await expect(first.locator("h2 a")).toHaveAttribute("href", story.url);
   await expect(first.locator(".edition-link")).toHaveAttribute("href", `/edition/${latest.date}/#${story.id}`);
   await expect(page).toHaveURL(/[?&]q=/);
-  await page.locator("#topics button").nth(1).click();
+  // Filter by the story's own topic, so the story stays in the results whatever the busiest topic is.
+  await page.locator(`#topics button[data-topic="${topicLabel(story.topic as TopicSlug)}"]`).click();
   await expect(page.locator("#status")).toContainText(" in ");
+  await expect(first.locator("h2 a")).toHaveAttribute("href", story.url);
   await first.locator(".edition-link").click();
   await expect(page).toHaveURL(new RegExp(`/edition/${latest.date}/?#${story.id}$`));
 });

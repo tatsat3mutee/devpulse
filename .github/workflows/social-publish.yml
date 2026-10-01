@@ -18,7 +18,8 @@ jobs:
   publish:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    # The story pages can take up to ~25 minutes to go live (EC2 pulls the site branch every 15 minutes).
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -46,7 +47,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore(social): save publication receipts"
-          git push origin HEAD:main
+          # main can move while we wait for the story pages to go live; a lost receipt would mean a duplicate post.
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((attempt * 5))
+          done
+          exit 1
       - name: Report publishing failure
         if: steps.social.outcome == 'failure'
         run: exit 1
