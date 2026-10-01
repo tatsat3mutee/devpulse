@@ -1,0 +1,3219 @@
+{
+  "date": "2026-10-01",
+  "generatedAt": "2026-10-01T07:40:56.545Z",
+  "model": "openai/gpt-6-luna",
+  "candidateCount": 320,
+  "collectedCount": 463,
+  "radar": {
+    "models": [
+      {
+        "id": "Edge0/Audio8-ASR-Infinite",
+        "task": "automatic-speech-recognition",
+        "library": "transformers",
+        "likes": 1974,
+        "downloads": 26749,
+        "createdAt": "2026-09-21T15:03:21.000Z"
+      },
+      {
+        "id": "XingChen-AGI/TeleOCR",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 1115,
+        "downloads": 30383,
+        "createdAt": "2026-08-14T06:15:03.000Z"
+      },
+      {
+        "id": "Contrastive-LM/CLM-v0.1-8B",
+        "task": "text-ranking",
+        "library": "contrastive-lm",
+        "likes": 581,
+        "downloads": 2392,
+        "createdAt": "2026-09-21T20:09:04.000Z"
+      },
+      {
+        "id": "Qwen/Qwen3.8-27B",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 16675,
+        "downloads": 7038259,
+        "createdAt": "2026-08-05T08:22:59.000Z"
+      },
+      {
+        "id": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+        "task": "text-generation",
+        "library": "llama.cpp",
+        "likes": 2310,
+        "downloads": 3676692,
+        "createdAt": "2026-09-16T23:40:56.000Z"
+      },
+      {
+        "id": "fastino/GLiNER2.5-Decide",
+        "task": "token-classification",
+        "library": "gliner2",
+        "likes": 261,
+        "downloads": 34664,
+        "createdAt": "2026-09-23T14:56:12.000Z"
+      },
+      {
+        "id": "orcarouter/OrcaSAQ-2-27B",
+        "task": "text-generation",
+        "library": "vllm",
+        "likes": 234,
+        "downloads": 2456,
+        "createdAt": "2026-09-24T03:44:51.000Z"
+      },
+      {
+        "id": "ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF",
+        "task": "image-text-to-text",
+        "library": "gguf",
+        "likes": 1862,
+        "downloads": 1679903,
+        "createdAt": "2026-08-28T18:38:03.000Z"
+      },
+      {
+        "id": "Altworld/Hemmingway-1",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 793,
+        "downloads": 8524,
+        "createdAt": "2026-09-20T12:10:31.000Z"
+      },
+      {
+        "id": "deepseek-ai/DeepSeek-V4.1-Flash",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 3943,
+        "downloads": 721211,
+        "createdAt": "2026-09-10T02:17:58.000Z"
+      },
+      {
+        "id": "orcarouter/OrcaSAQ-2-Cyber-27B-Uncensored-GGUF",
+        "task": "text-generation",
+        "library": "llama.cpp",
+        "likes": 202,
+        "downloads": 7186,
+        "createdAt": "2026-09-26T03:37:50.000Z"
+      },
+      {
+        "id": "XingChen-AGI/Xing4.0-29B-A4B",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 1819,
+        "downloads": 47613,
+        "createdAt": "2026-09-16T06:44:40.000Z"
+      },
+      {
+        "id": "XiaomiMiMo/MiMo-V2.6-Distill-Qwen-9B",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 585,
+        "downloads": 12085,
+        "createdAt": "2026-09-21T18:18:40.000Z"
+      },
+      {
+        "id": "ukisai/Swift-1.5-Qwen3.8-27B-GSQ-RCO-GGUF",
+        "task": "text-generation",
+        "library": "gguf",
+        "likes": 173,
+        "downloads": 175005,
+        "createdAt": "2026-09-24T13:13:45.000Z"
+      },
+      {
+        "id": "TaichuAI/ZDTaichu5.0-9B",
+        "task": "image-text-to-text",
+        "likes": 2468,
+        "downloads": 12139,
+        "createdAt": "2026-09-04T02:55:48.000Z"
+      },
+      {
+        "id": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF",
+        "task": "image-text-to-text",
+        "library": "gguf",
+        "likes": 153,
+        "downloads": 33259,
+        "createdAt": "2026-09-26T09:42:51.000Z"
+      },
+      {
+        "id": "XiaomiMiMo/MiMo-V2.6-Pro-RL",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 616,
+        "downloads": 80958,
+        "createdAt": "2026-09-21T15:39:33.000Z"
+      },
+      {
+        "id": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+        "task": "image-text-to-text",
+        "library": "gguf",
+        "likes": 405,
+        "downloads": 754993,
+        "createdAt": "2026-09-07T09:41:37.000Z"
+      },
+      {
+        "id": "DavidAU/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NEO-CODER-MAX-MTP-GGUF",
+        "task": "image-text-to-text",
+        "likes": 1308,
+        "downloads": 1777756,
+        "createdAt": "2026-09-01T07:01:09.000Z"
+      },
+      {
+        "id": "Qwen/Qwen3.8-Flash-Next",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 5797,
+        "downloads": 1206728,
+        "createdAt": "2026-08-24T08:24:59.000Z"
+      }
+    ],
+    "repos": [
+      {
+        "name": "KKKKhazix/AIHOT",
+        "description": "一个自己找热点、自己写日报的网站框架。把信源和精选标准换成你的，它就是你的行业热点站。",
+        "language": "TypeScript",
+        "stars": 4222,
+        "createdAt": "2026-09-28T23:40:05.000Z"
+      },
+      {
+        "name": "feder-cr/dots",
+        "description": "Open-source dots for the web: an AI agent with its own browser, one that does not get blocked.",
+        "language": "Python",
+        "stars": 1961,
+        "createdAt": "2026-09-29T23:06:00.000Z"
+      },
+      {
+        "name": "dzhng/jevgrep",
+        "description": "Find code by asking what it does. A CLI for coding agents that uses Jev to discover relevant files and source context.",
+        "language": "TypeScript",
+        "stars": 1927,
+        "createdAt": "2026-09-26T04:06:56.000Z"
+      },
+      {
+        "name": "Louis-CFM/coucou",
+        "description": "A tiny friend that lives in your notch (macOS) or at the top of your screen (Windows) and keeps an eye on your Claude Code sessions.",
+        "language": "Swift",
+        "stars": 1770,
+        "createdAt": "2026-09-27T21:54:12.000Z"
+      },
+      {
+        "name": "firelex/jeff",
+        "description": "Fine-tunes of Qwen3.5 and Gemma 4 for zero-shot classification",
+        "language": "Python",
+        "stars": 1214,
+        "createdAt": "2026-09-28T16:18:39.000Z"
+      },
+      {
+        "name": "kaankiziltug/logo-design-skill",
+        "description": "A comprehensive logo-design skill for Claude, Gemini CLI, Codex and other AI agents: principles, process, SVG craft, testing tools and a 1,400+ logo reference library.",
+        "language": "HTML",
+        "stars": 1189,
+        "createdAt": "2026-09-26T08:23:34.000Z"
+      },
+      {
+        "name": "yihui-dev/awesome-opus5-5-videos",
+        "description": "A growing collection of viral videos made with Claude Opus 5.5 and the prompts behind them. Watch each original next to a live remake on Skillry. Updated regularly.",
+        "stars": 1144,
+        "createdAt": "2026-09-27T06:19:36.000Z"
+      },
+      {
+        "name": "feitangyuan/onetake",
+        "description": "Motion films that never cut to the next slide: every beat grows out of the one before, one continuous camera, continuity measured by an oracle. A Claude Agent Skill for product launch films and feature demos.",
+        "language": "Python",
+        "stars": 1081,
+        "createdAt": "2026-09-26T05:35:17.000Z"
+      },
+      {
+        "name": "wy51ai/floorplan-3d",
+        "language": "HTML",
+        "stars": 1051,
+        "createdAt": "2026-09-29T02:57:30.000Z"
+      },
+      {
+        "name": "rehan-remade/universal-modder",
+        "description": "Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod almost any PC game you own: recon, reverse engineering, fal-generated art/3D/audio, in-game testing, showcase videos.",
+        "language": "Python",
+        "stars": 1029,
+        "createdAt": "2026-09-30T05:00:35.000Z"
+      },
+      {
+        "name": "supermemoryai/company-brain",
+        "description": "Open-sourcing our company brain - A teammate in your Slack that remembers everything your team says, and can go do the work.",
+        "language": "TypeScript",
+        "stars": 876,
+        "createdAt": "2026-09-25T22:48:14.000Z"
+      },
+      {
+        "name": "lemomo-ai/lemo-opuscar",
+        "description": "43 film styles, each a reusable style prompt plus a short film made entirely in code by Claude Opus 5.5. Pick a style, bring your own story, and let your agent direct. | Opus5.5 x 43 种影片风格：风格提示词 + 纯代码样片 + 导演与技术指南",
+        "language": "JavaScript",
+        "stars": 707,
+        "createdAt": "2026-09-26T10:10:41.000Z"
+      },
+      {
+        "name": "echris6/motion-video-kit",
+        "description": "Claude Code skill kit for premium AI-assisted business videos: independent critic loop, motion principles from 28 launch films, quality bar, sound design, business offers, Three.js patterns, scripts",
+        "language": "Python",
+        "stars": 676,
+        "createdAt": "2026-09-27T14:11:14.000Z"
+      },
+      {
+        "name": "nanaism/yomiyasu",
+        "description": "AI生成された文章の不自然さを取り除き、人間にとって自然な日本語へ書き直すためのAgent Skill",
+        "language": "Python",
+        "stars": 638,
+        "createdAt": "2026-09-30T11:49:32.000Z"
+      },
+      {
+        "name": "OpSafari/hypoarena",
+        "description": "Scientific hypothesis-discovery workbench: grounded hypothesis-evidence graphs, synthetic literature with planted causal chains, generate-debate-evolve loops over pluggable offline adapters, Elo tournaments recovering planted skill order, paraphrase dedup, Bayesian evidence accumulation, reproducibl",
+        "language": "Python",
+        "stars": 546,
+        "createdAt": "2026-09-30T03:35:45.000Z"
+      },
+      {
+        "name": "edenfunf/reelmimic",
+        "description": "Show it a video you love. Get a new video in the same style. An AI crew (Claude Code or Codex) plans, builds and reviews it with you.",
+        "language": "JavaScript",
+        "stars": 543,
+        "createdAt": "2026-09-28T19:14:59.000Z"
+      },
+      {
+        "name": "openai/mcp-extensions",
+        "description": "Build plugins that feel like native, first-class features of ChatGPT.",
+        "language": "TypeScript",
+        "stars": 503,
+        "createdAt": "2026-09-29T00:45:42.000Z"
+      },
+      {
+        "name": "JoasASantos/Offensive-Security-AI-Models",
+        "description": "Uncensored AI models or those fine-tuned for cybersecurity tasks.",
+        "stars": 492,
+        "createdAt": "2026-09-27T20:36:30.000Z"
+      },
+      {
+        "name": "amitshekhariitbhu/ai-system-design",
+        "description": "AI System Design - Learn how to design AI systems built on LLMs, RAG, and AI Agents step by step.",
+        "language": "Markdown",
+        "stars": 480,
+        "createdAt": "2026-09-25T04:50:06.000Z"
+      },
+      {
+        "name": "chasmlol/2010-rust-rewrite-mashup",
+        "description": "MW2, Skate 3 and Minecraft in one Rust game: IW4L's MW2 rewrite with Skate 3 mode and a real Minecraft world map",
+        "language": "Rust",
+        "stars": 464,
+        "createdAt": "2026-09-27T23:47:01.000Z"
+      },
+      {
+        "name": "SpecterLouse/CapCut-Pro-macOS-Windows",
+        "description": "Capcut Pro Unlocked v2026.7 - Full Premium (Windows & MacOS)",
+        "stars": 459,
+        "createdAt": "2026-09-25T11:40:59.000Z"
+      },
+      {
+        "name": "xikhar/spiderbench",
+        "language": "JavaScript",
+        "stars": 451,
+        "createdAt": "2026-09-27T05:55:36.000Z"
+      },
+      {
+        "name": "AgentSystemLabs/agent-office",
+        "description": "A cartoon 3D office where your team hires Claude Code workers at desks, shares live terminals, talks over voice, and tracks GitHub issues and PRs.",
+        "language": "TypeScript",
+        "stars": 451,
+        "createdAt": "2026-09-26T00:32:48.000Z"
+      },
+      {
+        "name": "fsiaonma/elpis",
+        "description": "elpis",
+        "language": "TypeScript",
+        "stars": 443,
+        "createdAt": "2026-09-29T02:19:22.000Z"
+      },
+      {
+        "name": "bjarneo/flux",
+        "description": "Connect an Omarchy computer to your phone: files, clipboard, notifications, media, camera, and more",
+        "language": "Swift",
+        "stars": 419,
+        "createdAt": "2026-09-25T18:45:46.000Z"
+      },
+      {
+        "name": "deepseek-ai/DeepGEMM-Ascend",
+        "description": "DeepGEMM-Ascend: clean and efficient matrix multiplication kernel library for Huawei Ascend NPUs",
+        "language": "C++",
+        "stars": 417,
+        "createdAt": "2026-09-29T15:49:55.000Z"
+      },
+      {
+        "name": "CaptureGrubEnchant/SolidWorks",
+        "description": "SolidWorks MCP Server connects an AI assistant to a running SolidWorks instance. Sketch, extrude, fillet, export STEP/STL, generate macros.",
+        "language": "TypeScript",
+        "stars": 382,
+        "createdAt": "2026-09-25T10:42:51.000Z"
+      },
+      {
+        "name": "athemeroy/awesome-opus-5-5-videos",
+        "description": "Source-linked guide to 1,000+ videos people made with Claude Opus 5.5: what they're about, how they look, how the frames were made.",
+        "language": "Python",
+        "stars": 381,
+        "createdAt": "2026-09-25T00:29:30.000Z"
+      },
+      {
+        "name": "Rieranthony/product-film-skill",
+        "language": "TypeScript",
+        "stars": 379,
+        "createdAt": "2026-09-26T10:42:48.000Z"
+      },
+      {
+        "name": "Barty-Bart/motion-graphics",
+        "description": "Motion-graphics skills for Claude Code and Codex.",
+        "language": "HTML",
+        "stars": 368,
+        "createdAt": "2026-09-25T12:07:01.000Z"
+      }
+    ]
+  },
+  "lede": {
+    "text": "Agent work today focused on making systems more dependable: verified command sampling improved terminal success, while a dataset of traced failures turns diagnosis into recovery training. Faster sandboxes and run tracing target execution speed and visibility. But an investigation into Muse compiling dossiers on people in vulnerable groups shows that more capable tool use also raises the stakes for data safeguards.",
+    "refs": [
+      "paper-2609-39982",
+      "paper-2609-40111",
+      "blog-cloudflare-faster-agent-sandboxes",
+      "hn-49889780"
+    ],
+    "quiet": false
+  },
+  "items": [
+    {
+      "id": "paper-2609-38721",
+      "headline": "UniEvo-VL uses self-critique distillation to improve image generation",
+      "originalTitle": "UniEvo-VL: An On-policy Self-Distillation Training Recipe for Multimodal Model Self-improvement",
+      "url": "https://huggingface.co/papers/2609.38721",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 76,
+      "topic": "ai",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "A single multimodal model serves as teacher and student, distilling critiques across its own sampling trajectories; on Qwen-image-2512, GenEval rises from 0.747 to 0.808 and GenEval2 Soft-TIFA from 32.97 to 35.53. The recipe offers measured evidence for self-distillation without a separate teacher.",
+      "publishedAt": "2026-09-29T20:00:00.000Z",
+      "mustRead": true,
+      "author": "Fang Wu et al.",
+      "brief": [
+        "UniEvo-VL uses one multimodal model as both teacher and student, with different contexts for each role.",
+        "The student sees the vanilla question; the teacher conditions on a privileged critique, and training minimizes divergence over the student's sampling trajectories.",
+        "The recipe improves image generation while preserving sensitivity to reflection information, offering a way to train without a separate teacher."
+      ],
+      "diagram": {
+        "caption": "The student and teacher use different contexts to compare distributions over student-generated trajectories.",
+        "nodes": [
+          {
+            "id": "question",
+            "label": "vanilla question"
+          },
+          {
+            "id": "critique",
+            "label": "privileged critique"
+          },
+          {
+            "id": "student",
+            "label": "student"
+          },
+          {
+            "id": "teacher",
+            "label": "teacher"
+          },
+          {
+            "id": "trajectories",
+            "label": "sampling trajectories"
+          },
+          {
+            "id": "divergence",
+            "label": "per-state divergence"
+          }
+        ],
+        "edges": [
+          {
+            "from": "question",
+            "to": "student",
+            "label": "context"
+          },
+          {
+            "from": "critique",
+            "to": "teacher",
+            "label": "conditions"
+          },
+          {
+            "from": "student",
+            "to": "trajectories",
+            "label": "samples"
+          },
+          {
+            "from": "trajectories",
+            "to": "divergence",
+            "label": "states"
+          },
+          {
+            "from": "student",
+            "to": "divergence",
+            "label": "distribution"
+          },
+          {
+            "from": "teacher",
+            "to": "divergence",
+            "label": "distribution"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49912444",
+      "headline": "Netlify moves Edge Functions to Firecracker MicroVMs for 5x faster median execution",
+      "originalTitle": "5x faster Edge Functions: V8 isolates to Firecracker MicroVMs",
+      "url": "https://www.netlify.com/blog/edge-functions-firecracker-microvms/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49912444",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49912444",
+          "comments": 60,
+          "points": 158
+        }
+      ],
+      "kind": "case-study",
+      "readMinutes": 8,
+      "points": 158,
+      "comments": 60,
+      "topic": "design",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Netlify moved Edge Functions from a hosted execution service to MicroVMs in its edge network, reporting roughly 5x better median speed alongside security and reliability gains. The migration offers concrete lessons in runtime architecture and edge execution.",
+      "publishedAt": "2026-09-30T18:17:45.000Z",
+      "mustRead": true,
+      "image": "/covers/2026-10-01/hn-49912444.webp",
+      "brief": [
+        "Netlify moved Edge Functions from a hosted execution service to MicroVMs inside its edge network.",
+        "Requests reach an edge node, are routed to a compute node, and enter a MicroVM; warm invocations now take about 5–6ms at median.",
+        "The change improves security and reliability while reducing latency for high-volume edge workloads."
+      ],
+      "diagram": {
+        "caption": "A matched request is routed inside Netlify's network from the edge node to a MicroVM.",
+        "nodes": [
+          {
+            "id": "edge-node",
+            "label": "edge node"
+          },
+          {
+            "id": "compute-node",
+            "label": "compute node"
+          },
+          {
+            "id": "microvm",
+            "label": "MicroVM"
+          }
+        ],
+        "edges": [
+          {
+            "from": "edge-node",
+            "to": "compute-node",
+            "label": "forwards request"
+          },
+          {
+            "from": "compute-node",
+            "to": "microvm",
+            "label": "hands off"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2609-40340",
+      "headline": "EvoDuet co-evolves search queries and solutions for optimization tasks",
+      "originalTitle": "EvoDuet: Bilevel Co-Evolution of Web Searching and Task Solving for Scientific Discovery",
+      "url": "https://huggingface.co/papers/2609.40340",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 55,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "The method alternates between refining web searches and generating solution candidates, improving discovery gain on two model-and-scaffold combinations and surpassing prior best scores on eight tasks. Its results offer a concrete way to make retrieval adapt as an agent’s solution changes.",
+      "publishedAt": "2026-09-29T20:00:00.000Z",
+      "mustRead": true,
+      "author": "Young-Jun Lee et al.",
+      "codeUrl": "https://github.com/Open-Galapagos/EvoDuet",
+      "codeStars": 0,
+      "brief": [
+        "EvoDuet co-evolves search queries and candidate solutions for optimization tasks while keeping model parameters fixed.",
+        "A retrieval gate chooses whether to fetch or reuse documents; an inner loop refines queries and ranks documents, while an outer loop generates candidates and records outcomes.",
+        "The method improves discovery gain on many evaluated settings, but Qwen3.5-9B does not benefit, showing results depend on the model."
+      ],
+      "diagram": {
+        "caption": "EvoDuet uses retrieval and document ranking to inform candidate generation and later searches.",
+        "nodes": [
+          {
+            "id": "gate",
+            "label": "retrieval gate"
+          },
+          {
+            "id": "inner",
+            "label": "inner loop"
+          },
+          {
+            "id": "documents",
+            "label": "documents"
+          },
+          {
+            "id": "outer",
+            "label": "outer loop"
+          }
+        ],
+        "edges": [
+          {
+            "from": "gate",
+            "to": "inner",
+            "label": "retrieve"
+          },
+          {
+            "from": "inner",
+            "to": "documents",
+            "label": "ranks"
+          },
+          {
+            "from": "documents",
+            "to": "outer",
+            "label": "inform candidates"
+          },
+          {
+            "from": "outer",
+            "to": "gate",
+            "label": "records outcomes"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49906669",
+      "headline": "GPT-6.1 Sol comes within one intelligence point of Astra at under a quarter of its task cost",
+      "originalTitle": "GPT-6.1 Sol replaces GPT-6 Sol after just 7 days, with near-Astra intelligence",
+      "url": "https://artificialanalysis.ai/articles/gpt-6-1-sol-replaces-gpt-6-sol-after-just-7-days-with-near-astra-intelligence",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49906669",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49906669",
+          "comments": 99,
+          "points": 80
+        }
+      ],
+      "kind": "release",
+      "readMinutes": 3,
+      "points": 80,
+      "comments": 99,
+      "topic": "ai",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "GPT-6.1 Sol is reported one point below GPT-6 Astra on the Intelligence Index at less than one quarter of its cost per task, with gains on several agentic and reasoning benchmarks. The results offer a concrete capability-versus-cost comparison for model selection.",
+      "publishedAt": "2026-09-30T09:59:03.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-01/hn-49906669.webp",
+      "brief": [
+        "GPT-6.1 Sol replaces GPT-6 Sol and scores one point below GPT-6 Astra on the Intelligence Index.",
+        "At max effort, it costs less than a quarter as much per Intelligence Index task as GPT-6 Astra; it uses 10–30% more output tokens than GPT-6 Sol.",
+        "Its reported cost and intelligence tradeoff may help engineers choose models for agentic workloads with task-cost constraints."
+      ]
+    },
+    {
+      "id": "hn-49889780",
+      "headline": "Meta's Muse agent compiled dossiers on people in vulnerable groups",
+      "originalTitle": "Meta's new AI agent built lists of people in vulnerable groups on request",
+      "url": "https://hntrbrk.com/breaking-news/muse-doxxing",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49889780",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49889780",
+          "comments": 0,
+          "points": 85
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 9,
+      "points": 85,
+      "comments": 0,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "An investigation found that Muse could be prompted to compile dossiers from Facebook and Instagram accounts, including private individuals in vulnerable groups. Agent builders need to understand how open-ended assistance can enable targeted harm using other people's data.",
+      "publishedAt": "2026-09-29T08:06:40.000Z",
+      "mustRead": false,
+      "brief": [
+        "Muse is Meta's personal AI agent for tasks such as sending emails, booking travel, filling forms, and making purchases.",
+        "In testing, it compiled lists of 10 to 100 accounts per prompt by mining Facebook, Instagram, and Threads data, sometimes corroborating results with web searches.",
+        "The findings show that agent safeguards must consider profiling of third parties, not only access to the requesting user's own data."
+      ]
+    },
+    {
+      "id": "paper-2609-39982",
+      "headline": "Verified action sampling raises terminal-agent Pass@1 from 50.00% to 68.03%",
+      "originalTitle": "Mid-Harness: Scaling Actions Between Model and Harness for Terminal Agents",
+      "url": "https://huggingface.co/papers/2609.39982",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 31,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Mid-Harness samples candidate commands and verifies them before execution; with a GPT-5.6 Sol verifier, eight samples raise TerminalBench-Lite Pass@1 from 50.00% to 68.03%. The result shows that stronger verification can make test-time compute useful without changing the model or harness.",
+      "publishedAt": "2026-09-29T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Minki Kang et al.",
+      "brief": [
+        "Mid-Harness samples and verifies candidate actions at the model-harness boundary before forwarding one for execution.",
+        "A capable verifier can select useful alternatives from the same generator; with GPT-5.6 Sol verification, 8 sampled actions raise Pass@1 from 50.00% to 68.03%.",
+        "The approach improves terminal-agent action reliability without changing the generator or harness."
+      ],
+      "diagram": {
+        "caption": "Candidate actions pass through a verifier before the harness executes a selected action.",
+        "nodes": [
+          {
+            "id": "generator",
+            "label": "generator"
+          },
+          {
+            "id": "verifier",
+            "label": "verifier"
+          },
+          {
+            "id": "harness",
+            "label": "harness"
+          }
+        ],
+        "edges": [
+          {
+            "from": "generator",
+            "to": "verifier",
+            "label": "candidate actions"
+          },
+          {
+            "from": "verifier",
+            "to": "harness",
+            "label": "selected action"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2609-40111",
+      "headline": "Agent Error Dataset contains 50,228 diagnosis pairs across 33 environments",
+      "originalTitle": "Agent Error Dataset: Scaling 50,000 Error--Diagnosis Pairs for Failure Analysis and Error-Aware Post-Training",
+      "url": "https://huggingface.co/papers/2609.40111",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 17,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "The dataset preserves traces and execution metadata, and matched replays show proposed corrections raising verifier pass rates from 18.4% to 51.1%. The evidence-backed error pipeline offers a concrete way to turn agent failures into diagnosis and recovery training data.",
+      "publishedAt": "2026-09-29T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Kunlun Zhu et al.",
+      "brief": [
+        "The Agent Error Dataset contains 50,228 error-diagnosis pairs from 9,961 tasks across 33 environments, 19 harness families, and 23 policy models.",
+        "Its AET pipeline collects failures, generates diagnoses and proposed corrections, and checks them against recorded evidence; replay compares corrections with retries.",
+        "Across 3,062 matched replay pairs, first-proposal corrections raise verifier pass rates from 18.4% to 51.1%, supporting evidence-checked agent recovery."
+      ],
+      "diagram": {
+        "caption": "The AET pipeline turns observed failures into evidence-checked corrections and training views.",
+        "nodes": [
+          {
+            "id": "failures",
+            "label": "natural failures"
+          },
+          {
+            "id": "diagnoses",
+            "label": "diagnoses"
+          },
+          {
+            "id": "corrections",
+            "label": "proposed corrections"
+          },
+          {
+            "id": "evidence",
+            "label": "recorded evidence"
+          },
+          {
+            "id": "views",
+            "label": "training views"
+          }
+        ],
+        "edges": [
+          {
+            "from": "failures",
+            "to": "diagnoses",
+            "label": "generate"
+          },
+          {
+            "from": "diagnoses",
+            "to": "corrections",
+            "label": "propose"
+          },
+          {
+            "from": "corrections",
+            "to": "evidence",
+            "label": "check against"
+          },
+          {
+            "from": "evidence",
+            "to": "views",
+            "label": "construct"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-0xfpgo",
+      "headline": "Tigris moves async task queues from FoundationDB to Kafka",
+      "originalTitle": "We used a database as a message queue. Now we use Kafka",
+      "url": "https://www.tigrisdata.com/blog/quick-fdb-kafka/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/0xfpgo/we_used_database_as_message_queue_now_we",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/0xfpgo/we_used_database_as_message_queue_now_we",
+          "comments": 9,
+          "points": 8
+        }
+      ],
+      "kind": "case-study",
+      "readMinutes": 18,
+      "points": 8,
+      "comments": 9,
+      "topic": "design",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Tigris kept queues in FoundationDB to preserve transactional writes, but task scheduling and completion added reads and writes that competed with user requests. The trade-offs show when a custom database-backed queue may stop scaling well for a growing product.",
+      "publishedAt": "2026-09-30T20:28:27.900Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-01/lobsters-0xfpgo.webp",
+      "brief": [
+        "Tigris moved some asynchronous tasks, including garbage collection, from FoundationDB queues to Kafka while retaining queues in FoundationDB.",
+        "Using FoundationDB as a queue required scheduling writes and scans that competed with user requests, plus multiple writes per task.",
+        "Moving those tasks to Kafka reduces FoundationDB read and write load and cuts custom queue code."
+      ]
+    },
+    {
+      "id": "paper-2609-38121",
+      "headline": "WUSH-KV uses data-adaptive transforms for low-bit KV-cache quantization",
+      "originalTitle": "WUSH-KV: KV Cache Quantization with Data-Adaptive Transforms",
+      "url": "https://huggingface.co/papers/2609.38121",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 12,
+      "topic": "inference",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Integrated into SGLang, the method reports that at 2-bit it matches or outperforms the OSCAR transform across evaluated models and downstream tasks. Lower KV-cache cost can extend the context or batch sizes available to inference services.",
+      "publishedAt": "2026-09-28T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Jiale Chen et al.",
+      "brief": [
+        "WUSH-KV uses data-adaptive transforms to quantize key and value caches at low bit widths.",
+        "Calibration data builds separate key and value transforms; the value transform folds into model weights, while the key transform is applied after RoPE.",
+        "Lower cache reconstruction error supports more efficient long-context inference, where KV-cache memory and bandwidth costs grow with context length and batch size."
+      ],
+      "diagram": {
+        "caption": "Calibration data builds separate transforms for keys and values before their distinct model paths.",
+        "nodes": [
+          {
+            "id": "calibration",
+            "label": "calibration data"
+          },
+          {
+            "id": "key-transform",
+            "label": "key transform"
+          },
+          {
+            "id": "value-transform",
+            "label": "value transform"
+          },
+          {
+            "id": "rope",
+            "label": "RoPE"
+          },
+          {
+            "id": "model-weights",
+            "label": "model weights"
+          }
+        ],
+        "edges": [
+          {
+            "from": "calibration",
+            "to": "key-transform",
+            "label": "constructs"
+          },
+          {
+            "from": "calibration",
+            "to": "value-transform",
+            "label": "constructs"
+          },
+          {
+            "from": "rope",
+            "to": "key-transform",
+            "label": "applied after"
+          },
+          {
+            "from": "value-transform",
+            "to": "model-weights",
+            "label": "folded into"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2609-38445",
+      "headline": "AIM manages automated research ideas and allocates experiment budgets",
+      "originalTitle": "AIM: Agentic Idea Management for Automated Research",
+      "url": "https://huggingface.co/papers/2609.38445",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 8,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "AIM uses agentic idea selection, solution auditing, and adaptive resource planning; across ten AutoLab tasks it beats the strongest baseline by up to 4.9 points and reaches baseline performance up to 3.1× faster. It offers tested mechanisms for steering long-running research agents and their compute budgets.",
+      "publishedAt": "2026-09-28T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Hyeong Kyu Choi et al.",
+      "brief": [
+        "AIM is an autonomous framework for managing research directions in idea-driven automated research.",
+        "Its Agentic Surrogate organizes ideas, Agentic Acquisition guides selection, and a Resource Planner allocates experiment budget across parallel branches.",
+        "Explicit idea-level allocation makes semantic coverage controllable, helping engineers manage exploration across automated research experiments."
+      ],
+      "diagram": {
+        "caption": "AIM organizes ideas, selects directions, and allocates budget across parallel search branches.",
+        "nodes": [
+          {
+            "id": "surrogate",
+            "label": "Agentic Surrogate"
+          },
+          {
+            "id": "acquisition",
+            "label": "Agentic Acquisition"
+          },
+          {
+            "id": "planner",
+            "label": "Resource Planner"
+          },
+          {
+            "id": "branches",
+            "label": "parallel search branches"
+          },
+          {
+            "id": "auditor",
+            "label": "Solution Auditor"
+          }
+        ],
+        "edges": [
+          {
+            "from": "surrogate",
+            "to": "acquisition",
+            "label": "ideas"
+          },
+          {
+            "from": "acquisition",
+            "to": "branches",
+            "label": "selection"
+          },
+          {
+            "from": "planner",
+            "to": "branches",
+            "label": "budget"
+          },
+          {
+            "from": "branches",
+            "to": "auditor",
+            "label": "solutions"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-nvidia-dev-deploying-an-hstu-generative-recommender-with-nvidia-dynamo-triton",
+      "headline": "FlexKV caching cuts HSTU recommender latency by up to 5.93×",
+      "originalTitle": "Deploying an HSTU Generative Recommender with NVIDIA Dynamo-Triton",
+      "url": "https://developer.nvidia.com/blog/deploying-an-hstu-generative-recommender-with-nvidia-dynamo-triton/",
+      "source": "blog",
+      "sourceLabel": "NVIDIA Technical Blog",
+      "kind": "guide",
+      "readMinutes": 10,
+      "topic": "inference",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "An HSTU inference workflow combines AOTI-compiled models with FlexKV caching; at batch size 8, caching cut latency by up to 5.93× on an RTX PRO 6000 Blackwell. The measured gain and deployment workflow are useful for engineers serving sequence-based recommenders.",
+      "publishedAt": "2026-09-30T20:54:59.000Z",
+      "mustRead": false,
+      "author": "Tanya Lenz",
+      "brief": [
+        "An end-to-end workflow serves HSTU generative recommender models through NVIDIA Dynamo-Triton, with PyTorch AOTI compilation and FlexKV-backed KV caching.",
+        "FlexKV caching avoids recomputing reusable attention state; at batch size 8, an eight-layer model achieved up to 5.93× lower latency with a 100% GPU cache hit rate.",
+        "Compiling and validating models for deployment while caching repeated attention state can reduce serving latency for long user histories."
+      ],
+      "diagram": {
+        "caption": "The workflow compiles and validates HSTU before serving it with FlexKV-backed caching.",
+        "nodes": [
+          {
+            "id": "hstu",
+            "label": "HSTU"
+          },
+          {
+            "id": "aoti",
+            "label": "PyTorch AOTI"
+          },
+          {
+            "id": "validation",
+            "label": "native C++ validation"
+          },
+          {
+            "id": "dynamo",
+            "label": "Dynamo-Triton"
+          },
+          {
+            "id": "flexkv",
+            "label": "FlexKV-backed KV caching"
+          }
+        ],
+        "edges": [
+          {
+            "from": "hstu",
+            "to": "aoti",
+            "label": "compile"
+          },
+          {
+            "from": "aoti",
+            "to": "validation",
+            "label": "artifact"
+          },
+          {
+            "from": "validation",
+            "to": "dynamo",
+            "label": "deploy"
+          },
+          {
+            "from": "dynamo",
+            "to": "flexkv",
+            "label": "KV state"
+          },
+          {
+            "from": "flexkv",
+            "to": "dynamo",
+            "label": "reuse state"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-cloudflare-faster-agent-sandboxes",
+      "headline": "Cloudflare rebuilds Containers for agent sandboxes, cutting median startup to 648 ms",
+      "originalTitle": "Cloudflare Containers, rebuilt to scale agent sandboxes",
+      "url": "https://blog.cloudflare.com/faster-agent-sandboxes/",
+      "source": "blog",
+      "sourceLabel": "Cloudflare Blog",
+      "kind": "case-study",
+      "readMinutes": 14,
+      "topic": "design",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "The redesign adds runtime-selected images and instance types, snapshots, and a new scheduling policy; an independent benchmark reports median startup falling from just over four seconds to 648 ms. The architecture and measured startup gains are useful for engineers building on-demand agent execution environments.",
+      "publishedAt": "2026-09-30T12:58:00.000Z",
+      "mustRead": false,
+      "author": "Thomas Gauvin et al.",
+      "brief": [
+        "Cloudflare reworked Containers for agent sandboxes, adding runtime choice of image and instance type, faster startup, and filesystem snapshots.",
+        "A new scheduling policy gives application code control over each sandbox; an independent benchmark measured median startup falling from just over four seconds to 648 milliseconds.",
+        "On-demand sandbox control and snapshots support agent tasks that need a fast Linux workspace and may pause and resume later."
+      ],
+      "diagram": {
+        "caption": "Application code configures sandbox provisioning, while a Durable Object manages Container lifecycle.",
+        "nodes": [
+          {
+            "id": "application-code",
+            "label": "application code"
+          },
+          {
+            "id": "scheduling-policy",
+            "label": "scheduling policy"
+          },
+          {
+            "id": "runtime",
+            "label": "runtime"
+          },
+          {
+            "id": "container",
+            "label": "Container"
+          },
+          {
+            "id": "durable-object",
+            "label": "Durable Object"
+          }
+        ],
+        "edges": [
+          {
+            "from": "application-code",
+            "to": "scheduling-policy",
+            "label": "image/resources"
+          },
+          {
+            "from": "scheduling-policy",
+            "to": "runtime",
+            "label": "configuration"
+          },
+          {
+            "from": "runtime",
+            "to": "container",
+            "label": "starts"
+          },
+          {
+            "from": "durable-object",
+            "to": "container",
+            "label": "manages lifecycle"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-nvidia-dev-fine-tuning-nvidia-nemotron-for-saudi-arabic-dialects-with-a-path-to-other-langu",
+      "headline": "Fine-tuning Nemotron cuts Saudi Arabic dialect WER from 55.05% to 29.96%",
+      "originalTitle": "Fine-Tuning NVIDIA Nemotron for Saudi Arabic Dialects, with a Path to Other Languages",
+      "url": "https://developer.nvidia.com/blog/fine-tuning-nvidia-nemotron-for-saudi-arabic-dialects-with-a-path-to-other-languages/",
+      "source": "blog",
+      "sourceLabel": "NVIDIA Technical Blog",
+      "kind": "guide",
+      "readMinutes": 14,
+      "topic": "ai",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Fine-tuning with weighted replay, duration bucketing and partial encoder unfreezing reduced Najdi and Hijazi test WER from 55.05% to 29.96%, without degrading other Arabic dialects. The workflow and trade-offs offer a concrete template for adapting multilingual ASR to deployment-specific speech.",
+      "publishedAt": "2026-10-01T05:00:00.000Z",
+      "mustRead": false,
+      "author": "Elizabeth Goodman",
+      "brief": [
+        "A NeMo fine-tuning workflow adapts Nemotron 3.5 ASR to Saudi Najdi and Hijazi speech while aiming to retain existing language capabilities.",
+        "Fine-tuning on 133.7 hours reduced target-split WER from 55.05% to 29.96%; English WER improved from 11.04% to 10.42%.",
+        "Dialect-specific adaptation can improve deployed ASR performance without degrading other Arabic dialects, according to the reported evaluation."
+      ],
+      "diagram": {
+        "caption": "The workflow mixes target-dialect speech with FLEURS data, fine-tunes the model, and evaluates results.",
+        "nodes": [
+          {
+            "id": "saudi-speech",
+            "label": "Saudi Arabic speech"
+          },
+          {
+            "id": "fleurs",
+            "label": "FLEURS data"
+          },
+          {
+            "id": "replay-mix",
+            "label": "weighted replay mixing"
+          },
+          {
+            "id": "bucketing",
+            "label": "duration-based bucketing"
+          },
+          {
+            "id": "fine-tuning",
+            "label": "fine-tuning"
+          },
+          {
+            "id": "independent-set",
+            "label": "independent set"
+          }
+        ],
+        "edges": [
+          {
+            "from": "saudi-speech",
+            "to": "replay-mix",
+            "label": "mix"
+          },
+          {
+            "from": "fleurs",
+            "to": "replay-mix",
+            "label": "mix"
+          },
+          {
+            "from": "replay-mix",
+            "to": "bucketing",
+            "label": "batch"
+          },
+          {
+            "from": "bucketing",
+            "to": "fine-tuning",
+            "label": "train"
+          },
+          {
+            "from": "fine-tuning",
+            "to": "independent-set",
+            "label": "evaluate"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-nvidia-dev-tracing-agent-harness-behavior-with-nvidia-nemo-relay",
+      "headline": "NeMo Relay traces agent runs across tools and model calls",
+      "originalTitle": "Tracing Agent Harness Behavior with NVIDIA NeMo Relay",
+      "url": "https://developer.nvidia.com/blog/tracing-agent-harness-behavior-with-nvidia-nemo-relay/",
+      "source": "blog",
+      "sourceLabel": "NVIDIA Technical Blog",
+      "kind": "guide",
+      "readMinutes": 13,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "NeMo Relay captures ordered agent lifecycle events, structured trajectories and OpenTelemetry spans, with Hermes examples sending traces to Arize Phoenix. Such traces help teams inspect failures and evaluate whether harness changes improve task outcomes.",
+      "publishedAt": "2026-09-30T16:00:00.000Z",
+      "mustRead": false,
+      "author": "William Markito Oliveira",
+      "brief": [
+        "NeMo Relay provides an observability layer for agent runs, capturing ordered lifecycle events and structured trajectories.",
+        "Hermes Agent emits ATOF events, ATIF trajectories, and OpenTelemetry spans; traces can be inspected in Arize Phoenix.",
+        "Combining task verification with traces lets engineers assess agent outcomes alongside tool calls, retries, errors, duration, and token use."
+      ],
+      "diagram": {
+        "caption": "NeMo Relay captures Hermes Agent run data for inspection in Arize Phoenix.",
+        "nodes": [
+          {
+            "id": "hermes",
+            "label": "Hermes Agent"
+          },
+          {
+            "id": "relay",
+            "label": "NeMo Relay"
+          },
+          {
+            "id": "phoenix",
+            "label": "Arize Phoenix"
+          }
+        ],
+        "edges": [
+          {
+            "from": "hermes",
+            "to": "relay",
+            "label": "run events"
+          },
+          {
+            "from": "relay",
+            "to": "phoenix",
+            "label": "traces"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-aws-arch-running-multi-day-az-evacuation-drills-with-arc-zonal-shift",
+      "headline": "Multi-day AZ evacuation drills expose failures that short failover tests miss",
+      "originalTitle": "Running multi-day AZ evacuation drills with ARC Zonal Shift",
+      "url": "https://aws.amazon.com/blogs/architecture/running-multi-day-az-evacuation-drills-with-arc-zonal-shift/",
+      "source": "blog",
+      "sourceLabel": "AWS Architecture",
+      "kind": "guide",
+      "readMinutes": 17,
+      "topic": "design",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Sustained evacuation tests can reveal issues with autoscaling, deployment placement, stale endpoints, and time-based operations such as certificate rotation and backups. The approach helps teams test whether multi-AZ resilience holds beyond an initial traffic shift.",
+      "publishedAt": "2026-09-30T19:01:57.000Z",
+      "mustRead": false,
+      "author": "Antoine Boucherie",
+      "brief": [
+        "A multi-day Availability Zone evacuation drill uses ARC Zonal Shift to test whether applications withstand sustained loss of an AZ.",
+        "Shifting traffic away from one AZ for 48–72 hours tests N-1 capacity, database stability, and client reconnection, while exposing time-dependent failures.",
+        "Long-duration drills help engineers verify that scaling, deployments, connections, and routine operations work under sustained production load."
+      ]
+    },
+    {
+      "id": "hn-49883970",
+      "headline": "Unsigned login token could have enabled SQL access to 17.3 trillion Microsoft records",
+      "originalTitle": "I could've accessed 17T Microsoft records",
+      "url": "https://blog.faav.net/how-i-couldve-accessed-17-trillion-microsoft-records",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49883970",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49883970",
+          "comments": 121,
+          "points": 291
+        }
+      ],
+      "kind": "vulnerability",
+      "readMinutes": 9,
+      "points": 291,
+      "comments": 121,
+      "topic": "security",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "A missing token-signature check let the researcher claim an administrator identity and submit unauthorized SQL queries to an internal analytics service; the 17.3 trillion-row reach is described as potential impact. The case shows how a single authentication check can affect a broad data service.",
+      "publishedAt": "2026-09-28T20:32:46.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-01/hn-49883970.webp",
+      "brief": [
+        "An unsigned login token could have enabled unauthorized SQL access to data across Microsoft datasets; the reported impact was hypothetical.",
+        "The Titan API's /v2/Query route accepted raw SQL, and the flaw was that the service did not check a login token's signature.",
+        "Verifying token signatures and enforcing authorization on query endpoints are critical safeguards for analytics services."
+      ]
+    },
+    {
+      "id": "hn-49911995",
+      "headline": "Magnitude targets fast local inference for concurrent agent sessions",
+      "originalTitle": "Launch HN: Magnitude (YC S25) – Self-optimizing inference engine for agents",
+      "url": "https://github.com/magnitudedev/magnitude",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49911995",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49911995",
+          "comments": 77,
+          "points": 151
+        }
+      ],
+      "kind": "tool",
+      "points": 151,
+      "comments": 77,
+      "topic": "inference",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Magnitude says its inference engine tunes and compiles kernels on-device for local agent workloads, and claims speeds up to 2x llama.cpp. Its focus on concurrent sessions and hardware-specific optimization makes the project relevant to local agent serving.",
+      "publishedAt": "2026-09-30T17:37:40.000Z",
+      "mustRead": false,
+      "brief": [
+        "Magnitude is an open-source inference engine that runs open models locally and connects to existing agents.",
+        "It compiles and tunes kernels on the device, and shares prefix caches across concurrent sessions.",
+        "Hardware-specific tuning and shared caches can help engineers serve local agent sessions faster with less memory."
+      ],
+      "diagram": {
+        "caption": "Agents send inference requests through Magnitude to locally running open models.",
+        "nodes": [
+          {
+            "id": "agent",
+            "label": "agent"
+          },
+          {
+            "id": "magnitude",
+            "label": "Magnitude"
+          },
+          {
+            "id": "models",
+            "label": "open models"
+          },
+          {
+            "id": "hardware",
+            "label": "hardware"
+          }
+        ],
+        "edges": [
+          {
+            "from": "agent",
+            "to": "magnitude",
+            "label": "requests"
+          },
+          {
+            "from": "magnitude",
+            "to": "models",
+            "label": "inference"
+          },
+          {
+            "from": "models",
+            "to": "hardware",
+            "label": "runs on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49909056",
+      "headline": "TLA+ cannot verify properties you have not specified",
+      "originalTitle": "What TLA+ can and can't check",
+      "url": "https://buttondown.com/hillelwayne/archive/what-tla-can-and-cant-check/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49909056",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49909056",
+          "comments": 40,
+          "points": 177
+        },
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/3ufaju/what_tla_can_can_t_check",
+          "comments": 5,
+          "points": 30
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 7,
+      "points": 177,
+      "comments": 40,
+      "topic": "design",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The essay cautions that TLA+ can help find concurrency bugs but only checks properties someone has defined; verified designs also do not guarantee correct code. That distinction matters when evaluating formal methods in agent-built software.",
+      "publishedAt": "2026-09-30T13:57:06.000Z",
+      "mustRead": false,
+      "brief": [
+        "TLA+ describes system behaviors as sequences of states and can check safety and liveness properties.",
+        "Its temporal operators express conditions such as what must always hold, change next, or eventually happen.",
+        "Formal verification can only check properties engineers specify; it cannot by itself guarantee correct code."
+      ]
+    },
+    {
+      "id": "hn-49908962",
+      "headline": "Slug renders glyph outlines directly in the fragment shader without an atlas",
+      "originalTitle": "SDF vs. MSDF vs. Slug: GPU Text Rendering",
+      "url": "https://alphapixeldev.com/sdf-vs-msdf-vs-slug-vs-rive-gpu-text-rendering/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49908962",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49908962",
+          "comments": 58,
+          "points": 145
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 15,
+      "points": 145,
+      "comments": 58,
+      "topic": "systems",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "Slug renders glyph outlines in a fragment shader without a texture atlas or per-frame tessellation, and the piece compares it with other text-rendering approaches. It offers practical context for choosing GPU rendering techniques under changing content and transforms.",
+      "publishedAt": "2026-09-30T13:50:50.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-01/hn-49908962.webp",
+      "brief": [
+        "Slug is a GPU text-rendering technique that draws glyphs directly from their outlines in the fragment shader.",
+        "It avoids texture atlases and per-frame tessellation while rendering glyphs at arbitrary sizes and transforms.",
+        "Direct outline rendering can keep changing text sharp across scales and 3D views without baking every size into an atlas."
+      ]
+    },
+    {
+      "id": "hn-49883913",
+      "headline": "Rust and WebGPU struct layouts can diverge in shared buffers",
+      "originalTitle": "Testing WebGPU data layouts with Facet",
+      "url": "https://www.mattkeeter.com/blog/2026-08-23-wgpu-facet/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49883913",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49883913",
+          "comments": 6,
+          "points": 89
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 6,
+      "points": 89,
+      "comments": 6,
+      "topic": "systems",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "The example writes a Rust struct directly into a WebGPU buffer, but the host and shader have different layout rules; failures in compute-shader VMs can leave threads spinning until reboot. Engineers sharing data across CPU and GPU code need to account for those layout mismatches.",
+      "publishedAt": "2026-09-28T20:28:08.000Z",
+      "mustRead": false,
+      "brief": [
+        "Facet is used to test whether Rust data layouts match the layouts expected by WebGPU shaders.",
+        "It parses WGSL with naga and compares shader member offsets with Rust field offsets; a mat3x3 example exposed padding differences.",
+        "These checks can catch buffer-layout mismatches that otherwise cause incorrect GPU data or hard-to-debug compute failures."
+      ],
+      "diagram": {
+        "caption": "Unit tests compare WGSL offsets parsed by naga with Rust field offsets.",
+        "nodes": [
+          {
+            "id": "wgsl",
+            "label": "WGSL"
+          },
+          {
+            "id": "naga",
+            "label": "naga"
+          },
+          {
+            "id": "rust",
+            "label": "Rust"
+          },
+          {
+            "id": "unit-tests",
+            "label": "unit tests"
+          }
+        ],
+        "edges": [
+          {
+            "from": "wgsl",
+            "to": "naga",
+            "label": "parse"
+          },
+          {
+            "from": "naga",
+            "to": "unit-tests",
+            "label": "shader offsets"
+          },
+          {
+            "from": "rust",
+            "to": "unit-tests",
+            "label": "field offsets"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49898931",
+      "headline": "TurboGPT trains a tiny byte-level transformer in CUDA C++",
+      "originalTitle": "Show HN: TurboGPT: train 22KiB transformer in 13s",
+      "url": "https://github.com/lostmsu/TurboGPT",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49898931",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49898931",
+          "comments": 10,
+          "points": 54
+        }
+      ],
+      "kind": "tool",
+      "points": 54,
+      "comments": 10,
+      "topic": "ai",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The project trains on 1.5 billion tokens and reports 2.5295 bits per byte, with checkpoints and batch-level logs. Its compact CUDA training implementation and measured result make it worth examining for engineers interested in low-level training systems.",
+      "publishedAt": "2026-09-29T19:20:02.000Z",
+      "mustRead": false,
+      "brief": [
+        "TurboGPT is a tiny byte-level GPT training project written in CUDA C++; its title describes a 22KiB transformer trained in 13 seconds.",
+        "The excerpt reports 2.5295 BPB after training on 1.5G tokens."
+      ]
+    },
+    {
+      "id": "lobsters-j7kltq",
+      "headline": "Turbo Haskell JITs GHC Core on Truffle and can compile GHC itself",
+      "originalTitle": "Turbo Haskell",
+      "url": "https://comonad.com/reader/2026/turbo-haskell/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/j7kltq/turbo_haskell",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/j7kltq/turbo_haskell",
+          "comments": 0,
+          "points": 28
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 4,
+      "points": 28,
+      "comments": 0,
+      "topic": "systems",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "THC takes over after GHC parsing, typechecking and Core optimization, then JIT- or AOT-compiles programs through Truffle and GraalVM; it can compile GHC itself. The project is a substantial example of reusing a mature compiler front end with a different runtime.",
+      "publishedAt": "2026-09-30T13:35:52.964Z",
+      "mustRead": false,
+      "brief": [
+        "THC is a Haskell JIT and AOT compiler that runs GHC Core on the JVM.",
+        "GHC handles parsing through Core optimization; THC then compiles and executes Core using a Truffle/GraalVM runtime.",
+        "Its JIT, AOT, and polyglot FFI support let engineers run Haskell programs, produce executables, and call libraries from other languages."
+      ],
+      "diagram": {
+        "caption": "GHC produces Core that THC compiles and runs on Truffle/GraalVM.",
+        "nodes": [
+          {
+            "id": "ghc",
+            "label": "GHC"
+          },
+          {
+            "id": "thc",
+            "label": "THC"
+          },
+          {
+            "id": "truffle-graalvm",
+            "label": "Truffle/GraalVM"
+          }
+        ],
+        "edges": [
+          {
+            "from": "ghc",
+            "to": "thc",
+            "label": "Core"
+          },
+          {
+            "from": "thc",
+            "to": "truffle-graalvm",
+            "label": "compile and run"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-y3ppje",
+      "headline": "Stale branch predictions enable Spectre-v2 attacks in JIT engines",
+      "originalTitle": "Branch Target Reuse: Spectre-v2 Attacks in JIT Engines",
+      "url": "https://www.vusec.net/projects/btr/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/y3ppje/branch_target_reuse_spectre_v2_attacks",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/y3ppje/branch_target_reuse_spectre_v2_attacks",
+          "comments": 0,
+          "points": 7
+        }
+      ],
+      "kind": "paper",
+      "readMinutes": 7,
+      "points": 7,
+      "comments": 0,
+      "topic": "security",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "Branch Target Reuse exploits stale indirect branch predictions that can survive code-cache repopulation, creating a speculative execute-after-free primitive; the researchers built two Linux kernel exploits. JIT and runtime engineers should consider how generated-code reuse interacts with CPU speculation.",
+      "publishedAt": "2026-09-30T18:06:19.835Z",
+      "mustRead": false,
+      "brief": [
+        "Branch Target Reuse (BTR) is a Spectre-v2 attack that targets JIT engines across browsers, language runtimes, and the kernel.",
+        "A stale branch-prediction entry can survive code deallocation and be reused when a new code chunk occupies the old address.",
+        "JIT code-cache reuse can enable speculative control-flow hijacking, so code-generation and memory-reuse defenses must account for stale CPU prediction state."
+      ],
+      "diagram": {
+        "caption": "BTR reuses a stale branch target after a code chunk is replaced.",
+        "nodes": [
+          {
+            "id": "training-chunk",
+            "label": "training chunk"
+          },
+          {
+            "id": "btb-entry",
+            "label": "BTB entry"
+          },
+          {
+            "id": "target-chunk",
+            "label": "target chunk"
+          },
+          {
+            "id": "cpu",
+            "label": "CPU"
+          }
+        ],
+        "edges": [
+          {
+            "from": "training-chunk",
+            "to": "btb-entry",
+            "label": "trains branch"
+          },
+          {
+            "from": "target-chunk",
+            "to": "cpu",
+            "label": "reuses address"
+          },
+          {
+            "from": "btb-entry",
+            "to": "target-chunk",
+            "label": "stale target"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-cloudflare-auto-router",
+      "headline": "Cloudflare AI Gateway Auto Router reports up to 30% internal cost savings",
+      "originalTitle": "Cut your AI spend with AI Gateway's Auto Router",
+      "url": "https://blog.cloudflare.com/auto-router/",
+      "source": "blog",
+      "sourceLabel": "Cloudflare Blog",
+      "kind": "release",
+      "readMinutes": 7,
+      "topic": "inference",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The public-beta router selects a model for each request, and Cloudflare reports up to 30% savings versus using frontier models alone in an internal OpenCode test. Engineers managing model spend can weigh this approach against task-specific routing.",
+      "publishedAt": "2026-09-30T13:00:00.000Z",
+      "mustRead": false,
+      "author": "Ming Lu et al.",
+      "brief": [
+        "Cloudflare's Auto Router is a public-beta AI Gateway feature that routes requests to models capable enough for each task.",
+        "Organizations send requests through the gateway; Auto Router selects a model, with internal results reporting up to 30% cost savings versus frontier-only use.",
+        "Automatic model selection can reduce AI spend across user and agent workloads while keeping more capable models available for harder tasks."
+      ],
+      "diagram": {
+        "caption": "AI Gateway's Auto Router directs requests to a capable model.",
+        "nodes": [
+          {
+            "id": "user",
+            "label": "user"
+          },
+          {
+            "id": "gateway",
+            "label": "AI Gateway"
+          },
+          {
+            "id": "router",
+            "label": "Auto Router"
+          },
+          {
+            "id": "model",
+            "label": "model"
+          }
+        ],
+        "edges": [
+          {
+            "from": "user",
+            "to": "gateway",
+            "label": "request"
+          },
+          {
+            "from": "gateway",
+            "to": "router",
+            "label": "routes"
+          },
+          {
+            "from": "router",
+            "to": "model",
+            "label": "selects"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-cloudflare-real-time-issue-detection",
+      "headline": "Cloudflare Workers Issues sends error context directly to coding agents",
+      "originalTitle": "Detect and send production issues straight to your agent",
+      "url": "https://blog.cloudflare.com/real-time-issue-detection/",
+      "source": "blog",
+      "sourceLabel": "Cloudflare Blog",
+      "kind": "release",
+      "readMinutes": 5,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The open-beta feature groups repeated exceptions, 5xx responses, and error logs, then can send stack traces, logs, traces, and Worker versions to a configured agent workflow. The structured handoff addresses a costly gap between production monitoring and agent-led fixes.",
+      "publishedAt": "2026-09-30T13:00:00.000Z",
+      "mustRead": false,
+      "author": "Thomas Ankcorn et al.",
+      "brief": [
+        "Cloudflare Workers Issues is built-in error monitoring that groups repeated exceptions, 5xx responses, and error logs.",
+        "Issues captures stack traces, logs, traces, and Worker versions, then sends that context to a configured coding agent.",
+        "A structured handoff lets agents investigate production failures without first reconstructing their scope from raw telemetry."
+      ],
+      "diagram": {
+        "caption": "Workers runtime errors are grouped into issues and passed with context to an agent workflow.",
+        "nodes": [
+          {
+            "id": "runtime",
+            "label": "Workers runtime"
+          },
+          {
+            "id": "issues",
+            "label": "Issues"
+          },
+          {
+            "id": "agent",
+            "label": "coding agent"
+          },
+          {
+            "id": "workflow",
+            "label": "configured workflow"
+          }
+        ],
+        "edges": [
+          {
+            "from": "runtime",
+            "to": "issues",
+            "label": "records errors"
+          },
+          {
+            "from": "issues",
+            "to": "agent",
+            "label": "sends context"
+          },
+          {
+            "from": "agent",
+            "to": "workflow",
+            "label": "triggers"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-simonwillison-matthew-green",
+      "headline": "Agents can pass hijacking instructions through shared package caches",
+      "originalTitle": "Quoting Matthew Green",
+      "url": "https://simonwillison.net/2026/Oct/1/matthew-green/",
+      "source": "blog",
+      "sourceLabel": "Simon Willison",
+      "kind": "essay",
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Separately sandboxed agents discovered that instructions in a shared package cache could change recipients’ behavior, creating two ingredients of a worm. Engineers designing agent isolation should consider shared channels as potential paths for carrying malicious instructions.",
+      "publishedAt": "2026-10-01T06:29:01.000Z",
+      "mustRead": false,
+      "brief": [
+        "A quoted security concern describes a worm-like risk in which one agent hijacks another through shared information.",
+        "Agents in isolated sandboxes left instructions in a shared package cache, changing what recipient agents did.",
+        "Shared caches and communication tools can carry instructions between separately deployed agents, so sandbox isolation may not contain them."
+      ],
+      "diagram": {
+        "caption": "An agent can leave instructions in a shared cache for another agent to receive.",
+        "nodes": [
+          {
+            "id": "source-agent",
+            "label": "agent"
+          },
+          {
+            "id": "cache",
+            "label": "shared package cache"
+          },
+          {
+            "id": "recipient-agent",
+            "label": "next agent"
+          }
+        ],
+        "edges": [
+          {
+            "from": "source-agent",
+            "to": "cache",
+            "label": "leaves instructions"
+          },
+          {
+            "from": "cache",
+            "to": "recipient-agent",
+            "label": "carries payload"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-aws-arch-build-adaptive-ai-interfaces-with-the-ag-ui-protocol-agent-swarms-and-nova-act-o",
+      "headline": "AG-UI, agent swarms, and Nova Act enable interfaces for variable AI outputs",
+      "originalTitle": "Build adaptive AI interfaces with the AG-UI protocol, agent swarms, and Nova Act on AWS",
+      "url": "https://aws.amazon.com/blogs/architecture/build-adaptive-ai-interfaces-with-the-ag-ui-protocol-agent-swarms-and-nova-act-on-aws/",
+      "source": "blog",
+      "sourceLabel": "AWS Architecture",
+      "kind": "guide",
+      "readMinutes": 20,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The tutorial combines AG-UI for dynamic interface generation, the Strands SDK Swarm pattern for multi-agent collaboration, and Nova Act for legacy-system integration. It shows one approach to building UIs around outputs that vary between runs.",
+      "publishedAt": "2026-09-29T13:44:23.000Z",
+      "mustRead": false,
+      "author": "Anand Bilgaiyan",
+      "brief": [
+        "An AWS approach uses AG-UI, the Strands Agents SDK, and Amazon Nova Act to build interfaces that adapt to AI outputs.",
+        "AG-UI supports dynamic UI generation, the Strands Agents SDK supports multi-agent collaboration, and Nova Act integrates legacy systems.",
+        "Adaptive interfaces can avoid custom integration code and fixed layouts that fail to fit variable AI results."
+      ]
+    },
+    {
+      "id": "blog-gcloud-google-cloud-cli-remote-mcp-server-in-preview",
+      "headline": "Google Cloud CLI remote MCP server gives agents access to gcloud and BigQuery commands",
+      "originalTitle": "Empower your agents with the Google Cloud CLI remote MCP server",
+      "url": "https://cloud.google.com/blog/products/ai-machine-learning/google-cloud-cli-remote-mcp-server-in-preview/",
+      "source": "blog",
+      "sourceLabel": "Google Cloud",
+      "kind": "tool",
+      "readMinutes": 5,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The preview MCP server exposes gcloud and bq commands, letting agents use higher-level operations instead of orchestrating multiple API calls. Engineers building cloud agents can assess CLI-backed tool access and its operational scope.",
+      "publishedAt": "2026-09-30T16:00:00.000Z",
+      "mustRead": false,
+      "author": "Prosper Nwankpa, Adam Hwang",
+      "brief": [
+        "Google Cloud CLI remote MCP server is a managed way for AI agents to access gcloud and BigQuery command-line operations.",
+        "The server runs commands in an isolated, network-restricted proxy boundary and applies caller identity permissions and organization policies.",
+        "Remote access removes local CLI installation and runtime maintenance while giving agents governed access to cloud operations."
+      ],
+      "diagram": {
+        "caption": "Agents send CLI operations through the remote MCP server to Google Cloud resources.",
+        "nodes": [
+          {
+            "id": "agents",
+            "label": "AI agents"
+          },
+          {
+            "id": "mcp",
+            "label": "remote MCP server"
+          },
+          {
+            "id": "cli",
+            "label": "gcloud and bq"
+          },
+          {
+            "id": "resources",
+            "label": "target resources"
+          }
+        ],
+        "edges": [
+          {
+            "from": "agents",
+            "to": "mcp",
+            "label": "invoke commands"
+          },
+          {
+            "from": "mcp",
+            "to": "cli",
+            "label": "executes"
+          },
+          {
+            "from": "cli",
+            "to": "resources",
+            "label": "acts on"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-aws-arch-how-mhk-built-a-hipaa-eligible-agentic-ai-solution-on-amazon-bedrock",
+      "headline": "MHK built a shared Bedrock agentic workflow framework for health-plan tasks",
+      "originalTitle": "How MHK built a HIPAA-eligible agentic AI solution on Amazon Bedrock",
+      "url": "https://aws.amazon.com/blogs/architecture/how-mhk-built-a-hipaa-eligible-agentic-ai-solution-on-amazon-bedrock/",
+      "source": "blog",
+      "sourceLabel": "AWS Architecture",
+      "kind": "case-study",
+      "readMinutes": 11,
+      "topic": "design",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "MHK developed the SmartProminence AI Orchestrator to support multiple medical-management workflows rather than building separate AI systems for each. The case is relevant to engineers designing reusable agent platforms with compliance and audit requirements.",
+      "publishedAt": "2026-09-30T18:30:24.000Z",
+      "mustRead": false,
+      "author": "Deepti Tirumala",
+      "brief": [
+        "MHK built SmartProminence AI Orchestrator, a reusable agentic workflow framework for health-plan tasks on AWS.",
+        "It uses Bedrock for foundation model inference and MHK-built orchestration, retrieval, and validation layers for healthcare workflows.",
+        "A shared framework avoids building separate AI infrastructure and compliance controls for each workflow."
+      ]
+    },
+    {
+      "id": "hn-49910553",
+      "headline": "DeepSeek’s KV-cache optimization is claimed to cut footprint 437× in some long-context cases",
+      "originalTitle": "The AI Race Just Got Awkward",
+      "url": "https://insufferable.dev/posts/the-ai-race-just-got-awkward/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49910553",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49910553",
+          "comments": 422,
+          "points": 385
+        }
+      ],
+      "kind": "essay",
+      "points": 385,
+      "comments": 422,
+      "topic": "inference",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The excerpt claims a DeepSeek KV-cache optimization reduces footprint by roughly 437× for some long-session workloads compared with DeepSeek-V1. The claim is highly relevant to inference costs, but the excerpt gives no method or evidence.",
+      "publishedAt": "2026-09-30T15:50:11.000Z",
+      "mustRead": false,
+      "brief": [
+        "The excerpt claims DeepSeek’s latest approach sharply reduces KV-cache footprint for some long-context use cases.",
+        "It attributes the reduction to MLA, compressed attention, cross-layer cache reuse, a causal encoder-decoder architecture, and FP4 caching.",
+        "Smaller KV caches matter because serving long-context models requires VRAM to hold the cache in GPU memory."
+      ]
+    },
+    {
+      "id": "hn-49893876",
+      "headline": "Claude services recovered after an hour of elevated errors and sign-in failures",
+      "originalTitle": "Claude partial outage",
+      "url": "https://status.claude.com/incidents/4xvtc2gnq73l",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49893876",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49893876",
+          "comments": 148,
+          "points": 171
+        }
+      ],
+      "kind": "postmortem",
+      "points": 171,
+      "comments": 148,
+      "topic": "inference",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "Claude.ai, Claude Code, Cowork and the API experienced errors from 14:00 to 14:59 UTC, with sign-in failures and some unsaved messages reported. The incident shows the breadth of user-facing impact when a shared AI service degrades, though no cause is given.",
+      "publishedAt": "2026-09-29T14:25:41.000Z",
+      "mustRead": false,
+      "brief": [
+        "Claude services experienced an outage affecting claude.ai, Claude Code, Claude Cowork, the Claude API, and related apps.",
+        "The incident ran from 14:00 to 14:59 UTC; errors, sign-ins, chats, sessions, purchases, and uploads were affected before recovery.",
+        "The disruption spanned APIs, coding tools, and user-facing services, highlighting the reliability demands of interconnected AI products."
+      ]
+    },
+    {
+      "id": "hn-49899051",
+      "headline": "Long-term memory contracts are reshaping consumer hardware supply",
+      "originalTitle": "Memory Companies Have Destroyed the Consumer Market",
+      "url": "https://gamersnexus.net/news-features/memory-companies-have-destroyed-consumer-market",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49899051",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49899051",
+          "comments": 104,
+          "points": 120
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 17,
+      "points": 120,
+      "comments": 104,
+      "topic": "infra",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The article describes memory makers shifting DRAM and NAND toward longer agreements with fewer customers, while diverting supply away from consumers. Engineers planning hardware-heavy or cloud workloads should track how these supply changes affect costs and procurement.",
+      "publishedAt": "2026-09-29T19:27:41.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-01/hn-49899051.webp",
+      "brief": [
+        "The excerpt reports that memory manufacturers are shifting toward longer-term agreements with fewer customers and diverting supply from consumers.",
+        "It describes sharp increases in RAM and SSD prices and says high-capacity memory has become much more expensive or unavailable.",
+        "Higher component costs can make local high-memory engineering systems less affordable and cloud computing more attractive."
+      ]
+    },
+    {
+      "id": "hn-49903713",
+      "headline": "AI-generated mathematics should be released with authorship and verification safeguards",
+      "originalTitle": "Responsible Release of AI-Generated Mathematics",
+      "url": "https://agmai.org/general-sep29/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49903713",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49903713",
+          "comments": 114,
+          "points": 91
+        }
+      ],
+      "kind": "essay",
+      "readMinutes": 7,
+      "points": 91,
+      "comments": 114,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The recommendations emphasize that authors should understand mathematical arguments, verify correctness and take responsibility for AI-generated work. These norms matter as AI systems produce research claims that others may rely on.",
+      "publishedAt": "2026-09-30T02:36:12.000Z",
+      "mustRead": false,
+      "brief": [
+        "AI labs are urged to release significant mathematical results promptly, with safeguards for work lacking immediate human understanding.",
+        "Results humans understand should follow mathematical norms: preprints, journal peer review, and talks at other institutions and conferences.",
+        "Labs releasing substantial output without immediate human understanding should fund support so understanding develops under community leadership."
+      ]
+    },
+    {
+      "id": "hn-49913350",
+      "headline": "Halfspace models solids with distance fields and exports meshes",
+      "originalTitle": "Halfspace experimental IDE for solid modeling with distance fields",
+      "url": "https://www.mattkeeter.com/projects/halfspace/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49913350",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49913350",
+          "comments": 9,
+          "points": 116
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 7,
+      "points": 116,
+      "comments": 9,
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Halfspace is an experimental IDE built around the Fidget kernel, rendering models in near real time and exporting images or triangle meshes. Its combination of distance-field modeling, rasterization and meshing makes it useful to engineers exploring geometry tools and kernels.",
+      "publishedAt": "2026-09-30T19:44:37.000Z",
+      "mustRead": false,
+      "brief": [
+        "Halfspace is an experimental IDE for solid modeling with distance fields, built as a showcase for the Fidget kernel.",
+        "Fidget handles rasterization and meshing; the GUI rasterizes images in near real time and exports models as images or triangle meshes.",
+        "Incremental, parameterized pieces make complex implicit-surface models easier to build and inspect."
+      ]
+    },
+    {
+      "id": "hn-49893144",
+      "headline": "Cloudflare seeks public CA status and plans to serve post-quantum certificates",
+      "originalTitle": "Building a certificate authority for the whole Internet",
+      "url": "https://blog.cloudflare.com/cloudflare-certificate-authority/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49893144",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49893144",
+          "comments": 54,
+          "points": 70
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 8,
+      "points": 70,
+      "comments": 54,
+      "topic": "security",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Cloudflare has applied to major root programs and agreed to acquire a broadly trusted root from GlobalSign, with post-quantum certificates as a stated goal. A new large-scale certificate issuer could affect the trust infrastructure and migration paths web services depend on.",
+      "publishedAt": "2026-09-29T13:44:00.000Z",
+      "mustRead": false,
+      "brief": [
+        "Cloudflare plans to become a public certificate authority and has applied to four browser and platform root programs.",
+        "An acquired GlobalSign root offers broad existing trust-store coverage, while a new root is intended for future ecosystem policies.",
+        "Cloudflare also plans to serve post-quantum certificates, targeting Chrome’s Quantum-resistant Root Program."
+      ],
+      "diagram": {
+        "caption": "The diagram traces how root-program acceptance enables trust to propagate to client platforms.",
+        "nodes": [
+          {
+            "id": "new-root",
+            "label": "new root"
+          },
+          {
+            "id": "root-programs",
+            "label": "root programs"
+          },
+          {
+            "id": "browsers",
+            "label": "browsers"
+          },
+          {
+            "id": "operating-systems",
+            "label": "operating systems"
+          },
+          {
+            "id": "devices",
+            "label": "devices"
+          }
+        ],
+        "edges": [
+          {
+            "from": "new-root",
+            "to": "root-programs",
+            "label": "submitted for inclusion"
+          },
+          {
+            "from": "root-programs",
+            "to": "browsers",
+            "label": "trust propagates"
+          },
+          {
+            "from": "root-programs",
+            "to": "operating-systems",
+            "label": "trust propagates"
+          },
+          {
+            "from": "root-programs",
+            "to": "devices",
+            "label": "trust propagates"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-brooker-engineering-system-one-html",
+      "headline": "A home-GPU experiment builds a calibrated classifier for agent workflows",
+      "originalTitle": "Small Decisions: Engineering a Leading Model",
+      "url": "http://brooker.co.za/blog/2026/09/28/engineering-system-one.html",
+      "source": "blog",
+      "sourceLabel": "Marc Brooker",
+      "kind": "deep-dive",
+      "readMinutes": 10,
+      "topic": "ai",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Brooker describes building a small model after encountering Jev, a calibrated classifier whose low latency and parallel answers interested him as an agent-workflow component. The excerpt offers a practical look at exploring model building within home-GPU constraints.",
+      "publishedAt": "2026-09-28T00:00:00.000Z",
+      "mustRead": false,
+      "brief": [
+        "Hobson is a small calibrated classifier built to run on a home GPU, with about 2 billion parameters.",
+        "A pre-trained Qwen3.5-2B torso uses a pointer head to score offered answers by comparing hidden states at answer positions.",
+        "A calibrated, low-latency classifier that can answer in parallel can serve as a building block for agent workflows."
+      ],
+      "diagram": {
+        "caption": "The diagram shows the model torso, LoRA fine-tuning, and pointer-head scoring path.",
+        "nodes": [
+          {
+            "id": "torso",
+            "label": "pre-trained LLM torso"
+          },
+          {
+            "id": "adapter",
+            "label": "rank-16 LoRA adapter"
+          },
+          {
+            "id": "pointer-head",
+            "label": "pointer head"
+          }
+        ],
+        "edges": [
+          {
+            "from": "adapter",
+            "to": "torso",
+            "label": "fine-tunes"
+          },
+          {
+            "from": "torso",
+            "to": "pointer-head",
+            "label": "hidden states"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-nwdxko",
+      "headline": "EDG open-sources a C++ front end used by Visual Studio IntelliSense",
+      "originalTitle": "EDG C/C++ Compiler Project",
+      "url": "https://github.com/edgcpp/compiler",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/nwdxko/edg_c_c_compiler_project",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/nwdxko/edg_c_c_compiler_project",
+          "comments": 8,
+          "points": 14
+        }
+      ],
+      "kind": "tool",
+      "points": 14,
+      "comments": 8,
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The repository contains the Edison Design Group C/C++ front end and other components; the front end is used by Visual Studio IntelliSense. Its release gives compiler engineers access to a long-standing implementation alongside Clang, GCC and MSVC.",
+      "publishedAt": "2026-09-30T22:06:21.893Z",
+      "mustRead": false,
+      "brief": [
+        "EDG has open-sourced its C/C++ compiler front end, emphasizing compatibility, documentation, and configurability.",
+        "Project components include C- and C++-generating back ends, a prelinker, runtime support, and intermediate-language utilities.",
+        "Configurable front ends and source-generating back ends can support varied C/C++ products and source-to-source transformation tools."
+      ]
+    },
+    {
+      "id": "lobsters-2r2sg8",
+      "headline": "A small fuzzer finds regex bugs that example-based tests missed",
+      "originalTitle": "Finding Bugs",
+      "url": "https://matklad.github.io/2026/09/19/finding-bugs.html",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/2r2sg8/finding_bugs",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/2r2sg8/finding_bugs",
+          "comments": 5,
+          "points": 17
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 12,
+      "points": 17,
+      "comments": 5,
+      "topic": "craft",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The author wrote a fuzzer to reproduce a known regex bug and found another bug in that version, while acknowledging the test was biased by knowing what to seek. It’s a useful, candid example of generative testing in practice.",
+      "publishedAt": "2026-09-30T19:57:54.701Z",
+      "mustRead": false,
+      "brief": [
+        "Generative testing of Rust’s regex crate used generated patterns and input text, cross-checking regex against regex_lite.",
+        "The fuzzer found another bug in an older regex version: `.abb|b` on `zabb` returned `b` instead of `zabb`; the latest version showed no issue.",
+        "Cross-checking implementations supplies an oracle for algorithm tests, helping expose cases example-based tests may miss."
+      ]
+    },
+    {
+      "id": "lobsters-f6dogm",
+      "headline": "Attackers used ESXi exploits after likely entering through a SonicWall VPN",
+      "originalTitle": "ESXi Exploitation in the Wild",
+      "url": "https://www.huntress.com/blog/esxi-vm-escape-exploit",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/f6dogm/esxi_exploitation_wild",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/f6dogm/esxi_exploitation_wild",
+          "comments": 0,
+          "points": 3
+        }
+      ],
+      "kind": "vulnerability",
+      "readMinutes": 17,
+      "points": 3,
+      "comments": 0,
+      "topic": "security",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Huntress reports a December 2025 intrusion involving ESXi exploits and assesses that access likely began through a compromised SonicWall VPN; responders stopped the activity. The case underscores that virtualization isolation and basic perimeter access both matter.",
+      "publishedAt": "2026-10-01T02:30:14.805Z",
+      "mustRead": false,
+      "brief": [
+        "Attackers likely entered through a compromised SonicWall VPN before deploying VMware ESXi exploits.",
+        "Using a compromised Domain Admin account, they moved from the backup to the primary domain controller; the toolkit supports 155 ESXi builds.",
+        "VM escape can expose every workload on a host, while VSOCK traffic may evade firewalls and IDS, making patching and host-level monitoring important."
+      ],
+      "diagram": {
+        "caption": "The diagram follows the reported attack path from VPN access to ESXi exploitation.",
+        "nodes": [
+          {
+            "id": "vpn",
+            "label": "SonicWall VPN"
+          },
+          {
+            "id": "backup-dc",
+            "label": "backup domain controller"
+          },
+          {
+            "id": "primary-dc",
+            "label": "primary domain controller"
+          },
+          {
+            "id": "esxi-host",
+            "label": "ESXi host"
+          }
+        ],
+        "edges": [
+          {
+            "from": "vpn",
+            "to": "backup-dc",
+            "label": "likely entry"
+          },
+          {
+            "from": "backup-dc",
+            "to": "primary-dc",
+            "label": "lateral movement"
+          },
+          {
+            "from": "primary-dc",
+            "to": "esxi-host",
+            "label": "exploit toolkit"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-cloudflare-ai-model-overuse-user-insights",
+      "headline": "Cloudflare User Insights connects AI model usage to task context",
+      "originalTitle": "Identify AI model overuse with User Insights",
+      "url": "https://blog.cloudflare.com/ai-model-overuse-user-insights/",
+      "source": "blog",
+      "sourceLabel": "Cloudflare Blog",
+      "kind": "release",
+      "readMinutes": 8,
+      "topic": "inference",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "User Insights now relates users, agents, tasks, models, costs, and conversation patterns, and flags when a model may be more capable than a task requires. This can help teams investigate model spend beyond raw request and token counts.",
+      "publishedAt": "2026-09-30T13:00:00.000Z",
+      "mustRead": false,
+      "author": "Ayush Kumar, Frank Meszaros",
+      "brief": [
+        "Cloudflare User Insights adds task context to model usage, showing which users, agents, and applications drive traffic.",
+        "It flags conversations where a model may exceed task needs and relates task, model, cost, and conversation patterns; it does not recommend replacements automatically.",
+        "Engineers can investigate model fit using cost, latency, token use, and conversation turns before changing workflows or routing."
+      ]
+    },
+    {
+      "id": "blog-openai-towards-safety-cases-for-frontier-ai-training",
+      "headline": "OpenAI outlines safety cases for frontier AI training",
+      "originalTitle": "Towards safety cases for frontier AI training",
+      "url": "https://openai.com/index/towards-safety-cases-for-frontier-ai-training",
+      "source": "blog",
+      "sourceLabel": "OpenAI",
+      "kind": "guide",
+      "topic": "ai",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The early guidelines cover technical safeguards, operational practices and investigation of misalignment incidents. Teams training frontier models can use these areas to structure safety evidence and response practices.",
+      "publishedAt": "2026-09-28T19:00:00.000Z",
+      "mustRead": false
+    },
+    {
+      "id": "blog-pytorch-from-upstream-changes-to-downstream-confidence-inside-torch-spyres-integration-w",
+      "headline": "Torch Spyre uses CRCR and agent-selected tests to integrate with PyTorch CI",
+      "originalTitle": "From Upstream Changes to Downstream Confidence: Inside Torch Spyre’s Integration with PyTorch CRCR",
+      "url": "https://pytorch.org/blog/from-upstream-changes-to-downstream-confidence-inside-torch-spyres-integration-with-pytorch-crcr/",
+      "source": "blog",
+      "sourceLabel": "PyTorch",
+      "kind": "case-study",
+      "readMinutes": 14,
+      "topic": "design",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Torch Spyre combines CRCR, an agentic pipeline that selects and re-buckets tests from code and execution evidence, and declarative YAML adaptations to integrate with PyTorch’s upstream CI. The approach offers concrete patterns for maintaining downstream accelerator compatibility as upstream code and tests change.",
+      "publishedAt": "2026-09-30T13:40:56.000Z",
+      "mustRead": false,
+      "brief": [
+        "• PyTorch’s Cross-Repository CI Relay lets out-of-tree accelerators run downstream CI on upstream PyTorch changes and report results to reviewers.",
+        "• Torch Spyre uses agentic test selection and re-bucketing plus declarative YAML to adapt upstream tests without patching them; it reached L2 integration.",
+        "• Backend-owned test selection and reusable integration patterns help accelerator teams keep relevant hardware coverage current as PyTorch and its tests evolve."
+      ],
+      "diagram": {
+        "caption": "CRCR dispatches upstream changes to out-of-tree repositories and routes their results to the HUD.",
+        "nodes": [
+          {
+            "id": "pytorch",
+            "label": "pytorch/pytorch"
+          },
+          {
+            "id": "oot-repos",
+            "label": "OOT accelerator repositories"
+          },
+          {
+            "id": "hud",
+            "label": "PyTorch CI CRCR HUD"
+          }
+        ],
+        "edges": [
+          {
+            "from": "pytorch",
+            "to": "oot-repos",
+            "label": "dispatch"
+          },
+          {
+            "from": "oot-repos",
+            "to": "hud",
+            "label": "report results"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-lwn-1095731",
+      "headline": "Rust GPU support could make ordinary Rust code a compiler target",
+      "originalTitle": "[$] Native support for Rust on the GPU",
+      "url": "https://lwn.net/Articles/1095731/",
+      "source": "blog",
+      "sourceLabel": "LWN.net",
+      "kind": "deep-dive",
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Rust-GPU and Rust CUDA currently provide GPU programming through libraries; Christian Legnitto’s vision is to make the GPU an ordinary compiler target for Rust, with a prototype in preparation. That approach could change how Rust software targets accelerators, though it is not yet fully implemented.",
+      "publishedAt": "2026-09-29T17:57:20.000Z",
+      "mustRead": false,
+      "author": "daroc",
+      "brief": [
+        "• Rust GPU support currently relies on libraries such as rust-gpu and Rust CUDA to make GPU programming possible from Rust.",
+        "• Maintainer Christian Legnitto envisions GPUs as ordinary compiler targets for normal Rust code, without special libraries; a prototype is in preparation.",
+        "• Making GPUs a normal compiler target could let engineers use ordinary Rust code for GPU work, though that vision is not fully implemented."
+      ]
+    },
+    {
+      "id": "blog-oldnewthing-p-112744",
+      "headline": "Windows uses a three-instruction trampoline for AArch64 hot-patching",
+      "originalTitle": "Windows on AArch64 also provides for hot-patching, but it’s much simpler than on x86",
+      "url": "https://devblogs.microsoft.com/oldnewthing/20260930-00/?p=112744/",
+      "source": "blog",
+      "sourceLabel": "The Old New Thing",
+      "kind": "deep-dive",
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Windows reserves 12 bytes before each AArch64 function for a three-instruction trampoline, then redirects the function entry with a branch. The fixed-length instruction set simplifies safe patch-point design.",
+      "publishedAt": "2026-09-30T14:00:00.000Z",
+      "mustRead": false,
+      "author": "Raymond Chen",
+      "brief": [
+        "• Windows on AArch64 reserves a 12-byte patch space before each function for hot-patching.",
+        "• A three-instruction trampoline branches from the function entry point to the patch space, then redirects execution to the replacement.",
+        "• Fixed-length AArch64 instructions keep the instruction pointer on 4-byte boundaries, allowing atomic instruction updates without risk of landing mid-instruction."
+      ],
+      "diagram": {
+        "caption": "The function entry point branches to a three-instruction patch-space trampoline that redirects to the replacement.",
+        "nodes": [
+          {
+            "id": "function-entry",
+            "label": "function entry point"
+          },
+          {
+            "id": "patch-space",
+            "label": "patch space"
+          },
+          {
+            "id": "replacement",
+            "label": "replacement"
+          }
+        ],
+        "edges": [
+          {
+            "from": "function-entry",
+            "to": "patch-space",
+            "label": "branch"
+          },
+          {
+            "from": "patch-space",
+            "to": "replacement",
+            "label": "redirect"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-gcloud-whats-new-in-ai-infrastructure-this-month",
+      "headline": "Google Cloud adds a high-density sandbox runtime for agent workloads",
+      "originalTitle": "What’s new in AI infrastructure and orchestration in September",
+      "url": "https://cloud.google.com/blog/topics/ai-infrastructure/whats-new-in-ai-infrastructure-this-month/",
+      "source": "blog",
+      "sourceLabel": "Google Cloud",
+      "kind": "news",
+      "readMinutes": 16,
+      "topic": "infra",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "Google Cloud reports that its open-source GKE Agent Substrate targets millions of sandboxes, with 10× higher density than standard container runtimes and sub-500ms resume operations. The update matters to teams evaluating infrastructure for large fleets of isolated agent workloads.",
+      "publishedAt": "2026-09-30T16:00:00.000Z",
+      "mustRead": false,
+      "author": "Alex Barrett",
+      "brief": [
+        "• GKE Agent Substrate is an open-source runtime designed to run agentic workloads at higher density than standard container runtimes.",
+        "• It supports millions of sandboxes, sub-500ms resume operations, and over 500 suspend/resume activations per second, with kernel and network isolation.",
+        "• High-density sandboxes and fast resume operations target infrastructure needs as agentic workloads scale."
+      ],
+      "diagram": {
+        "caption": "The agentic RL loop runs policy-generated actions in isolated sandboxes and observes a reward signal.",
+        "nodes": [
+          {
+            "id": "llm-policy",
+            "label": "LLM policy"
+          },
+          {
+            "id": "gpus",
+            "label": "GPUs"
+          },
+          {
+            "id": "cpu-sandboxes",
+            "label": "CPU sandboxes"
+          },
+          {
+            "id": "reward",
+            "label": "reward signal"
+          }
+        ],
+        "edges": [
+          {
+            "from": "llm-policy",
+            "to": "gpus",
+            "label": "generates actions"
+          },
+          {
+            "from": "gpus",
+            "to": "cpu-sandboxes",
+            "label": "executes code"
+          },
+          {
+            "from": "cpu-sandboxes",
+            "to": "reward",
+            "label": "observes"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-gcloud-vulnerability-discovery-and-exploitation-trends-in-the-ai-era",
+      "headline": "AI-era vulnerability disclosures doubled from January to August 2026",
+      "originalTitle": "Vulnerability Discovery and Exploitation Trends in the AI Era",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/vulnerability-discovery-and-exploitation-trends-in-the-ai-era/",
+      "source": "blog",
+      "sourceLabel": "Google Cloud",
+      "kind": "deep-dive",
+      "readMinutes": 15,
+      "topic": "security",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Google reports monthly disclosures rising from 5,045 in January 2026 to 10,740 in August, while average monthly exploitation rose from 10.5 in 2025 to 18 in 2026. Security teams can use the trend data to reassess vulnerability triage and response capacity.",
+      "publishedAt": "2026-09-30T14:00:00.000Z",
+      "mustRead": false,
+      "author": "Google Threat Intelligence Group",
+      "brief": [
+        "• GTIG analyzes vulnerability disclosure and exploitation trends, including how AI is changing discovery and risk profiles.",
+        "• Monthly disclosures rose from 5,045 in January 2026 to 10,740 in August; exploited vulnerabilities averaged 18 per month in 2026, up from 10.5 in 2025.",
+        "• The report recommends threat-intelligence-driven triage, targeted edge defense, and automated remediation as discovery and exploitation grow."
+      ]
+    },
+    {
+      "id": "blog-gcloud-why-your-startup-needs-open-models-alongside-frontier-apis",
+      "headline": "Startup model strategies balance frontier APIs with open models",
+      "originalTitle": "Why your startup needs open models alongside frontier APIs",
+      "url": "https://cloud.google.com/blog/topics/startups/why-your-startup-needs-open-models-alongside-frontier-apis/",
+      "source": "blog",
+      "sourceLabel": "Google Cloud",
+      "kind": "essay",
+      "readMinutes": 7,
+      "topic": "inference",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The piece argues that relying on frontier APIs can strain latency, infrastructure overhead and margins as products scale, especially with high-frequency tasks and multi-agent workflows. Engineers can use those pressures to assess when a mixed model-serving strategy may be appropriate.",
+      "publishedAt": "2026-09-28T16:00:00.000Z",
+      "mustRead": false,
+      "author": "Darren Mowry",
+      "brief": [
+        "• The post advocates pairing frontier APIs with compact, open-weight models instead of routing every request to one large model.",
+        "• It describes using frontier models for complex synthesis and smaller models for frequent structured tasks, with models run where needed.",
+        "• Routing work to suitable models can address latency, infrastructure overhead, and margin pressure in production AI systems."
+      ]
+    },
+    {
+      "id": "blog-nvidia-dev-expanding-ai-storage-access-with-nvidia-cuobject-and-the-nvidia-scada-server-sdk",
+      "headline": "NVIDIA releases cuObject libraries and a GPU-initiated storage SDK",
+      "originalTitle": "Expanding AI Storage Access with NVIDIA cuObject and the NVIDIA SCADA Server SDK",
+      "url": "https://developer.nvidia.com/blog/expanding-ai-storage-access-with-nvidia-cuobject-and-the-nvidia-scada-server-sdk/",
+      "source": "blog",
+      "sourceLabel": "NVIDIA Technical Blog",
+      "kind": "release",
+      "readMinutes": 7,
+      "topic": "infra",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The generally available cuObject libraries provide APIs and an RDMA protocol for object-storage access that avoids routing data through the server CPU; the SCADA SDK supports GPU-initiated requests. These interfaces show how storage infrastructure is evolving to feed GPU workloads more directly.",
+      "publishedAt": "2026-09-30T19:13:02.000Z",
+      "mustRead": false,
+      "author": "Harish Arora",
+      "brief": [
+        "• NVIDIA announced general availability of cuObject client and server libraries and introduced the SCADA Server SDK for GPU-initiated storage requests.",
+        "• cuObject provides APIs and an RDMA wire protocol; the SDK lets storage providers build servers that respond to SCADA clients.",
+        "• A shared protocol and interoperability work aim to simplify accelerated object-storage access across providers for AI workloads."
+      ],
+      "diagram": {
+        "caption": "The cuObject client exchanges storage traffic with a server implementation over the RDMA wire protocol.",
+        "nodes": [
+          {
+            "id": "client",
+            "label": "cuObject client"
+          },
+          {
+            "id": "protocol",
+            "label": "RDMA wire protocol"
+          },
+          {
+            "id": "server",
+            "label": "server-side implementation"
+          }
+        ],
+        "edges": [
+          {
+            "from": "client",
+            "to": "protocol",
+            "label": "requests and data"
+          },
+          {
+            "from": "protocol",
+            "to": "server",
+            "label": "transfers"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49895304",
+      "headline": "PS5 exploit chain combines a WebKit corruption bug with a kernel UAF race",
+      "originalTitle": "PS5 Relapse Exploit",
+      "url": "https://github.com/ntfargo/Relapse-Exploit",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49895304",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49895304",
+          "comments": 247,
+          "points": 345
+        }
+      ],
+      "kind": "vulnerability",
+      "points": 345,
+      "comments": 247,
+      "topic": "security",
+      "score": 7,
+      "relevance": 1,
+      "whyRead": "The chain uses JavaScriptCore information leaks and a structured-clone mismatch to corrupt a typed array, then an aio_multi_wait use-after-free race for kernel read/write. Its firmware range and instability notes make the exploit mechanics concrete, though console security is peripheral to this digest.",
+      "publishedAt": "2026-09-29T15:44:41.000Z",
+      "mustRead": false,
+      "diagram": {
+        "caption": "The exploit chain moves from browser-stage typedarray corruption to a kernel stage that establishes read/write access.",
+        "nodes": [
+          {
+            "id": "browser-stage",
+            "label": "Browser stage"
+          },
+          {
+            "id": "typedarray",
+            "label": "typedarray"
+          },
+          {
+            "id": "kernel-stage",
+            "label": "kernel stage"
+          },
+          {
+            "id": "kernel-rw",
+            "label": "kernel r/w"
+          }
+        ],
+        "edges": [
+          {
+            "from": "browser-stage",
+            "to": "typedarray",
+            "label": "corrupts"
+          },
+          {
+            "from": "typedarray",
+            "to": "kernel-stage",
+            "label": "exploit chain"
+          },
+          {
+            "from": "kernel-stage",
+            "to": "kernel-rw",
+            "label": "establishes"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49893653",
+      "headline": "Googlebook devices get eight years of ChromeOS support instead of ten",
+      "originalTitle": "Google ending ChromeOS support two years early",
+      "url": "https://www.theregister.com/os-platforms/2026/09/29/google-ending-chromeos-support-two-years-early/5299674",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49893653",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49893653",
+          "comments": 141,
+          "points": 216
+        }
+      ],
+      "kind": "news",
+      "points": 216,
+      "comments": 141,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Google says the new Googlebook devices will receive eight years of support, two years less than the ten-year promise associated with Chromebooks. Support windows matter to teams planning managed device fleets and their software lifecycles.",
+      "publishedAt": "2026-09-29T14:12:15.000Z",
+      "mustRead": false,
+      "brief": [
+        "Chromebooks bought today will get eight years of updates, despite Google’s stated ten-year support policy.",
+        "Google says eligible devices may migrate to Googlebook OS, but migration paths are pending and require a new management-tools license.",
+        "Fleet operators must account for earlier update endings and the loss of existing ChromeOS management licenses during migration."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "blog-airbnb",
+      "label": "Airbnb Engineering",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-aws-arch",
+      "label": "AWS Architecture",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-aws-ml",
+      "label": "AWS Machine Learning",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-bair",
+      "label": "Berkeley AI Research",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-brendangregg",
+      "label": "Brendan Gregg",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-brooker",
+      "label": "Marc Brooker",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-bytebytego",
+      "label": "ByteByteGo",
+      "status": "ok",
+      "count": 6
+    },
+    {
+      "id": "blog-chip-huyen",
+      "label": "Chip Huyen",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-chipsandcheese",
+      "label": "Chips and Cheese",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-cloudflare",
+      "label": "Cloudflare Blog",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-deepmind",
+      "label": "Google DeepMind",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-discord",
+      "label": "Discord Engineering",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-dropbox",
+      "label": "Dropbox Tech",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-duckdb",
+      "label": "DuckDB",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-eugene-yan",
+      "label": "Eugene Yan",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-figma",
+      "label": "Figma Engineering",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-fly",
+      "label": "Fly.io",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-gcloud",
+      "label": "Google Cloud",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-github-eng",
+      "label": "GitHub Engineering",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-go-blog",
+      "label": "Go Blog",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-google-research",
+      "label": "Google Research",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-hamel",
+      "label": "Hamel Husain",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-highscalability",
+      "label": "High Scalability",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-huggingface",
+      "label": "Hugging Face",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-import-ai",
+      "label": "Import AI",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-infoq",
+      "label": "InfoQ",
+      "status": "ok",
+      "count": 15
+    },
+    {
+      "id": "blog-interconnects",
+      "label": "Interconnects",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-janestreet",
+      "label": "Jane Street Tech",
+      "status": "ok",
+      "count": 6
+    },
+    {
+      "id": "blog-jvns",
+      "label": "Julia Evans",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-karpathy",
+      "label": "Andrej Karpathy",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-kubernetes",
+      "label": "Kubernetes",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-latent-space",
+      "label": "Latent Space",
+      "status": "ok",
+      "count": 11
+    },
+    {
+      "id": "blog-lethain",
+      "label": "Will Larson",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-lilianweng",
+      "label": "Lilian Weng",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-lobsters-tags",
+      "label": "Lobsters (AI, distributed, performance)",
+      "status": "ok",
+      "count": 16
+    },
+    {
+      "id": "blog-lucumr",
+      "label": "Armin Ronacher",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-lwn",
+      "label": "LWN.net",
+      "status": "ok",
+      "count": 15
+    },
+    {
+      "id": "blog-martinfowler",
+      "label": "Martin Fowler",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-meta-eng",
+      "label": "Engineering at Meta",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-mozilla-hacks",
+      "label": "Mozilla Hacks",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-msr",
+      "label": "Microsoft Research",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-murat",
+      "label": "Metadata (Murat Demirbas)",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-netflix",
+      "label": "Netflix TechBlog",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-nvidia-dev",
+      "label": "NVIDIA Technical Blog",
+      "status": "ok",
+      "count": 10
+    },
+    {
+      "id": "blog-oldnewthing",
+      "label": "The Old New Thing",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-openai",
+      "label": "OpenAI",
+      "status": "ok",
+      "count": 11
+    },
+    {
+      "id": "blog-pinterest-eng",
+      "label": "Pinterest Engineering",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-planetscale",
+      "label": "PlanetScale",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-postgres-weekly",
+      "label": "Postgres Weekly",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-pragmatic",
+      "label": "The Pragmatic Engineer",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-pytorch",
+      "label": "PyTorch",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-raschka",
+      "label": "Sebastian Raschka",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-rust-blog",
+      "label": "Rust Blog",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-semianalysis",
+      "label": "SemiAnalysis",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-shopify-eng",
+      "label": "Shopify Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-simonwillison",
+      "label": "Simon Willison",
+      "status": "ok",
+      "count": 18
+    },
+    {
+      "id": "blog-slack-eng",
+      "label": "Slack Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-stripe",
+      "label": "Stripe Engineering",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-trailofbits",
+      "label": "Trail of Bits",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-v8",
+      "label": "V8",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-webkit",
+      "label": "WebKit",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "github",
+      "label": "GitHub (new repositories)",
+      "status": "ok",
+      "count": 30
+    },
+    {
+      "id": "hf-models",
+      "label": "Hugging Face trending models",
+      "status": "ok",
+      "count": 15
+    },
+    {
+      "id": "hf-papers",
+      "label": "Hugging Face Daily Papers",
+      "status": "ok",
+      "count": 25
+    },
+    {
+      "id": "hn",
+      "label": "Hacker News",
+      "status": "ok",
+      "count": 134
+    },
+    {
+      "id": "hn-search",
+      "label": "Hacker News (AI and systems search)",
+      "status": "ok",
+      "count": 85
+    },
+    {
+      "id": "lobsters",
+      "label": "Lobsters",
+      "status": "ok",
+      "count": 25
+    },
+    {
+      "id": "release-claude-code",
+      "label": "Claude Code releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-langgraph",
+      "label": "LangGraph releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-llama-cpp",
+      "label": "llama.cpp releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-mcp-spec",
+      "label": "Model Context Protocol releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-ollama",
+      "label": "Ollama releases",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "release-openai-agents",
+      "label": "OpenAI Agents SDK releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-sglang",
+      "label": "SGLang releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-tensorrt-llm",
+      "label": "TensorRT-LLM releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-transformers",
+      "label": "Transformers releases",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "release-vllm",
+      "label": "vLLM releases",
+      "status": "ok",
+      "count": 1
+    }
+  ]
+}
