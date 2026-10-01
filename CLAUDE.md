@@ -28,6 +28,8 @@ bun run digest            # needs OPENROUTER_API_KEY; --dry-run collects only; -
 - Reader library (`src/lib/library.ts` pure logic, `src/lib/library-client.ts` browser runtime, `src/components/Library.astro`, `src/pages/saved.astro`): save, private notes, follow topics, mute sites, For you, export/import. Local-first in `localStorage`; syncs when signed in.
 - `api/`: optional account API (Bun, Neon Postgres via `postgres`, Google/GitHub OAuth, DB-backed sessions, last-write-wins `/sync`). Tested against real Postgres with PGlite in `tests/api.test.ts`. The site only talks to it when built with `PUBLIC_API_URL`.
 - `src/pages/story/[slug].astro`: one page per story with brief, diagram, notes and a click-to-load Giscus thread (enabled by `PUBLIC_GISCUS_*`).
+- `scripts/publish-social.ts` (`social-publish.yml`, after each daily digest, off unless `SOCIAL_POSTING_ENABLED`): posts the top two stories to LinkedIn/X, linking to their story pages once live; receipts in `data/social-posts.json` stop duplicate posts.
+- Story card headlines open the story page; the source is the "Original" link in the card's meta row.
 - Daily GitHub Action commits the digest and pushes the built site to the `site` branch; `publish.yml` does the same on every push to main. `render.yaml` serves `site` as a Render static site and runs the API; `deploy/ec2/` is the older EC2 path.
 
 The site itself is static; accounts and sync are the only server-side part, and every reader feature works without them.
