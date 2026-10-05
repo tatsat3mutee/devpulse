@@ -1,0 +1,3312 @@
+{
+  "date": "2026-10-05",
+  "generatedAt": "2026-10-05T07:34:49.204Z",
+  "model": "openai/gpt-6-luna",
+  "candidateCount": 320,
+  "collectedCount": 460,
+  "radar": {
+    "models": [
+      {
+        "id": "Cloudflare/clef",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 1265,
+        "downloads": 4214,
+        "createdAt": "2026-09-30T21:15:35.000Z"
+      },
+      {
+        "id": "Aleph-Alpha/Kolibri-1",
+        "task": "text-generation",
+        "library": "vllm",
+        "likes": 447,
+        "downloads": 1135,
+        "createdAt": "2026-10-02T05:54:02.000Z"
+      },
+      {
+        "id": "Cloudflare/clef-flash",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 443,
+        "downloads": 6372,
+        "createdAt": "2026-09-30T21:15:36.000Z"
+      },
+      {
+        "id": "Qwen/Qwen3.8-27B",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 16955,
+        "downloads": 6821761,
+        "createdAt": "2026-08-05T08:22:59.000Z"
+      },
+      {
+        "id": "Venastine-Research/Xing4.0-29B-A4B-GGUF",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 330,
+        "downloads": 14361,
+        "createdAt": "2026-09-17T18:37:31.000Z"
+      },
+      {
+        "id": "Contrastive-LM/CLM-v0.1-8B",
+        "task": "text-ranking",
+        "library": "contrastive-lm",
+        "likes": 719,
+        "downloads": 3445,
+        "createdAt": "2026-09-21T20:09:04.000Z"
+      },
+      {
+        "id": "orcarouter/OrcaSAQ-2-Cyber-27B-Uncensored-GGUF",
+        "task": "text-generation",
+        "library": "llama.cpp",
+        "likes": 371,
+        "downloads": 14195,
+        "createdAt": "2026-09-26T03:37:50.000Z"
+      },
+      {
+        "id": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+        "task": "image-text-to-text",
+        "library": "gguf",
+        "likes": 565,
+        "downloads": 1886975,
+        "createdAt": "2026-09-07T09:41:37.000Z"
+      },
+      {
+        "id": "TaichuAI/ZDTaichu5.0-9B",
+        "task": "image-text-to-text",
+        "likes": 2863,
+        "downloads": 12638,
+        "createdAt": "2026-09-04T02:55:48.000Z"
+      },
+      {
+        "id": "FermionResearch/Phonon-2",
+        "task": "automatic-speech-recognition",
+        "library": "mlx",
+        "likes": 208,
+        "downloads": 2635,
+        "createdAt": "2026-09-28T11:48:47.000Z"
+      },
+      {
+        "id": "Infatoshi/GLM-5.3-UNCENSORED-EXL3-3.0bpw",
+        "task": "text-generation",
+        "library": "exllamav3",
+        "likes": 220,
+        "downloads": 946,
+        "createdAt": "2026-10-01T03:42:00.000Z"
+      },
+      {
+        "id": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+        "task": "text-generation",
+        "library": "llama.cpp",
+        "likes": 2425,
+        "downloads": 4045810,
+        "createdAt": "2026-09-16T23:40:56.000Z"
+      },
+      {
+        "id": "deepseek-ai/DeepSeek-V4.1-Flash",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 4099,
+        "downloads": 798422,
+        "createdAt": "2026-09-10T02:17:58.000Z"
+      },
+      {
+        "id": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF",
+        "task": "image-text-to-text",
+        "library": "gguf",
+        "likes": 264,
+        "downloads": 351230,
+        "createdAt": "2026-09-26T09:42:51.000Z"
+      },
+      {
+        "id": "ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF",
+        "task": "image-text-to-text",
+        "library": "gguf",
+        "likes": 1962,
+        "downloads": 1636747,
+        "createdAt": "2026-08-28T18:38:03.000Z"
+      },
+      {
+        "id": "DavidAU/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NEO-CODER-MAX-MTP-GGUF",
+        "task": "image-text-to-text",
+        "likes": 1428,
+        "downloads": 2164143,
+        "createdAt": "2026-09-01T07:01:09.000Z"
+      },
+      {
+        "id": "fastino/GLiNER2.5-Decide",
+        "task": "token-classification",
+        "library": "gliner2",
+        "likes": 370,
+        "downloads": 53625,
+        "createdAt": "2026-09-23T14:56:12.000Z"
+      },
+      {
+        "id": "Qwen/Qwen3.8-Flash-Next",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 5901,
+        "downloads": 1480842,
+        "createdAt": "2026-08-24T08:24:59.000Z"
+      },
+      {
+        "id": "zai-org/GLM-5.3",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 2094,
+        "downloads": 1424746,
+        "createdAt": "2026-08-25T06:42:50.000Z"
+      },
+      {
+        "id": "pyannote/speaker-diarization-community-1",
+        "task": "automatic-speech-recognition",
+        "library": "pyannote-audio",
+        "likes": 2494,
+        "downloads": 5498045,
+        "createdAt": "2025-04-15T21:31:35.000Z"
+      }
+    ],
+    "repos": [
+      {
+        "name": "rehan-remade/universal-modder",
+        "description": "Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod almost any PC game you own: recon, reverse engineering, fal-generated art/3D/audio, in-game testing, showcase videos.",
+        "language": "Python",
+        "stars": 3393,
+        "createdAt": "2026-09-30T05:00:35.000Z"
+      },
+      {
+        "name": "CopilotKit/OpenDots",
+        "description": "Your always-on AI coworkers that move between text, calls, and Slack.",
+        "language": "TypeScript",
+        "stars": 3308,
+        "createdAt": "2026-09-29T17:13:58.000Z"
+      },
+      {
+        "name": "feder-cr/dots",
+        "description": "Open-source dots for the web: an AI agent with its own browser, one that does not get blocked.",
+        "language": "Python",
+        "stars": 2609,
+        "createdAt": "2026-09-29T23:06:00.000Z"
+      },
+      {
+        "name": "nanaism/yomiyasu",
+        "description": "AI生成の日本語を自然な日本語へ推敲するAgent Skill / Agent Skill for Refining AI-Generated Japanese into Natural Japanese",
+        "language": "Python",
+        "stars": 1437,
+        "createdAt": "2026-09-30T11:49:32.000Z"
+      },
+      {
+        "name": "wy51ai/floorplan-3d",
+        "language": "HTML",
+        "stars": 1404,
+        "createdAt": "2026-09-29T02:57:30.000Z"
+      },
+      {
+        "name": "facebookincubator/muse-gadget-sdk",
+        "description": "Open source SDK to build Muse gadgets",
+        "language": "C",
+        "stars": 1275,
+        "createdAt": "2026-10-02T18:21:23.000Z"
+      },
+      {
+        "name": "QingYunA/answer-me-with-html",
+        "description": "Answer me with HTML — an agent skill that answers hard questions with a one-page HTML you can actually read. 让 AI Agent 用一页 HTML 回答复杂问题。",
+        "language": "JavaScript",
+        "stars": 1191,
+        "createdAt": "2026-10-02T09:57:40.000Z"
+      },
+      {
+        "name": "storytold/photocraft",
+        "language": "Rust",
+        "stars": 1143,
+        "createdAt": "2026-09-30T13:37:48.000Z"
+      },
+      {
+        "name": "nykooi1/vibe-wise",
+        "description": "A Claude Code plugin that helps you learn how to build while AI writes the code.",
+        "language": "Python",
+        "stars": 1141,
+        "createdAt": "2026-09-29T01:29:57.000Z"
+      },
+      {
+        "name": "kargulstudio/sales-crm",
+        "language": "TypeScript",
+        "stars": 1065,
+        "createdAt": "2026-10-04T10:55:58.000Z"
+      },
+      {
+        "name": "CAPCOM-TD-OSS/REDox",
+        "description": "High-performance, token-based structured data engine for .NET. A core component of REX, the technology behind CAPCOM's next-generation game engine.",
+        "language": "C#",
+        "stars": 1040,
+        "createdAt": "2026-09-30T10:20:07.000Z"
+      },
+      {
+        "name": "chasmlol/SkyCraft",
+        "description": "Play Skyrim as a Minecraft player: Minecraft physics, inventory, blocks and combat inside Skyrim's world (SKSE plugin + Fabric mod).",
+        "language": "C++",
+        "stars": 907,
+        "createdAt": "2026-09-30T16:40:20.000Z"
+      },
+      {
+        "name": "Edwardxlai/easyread",
+        "description": "把英文论文读成舒服的中文：本地 PDF 论文翻译、原文对照、边读边问 AI、文献管理。Read English papers in comfortable Chinese.",
+        "language": "Python",
+        "stars": 792,
+        "createdAt": "2026-09-30T12:52:24.000Z"
+      },
+      {
+        "name": "openai/mcp-extensions",
+        "description": "Build plugins that feel like native, first-class features of ChatGPT.",
+        "language": "TypeScript",
+        "stars": 755,
+        "createdAt": "2026-09-29T00:45:42.000Z"
+      },
+      {
+        "name": "omlahore/RemoveMacAI",
+        "description": "Turn off Apple Intelligence on macOS 27 and get its disk space back. One command, fully reversible.",
+        "language": "Swift",
+        "stars": 754,
+        "createdAt": "2026-09-29T11:02:39.000Z"
+      },
+      {
+        "name": "sganggs/Stronghold-Protocol",
+        "description": "明日方舟「卫戍协议：盟约」非官方同人复刻：浏览器自走棋塔防，单人或 1–4 人联机合作（非商业）",
+        "language": "JavaScript",
+        "stars": 611,
+        "createdAt": "2026-10-02T09:38:41.000Z"
+      },
+      {
+        "name": "composio-community/open-dot",
+        "description": "Open-source personal AI agents that work on their own, on their own computers. Mac app, OpenAI + Composio.",
+        "language": "TypeScript",
+        "stars": 564,
+        "createdAt": "2026-09-29T16:34:16.000Z"
+      },
+      {
+        "name": "OpSafari/hypoarena",
+        "description": "Scientific hypothesis-discovery workbench: grounded hypothesis-evidence graphs, synthetic literature with planted causal chains, generate-debate-evolve loops over pluggable offline adapters, Elo tournaments recovering planted skill order, paraphrase dedup, Bayesian evidence accumulation, reproducibl",
+        "language": "Python",
+        "stars": 561,
+        "createdAt": "2026-09-30T03:35:45.000Z"
+      },
+      {
+        "name": "fsiaonma/elpis",
+        "description": "elpis",
+        "language": "TypeScript",
+        "stars": 550,
+        "createdAt": "2026-09-29T02:19:22.000Z"
+      },
+      {
+        "name": "oil-oil/oil-ui",
+        "description": "把 AI 的 UI 设计能力推到极限。",
+        "language": "Python",
+        "stars": 539,
+        "createdAt": "2026-09-30T03:55:35.000Z"
+      },
+      {
+        "name": "extend-hq/jevbox",
+        "language": "TypeScript",
+        "stars": 537,
+        "createdAt": "2026-09-29T20:54:42.000Z"
+      },
+      {
+        "name": "StayLameBro/backburner",
+        "description": "Your iPhone helps your Mac run a 27B model: faster prompt reading and more context over a USB-C cable",
+        "language": "Python",
+        "stars": 517,
+        "createdAt": "2026-10-01T20:59:56.000Z"
+      },
+      {
+        "name": "ythx-101/live-panel-skill",
+        "description": "Config-driven animated architecture diagrams: turn one JSON file into a terminal-style, always-running diagram or a light-theme infographic that moves. Outputs H.264 mp4 or a live web page; also a Claude Code style skill (SKILL.md).",
+        "language": "HTML",
+        "stars": 506,
+        "createdAt": "2026-10-03T16:53:36.000Z"
+      },
+      {
+        "name": "deepseek-ai/DeepGEMM-Ascend",
+        "description": "DeepGEMM-Ascend: clean and efficient matrix multiplication kernel library for Huawei Ascend NPUs",
+        "language": "C++",
+        "stars": 503,
+        "createdAt": "2026-09-29T15:49:55.000Z"
+      },
+      {
+        "name": "ZacharyZhang-NY/Ely-GPUI-Components",
+        "description": "A component library for GPUI, in light and dark. Every component runs live in the browser.",
+        "language": "Rust",
+        "stars": 500,
+        "createdAt": "2026-09-30T04:03:37.000Z"
+      },
+      {
+        "name": "amywork777/lipflow",
+        "description": "Wispr Flow for your lips: hold a key, silently mouth words, and they're typed at your cursor. Runs locally on your Mac.",
+        "language": "Python",
+        "stars": 494,
+        "createdAt": "2026-09-29T20:05:06.000Z"
+      },
+      {
+        "name": "whirlchat/whirl",
+        "description": "The AI chat app that sweats the details. Every top model, real memory, living documents, and your own tools.",
+        "language": "TypeScript",
+        "stars": 461,
+        "createdAt": "2026-10-02T13:50:42.000Z"
+      },
+      {
+        "name": "deadinside28/bloodborne_pc",
+        "language": "C++",
+        "stars": 454,
+        "createdAt": "2026-10-01T05:50:31.000Z"
+      },
+      {
+        "name": "BlueHeisenberg/SCSKiller",
+        "description": "Kill shader compilation stutter before you play. Compiles your games' shaders into the GPU driver's cache ahead of time. Windows, NVIDIA and AMD.",
+        "language": "C#",
+        "stars": 428,
+        "createdAt": "2026-09-29T21:01:10.000Z"
+      },
+      {
+        "name": "BlackCrewmanFringe/AutoCad",
+        "description": "Autocad is a professional desktop software utility that provides an intuitive interface to configure and manage complex projects with ease.",
+        "stars": 414,
+        "createdAt": "2026-10-04T11:36:47.000Z"
+      }
+    ]
+  },
+  "lede": {
+    "text": "Inference work is tightening both ends of the stack: Qwen runs locally at reported 53–94 tokens/s on tested consumer GPUs, while vLLM adds GPU optimizations and persistent weight caching. But serving speed is only useful if runtime latency is understood: swapped Go GC metadata can turn a collection into a 40 ms pause. For agents, a separate reliability warning is that they may favor a preferred source over an item that better fits requirements, so evaluations need to account for source bias.",
+    "refs": [
+      "release-vllm-v0-31-0",
+      "hn-49953495",
+      "hn-49959654",
+      "paper-2610-03195"
+    ],
+    "quiet": false
+  },
+  "items": [
+    {
+      "id": "hn-49953495",
+      "headline": "Qwen 125B runs locally at up to 94 tokens/s on tested consumer GPUs",
+      "originalTitle": "Run Qwen 3.8 Flash Next (125B) on consumer hardware (RTX 4090) at 100T/s",
+      "url": "https://github.com/Niko1221/Strata",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49953495",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49953495",
+          "comments": 333,
+          "points": 745
+        }
+      ],
+      "kind": "benchmark",
+      "readMinutes": 7,
+      "points": 745,
+      "comments": 333,
+      "topic": "inference",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Strata reports generation speeds of 53–94 tokens/s across quantizations on an RTX 5070 and an RX 9070 XT, with prompt processing also measured. Engineers weighing local inference can compare the speed and hardware trade-offs against server-based deployment.",
+      "publishedAt": "2026-10-04T12:51:53.000Z",
+      "mustRead": true,
+      "image": "/covers/2026-10-05/hn-49953495.webp",
+      "brief": [
+        "Strata runs the 125-billion-parameter Qwen3.8-Flash-Next model locally on consumer NVIDIA or AMD graphics cards.",
+        "On two tested gaming PCs, measured answer speeds ranged from 44 to 94 tokens per second, depending on GPU and model size.",
+        "Local inference keeps model use on the PC and makes a large model available without relying on a server."
+      ]
+    },
+    {
+      "id": "hn-49959654",
+      "headline": "Swapped Go GC metadata can turn a collection into a 40 ms pause",
+      "originalTitle": "A 40ms Go garbage collector pause caused by swap",
+      "url": "https://frn.sh/go-gc/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49959654",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49959654",
+          "comments": 32,
+          "points": 68
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 3,
+      "points": 68,
+      "comments": 32,
+      "topic": "systems",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "Go’s garbage collector reads metadata outside the heap during a stop-the-world pause; if that metadata is swapped out, the collector can stall on page faults. Engineers running memory-heavy Go services should account for swap and GC metadata when diagnosing latency.",
+      "publishedAt": "2026-10-05T01:11:56.000Z",
+      "mustRead": true,
+      "image": "/covers/2026-10-05/hn-49959654.webp",
+      "brief": [
+        "A Go garbage collector pause reached 40 ms when GC metadata was in swap.",
+        "During the worst pause, 39 ms went to 228 page faults while the stopped-the-world collector read metadata.",
+        "Engineers using swap to absorb memory spikes should account for GC metadata faults, which can stall all Go processes in the cgroup."
+      ],
+      "diagram": {
+        "caption": "Swapped GC metadata can trigger page faults while the Go world is stopped.",
+        "nodes": [
+          {
+            "id": "gc",
+            "label": "Go's garbage collector"
+          },
+          {
+            "id": "metadata",
+            "label": "metadata"
+          },
+          {
+            "id": "kernel",
+            "label": "kernel"
+          },
+          {
+            "id": "swap",
+            "label": "swap device"
+          }
+        ],
+        "edges": [
+          {
+            "from": "gc",
+            "to": "metadata",
+            "label": "reads"
+          },
+          {
+            "from": "metadata",
+            "to": "kernel",
+            "label": "page fault"
+          },
+          {
+            "from": "kernel",
+            "to": "swap",
+            "label": "reads pages"
+          },
+          {
+            "from": "swap",
+            "to": "metadata",
+            "label": "restores pages"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2610-03195",
+      "headline": "LLM agents favor certain sources even when their items fit worse",
+      "originalTitle": "Source Preference in the Wild: How LLM Agents Favor Items by Source, and How to Reduce It",
+      "url": "https://huggingface.co/papers/2610.03195",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 14,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Across 12 models and three domains, agents sometimes choose an item that meets one fewer requirement about two-thirds of the time when it comes from a preferred source; hiding or relabeling the source changes selection. The results expose a measurable bias in end-to-end search decisions that agent evaluations should account for.",
+      "publishedAt": "2026-10-01T20:00:00.000Z",
+      "mustRead": true,
+      "author": "Jonghyun Song et al.",
+      "brief": [
+        "A study measures source preference in end-to-end search across 12 agent models and three domains.",
+        "Agents often selected an item satisfying one fewer requirement when it came from a preferred source; hiding or relabeling source identity changed choices.",
+        "AI search and recommendation systems can favor a source over a better-fitting item, so source identity is a relevant factor to test."
+      ]
+    },
+    {
+      "id": "release-vllm-v0-31-0",
+      "headline": "vLLM 0.31.0 adds GPU optimizations and persistent weight caching",
+      "originalTitle": "vLLM v0.31.0 released",
+      "url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+      "source": "blog",
+      "sourceLabel": "vLLM releases",
+      "kind": "release",
+      "readMinutes": 27,
+      "topic": "inference",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "The release adds SM100 attention and KV-cache optimizations, fused operations, and a preload CLI that keeps post-quantized weights resident across engine restarts. These changes target inference performance and faster recovery of serving capacity.",
+      "publishedAt": "2026-10-05T06:45:40.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-05/release-vllm-v0-31-0.webp",
+      "brief": [
+        "vLLM 0.31.0 is a release with GPU optimizations, serving features, scheduling controls, and fixes.",
+        "A new preload CLI launches a daemon that keeps post-quantized weights in GPU memory across engine restarts.",
+        "Persistent weight caching can support faster restarts in serving systems, while the release also adds controls for request admission and prefill scheduling."
+      ],
+      "diagram": {
+        "caption": "The preload CLI starts a daemon that retains weights in GPU memory across engine restarts.",
+        "nodes": [
+          {
+            "id": "cli",
+            "label": "vllm preload CLI"
+          },
+          {
+            "id": "daemon",
+            "label": "weight-cache daemon"
+          },
+          {
+            "id": "gpu",
+            "label": "GPU memory"
+          },
+          {
+            "id": "engine",
+            "label": "engine"
+          }
+        ],
+        "edges": [
+          {
+            "from": "cli",
+            "to": "daemon",
+            "label": "launches"
+          },
+          {
+            "from": "daemon",
+            "to": "gpu",
+            "label": "keeps weights"
+          },
+          {
+            "from": "gpu",
+            "to": "engine",
+            "label": "reused on restart"
+          }
+        ]
+      }
+    },
+    {
+      "id": "model-contrastive-lm-clm-v0-1-8b",
+      "headline": "CLM-8B uses contrastive state-action learning for agent tasks",
+      "originalTitle": "Contrastive-LM/CLM-v0.1-8B (text ranking model)",
+      "url": "https://huggingface.co/Contrastive-LM/CLM-v0.1-8B",
+      "source": "models",
+      "sourceLabel": "Hugging Face",
+      "kind": "release",
+      "points": 719,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "CLM-8B adds state and action projection heads to a frozen Qwen3-8B encoder, trained with bidirectional InfoNCE; its zero-shot results are reported as on par with Jev on several agent tasks at up to 9× lower latency. The approach and latency claim are worth examining for teams building fast tool-use or computer-use systems.",
+      "publishedAt": "2026-09-21T20:09:04.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-05/model-contrastive-lm-clm-v0-1-8b.webp",
+      "brief": [
+        "CLM-8B is a contrastive language model for ranking and agent tasks, built on a frozen Qwen3-8B encoder.",
+        "Two projection heads encode states and actions, trained with a bidirectional InfoNCE loss; separately encoded actions can be reused for caching.",
+        "Reusable action embeddings can speed candidate ranking, and the model can also serve as a verifier for agent tasks."
+      ],
+      "diagram": {
+        "caption": "A frozen encoder feeds separate state and action projection heads.",
+        "nodes": [
+          {
+            "id": "encoder",
+            "label": "frozen Qwen3-8B encoder"
+          },
+          {
+            "id": "state",
+            "label": "state head"
+          },
+          {
+            "id": "action",
+            "label": "action head"
+          }
+        ],
+        "edges": [
+          {
+            "from": "encoder",
+            "to": "state",
+            "label": "state embeddings"
+          },
+          {
+            "from": "encoder",
+            "to": "action",
+            "label": "action embeddings"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2610-02826",
+      "headline": "Recursive self-rewrite turns harness-specific solutions into training trajectories",
+      "originalTitle": "Scaling Trajectories for Complex Tasks through Recursive Self-Rewrite",
+      "url": "https://huggingface.co/papers/2610.02826",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 13,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "RSR uses a planner, critic and executor to convert successful solutions from diverse harnesses into trajectories for a general harness; fine-tuning raises pass@3 on Terminal-Bench 2 from 57.0% to 74.2%. The results show how harness-generated experience can improve a base model across terminal tasks.",
+      "publishedAt": "2026-10-01T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Zongxia Li et al.",
+      "brief": [
+        "Recursive Self-Rewrite reconstructs successful solutions found under specialized harnesses as training trajectories for a general harness.",
+        "A planner extracts runbooks, a critic screens and revises them, and an executor follows qualified runbooks in fresh sandboxes.",
+        "The approach turns harness-assisted task solutions into reusable supervised training data for models."
+      ],
+      "diagram": {
+        "caption": "RSR uses runbooks refined by a critic before an executor follows them in fresh sandboxes.",
+        "nodes": [
+          {
+            "id": "planner",
+            "label": "planner"
+          },
+          {
+            "id": "critic",
+            "label": "critic"
+          },
+          {
+            "id": "executor",
+            "label": "executor"
+          }
+        ],
+        "edges": [
+          {
+            "from": "planner",
+            "to": "critic",
+            "label": "runbooks"
+          },
+          {
+            "from": "critic",
+            "to": "planner",
+            "label": "revisions"
+          },
+          {
+            "from": "critic",
+            "to": "executor",
+            "label": "qualified runbooks"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2610-02298",
+      "headline": "EditHero tests agents on long sequences of part-level 3D edits",
+      "originalTitle": "EditHero: A Benchmark for Long-Horizon Part-Level 3D Editing and Vibe Modeling",
+      "url": "https://huggingface.co/papers/2610.02298",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "benchmark",
+      "points": 6,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "EditHero evaluates long edit sequences against deterministic targets; compared with top-down methods, LLM/VLM agents follow instructions more closely and preserve untouched parts, but each edit takes minutes. The benchmark and planned release of its engine and sequences target reliability in iterative agent workflows.",
+      "publishedAt": "2026-09-30T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Ruihan Yu et al.",
+      "codeUrl": "https://github.com/AlayaLab/EditHero",
+      "codeStars": 1,
+      "brief": [
+        "EditHero is a benchmark for long-horizon, part-level 3D editing with natural-language instructions and target images.",
+        "A deterministic assembly engine produces the exact target after each edit; tested LLMs preserved unedited parts better, but each edit took minutes.",
+        "It tests whether editing agents can make requested changes across revisions without disturbing parts that should remain unchanged."
+      ]
+    },
+    {
+      "id": "paper-2610-02304",
+      "headline": "SimuVerity tests whether generated Simulink models meet engineering requirements",
+      "originalTitle": "SimuVerity: Benchmarking Agents for Engineering-Grade Simulink Model Generation",
+      "url": "https://huggingface.co/papers/2610.02304",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "benchmark",
+      "points": 5,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "The benchmark evaluates 101 tasks across ten domains with native simulation scenarios and a hierarchical evaluator; the best of six agent systems scores 42.86 overall. It tests engineering qualification and behavior rather than treating compilation or structural similarity as proof of correctness.",
+      "publishedAt": "2026-09-30T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Ruiqi Zhang et al.",
+      "codeUrl": "https://github.com/SimuVerity/SimuVerity",
+      "codeStars": 2,
+      "brief": [
+        "SimuVerity benchmarks agents generating executable Simulink models against engineering requirements across 101 tasks in ten domains.",
+        "A hierarchical evaluator checks artifact delivery, native executability, and engineering qualification before scoring qualified models across six dimensions.",
+        "It exposes gaps that compile checks and structural similarity miss, helping engineers assess whether generated models meet multidimensional requirements."
+      ],
+      "diagram": {
+        "caption": "SimuVerity checks model qualification before scoring engineering performance.",
+        "nodes": [
+          {
+            "id": "evaluator",
+            "label": "hierarchical evaluator"
+          },
+          {
+            "id": "delivery",
+            "label": "artifact delivery"
+          },
+          {
+            "id": "execution",
+            "label": "native executability"
+          },
+          {
+            "id": "qualification",
+            "label": "engineering qualification"
+          }
+        ],
+        "edges": [
+          {
+            "from": "evaluator",
+            "to": "delivery",
+            "label": "checks"
+          },
+          {
+            "from": "delivery",
+            "to": "execution",
+            "label": "then checks"
+          },
+          {
+            "from": "execution",
+            "to": "qualification",
+            "label": "then checks"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2609-35259",
+      "headline": "Distillation study finds KL direction and learning rate outweigh rollout policy",
+      "originalTitle": "On-Policy or Off-Policy Learning? A Systematic Study of Distillation Dynamics",
+      "url": "https://huggingface.co/papers/2609.35259",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 176,
+      "topic": "ai",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "In controlled distillation experiments across Llama 3 and Qwen2.5, KL direction more clearly affects performance and output coverage, while learning rate governs forgetting and update sparsity. These results challenge assumptions about when on-policy training is necessary.",
+      "publishedAt": "2026-09-27T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Julianna Piskorz et al."
+    },
+    {
+      "id": "hn-49937304",
+      "headline": "Pi pod runs coding-agent sessions in isolated sandboxes on your server",
+      "originalTitle": "Show HN: Pi pod – Run your pi coding agent in sandboxes on your own server",
+      "url": "https://pipod.dev/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49937304",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49937304",
+          "comments": 47,
+          "points": 115
+        }
+      ],
+      "kind": "tool",
+      "points": 115,
+      "comments": 47,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Pi pod runs the Pi coding agent in isolated, composable sandboxes on a server you control, with a customizable, provider-agnostic harness. It offers a self-hosted alternative for teams that want control over their agent environment.",
+      "publishedAt": "2026-10-02T19:10:38.000Z",
+      "mustRead": false,
+      "brief": [
+        "pi pod is a self-hosted effort to add isolated sandboxes and other agentic engineering capabilities around the pi coding harness.",
+        "It aims to combine sandboxing, native clients, RBAC session sharing, and surface automation while keeping pi customizable.",
+        "Engineers can run and customize an agent environment in their own data center, supporting ownership and privacy."
+      ]
+    },
+    {
+      "id": "paper-2609-32993",
+      "headline": "X-Tree trains agents on reusable hierarchies mined from action traces",
+      "originalTitle": "X-Tree: Tokenizing Reusable Experience for Efficient Agent Generalization",
+      "url": "https://huggingface.co/papers/2609.32993",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 65,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "X-Tree merges reusable action spans into a skill hierarchy and applies it to offline RL, online RLVR, and self-distillation; the excerpt reports gains across three benchmarks. The method aims to make agents generalize from trajectories rather than rely on retrieved, in-context skills.",
+      "publishedAt": "2026-09-25T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Sitao Cheng et al.",
+      "codeUrl": "https://github.com/sitaocheng/X-Tree",
+      "codeStars": 2,
+      "brief": [
+        "X-Tree mines reusable hierarchies from action data and uses them to train multi-step agents, without LLM calls to write skills.",
+        "It scores action spans for reusability, merges canonicalized actions into a tree, and integrates that structure into offline RL, online RLVR, and on-policy self-distillation.",
+        "Training on reusable sub-procedures can make better use of scarce trajectories and improve agent generalization across tasks."
+      ],
+      "diagram": {
+        "caption": "Action streams are converted into X-Tree structures used across three training settings.",
+        "nodes": [
+          {
+            "id": "action-streams",
+            "label": "action streams"
+          },
+          {
+            "id": "x-tree",
+            "label": "X-Tree"
+          },
+          {
+            "id": "offline-rl",
+            "label": "offline RL"
+          },
+          {
+            "id": "online-rlvr",
+            "label": "online RLVR"
+          },
+          {
+            "id": "self-distillation",
+            "label": "on-policy self-distillation"
+          }
+        ],
+        "edges": [
+          {
+            "from": "action-streams",
+            "to": "x-tree",
+            "label": "mine hierarchy"
+          },
+          {
+            "from": "x-tree",
+            "to": "offline-rl",
+            "label": "training instances"
+          },
+          {
+            "from": "x-tree",
+            "to": "online-rlvr",
+            "label": "skill bonus"
+          },
+          {
+            "from": "x-tree",
+            "to": "self-distillation",
+            "label": "privileged context"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49956148",
+      "headline": "A production RAG pipeline gives coding agents citable evidence from repositories",
+      "originalTitle": "Building a RAG pipeline for semantic code search",
+      "url": "https://blog.jetbrains.com/ai/2026/09/building-a-rag-pipeline-for-semantic-code-search-a-developer-diary-and-field-notes/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49956148",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49956148",
+          "comments": 9,
+          "points": 36
+        },
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/ok0m3n/building_rag_pipeline_for_semantic_code",
+          "comments": 1,
+          "points": 1
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 18,
+      "points": 36,
+      "comments": 9,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "JetBrains describes building and shipping a code-search RAG pipeline intended to give LLM agents precise, citable repository evidence, with field notes beginning on parsing, chunking and vectorization. The production lessons are relevant to teams grounding coding agents in large codebases.",
+      "publishedAt": "2026-10-04T17:51:48.000Z",
+      "mustRead": false,
+      "brief": [
+        "Air Context is a production RAG pipeline intended to give coding agents precise, citable evidence from real repositories.",
+        "Its first stages parse and chunk raw source files, then vectorize those units to support semantic search and retrieval.",
+        "Semantic code search can help agents find relevant code in large repositories without relying on exact keywords."
+      ],
+      "diagram": {
+        "caption": "Repository source files pass through parsing and vectorization before semantic search serves agents.",
+        "nodes": [
+          {
+            "id": "source-files",
+            "label": "raw source files"
+          },
+          {
+            "id": "parsing-chunking",
+            "label": "parsing and chunking"
+          },
+          {
+            "id": "vectorization",
+            "label": "vectorization"
+          },
+          {
+            "id": "semantic-search",
+            "label": "semantic search"
+          },
+          {
+            "id": "llm-agents",
+            "label": "LLM agents"
+          }
+        ],
+        "edges": [
+          {
+            "from": "source-files",
+            "to": "parsing-chunking",
+            "label": "parse"
+          },
+          {
+            "from": "parsing-chunking",
+            "to": "vectorization",
+            "label": "chunks"
+          },
+          {
+            "from": "vectorization",
+            "to": "semantic-search",
+            "label": "index"
+          },
+          {
+            "from": "semantic-search",
+            "to": "llm-agents",
+            "label": "retrieve"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-aws-ml-scaling-cloud-migrations-with-agentic-ai-on-amazon-bedrock-agentcore",
+      "headline": "Four agents cut migration IaC development from weeks to minutes across 300+ apps",
+      "originalTitle": "Scaling cloud migrations with agentic AI on Amazon Bedrock AgentCore",
+      "url": "https://aws.amazon.com/blogs/machine-learning/scaling-cloud-migrations-with-agentic-ai-on-amazon-bedrock-agentcore/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "case-study",
+      "readMinutes": 16,
+      "topic": "design",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "An enterprise migration program used a four-agent pattern alongside AWS migration services; internal tracking reports IaC development falling from 3–4 weeks per application to minutes. The hybrid design offers a concrete, measured example of where custom agents fit into large migrations.",
+      "publishedAt": "2026-10-01T22:06:14.000Z",
+      "mustRead": false,
+      "author": "Nikhil Jha",
+      "image": "/covers/2026-10-05/blog-aws-ml-scaling-cloud-migrations-with-agentic-ai-on-amazon-bedrock-agentcore.webp",
+      "brief": [
+        "A four-agent pattern runs alongside AWS Transform and AWS DMS to support cloud migrations with organization-specific requirements.",
+        "The Intake Agent reads inputs, the IaC Agent generates code using approved modules, the Governance Agent reports and governs, and the SRE Agent supports post-cutover operations.",
+        "Internal project tracking reports IaC development time falling from 3–4 weeks per application to minutes across a program of 300+ applications."
+      ],
+      "diagram": {
+        "caption": "Migration agents connect to organization-maintained MCP tools through AgentCore Gateway.",
+        "nodes": [
+          {
+            "id": "intake-agent",
+            "label": "Intake Agent"
+          },
+          {
+            "id": "iac-agent",
+            "label": "IaC Agent"
+          },
+          {
+            "id": "agentcore-gateway",
+            "label": "AgentCore Gateway"
+          },
+          {
+            "id": "mcp-tools",
+            "label": "MCP tools"
+          }
+        ],
+        "edges": [
+          {
+            "from": "intake-agent",
+            "to": "agentcore-gateway",
+            "label": "tool access"
+          },
+          {
+            "from": "iac-agent",
+            "to": "agentcore-gateway",
+            "label": "tool access"
+          },
+          {
+            "from": "agentcore-gateway",
+            "to": "mcp-tools",
+            "label": "exposes"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-ul9krj",
+      "headline": "A Go compiler optimization makes IPv4-mapped IPv6 conversion eight times faster",
+      "originalTitle": "Hacking the Go compiler to efficiently map IPv4 to IPv6",
+      "url": "https://vincent.bernat.ch/en/blog/2026-go-netip-addrto6",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/ul9krj/hacking_go_compiler_efficiently_map_ipv4",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/ul9krj/hacking_go_compiler_efficiently_map_ipv4",
+          "comments": 0,
+          "points": 15
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 27,
+      "points": 15,
+      "comments": 0,
+      "topic": "systems",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "The article reports that the `netip.AddrFrom16(ip.As16())` pattern is eight times slower than a native method and investigates compiler changes to optimize it. The benchmarks and assembly analysis make this a useful performance-engineering case for Go developers.",
+      "publishedAt": "2026-10-04T18:49:55.122Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-05/lobsters-ul9krj.webp",
+      "brief": [
+        "A Go compiler optimization proposal targets the conversion pattern netip.AddrFrom16(ip.As16()) used to map IPv4 addresses to IPv4-mapped IPv6.",
+        "The pattern is reported as eight times slower than a native method; the post examines standard-library, helper, unsafe, and compiler approaches.",
+        "Optimizing this conversion could improve performance in systems that repeatedly map IP addresses."
+      ]
+    },
+    {
+      "id": "blog-aws-ml-sweep-thousands-of-leases-for-compliance-using-amazon-quick-and-the-adjudicated-",
+      "headline": "An adjudicated-query pattern keeps lease compliance decisions in a rules engine",
+      "originalTitle": "Sweep thousands of leases for compliance using Amazon Quick and the Adjudicated Query pattern",
+      "url": "https://aws.amazon.com/blogs/machine-learning/sweep-thousands-of-leases-for-compliance-using-amazon-quick-and-the-adjudicated-query-pattern/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "guide",
+      "readMinutes": 17,
+      "topic": "design",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The pattern lets users ask compliance questions in chat while a deterministic rules engine makes pass/fail decisions; the post includes an end-to-end sample for lease checks. Separating language-model interaction from authoritative decisions is useful for high-stakes AI workflows.",
+      "publishedAt": "2026-10-02T15:48:26.000Z",
+      "mustRead": false,
+      "author": "Anand Komandooru",
+      "brief": [
+        "Adjudicated Query is a conversational layer over a deterministic rules engine for high-stakes compliance checks.",
+        "The model maps natural-language questions to fixed typed operations and narrates results; the rules engine makes determinations and produces a completeness receipt.",
+        "Keeping decisions in deterministic, versioned rules supports auditable results and ensures unassessed records are reported rather than omitted."
+      ],
+      "diagram": {
+        "caption": "A conversational query invokes deterministic rules and returns a receipt for the compliance sweep.",
+        "nodes": [
+          {
+            "id": "amazon-quick",
+            "label": "Amazon Quick"
+          },
+          {
+            "id": "model",
+            "label": "model"
+          },
+          {
+            "id": "typed-operations",
+            "label": "fixed set of typed operations"
+          },
+          {
+            "id": "rules-engine",
+            "label": "rules engine"
+          },
+          {
+            "id": "completeness-receipt",
+            "label": "completeness receipt"
+          }
+        ],
+        "edges": [
+          {
+            "from": "amazon-quick",
+            "to": "model",
+            "label": "question"
+          },
+          {
+            "from": "model",
+            "to": "typed-operations",
+            "label": "call"
+          },
+          {
+            "from": "typed-operations",
+            "to": "rules-engine",
+            "label": "evaluate"
+          },
+          {
+            "from": "rules-engine",
+            "to": "completeness-receipt",
+            "label": "sweep counts"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-cloudflare-introducing-web-search-api",
+      "headline": "Cloudflare AI Gateway adds web search for grounded agent responses",
+      "originalTitle": "Introducing Web Search API via AI Gateway",
+      "url": "https://blog.cloudflare.com/introducing-web-search-api/",
+      "source": "blog",
+      "sourceLabel": "Cloudflare Blog",
+      "kind": "release",
+      "readMinutes": 5,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Cloudflare is adding a Web Search API through AI Gateway with Ceramic.ai, Exa, and Linkup, giving agents a search step instead of relying on guessed URLs and direct fetches. Engineers building tool-using agents can assess search as a way to ground responses in live information and reduce failed fetches.",
+      "publishedAt": "2026-10-02T13:28:10.000Z",
+      "mustRead": false,
+      "author": "Michelle Chen et al.",
+      "brief": [
+        "Cloudflare’s Web Search API brings web search into AI Gateway so agents can use live information.",
+        "Search providers return structured web snippets that applications can inject into model context; partners commit to crawler standards and source links.",
+        "Live search can give inference pipelines fresher context for recent events, changing APIs, and fast-evolving news."
+      ],
+      "diagram": {
+        "caption": "An agent sends a search through AI Gateway and receives web results in its context.",
+        "nodes": [
+          {
+            "id": "agent",
+            "label": "agent"
+          },
+          {
+            "id": "ai-gateway",
+            "label": "AI Gateway"
+          },
+          {
+            "id": "web-search-api",
+            "label": "Web Search API"
+          },
+          {
+            "id": "web-search-providers",
+            "label": "web search providers"
+          },
+          {
+            "id": "context",
+            "label": "context"
+          }
+        ],
+        "edges": [
+          {
+            "from": "agent",
+            "to": "ai-gateway",
+            "label": "search request"
+          },
+          {
+            "from": "ai-gateway",
+            "to": "web-search-api",
+            "label": "API call"
+          },
+          {
+            "from": "web-search-api",
+            "to": "web-search-providers",
+            "label": "query"
+          },
+          {
+            "from": "web-search-providers",
+            "to": "web-search-api",
+            "label": "snippets"
+          },
+          {
+            "from": "web-search-api",
+            "to": "context",
+            "label": "inject results"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-aws-ml-add-secure-web-search-to-claude-desktop-with-amazon-bedrock-agentcore",
+      "headline": "AgentCore connects Claude Desktop to managed web search over MCP",
+      "originalTitle": "Add secure Web Search to Claude Desktop with Amazon Bedrock AgentCore",
+      "url": "https://aws.amazon.com/blogs/machine-learning/add-secure-web-search-to-claude-desktop-with-amazon-bedrock-agentcore/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "guide",
+      "readMinutes": 9,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The setup connects Claude Desktop to an MCP-compatible search service, keeps query traffic within AWS, and uses JWT-based inbound authentication. It shows a concrete way to give an agent current information while managing credentials and network boundaries.",
+      "publishedAt": "2026-10-02T15:46:05.000Z",
+      "mustRead": false,
+      "author": "Jishnu Dasgupta",
+      "brief": [
+        "AgentCore Gateway connects Claude Desktop to managed, MCP-compatible Web Search for current information.",
+        "IAM Identity Center authenticates users through SAML; Cognito issues JWTs, which the gateway validates on each request.",
+        "The AWS-contained identity and search flow gives engineers current web data without external API keys or queries leaving AWS."
+      ],
+      "diagram": {
+        "caption": "Enterprise authentication and search flow from Claude Desktop through the gateway to Web Search.",
+        "nodes": [
+          {
+            "id": "identity-center",
+            "label": "AWS IAM Identity Center"
+          },
+          {
+            "id": "cognito",
+            "label": "Amazon Cognito"
+          },
+          {
+            "id": "claude",
+            "label": "Claude Desktop"
+          },
+          {
+            "id": "gateway",
+            "label": "AgentCore Gateway"
+          },
+          {
+            "id": "web-search",
+            "label": "Web Search"
+          }
+        ],
+        "edges": [
+          {
+            "from": "identity-center",
+            "to": "cognito",
+            "label": "SAML auth"
+          },
+          {
+            "from": "cognito",
+            "to": "claude",
+            "label": "issues JWT"
+          },
+          {
+            "from": "claude",
+            "to": "gateway",
+            "label": "JWT request"
+          },
+          {
+            "from": "gateway",
+            "to": "web-search",
+            "label": "search"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49952111",
+      "headline": "SCM searches local photos and video frames with vision, OCR, and speech models",
+      "originalTitle": "Show HN: AI search for every photo and every frame of video on macOS",
+      "url": "https://github.com/allenv0/SCM",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49952111",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49952111",
+          "comments": 67,
+          "points": 151
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 8,
+      "points": 151,
+      "comments": 67,
+      "topic": "inference",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "SCM indexes local media for semantic, scene, OCR, and spoken-dialogue searches, using local inference and background re-embedding. Its combined multimodal pipeline and offline design are useful patterns for engineers building private AI applications.",
+      "publishedAt": "2026-10-04T09:24:52.000Z",
+      "mustRead": false,
+      "brief": [
+        "SCM is a local-first macOS app for searching photos and video frames with vision, OCR, speech, and optional local chat.",
+        "It uses a vision model for semantic search, Tesseract for visible text, and Whisper for spoken dialogue; watched folders auto-import.",
+        "Local processing keeps media on the Mac, while scene search can take engineers directly to a matching video moment."
+      ]
+    },
+    {
+      "id": "hn-49951218",
+      "headline": "Headstart overlaps Rust crate checks by emitting metadata early",
+      "originalTitle": "Emitting metadata early makes building/checking Rust up to twice as fast",
+      "url": "https://github.com/PowderworksCode/headstart",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49951218",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49951218",
+          "comments": 32,
+          "points": 136
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 5,
+      "points": 136,
+      "comments": 32,
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Headstart lets dependent crates begin checking against early interface metadata while upstream crates continue checking function bodies; failed builds still report errors. The approach exposes a concrete way to trade some wasted work and memory for shorter build waits.",
+      "publishedAt": "2026-10-04T06:26:57.000Z",
+      "mustRead": false,
+      "brief": [
+        "Headstart changes Rust compilation so dependent crates can start before their dependencies finish checking function bodies.",
+        "rustc writes early metadata after checking interfaces; cargo starts dependents from it, then waits for full metadata before code generation.",
+        "Overlapping crate checks can reduce build time and idle CPU capacity in large Rust workspaces, at the cost of extra memory and discarded work."
+      ],
+      "diagram": {
+        "caption": "Headstart uses early metadata to launch dependent crates before full checks finish.",
+        "nodes": [
+          {
+            "id": "rustc",
+            "label": "rustc"
+          },
+          {
+            "id": "early-rmeta",
+            "label": ".early-rmeta"
+          },
+          {
+            "id": "cargo",
+            "label": "cargo"
+          },
+          {
+            "id": "dependent-crates",
+            "label": "dependent crates"
+          },
+          {
+            "id": "full-metadata",
+            "label": "full metadata"
+          }
+        ],
+        "edges": [
+          {
+            "from": "rustc",
+            "to": "early-rmeta",
+            "label": "writes"
+          },
+          {
+            "from": "early-rmeta",
+            "to": "cargo",
+            "label": "notifies"
+          },
+          {
+            "from": "cargo",
+            "to": "dependent-crates",
+            "label": "starts"
+          },
+          {
+            "from": "rustc",
+            "to": "full-metadata",
+            "label": "writes"
+          },
+          {
+            "from": "full-metadata",
+            "to": "dependent-crates",
+            "label": "unblocks codegen"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49958569",
+      "headline": "OpenSSH reverse forwarding and Nginx provide self-hosted HTTP tunnels",
+      "originalTitle": "Self-hosted HTTP tunnels with SSH and Nginx",
+      "url": "https://vincent.bernat.ch/en/blog/2026-http-over-ssh",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49958569",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49958569",
+          "comments": 30,
+          "points": 122
+        },
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/jba52r/self_hosted_http_tunnels_with_ssh_nginx",
+          "comments": 6,
+          "points": 15
+        }
+      ],
+      "kind": "guide",
+      "readMinutes": 5,
+      "points": 122,
+      "comments": 30,
+      "topic": "infra",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The guide combines SSH remote forwarding on an automatically allocated port with an Nginx wildcard host that proxies requests to the forwarded service. It offers a practical self-hosted alternative for exposing local previews without a dedicated tunnel client.",
+      "publishedAt": "2026-10-04T22:25:10.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-05/hn-49958569.webp",
+      "brief": [
+        "OpenSSH reverse forwarding and nginx can expose a local HTTP service through a self-hosted HTTPS tunnel.",
+        "SSH forwards a server port to localhost; nginx proxies requests for that port, while signed, expiring URLs add access control.",
+        "Engineers can share local previews without a commercial tunnel service or a specialized SSH server."
+      ],
+      "diagram": {
+        "caption": "nginx proxies HTTPS requests through an OpenSSH reverse tunnel to a local service.",
+        "nodes": [
+          {
+            "id": "nginx",
+            "label": "nginx"
+          },
+          {
+            "id": "remote-port",
+            "label": "remote port"
+          },
+          {
+            "id": "openssh",
+            "label": "OpenSSH"
+          },
+          {
+            "id": "local-service",
+            "label": "localhost:8080"
+          }
+        ],
+        "edges": [
+          {
+            "from": "nginx",
+            "to": "remote-port",
+            "label": "proxies"
+          },
+          {
+            "from": "remote-port",
+            "to": "openssh",
+            "label": "forwards"
+          },
+          {
+            "from": "openssh",
+            "to": "local-service",
+            "label": "tunnels to"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49945352",
+      "headline": "Docker Desktop has used a Linux virtual machine since 2016",
+      "originalTitle": "Docker has always used microVMs (well since 2016)",
+      "url": "https://dave.recoil.org/docker-has-always-used-microvms/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49945352",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49945352",
+          "comments": 40,
+          "points": 48
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 3,
+      "points": 48,
+      "comments": 40,
+      "topic": "design",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The piece explains how Docker Desktop runs workloads inside a VM with a stripped-down Linux kernel, contrasting microVMs with containers and describing the earlier unikernel approach. It clarifies the isolation architecture behind a widely used developer platform.",
+      "publishedAt": "2026-10-03T15:55:31.000Z",
+      "mustRead": false,
+      "brief": [
+        "Docker Desktop runs Linux workloads in a virtual machine, an approach the excerpt describes as microVM-like and dating to 2016.",
+        "Docker embedded a single-purpose VMM in its app; its design uses a minimal Linux VM and a userspace networking stack called vpnkit.",
+        "A limited host-to-VM interface can reduce code that must be trusted and help engineers reason about isolation and networking policy."
+      ],
+      "diagram": {
+        "caption": "Docker Desktop embeds a VMM that runs a minimal Linux VM and uses vpnkit for networking.",
+        "nodes": [
+          {
+            "id": "docker-desktop",
+            "label": "Docker Desktop"
+          },
+          {
+            "id": "docker-vmm",
+            "label": "Docker VMM"
+          },
+          {
+            "id": "linuxkit",
+            "label": "LinuxKit"
+          },
+          {
+            "id": "vpnkit",
+            "label": "vpnkit"
+          }
+        ],
+        "edges": [
+          {
+            "from": "docker-desktop",
+            "to": "docker-vmm",
+            "label": "embeds"
+          },
+          {
+            "from": "docker-vmm",
+            "to": "linuxkit",
+            "label": "runs VM"
+          },
+          {
+            "from": "docker-vmm",
+            "to": "vpnkit",
+            "label": "uses network stack"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49946707",
+      "headline": "C2PA metadata can make a photoshopped image appear to predate an event",
+      "originalTitle": "How to hack time, with C2PA",
+      "url": "https://www.da.vidbuchanan.co.uk/blog/hacking-time.html",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49946707",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49946707",
+          "comments": 7,
+          "points": 58
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 4,
+      "points": 58,
+      "comments": 7,
+      "topic": "security",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "A photoshopped image uses C2PA metadata to appear to show lottery numbers before the draw, despite its verifiable signature and timestamp. The demonstration highlights why signed provenance alone may not establish when an image was actually created.",
+      "publishedAt": "2026-10-03T18:52:06.000Z",
+      "mustRead": false,
+      "brief": [
+        "C2PA metadata can include signatures and a timestamp from a remote Time Stamp Authority (TSA).",
+        "C2PA permits byte-range exclusions; excluding the entire file lets a signer alter it without invalidating the signatures or TSA timestamp.",
+        "Engineers validating content provenance must account for what signatures exclude, not treat a valid timestamp as proof that file contents stayed unchanged."
+      ],
+      "diagram": {
+        "caption": "A C2PA manifest gets a timestamp signature from a TSA through RFC 3161.",
+        "nodes": [
+          {
+            "id": "c2pa-manifest",
+            "label": "C2PA manifest"
+          },
+          {
+            "id": "rfc-3161",
+            "label": "RFC 3161 protocol"
+          },
+          {
+            "id": "tsa",
+            "label": "Time Stamp Authority"
+          },
+          {
+            "id": "c2pa-metadata",
+            "label": "C2PA metadata"
+          }
+        ],
+        "edges": [
+          {
+            "from": "c2pa-manifest",
+            "to": "rfc-3161",
+            "label": "requests timestamp"
+          },
+          {
+            "from": "rfc-3161",
+            "to": "tsa",
+            "label": "consults"
+          },
+          {
+            "from": "tsa",
+            "to": "c2pa-metadata",
+            "label": "returns signature"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-4bzoft",
+      "headline": "C++ bitwise operations can turn enum complements into unexpected values",
+      "originalTitle": "The complement of true is true, except when it's false",
+      "url": "https://dryperspective.github.io/posts/complement-of-true/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/4bzoft/complement_true_is_true_except_when_it_s",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/4bzoft/complement_true_is_true_except_when_it_s",
+          "comments": 4,
+          "points": 34
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 16,
+      "points": 34,
+      "comments": 4,
+      "topic": "languages",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The article examines how integral promotions and undefined behavior affect bitwise operations on C++ enums, prompted by a proposal for opt-in bitmask operations. Engineers working with low-level C++ can use this context to avoid subtle type and value bugs.",
+      "publishedAt": "2026-10-04T12:30:26.844Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-05/lobsters-4bzoft.webp",
+      "brief": [
+        "The excerpt examines C++ bitwise operations while discussing a proposal for built-in bitmask operations on enums.",
+        "Integral types smaller than int are promoted for bitwise operations; converting a nonzero result to bool yields true and discards its bit pattern.",
+        "Understanding these conversions helps engineers avoid surprising boolean results and unintended narrowing in low-level code."
+      ]
+    },
+    {
+      "id": "lobsters-eoibah",
+      "headline": "Iroh evaluates BitTorrent for permissionless global content discovery",
+      "originalTitle": "Iroh global content discovery",
+      "url": "https://www.iroh.computer/blog/iroh-global-content-discovery",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/eoibah/iroh_global_content_discovery",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/eoibah/iroh_global_content_discovery",
+          "comments": 6,
+          "points": 29
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 15,
+      "points": 29,
+      "comments": 6,
+      "topic": "design",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The piece compares existing approaches to global content discovery and examines BitTorrent as a starting point for Iroh’s implementation. Its protocol and design trade-offs are relevant to engineers building resilient distributed content systems.",
+      "publishedAt": "2026-10-04T19:19:42.619Z",
+      "mustRead": false,
+      "brief": [
+        "Iroh evaluates BitTorrent as a model for permissionless global content discovery and compares its transfer protocol with iroh-blobs.",
+        "BitTorrent uses a .torrent file to describe data, peers to transfer blocks, and Mainline DHT to find providers without trackers.",
+        "Separating discovery from transfer helps engineers reason about resilient content distribution; BLAKE3 verified streaming can validate blob ranges."
+      ],
+      "diagram": {
+        "caption": "BitTorrent separates finding providers with Mainline DHT from transferring data between peers.",
+        "nodes": [
+          {
+            "id": "mainline-dht",
+            "label": "Mainline DHT"
+          },
+          {
+            "id": "peers",
+            "label": "peers"
+          },
+          {
+            "id": "torrent-file",
+            "label": ".torrent file"
+          },
+          {
+            "id": "transfer-protocol",
+            "label": "transfer protocol"
+          }
+        ],
+        "edges": [
+          {
+            "from": "mainline-dht",
+            "to": "peers",
+            "label": "finds providers"
+          },
+          {
+            "from": "torrent-file",
+            "to": "transfer-protocol",
+            "label": "describes data"
+          },
+          {
+            "from": "peers",
+            "to": "transfer-protocol",
+            "label": "send blocks"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-aws-ml-uplifting-conversion-across-the-acquisition-funnel-with-personalization-using-co",
+      "headline": "A contextual bandit produced a high-single-digit conversion lift for one population",
+      "originalTitle": "Uplifting conversion across the acquisition funnel with personalization using contextual bandits on AWS",
+      "url": "https://aws.amazon.com/blogs/machine-learning/uplifting-conversion-across-the-acquisition-funnel-with-personalization-using-contextual-bandits-on-aws/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "case-study",
+      "readMinutes": 13,
+      "topic": "ai",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "In a seven-week online A/B test, Amazon Payments reports a high-single-digit relative lift in final-funnel conversion for one population and no improvement for another. The result and the finding that content, not the model, was the issue offer practical lessons for applied ML experimentation.",
+      "publishedAt": "2026-10-01T16:51:04.000Z",
+      "mustRead": false,
+      "author": "Chidi Prince John",
+      "brief": [
+        "A multi-objective contextual bandit personalizes a product acquisition funnel by selecting content based on signals about each visit.",
+        "UCB selects content using estimated reward plus an uncertainty bonus, balancing exploitation with continued exploration.",
+        "Bandits can keep learning as new content variants arrive without waiting for a test to conclude, which suits the growing volume of generative-AI options."
+      ]
+    },
+    {
+      "id": "blog-aws-ml-how-uniopen-customized-amazon-nova-to-their-retail-moderation-policies-for-produ",
+      "headline": "uniopen fine-tunes Nova 2 Lite for business-specific moderation",
+      "originalTitle": "How uniopen customized Amazon Nova to their retail moderation policies for production deployment",
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-uniopen-customized-amazon-nova-to-their-retail-moderation-policies-for-production-deployment/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "case-study",
+      "readMinutes": 6,
+      "topic": "ai",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "uniopen uses supervised fine-tuning and prompt-level output optimization to classify interactions by behavior and subject under its retail moderation policy. The repeatable workflow shows how to adapt a general model to a product-specific policy.",
+      "publishedAt": "2026-10-01T15:33:01.000Z",
+      "mustRead": false,
+      "author": "Felix Chin, Jia-You Lin",
+      "brief": [
+        "uniopen adapted Amazon Nova 2 Lite to its retail moderation policy, which classifies behavior and subject across web, tablet, and mobile.",
+        "Amazon Nova 2 Pro generates candidate corrections; human reviewers verify them before they enter Amazon S3 and the evaluation and deployment workflow.",
+        "Human verification, fixed test sets, and regression checks help teams improve domain-specific moderation without treating generated labels as ground truth."
+      ],
+      "diagram": {
+        "caption": "Verified moderation corrections flow into evaluation and deployment for the production model.",
+        "nodes": [
+          {
+            "id": "nova-lite",
+            "label": "Amazon Nova 2 Lite"
+          },
+          {
+            "id": "nova-pro",
+            "label": "Amazon Nova 2 Pro"
+          },
+          {
+            "id": "reviewer",
+            "label": "human reviewer"
+          },
+          {
+            "id": "s3",
+            "label": "Amazon S3"
+          },
+          {
+            "id": "workflows",
+            "label": "Argo Workflows"
+          },
+          {
+            "id": "argo-cd",
+            "label": "Argo CD"
+          }
+        ],
+        "edges": [
+          {
+            "from": "nova-pro",
+            "to": "reviewer",
+            "label": "candidate corrections"
+          },
+          {
+            "from": "reviewer",
+            "to": "s3",
+            "label": "verified corrections"
+          },
+          {
+            "from": "s3",
+            "to": "workflows",
+            "label": "training data"
+          },
+          {
+            "from": "workflows",
+            "to": "argo-cd",
+            "label": "approved configs"
+          },
+          {
+            "from": "argo-cd",
+            "to": "nova-lite",
+            "label": "production update"
+          }
+        ]
+      }
+    },
+    {
+      "id": "release-transformers-release-5-18-0",
+      "headline": "Transformers 5.18.0 adds streaming Nemotron 3 diarization",
+      "originalTitle": "Transformers 5.18.0 released",
+      "url": "https://github.com/huggingface/transformers/releases/tag/v5.18.0",
+      "source": "blog",
+      "sourceLabel": "Transformers releases",
+      "kind": "release",
+      "readMinutes": 19,
+      "topic": "ai",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The release adds Nemotron 3 Diarization, which supports streaming and offline inference, up to eight speakers, configurable latency buffers, and chunked audio without a maximum duration. These capabilities matter for engineers building real-time or long-form audio pipelines.",
+      "publishedAt": "2026-09-30T16:46:27.000Z",
+      "mustRead": false,
+      "brief": [
+        "Transformers 5.18.0 adds Nemotron 3 Diarization, an open-weight streaming speaker diarization model that determines who spoke when.",
+        "It supports streaming and offline inference, up to eight speakers, configurable latency profiles, and chunked inference without a maximum audio duration.",
+        "Configurable buffers and chunked inference give engineers options for balancing latency and processing long audio streams."
+      ]
+    },
+    {
+      "id": "blog-aws-ml-implementing-multi-environment-access-for-claude-platform-on-aws",
+      "headline": "Claude Platform on AWS uses separate access patterns for production, developers, and CI",
+      "originalTitle": "Implementing Multi-Environment Access for Claude Platform on AWS",
+      "url": "https://aws.amazon.com/blogs/machine-learning/implementing-multi-environment-access-for-claude-platform-on-aws/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "guide",
+      "readMinutes": 11,
+      "topic": "design",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The setup combines cross-account SigV4 for AWS workloads, workspace-scoped API keys for developers, and OIDC federation for external environments under one subscription. The pattern addresses authentication and workspace isolation across mixed deployment environments.",
+      "publishedAt": "2026-10-01T16:32:23.000Z",
+      "mustRead": false,
+      "author": "Andrea Gallo",
+      "brief": [
+        "Claude Platform on AWS uses a dedicated AI Services account to host its subscription, workspaces, API keys, and cross-account roles.",
+        "AWS workloads assume cross-account roles and sign requests with SigV4; developers use workspace-scoped API keys, while external workloads use OIDC federation.",
+        "Separating access by environment supports workspace-level isolation while avoiding persistent credentials for AWS and external workloads."
+      ],
+      "diagram": {
+        "caption": "Three environment-specific access paths reach the subscription hosted in the AI Services account.",
+        "nodes": [
+          {
+            "id": "eks-pod",
+            "label": "EKS pod"
+          },
+          {
+            "id": "ai-services",
+            "label": "AI Services account"
+          },
+          {
+            "id": "subscription",
+            "label": "CPonAWS subscription"
+          },
+          {
+            "id": "developers",
+            "label": "Developer laptops"
+          },
+          {
+            "id": "external",
+            "label": "External workloads"
+          },
+          {
+            "id": "oidc",
+            "label": "OIDC federation"
+          }
+        ],
+        "edges": [
+          {
+            "from": "eks-pod",
+            "to": "ai-services",
+            "label": "assumes role"
+          },
+          {
+            "from": "ai-services",
+            "to": "subscription",
+            "label": "inference"
+          },
+          {
+            "from": "developers",
+            "to": "subscription",
+            "label": "API key"
+          },
+          {
+            "from": "external",
+            "to": "oidc",
+            "label": "authenticates"
+          },
+          {
+            "from": "oidc",
+            "to": "ai-services",
+            "label": "temporary credentials"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-9bufek",
+      "headline": "Refinement e-graphs model compiler rewrites that narrow program behavior",
+      "originalTitle": "Refinement E-Graphs",
+      "url": "https://www.philipzucker.com/refinement_egraph/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/9bufek/refinement_e_graphs",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/9bufek/refinement_e_graphs",
+          "comments": 0,
+          "points": 10
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 34,
+      "points": 10,
+      "comments": 0,
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The proposal adds a privileged refinement relation alongside equality in e-graphs, for rewrites that make underspecified programs more concrete; a prototype is available. Compiler engineers can use this framing to reason about optimizations when language semantics leave behavior open.",
+      "publishedAt": "2026-10-05T02:23:30.392Z",
+      "mustRead": false,
+      "brief": [
+        "Refinement e-graphs add an inequality relation to e-graphs for representing compiler rewrites that narrow program behavior.",
+        "A refinement rewrite can move from an abstract program to a more determined one; in the don’t-care circuit example, an unspecified result can refine to true or false.",
+        "Representing refinement separately from equality lets an optimizer exploit unspecified behavior without equating distinct possible results."
+      ]
+    },
+    {
+      "id": "lobsters-jpwrmk",
+      "headline": "Two SMTP parsing flaws enabled email spoofing through Apple iCloud",
+      "originalTitle": "From: anyone@icloud.com - Spoofing Arbitrary Apple iCloud Identities",
+      "url": "https://sec-consult.com/blog/detail/from-anyoneicloudcom-spoofing-arbitrary-apple-icloud-identities/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/jpwrmk/from_anyone_icloud_com_spoofing",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/jpwrmk/from_anyone_icloud_com_spoofing",
+          "comments": 0,
+          "points": 1
+        }
+      ],
+      "kind": "vulnerability",
+      "readMinutes": 16,
+      "points": 1,
+      "comments": 0,
+      "topic": "security",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "A case study describes two email spoofing vulnerabilities in iCloud’s SMTP infrastructure and revisits SMTP smuggling after implementations adopted fixes. It offers a concrete look at how parser behavior can undermine email identity checks.",
+      "publishedAt": "2026-10-05T06:50:55.660Z",
+      "mustRead": false,
+      "brief": [
+        "Researchers found two Apple iCloud email spoofing vulnerabilities involving header smuggling, a subclass of email spoofing based on parsing discrepancies.",
+        "SMTP smuggling exploits differences between outbound and inbound servers in how they interpret message boundaries; the iCloud case enabled arbitrary icloud.com sender identities.",
+        "The findings highlight how parser differences in widely used protocols can undermine identity checks and email trust."
+      ]
+    },
+    {
+      "id": "blog-aws-ml-how-conde-nast-built-multimodal-video-discovery-with-amazon-bedrock",
+      "headline": "Condé Nast targets video discovery across 140,000 clips with multimodal search",
+      "originalTitle": "How Condé Nast built multimodal video discovery with Amazon Bedrock",
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-conde-nast-built-multimodal-video-discovery-with-amazon-bedrock/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "case-study",
+      "readMinutes": 8,
+      "topic": "design",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Editors spent an average of 250 minutes per discovery task searching a library of more than 140,000 videos; the solution uses Bedrock and OpenSearch for intent-based semantic search. It shows how multimodal indexing can address discovery gaps in large media archives.",
+      "publishedAt": "2026-09-29T15:55:17.000Z",
+      "mustRead": false,
+      "author": "Mariah Miller",
+      "brief": [
+        "Condé Nast built multimodal video discovery using TwelveLabs Marengo embeddings, Amazon OpenSearch Service, and a purpose-built query tier.",
+        "Marengo jointly encodes visual, audio, and transcript signals; OpenSearch indexes the embeddings, and the query tier converts natural-language searches into vector searches and returns timestamps.",
+        "Separating embedding generation from search serving lets ingestion and query workloads scale, fail, and evolve independently."
+      ]
+    },
+    {
+      "id": "blog-brooker-encoders-html",
+      "headline": "Strands Decider compares an LLM design with encoder alternatives",
+      "originalTitle": "Strands Decider: Why Not an Encoder?",
+      "url": "http://brooker.co.za/blog/2026/10/04/encoders.html",
+      "source": "blog",
+      "sourceLabel": "Marc Brooker",
+      "kind": "benchmark",
+      "readMinutes": 4,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The author tests five designs for Strands Decider, including a Qwen-based model and encoder-decoder alternatives, to examine whether bidirectional encoders perform better. The comparison may inform architecture choices for specialized language-model applications, though the excerpt omits results.",
+      "publishedAt": "2026-10-04T00:00:00.000Z",
+      "mustRead": false,
+      "brief": [
+        "Strands Decider compares a modified causal LLM with encoder and encoder-decoder alternatives for classification.",
+        "The e1b encoder slightly beat v19 on JevBench accuracy, with slightly worse calibration; its median latency was around 35 ms versus 65 ms for v19.",
+        "Encoder latency and prompt-length scaling differ, so engineers need to assess performance against their workload’s prompt mix."
+      ]
+    },
+    {
+      "id": "blog-trailofbits-sequencehash-multihashing-for-the-rest-of-us",
+      "headline": "SequenceHash and SequenceMAC prevent ambiguous multihash encodings",
+      "originalTitle": "SequenceHash: multihashing for the rest of us",
+      "url": "https://blog.trailofbits.com/2026/10/02/sequencehash-multihashing-for-the-rest-of-us/",
+      "source": "blog",
+      "sourceLabel": "Trail of Bits",
+      "kind": "deep-dive",
+      "readMinutes": 15,
+      "topic": "security",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The open specification introduces hash constructions intended to avoid attacks on ambiguous input encodings, working with hash functions such as SHA-2, BLAKE, and RIPEMD rather than only Keccak. The approach is relevant to engineers building secure cryptographic protocols and systems.",
+      "publishedAt": "2026-10-02T11:00:00.000Z",
+      "mustRead": false,
+      "brief": [
+        "SequenceHash and SequenceMAC are multihash constructions designed to work with secure hash functions beyond Keccak.",
+        "Unlike raw concatenation, they avoid ambiguous input boundaries and work with common hash functions without non-byte-aligned computations.",
+        "Rust, Go, and Python implementations plus test vectors help developers implement and verify secure multihashing."
+      ]
+    },
+    {
+      "id": "blog-latent-space-ainews-not-much-happened-today-cee",
+      "headline": "OpenAI’s GPT-6.1 Sol is priced below Astra and posts reported benchmark gains",
+      "originalTitle": "[AINews] not much happened today",
+      "url": "https://www.latent.space/p/ainews-not-much-happened-today-cee",
+      "source": "blog",
+      "sourceLabel": "Latent Space",
+      "kind": "news",
+      "readMinutes": 25,
+      "topic": "inference",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The roundup reports Sol pricing of $2/$10 per million input/output tokens, versus Astra at $10/$50, and claimed gains on DeepSWE v1.1 and AutomationBench. The cost and task-performance claims offer a useful comparison point for model selection.",
+      "publishedAt": "2026-10-03T08:45:15.000Z",
+      "mustRead": false,
+      "author": "Latent.Space",
+      "brief": [
+        "OpenAI priced GPT-6.1 Sol at $2/$10 per million input/output tokens, compared with $10/$50 for Astra.",
+        "Sol reportedly beat GPT-6 Sol by 6.4 points on DeepSWE v1.1 and Opus 5.5 by 2.2 points on AutomationBench.",
+        "Agent Arena reported Sol [Max] at a $0.56 median cost per task, illustrating the cost-performance tradeoffs engineers weigh when choosing models."
+      ]
+    },
+    {
+      "id": "hn-49950554",
+      "headline": "Web developers still have reasons to build beyond browser APIs",
+      "originalTitle": "Why don't more developers “use the platform”?",
+      "url": "https://nolanlawson.com/2026/10/03/why-dont-more-developers-use-the-platform/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49950554",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49950554",
+          "comments": 308,
+          "points": 295
+        },
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/srduzv/why_don_t_more_developers_use_platform",
+          "comments": 33,
+          "points": 68
+        }
+      ],
+      "kind": "essay",
+      "readMinutes": 8,
+      "points": 295,
+      "comments": 308,
+      "topic": "web",
+      "score": 7,
+      "relevance": 1,
+      "whyRead": "The essay weighs “use the platform” against the history of browser gaps, when libraries such as jQuery supplied features browsers had yet to implement. It offers useful context for choosing native APIs versus dependencies, though its focus is web development.",
+      "publishedAt": "2026-10-04T04:10:47.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-05/hn-49950554.webp",
+      "brief": [
+        "The piece examines why web developers often build with libraries instead of using browser platform APIs.",
+        "Historical browser gaps, familiarity, documentation, and libraries’ more familiar interfaces all help explain that choice.",
+        "For engineers, browser APIs can offer better performance and usability, while libraries can make unfamiliar platform features easier to adopt."
+      ]
+    },
+    {
+      "id": "hn-49956092",
+      "headline": "Custom-domain email separates simple forwarding from sending",
+      "originalTitle": "All I wanted was a custom domain email",
+      "url": "https://jacobg.co/emails-at-jacobg-co/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49956092",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49956092",
+          "comments": 86,
+          "points": 60
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 4,
+      "points": 60,
+      "comments": 86,
+      "topic": "infra",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Cloudflare Email Routing can forward incoming mail, but the excerpt says sending is the problem; the author compares hosted and self-managed options. The trade-offs are useful for engineers choosing low-cost email infrastructure.",
+      "publishedAt": "2026-10-04T17:47:21.000Z",
+      "mustRead": false,
+      "brief": [
+        "The post compares options for using a custom domain for email, including Cloudflare Email Routing, Mailflare, and Purelymail.",
+        "Cloudflare forwards incoming mail; Mailflare uses Cloudflare for receiving and Resend for sending, while Purelymail offers SMTP and IMAP access.",
+        "Separating incoming forwarding from reliable outbound delivery helps engineers identify which email responsibilities a service actually handles."
+      ],
+      "diagram": {
+        "caption": "Mailflare uses Cloudflare for incoming mail and Resend for outbound delivery.",
+        "nodes": [
+          {
+            "id": "cloudflare",
+            "label": "Cloudflare"
+          },
+          {
+            "id": "mailflare",
+            "label": "Mailflare"
+          },
+          {
+            "id": "resend",
+            "label": "Resend"
+          }
+        ],
+        "edges": [
+          {
+            "from": "cloudflare",
+            "to": "mailflare",
+            "label": "receiving"
+          },
+          {
+            "from": "mailflare",
+            "to": "resend",
+            "label": "sending"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49961057",
+      "headline": "Claude’s threat review escalated a user’s diary entry to police",
+      "originalTitle": "Anthropic reported diary entry to police, woman faces felony charge",
+      "url": "https://www.techspot.com/news/114091-florida-woman-used-claude-diary-anthropic-reported-shoot.html",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49961057",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49961057",
+          "comments": 47,
+          "points": 55
+        }
+      ],
+      "kind": "news",
+      "points": 55,
+      "comments": 47,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Claude reportedly flagged a threat in a user’s diary entry, which a human reviewer assessed and reported to law enforcement. The escalation path illustrates consequential safety and privacy decisions in deployed AI services.",
+      "publishedAt": "2026-10-05T05:37:40.000Z",
+      "mustRead": false,
+      "brief": [
+        "Claude flagged a Florida user's diary entry as a potential threat, and Anthropic reported it to police after human review.",
+        "Claude's safety systems escalated the entry to a human reviewer, who judged it credible and contacted law enforcement.",
+        "AI product engineers should account for safety review and emergency disclosure; chatbot conversations may not be private diaries."
+      ],
+      "diagram": {
+        "caption": "A flagged Claude entry moves through human review before law enforcement is notified.",
+        "nodes": [
+          {
+            "id": "claude",
+            "label": "Claude"
+          },
+          {
+            "id": "safety-systems",
+            "label": "safety systems"
+          },
+          {
+            "id": "human-reviewer",
+            "label": "human reviewer"
+          },
+          {
+            "id": "law-enforcement",
+            "label": "law enforcement"
+          }
+        ],
+        "edges": [
+          {
+            "from": "claude",
+            "to": "safety-systems",
+            "label": "diary entry"
+          },
+          {
+            "from": "safety-systems",
+            "to": "human-reviewer",
+            "label": "escalates"
+          },
+          {
+            "from": "human-reviewer",
+            "to": "law-enforcement",
+            "label": "reports"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49956003",
+      "headline": "Xray-core faces a certificate-verification bypass allegation",
+      "originalTitle": "Xray-core concealed a certificate verification bypass vulnerability",
+      "url": "https://github.com/net4people/bbs/issues/672",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49956003",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49956003",
+          "comments": 10,
+          "points": 76
+        }
+      ],
+      "kind": "vulnerability",
+      "readMinutes": 4,
+      "points": 76,
+      "comments": 10,
+      "topic": "security",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "A reporter alleges that Xray-core concealed a certificate-verification bypass for half a year, involving its pinned-peer-certificate feature. Proxy users and maintainers should assess whether certificate checks can be bypassed in their own configurations.",
+      "publishedAt": "2026-10-04T17:38:54.000Z",
+      "mustRead": false,
+      "brief": [
+        "A vulnerability report alleges that Xray-core's pinnedPeerCertSha256 option can bypass certificate verification.",
+        "The report says the option always skips regular verification; if custom pinning also fails, no certificate verification remains.",
+        "A verification bypass can expose users to man-in-the-middle attacks, so changes to certificate and pinning logic need careful review."
+      ]
+    },
+    {
+      "id": "hn-49934631",
+      "headline": "Login.gov code adds a long-lived browser identifier to an analytics experiment",
+      "originalTitle": "A 20-year-long permanent cookie: America.gov and tracking",
+      "url": "https://www.biometricupdate.com/202610/america-gov-launches-with-privacy-pledge-as-login-gov-code-raises-tracking-questions",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49934631",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49934631",
+          "comments": 28,
+          "points": 46
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 8,
+      "points": 46,
+      "comments": 28,
+      "topic": "design",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The excerpt says Login.gov code for a National Design Studio experiment creates a persistent browser identifier and incorporates it into analytics, beneath America.gov’s service layer. The identity-layer design and tracking implications matter to teams building shared platforms.",
+      "publishedAt": "2026-10-02T15:30:24.000Z",
+      "mustRead": false,
+      "brief": [
+        "Login.gov code for an interface experiment creates a long-lived browser identifier that is used in analytics.",
+        "The nds_experiment_uuid cookie can last 20 years, selects an NDS interface version, and records opt-out status for later visits.",
+        "Engineers integrating identity services should scrutinize identifier lifetimes and analytics linkage alongside public privacy promises."
+      ],
+      "diagram": {
+        "caption": "Login.gov creates an identifier used to select an interface version and associate analytics events.",
+        "nodes": [
+          {
+            "id": "login-gov",
+            "label": "Login.gov"
+          },
+          {
+            "id": "uuid",
+            "label": "nds_experiment_uuid"
+          },
+          {
+            "id": "nds-interface",
+            "label": "NDS interface"
+          },
+          {
+            "id": "analytics-events",
+            "label": "analytics events"
+          }
+        ],
+        "edges": [
+          {
+            "from": "login-gov",
+            "to": "uuid",
+            "label": "creates"
+          },
+          {
+            "from": "uuid",
+            "to": "nds-interface",
+            "label": "selects version"
+          },
+          {
+            "from": "uuid",
+            "to": "analytics-events",
+            "label": "attached to"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49951648",
+      "headline": "OpenBSD developers reject a uutils coreutils port over compatibility and licensing",
+      "originalTitle": "OpenBSD Developers Reject Uutils Coreutils",
+      "url": "https://news.lavx.hu/article/openbsd-developers-reject-uutils-coreutils-port-over-licensing-and-compatibility-concerns",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49951648",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49951648",
+          "comments": 42,
+          "points": 31
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 4,
+      "points": 31,
+      "comments": 42,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "OpenBSD developers objected to a proposed Rust-based coreutils port over behavioral incompatibilities, duplication and licensing concerns. The debate highlights the compatibility trade-offs of replacing established base-system tools.",
+      "publishedAt": "2026-10-04T07:55:24.000Z",
+      "mustRead": false,
+      "brief": [
+        "OpenBSD developers rejected a proposed port of uutils, a Rust reimplementation of GNU coreutils, citing compatibility and licensing concerns.",
+        "The proposed port installs g-prefixed command symlinks that point to a multicall binary; developers objected to behavioral differences from base utilities.",
+        "For systems engineers, subtle differences in utility output or edge-case behavior can break scripts and pipelines that depend on consistent tools."
+      ],
+      "diagram": {
+        "caption": "The proposed g-prefixed commands are symlinks to a shared multicall binary.",
+        "nodes": [
+          {
+            "id": "gcat",
+            "label": "gcat"
+          },
+          {
+            "id": "gls",
+            "label": "gls"
+          },
+          {
+            "id": "multicall-binary",
+            "label": "multicall binary"
+          }
+        ],
+        "edges": [
+          {
+            "from": "gcat",
+            "to": "multicall-binary",
+            "label": "symlink"
+          },
+          {
+            "from": "gls",
+            "to": "multicall-binary",
+            "label": "symlink"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49940152",
+      "headline": "Cloudflare is opening more Enterprise-only features to all customers",
+      "originalTitle": "Cloudflare opens more Enterprise-only features to all customers",
+      "url": "https://blog.cloudflare.com/enterprise-for-all-update/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49940152",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49940152",
+          "comments": 11,
+          "points": 50
+        }
+      ],
+      "kind": "release",
+      "readMinutes": 10,
+      "points": 50,
+      "comments": 11,
+      "topic": "infra",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Cloudflare says it is making capabilities previously limited to Enterprise customers available across its customer base. Broader access could change the options available to teams building on its platform, though the excerpt names no specific features.",
+      "publishedAt": "2026-10-03T00:09:38.000Z",
+      "mustRead": false,
+      "brief": [
+        "Cloudflare is making more Enterprise-only features available to customers on lower-tier plans, with many also reaching the free tier.",
+        "Logpush sends Cloudflare logs to external destinations; Transformers uses SQL to filter, redact, enrich, and reformat them before delivery.",
+        "Plans differ in usage limits rather than feature access, letting teams use Cloudflare capabilities without moving to Enterprise."
+      ],
+      "diagram": {
+        "caption": "Cloudflare logs are transformed before Logpush delivers them to destinations.",
+        "nodes": [
+          {
+            "id": "cloudflare-logs",
+            "label": "Cloudflare logs"
+          },
+          {
+            "id": "transformers",
+            "label": "Transformers"
+          },
+          {
+            "id": "logpush",
+            "label": "Logpush"
+          },
+          {
+            "id": "analytics",
+            "label": "analytics"
+          }
+        ],
+        "edges": [
+          {
+            "from": "cloudflare-logs",
+            "to": "transformers"
+          },
+          {
+            "from": "transformers",
+            "to": "logpush",
+            "label": "before delivery"
+          },
+          {
+            "from": "logpush",
+            "to": "analytics",
+            "label": "delivers"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49948300",
+      "headline": "Doom’s game logic and renderer run in SQL at up to 60 Hz",
+      "originalTitle": "We ported the original Doom to SQL",
+      "url": "https://cedardb.com/blog/sqldoom/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49948300",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49948300",
+          "comments": 5,
+          "points": 43
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 25,
+      "points": 43,
+      "comments": 5,
+      "topic": "data",
+      "score": 7,
+      "relevance": 1,
+      "whyRead": "The port runs Doom’s game loop at 35 FPS and renders 320×200 frames in SQL, with Python handling input, timing and display; multiplayer works too. It’s an unusual look at pushing a database beyond conventional query workloads.",
+      "publishedAt": "2026-10-03T22:14:00.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-10-05/hn-49948300.webp",
+      "brief": [
+        "SQLDoom runs the original Doom game logic and renderer inside a database, with Python handling input, timing, and display.",
+        "SQL game logic runs at 35 FPS and updates game state tables; the renderer reads that state and can produce frames independently, up to 60 Hz.",
+        "It demonstrates how database execution can host both application logic and rendering while separating the fixed game loop from frame requests."
+      ],
+      "diagram": {
+        "caption": "Python drives SQL game logic while the SQL renderer reads shared game state.",
+        "nodes": [
+          {
+            "id": "python",
+            "label": "Python"
+          },
+          {
+            "id": "sql-game-logic",
+            "label": "SQL game logic"
+          },
+          {
+            "id": "game-state-tables",
+            "label": "game state tables"
+          },
+          {
+            "id": "sql-renderer",
+            "label": "SQL renderer"
+          }
+        ],
+        "edges": [
+          {
+            "from": "python",
+            "to": "sql-game-logic",
+            "label": "game tic"
+          },
+          {
+            "from": "sql-game-logic",
+            "to": "game-state-tables",
+            "label": "updates"
+          },
+          {
+            "from": "game-state-tables",
+            "to": "sql-renderer",
+            "label": "state"
+          },
+          {
+            "from": "sql-renderer",
+            "to": "python",
+            "label": "bitmap"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-49935250",
+      "headline": "Terminfo parameter expansion can simulate two-counter Minsky machines",
+      "originalTitle": "A Minsky machine in ncurses terminfo",
+      "url": "https://seriot.ch/computation/terminfo/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=49935250",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=49935250",
+          "comments": 11,
+          "points": 31
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 6,
+      "points": 31,
+      "comments": 11,
+      "topic": "languages",
+      "score": 7,
+      "relevance": 1,
+      "whyRead": "The article makes terminfo’s computational universality explicit with a reduction from two-counter Minsky machines, building on its stack, arithmetic, branching and persistent-variable features. It is a technically interesting example of computation hiding in a specialized language.",
+      "publishedAt": "2026-10-02T16:17:09.000Z",
+      "mustRead": false,
+      "brief": [
+        "Terminfo parameter expansion can simulate two-counter Minsky machines, making the case that the language is Turing-complete.",
+        "Its stack operations, arithmetic, conditionals, and persistent registers implement machine instructions; repeated capability expansion supplies the clock.",
+        "Engineers should account for the computational power hidden in configuration and terminal capability mechanisms, not just conventional programming languages."
+      ]
+    },
+    {
+      "id": "blog-pragmatic-the-pulse-firebases-global-outage",
+      "headline": "A Firebase iOS SDK crash affected apps for 2–6 hours without a status update",
+      "originalTitle": "The Pulse: Firebase’s global outage & poor response",
+      "url": "https://newsletter.pragmaticengineer.com/p/the-pulse-firebases-global-outage",
+      "source": "blog",
+      "sourceLabel": "The Pragmatic Engineer",
+      "kind": "news",
+      "topic": "design",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "A backend change caused the Firebase iOS SDK to crash apps using its analytics for 2–6 hours, and Google did not update its status page or publish a postmortem. The failure and response are useful reliability lessons for teams depending on shared platforms.",
+      "publishedAt": "2026-10-01T16:43:19.000Z",
+      "mustRead": false,
+      "author": "Gergely Orosz",
+      "brief": [
+        "A Firebase iOS SDK crash followed a backend change and affected apps using Firebase Analytics.",
+        "The crash lasted 2–6 hours, and Google provided neither a status-page update nor a postmortem, according to the excerpt.",
+        "The incident highlights how SDK and backend coupling can turn a service change into widespread app failures, making clear incident communication important."
+      ]
+    },
+    {
+      "id": "blog-pragmatic-distributed-databases-with-peter",
+      "headline": "Cockroach Labs co-founder discusses distributed database reliability and AI coding",
+      "originalTitle": "Distributed databases with Peter Mattis",
+      "url": "https://newsletter.pragmaticengineer.com/p/distributed-databases-with-peter",
+      "source": "blog",
+      "sourceLabel": "The Pragmatic Engineer",
+      "kind": "deep-dive",
+      "readMinutes": 9,
+      "topic": "design",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "Peter Mattis discusses building reliable distributed systems and using AI to write more code without sacrificing quality. The combination of distributed-database experience and AI-assisted engineering makes this relevant to senior systems builders.",
+      "publishedAt": "2026-09-30T16:30:05.000Z",
+      "mustRead": false,
+      "author": "Gergely Orosz",
+      "brief": [
+        "An interview with Cockroach Labs co-founder Peter Mattis covers distributed database reliability, AI coding, and his engineering career.",
+        "Mattis says AI has brought him back to writing code and can improve quality while multiplying domain experts’ impact.",
+        "For engineers building large systems, the discussion connects AI-assisted development with maintaining speed, reliability, and correctness at scale."
+      ]
+    },
+    {
+      "id": "blog-aws-ml-query-claims-in-natural-language-with-amazon-bedrock-knowledge-bases",
+      "headline": "Build a claims assistant with Bedrock Knowledge Bases and cited retrieval",
+      "originalTitle": "Query claims in natural language with Amazon Bedrock Knowledge Bases",
+      "url": "https://aws.amazon.com/blogs/machine-learning/query-claims-in-natural-language-with-amazon-bedrock-knowledge-bases/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "guide",
+      "readMinutes": 13,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The tutorial ingests synthetic claim records, queries them with AgenticRetrieveStream, supports follow-ups, and scopes retrieval. It offers a concrete managed-RAG workflow for turning scattered documents into evidence-backed answers.",
+      "publishedAt": "2026-09-30T15:37:15.000Z",
+      "mustRead": false,
+      "author": "Shreya Pawaskar",
+      "brief": [
+        "A technical how-to builds a claims assistant that answers natural-language questions with citations from claim documents.",
+        "Amazon S3 documents are indexed in Bedrock Knowledge Bases; AgenticRetrieveStream retrieves evidence, and a grounding guardrail checks responses.",
+        "Citations, metadata filters, and grounding checks help engineers build assistants for regulated records where answers must be verifiable."
+      ],
+      "diagram": {
+        "caption": "Claim documents are indexed for retrieval, then responses pass a grounding check.",
+        "nodes": [
+          {
+            "id": "s3",
+            "label": "Amazon S3"
+          },
+          {
+            "id": "knowledge-base",
+            "label": "knowledge base"
+          },
+          {
+            "id": "agentic-retrieve",
+            "label": "AgenticRetrieveStream"
+          },
+          {
+            "id": "guardrails",
+            "label": "Amazon Bedrock Guardrails"
+          }
+        ],
+        "edges": [
+          {
+            "from": "s3",
+            "to": "knowledge-base",
+            "label": "documents"
+          },
+          {
+            "from": "agentic-retrieve",
+            "to": "knowledge-base",
+            "label": "retrieves"
+          },
+          {
+            "from": "knowledge-base",
+            "to": "agentic-retrieve",
+            "label": "evidence"
+          },
+          {
+            "from": "agentic-retrieve",
+            "to": "guardrails",
+            "label": "grounding check"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-lobsters-tags-join-ordering",
+      "headline": "Join ordering explores the shape of the query optimizer’s search space",
+      "originalTitle": "Join Ordering, Part 1: The Shape of the Search Space",
+      "url": "https://deferworks.org/posts/join-ordering/",
+      "source": "blog",
+      "sourceLabel": "Lobsters (AI, distributed, performance)",
+      "kind": "deep-dive",
+      "readMinutes": 24,
+      "topic": "data",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The piece focuses on join ordering and the dynamic-programming lineage of query optimization, drawing on the author’s study of optimization courses and literature. A stronger mental model of the search space helps engineers reason about query planners and database performance.",
+      "publishedAt": "2026-09-30T11:42:42.000Z",
+      "mustRead": false,
+      "author": "deferworks.org via eatonphil",
+      "brief": [
+        "The series examines join ordering in query optimization, focusing on dynamic-programming research from the Munich school.",
+        "It covers algorithms including DPccp, DPhyp, and strategies for very large join queries when exact dynamic programming is impractical.",
+        "Understanding how optimizers enumerate and prune join orders matters when building databases that must plan complex queries efficiently."
+      ]
+    },
+    {
+      "id": "lobsters-1gxpk2",
+      "headline": "Idle personal devices add up to substantial local compute capacity",
+      "originalTitle": "You're Leaving Compute on the Table",
+      "url": "https://nishantjosh.dev/blogs/youre-leaving-compute-on-the-table/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/1gxpk2/you_re_leaving_compute_on_table",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/1gxpk2/you_re_leaving_compute_on_table",
+          "comments": 1,
+          "points": 1
+        }
+      ],
+      "kind": "essay",
+      "readMinutes": 5,
+      "points": 1,
+      "comments": 1,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The excerpt estimates roughly 15 TFLOPS of GPU compute, 93 TOPS of neural capacity, and 46 GB of memory across several idle personal devices. The figures raise practical questions about using nearby hardware instead of waiting on remote compute, though no implementation is described here.",
+      "publishedAt": "2026-10-05T05:56:11.015Z",
+      "mustRead": false,
+      "brief": [
+        "The essay argues that personal devices often have substantial idle compute capacity that could handle work now sent to servers.",
+        "It cites local hardware resources and says local execution can reduce duplicated infrastructure and keep software working without internet access, while bringing testing and update challenges.",
+        "For AI and large-system builders, deciding what must cross the network can reduce server work, but client reliability and device diversity remain engineering costs."
+      ]
+    },
+    {
+      "id": "blog-aws-ml-amazon-bedrock-expands-claude-model-availability-to-india-cross-region-inference",
+      "headline": "Bedrock adds India geographic cross-Region inference for Claude models",
+      "originalTitle": "Amazon Bedrock expands Claude model availability to in-country inferencing in India",
+      "url": "https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-expands-claude-model-availability-to-india-cross-region-inference/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "release",
+      "readMinutes": 4,
+      "topic": "inference",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "Claude models are available through geographic cross-Region inference from Mumbai and Hyderabad, with requests processed in India Regions. The post explains the residency model and how to invoke it through Bedrock APIs.",
+      "publishedAt": "2026-09-30T01:13:14.000Z",
+      "mustRead": false,
+      "author": "Aamna Najmi",
+      "brief": [
+        "Amazon Bedrock makes Claude Opus 5, Sonnet 5, and Haiku 4.5 available in India through geographic cross-Region inference.",
+        "Requests route from a source Region only between ap-south-1 and ap-south-2; prompts and results might move between them.",
+        "This keeps inference within India while drawing on compute across Regions to help maintain throughput and performance under load."
+      ],
+      "diagram": {
+        "caption": "Requests flow from the source Region through the India geographic profile to destination Regions.",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "source Region"
+          },
+          {
+            "id": "profile",
+            "label": "India geographic profile"
+          },
+          {
+            "id": "destinations",
+            "label": "destination Regions"
+          }
+        ],
+        "edges": [
+          {
+            "from": "source",
+            "to": "profile",
+            "label": "request"
+          },
+          {
+            "from": "profile",
+            "to": "destinations",
+            "label": "routes request"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-aws-ml-building-an-ai-powered-contract-intelligence-platform-with-amazon-quick-and-amaz",
+      "headline": "Contract intelligence across hundreds of documents exposes RAG’s top-k limits",
+      "originalTitle": "Building an AI-powered contract intelligence platform with Amazon Quick and Amazon Bedrock AgentCore",
+      "url": "https://aws.amazon.com/blogs/machine-learning/building-an-ai-powered-contract-intelligence-platform-with-amazon-quick-and-amazon-bedrock-agentcore/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "case-study",
+      "readMinutes": 11,
+      "topic": "design",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The excerpt describes how chunk-based RAG retrieves only the top-k passages, which can miss answers requiring information across many contracts. The platform case study is relevant to designing document systems for cross-record questions.",
+      "publishedAt": "2026-09-29T16:14:24.000Z",
+      "mustRead": false,
+      "author": "Konala McGrath",
+      "brief": [
+        "The platform helps answer questions across large contract portfolios, such as total contract value and upcoming expirations.",
+        "It uses AI agents to extract contract data, a multi-model approach to verify accuracy, and embedded analytics and natural language querying.",
+        "Top-k RAG can miss portfolio-wide answers because aggregation requires data across the full dataset, not just a few relevant chunks."
+      ],
+      "diagram": {
+        "caption": "Contract data is extracted, verified, and surfaced through analytics and natural language queries.",
+        "nodes": [
+          {
+            "id": "agents",
+            "label": "AI agents"
+          },
+          {
+            "id": "verification",
+            "label": "multi-model approach"
+          },
+          {
+            "id": "analytics",
+            "label": "embedded analytics"
+          },
+          {
+            "id": "queries",
+            "label": "natural language querying"
+          }
+        ],
+        "edges": [
+          {
+            "from": "agents",
+            "to": "verification",
+            "label": "contract data"
+          },
+          {
+            "from": "verification",
+            "to": "analytics",
+            "label": "verified data"
+          },
+          {
+            "from": "analytics",
+            "to": "queries",
+            "label": "answers"
+          }
+        ]
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "blog-airbnb",
+      "label": "Airbnb Engineering",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-aws-arch",
+      "label": "AWS Architecture",
+      "status": "ok",
+      "count": 7
+    },
+    {
+      "id": "blog-aws-ml",
+      "label": "AWS Machine Learning",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-bair",
+      "label": "Berkeley AI Research",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-brendangregg",
+      "label": "Brendan Gregg",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-brooker",
+      "label": "Marc Brooker",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-bytebytego",
+      "label": "ByteByteGo",
+      "status": "ok",
+      "count": 6
+    },
+    {
+      "id": "blog-chip-huyen",
+      "label": "Chip Huyen",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-chipsandcheese",
+      "label": "Chips and Cheese",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-cloudflare",
+      "label": "Cloudflare Blog",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-deepmind",
+      "label": "Google DeepMind",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-discord",
+      "label": "Discord Engineering",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-dropbox",
+      "label": "Dropbox Tech",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-duckdb",
+      "label": "DuckDB",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-eugene-yan",
+      "label": "Eugene Yan",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-figma",
+      "label": "Figma Engineering",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-fly",
+      "label": "Fly.io",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-gcloud",
+      "label": "Google Cloud",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-github-eng",
+      "label": "GitHub Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-go-blog",
+      "label": "Go Blog",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-google-research",
+      "label": "Google Research",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-hamel",
+      "label": "Hamel Husain",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-highscalability",
+      "label": "High Scalability",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-huggingface",
+      "label": "Hugging Face",
+      "status": "ok",
+      "count": 7
+    },
+    {
+      "id": "blog-import-ai",
+      "label": "Import AI",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-infoq",
+      "label": "InfoQ",
+      "status": "ok",
+      "count": 15
+    },
+    {
+      "id": "blog-interconnects",
+      "label": "Interconnects",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-janestreet",
+      "label": "Jane Street Tech",
+      "status": "ok",
+      "count": 10
+    },
+    {
+      "id": "blog-jvns",
+      "label": "Julia Evans",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-karpathy",
+      "label": "Andrej Karpathy",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-kubernetes",
+      "label": "Kubernetes",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-latent-space",
+      "label": "Latent Space",
+      "status": "ok",
+      "count": 10
+    },
+    {
+      "id": "blog-lethain",
+      "label": "Will Larson",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-lilianweng",
+      "label": "Lilian Weng",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-lobsters-tags",
+      "label": "Lobsters (AI, distributed, performance)",
+      "status": "ok",
+      "count": 14
+    },
+    {
+      "id": "blog-lucumr",
+      "label": "Armin Ronacher",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-lwn",
+      "label": "LWN.net",
+      "status": "ok",
+      "count": 15
+    },
+    {
+      "id": "blog-martinfowler",
+      "label": "Martin Fowler",
+      "status": "ok",
+      "count": 4
+    },
+    {
+      "id": "blog-meta-eng",
+      "label": "Engineering at Meta",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-mozilla-hacks",
+      "label": "Mozilla Hacks",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-msr",
+      "label": "Microsoft Research",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-murat",
+      "label": "Metadata (Murat Demirbas)",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-netflix",
+      "label": "Netflix TechBlog",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-nvidia-dev",
+      "label": "NVIDIA Technical Blog",
+      "status": "ok",
+      "count": 10
+    },
+    {
+      "id": "blog-oldnewthing",
+      "label": "The Old New Thing",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-openai",
+      "label": "OpenAI",
+      "status": "ok",
+      "count": 12
+    },
+    {
+      "id": "blog-pinterest-eng",
+      "label": "Pinterest Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-planetscale",
+      "label": "PlanetScale",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-postgres-weekly",
+      "label": "Postgres Weekly",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-pragmatic",
+      "label": "The Pragmatic Engineer",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-pytorch",
+      "label": "PyTorch",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-raschka",
+      "label": "Sebastian Raschka",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-rust-blog",
+      "label": "Rust Blog",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-semianalysis",
+      "label": "SemiAnalysis",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-shopify-eng",
+      "label": "Shopify Engineering",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-simonwillison",
+      "label": "Simon Willison",
+      "status": "ok",
+      "count": 11
+    },
+    {
+      "id": "blog-slack-eng",
+      "label": "Slack Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-stripe",
+      "label": "Stripe Engineering",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-trailofbits",
+      "label": "Trail of Bits",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-v8",
+      "label": "V8",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-webkit",
+      "label": "WebKit",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "github",
+      "label": "GitHub (new repositories)",
+      "status": "ok",
+      "count": 30
+    },
+    {
+      "id": "hf-models",
+      "label": "Hugging Face trending models",
+      "status": "ok",
+      "count": 11
+    },
+    {
+      "id": "hf-papers",
+      "label": "Hugging Face Daily Papers",
+      "status": "ok",
+      "count": 39
+    },
+    {
+      "id": "hn",
+      "label": "Hacker News",
+      "status": "ok",
+      "count": 128
+    },
+    {
+      "id": "hn-search",
+      "label": "Hacker News (AI and systems search)",
+      "status": "ok",
+      "count": 68
+    },
+    {
+      "id": "lobsters",
+      "label": "Lobsters",
+      "status": "ok",
+      "count": 25
+    },
+    {
+      "id": "release-claude-code",
+      "label": "Claude Code releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-langgraph",
+      "label": "LangGraph releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-llama-cpp",
+      "label": "llama.cpp releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-mcp-spec",
+      "label": "Model Context Protocol releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-ollama",
+      "label": "Ollama releases",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "release-openai-agents",
+      "label": "OpenAI Agents SDK releases",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "release-sglang",
+      "label": "SGLang releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-tensorrt-llm",
+      "label": "TensorRT-LLM releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-transformers",
+      "label": "Transformers releases",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "release-vllm",
+      "label": "vLLM releases",
+      "status": "ok",
+      "count": 2
+    }
+  ]
+}
