@@ -29,8 +29,26 @@ export function extractPreviewImage(html: string, pageUrl: string): string | und
 }
 
 /**
+ * Share of pixels within a small colour distance of the image's border colour, i.e. its background.
+ * Logo cards and bare title cards are almost all background; they read worse than our generated covers.
+ */
+export async function backgroundShare(image: Buffer): Promise<number> {
+  const { data, info } = await sharp(image).resize(160, 90, { fit: "fill" }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const at = (x: number, y: number) => (y * info.width + x) * 3;
+  const edge: number[] = [];
+  for (let x = 0; x < info.width; x++) edge.push(at(x, 0), at(x, info.height - 1));
+  const background = [0, 1, 2].map((c) => edge.map((i) => data[i + c]).sort((a, b) => a - b)[edge.length >> 1]);
+  let near = 0;
+  for (let i = 0; i < data.length; i += 3) {
+    if (Math.abs(data[i] - background[0]) + Math.abs(data[i + 1] - background[1]) + Math.abs(data[i + 2] - background[2]) < 30) near++;
+  }
+  return near / (info.width * info.height);
+}
+const MOSTLY_BLANK = 0.94;
+
+/**
  * Downloads a source preview image through the SSRF-safe fetcher, rejects tiny or non-raster images,
- * and re-encodes it as a small WebP so readers never load third-party media.
+ * refuses logo-only and blank title cards, and re-encodes it as a small WebP so readers never load third-party media.
  */
 export async function saveCover(imageUrl: string, destination: string, options: { fetcher?: Fetcher } = {}) {
   const fetcher = options.fetcher ?? safeFetch;
@@ -43,6 +61,7 @@ export async function saveCover(imageUrl: string, destination: string, options: 
   const meta = await image.metadata();
   if (!meta.width || !meta.height || meta.width < 400 || meta.height < 200) throw new Error("Image too small for a cover");
   const output = await image.rotate().resize(800, 450, { fit: "cover", position: "attention" }).webp({ quality: 64 }).toBuffer();
+  if (await backgroundShare(output) >= MOSTLY_BLANK) throw new Error("Image is mostly blank background (logo or title card)");
   await mkdir(dirname(destination), { recursive: true });
   await writeFile(destination, output);
   return output.byteLength;
