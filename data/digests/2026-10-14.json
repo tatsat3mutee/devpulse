@@ -2122,7 +2122,6 @@
       "whyRead": "The researcher traced Google's developer-docs OAuth flow and decoded a large, signed Flask session cookie to inspect its contents. The investigation highlights how authentication flows and session handling can expose security-critical attack surfaces.",
       "publishedAt": "2026-10-12T07:28:53.000Z",
       "mustRead": false,
-      "image": "/covers/2026-10-14/hn-50052638.webp",
       "brief": [
         "A Google developer-docs OAuth session cookie exposed an OAuth client secret that also served as Flask’s session-signing key.",
         "The callback unpickled session data; with the recovered key, the researcher forged a valid cookie and supplied a pickle that led to code execution.",

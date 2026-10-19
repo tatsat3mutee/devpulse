@@ -59,8 +59,11 @@ const examples = ["vLLM", "KV cache", "MCP", "agent sandbox", "postmortem", "Pos
 
     let results = [], shown = 0, run = 0;
     const render = async (reset) => {
+      const mine = run;
+      const page = await Promise.all(results.slice(reset ? 0 : shown, (reset ? 0 : shown) + 20).map((result) => result.data()));
+      // A newer search started while this page's data loaded: its results win, never these.
+      if (mine !== run) return;
       if (reset) { list.innerHTML = ""; shown = 0; }
-      const page = await Promise.all(results.slice(shown, shown + 20).map((result) => result.data()));
       list.insertAdjacentHTML("beforeend", page.map((data) => `
         <li class="result">
           <p class="meta"><span>${escape(data.meta.topic)}</span>${data.meta.kind ? `<span class="kind">${escape(data.meta.kind)}</span>` : ""}<span>${escape(shortDate(data.meta.date))}</span></p>

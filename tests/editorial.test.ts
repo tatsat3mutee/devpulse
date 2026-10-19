@@ -28,12 +28,17 @@ describe("preview images", () => {
     expect(extractPreviewImage(`<head><title>none</title></head>`, "https://b.example/")).toBeUndefined();
   });
 
-  test("covers are re-encoded to small WebP; non-images and tiny images are refused", async () => {
+  test("covers are re-encoded to small WebP; non-images, tiny images and logo cards are refused", async () => {
     const dir = await mkdtemp(join(tmpdir(), "covers-"));
     try {
-      const png = await sharp({ create: { width: 1200, height: 630, channels: 3, background: "#2a78d6" } }).png().toBuffer();
+      // A photo-like image: random pixels, so most of it is not background.
+      const noise = new Uint8Array(1200 * 630 * 3).map(() => Math.floor(Math.random() * 256));
+      const png = await sharp(noise, { raw: { width: 1200, height: 630, channels: 3 } }).png().toBuffer();
+      const logo = await sharp({ create: { width: 1200, height: 630, channels: 3, background: "#f5f2ec" } })
+        .composite([{ input: await sharp({ create: { width: 360, height: 50, channels: 3, background: "#111" } }).png().toBuffer(), left: 420, top: 290 }]).png().toBuffer();
       const tiny = await sharp({ create: { width: 64, height: 64, channels: 3, background: "#000" } }).png().toBuffer();
       const fetcher = async (url: string) => url.endsWith("big.png") ? new Response(new Uint8Array(png), { headers: { "content-type": "image/png" } })
+        : url.endsWith("logo.png") ? new Response(new Uint8Array(logo), { headers: { "content-type": "image/png" } })
         : url.endsWith("tiny.png") ? new Response(new Uint8Array(tiny), { headers: { "content-type": "image/png" } })
         : new Response("<html>", { headers: { "content-type": "text/html" } });
       const out = join(dir, "a.webp");
@@ -42,6 +47,7 @@ describe("preview images", () => {
       expect(meta).toMatchObject({ format: "webp", width: 800, height: 450 });
       await expect(saveCover("https://cdn.example/tiny.png", join(dir, "b.webp"), { fetcher })).rejects.toThrow("too small");
       await expect(saveCover("https://cdn.example/page", join(dir, "c.webp"), { fetcher })).rejects.toThrow("Unsupported image type");
+      await expect(saveCover("https://cdn.example/logo.png", join(dir, "d.webp"), { fetcher })).rejects.toThrow("mostly blank");
     } finally { await rm(dir, { recursive: true, force: true }); }
   });
 
