@@ -53,6 +53,13 @@ sudo install -m 644 deploy/ec2/devpulse-pull.service deploy/ec2/devpulse-pull.ti
 sudo systemctl daemon-reload && sudo systemctl enable --now devpulse-pull.timer
 ```
 
+The host runs these installed copies, so a merge that changes `deploy/ec2/` reaches it only when you install them again. Without a clone on the host:
+
+```bash
+for f in release.sh pull-release.sh; do sudo curl -fsSL "https://raw.githubusercontent.com/tatsat3mutee/devpulse/main/deploy/ec2/$f" -o "/opt/devpulse/$f"; done
+sudo chmod 755 /opt/devpulse/*.sh && sudo systemctl start devpulse-pull.service
+```
+
 ## Outputs
 
 `/` (today), `/topic/<slug>`, `/edition/YYYY-MM-DD`, `/week/` and `/week/YYYY-Www` (weekly editions, RSS at `/week/rss.xml`), `/radar` (trending models and repositories), `/papers` (papers explained), `/search` (every story, with topic and kind filters), `/pulse` (trends and source health), `/og/YYYY-MM-DD.png` (share card), `/archive`, `/rss.xml`, `/json`, `/latest.json`, `/digest/YYYY-MM-DD.md`, `/llms.txt`.

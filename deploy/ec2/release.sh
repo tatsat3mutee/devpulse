@@ -135,8 +135,9 @@ activated=true
 mv -Tf "${transaction}/next" "${root}/current"
 install -m 644 "$candidate" "$config"
 systemctl reload caddy
+# A new name gets its certificate on this reload; until it is issued, TLS handshakes fail. Retry those too.
 for path in / /latest.json /rss.xml "/edition/${edition_date}/" /release-sha.txt; do
-  status="$(curl --fail --silent --show-error --proto '=https' --tlsv1.2 --connect-timeout 5 --max-time 20 --retry 2 --retry-max-time 60 --header 'Cache-Control: no-cache' --output "${transaction}/probe" --write-out '%{http_code}' "https://${domain}${path}")"
+  status="$(curl --fail --silent --show-error --proto '=https' --tlsv1.2 --connect-timeout 5 --max-time 20 --retry 8 --retry-delay 10 --retry-all-errors --retry-max-time 150 --header 'Cache-Control: no-cache' --output "${transaction}/probe" --write-out '%{http_code}' "https://${domain}${path}")"
   [[ "$status" == 200 ]] || { echo "Probe returned HTTP ${status}: ${path}" >&2; exit 1; }
   artifact="${release}${path}"
   if [[ "$path" == */ ]]; then artifact="${artifact}index.html"; fi
