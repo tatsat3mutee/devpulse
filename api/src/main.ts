@@ -1,4 +1,4 @@
-// DevPulse account API: Google/GitHub sign-in and saved-story sync, backed by Neon Postgres.
+// Diffbrief account API: Google/GitHub sign-in and saved-story sync, backed by Neon Postgres.
 import postgres from "postgres";
 import { createApp } from "./app";
 import { createStore, type Query } from "./store";
@@ -22,7 +22,7 @@ const providers = {
 const handle = createApp(store, { siteOrigin: required("SITE_ORIGIN"), apiOrigin: required("API_ORIGIN"), providers });
 
 const server = Bun.serve({ port: Number(env("PORT") ?? 3000), fetch: handle, maxRequestBodySize: 2_000_000 });
-console.log(`DevPulse API on :${server.port} (sign-in: ${Object.keys(providers).join(", ") || "none configured"})`);
+console.log(`Diffbrief API on :${server.port} (sign-in: ${Object.keys(providers).join(", ") || "none configured"})`);
 
 for (const signal of ["SIGTERM", "SIGINT"] as const) {
   process.on(signal, async () => {

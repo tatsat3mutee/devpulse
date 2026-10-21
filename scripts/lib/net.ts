@@ -80,7 +80,7 @@ export async function safeFetch(urlValue: string, init: RequestInit = {}, redire
   if (redirects > 3) throw new Error("Too many redirects");
   const url = await assertPublicUrl(urlValue);
   const headers = new Headers(init.headers);
-  if (!headers.has("User-Agent")) headers.set("User-Agent", "DevPulse/3.0 (+https://devpulse.tatsatpandey.com)");
+  if (!headers.has("User-Agent")) headers.set("User-Agent", "Diffbrief/3.0 (+https://diffbrief.tatsatpandey.com)");
   if (!headers.has("Accept")) headers.set("Accept", "text/html,application/json");
   const response = await fetch(url, { ...init, redirect: "manual", headers, signal: init.signal ?? AbortSignal.timeout(15_000) });
   if (response.status >= 300 && response.status < 400) {

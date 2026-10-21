@@ -29,7 +29,7 @@ export function mergePrefs(state: LibraryState, incoming?: Prefs): boolean {
 /** Entries worth keeping: saved, or carrying a note. */
 export const kept = (state: LibraryState) => Object.values(state.entries).filter((entry) => entry.saved || entry.note.trim()).sort((a, b) => b.updatedAt - a.updatedAt);
 
-export function toMarkdown(entries: Entry[], title = "DevPulse library"): string {
+export function toMarkdown(entries: Entry[], title = "Diffbrief library"): string {
   const lines = [`# ${title}`, ""];
   for (const entry of entries) {
     lines.push(`- [${entry.headline.replace(/[[\]]/g, "")}](${entry.url}) — ${entry.date}${entry.saved ? " · saved" : ""}`);

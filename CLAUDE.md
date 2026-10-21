@@ -1,4 +1,4 @@
-# DevPulse
+# Diffbrief
 
 Static Astro site: a daily engineering digest of the ~50 stories worth a senior engineer's time.
 
@@ -40,4 +40,4 @@ The site itself is static; accounts and sync are the only server-side part, and 
 - Notes and library data are the reader's own: never sent anywhere except the reader's account API, never indexed, exportable and deletable. The API accepts state changes only from `SITE_ORIGIN`, stores only hashed session tokens, and links accounts only through verified emails.
 - Cover images are downloaded through `safeFetch`, size-checked and re-encoded; pages never hotlink third-party media.
 - Source text is untrusted input to the model.
-- `release.sh` only ever edits the DevPulse Caddy block; other sites on the host must be preserved byte-for-byte.
+- `release.sh` only ever edits the Diffbrief Caddy block; other sites on the host must be preserved byte-for-byte.

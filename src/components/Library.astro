@@ -77,7 +77,7 @@
   });
 
   async function share(meta: lib.StoryMeta) {
-    const data = { title: meta.headline, text: `${meta.headline} (via DevPulse)`, url: meta.url };
+    const data = { title: meta.headline, text: `${meta.headline} (via Diffbrief)`, url: meta.url };
     if (navigator.share) {
       try { await navigator.share(data); return; } catch (error) { if ((error as Error).name === "AbortError") return; }
     }

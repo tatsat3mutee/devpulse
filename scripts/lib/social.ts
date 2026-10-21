@@ -20,7 +20,7 @@ function truncate(value: string, max: number): string {
 }
 
 export function linkedInPost(item: DigestItem, url: string): string {
-  return `${item.headline}\n\n${item.whyRead}\n\nRead the DevPulse brief: ${url}\n\n#AI #Engineering`;
+  return `${item.headline}\n\n${item.whyRead}\n\nRead the Diffbrief brief: ${url}\n\n#AI #Engineering`;
 }
 
 export function xPost(item: DigestItem, url: string): string {

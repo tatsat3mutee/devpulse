@@ -19,15 +19,15 @@ jobs:
         id: probe
         run: |
           today="$(TZ=Asia/Kolkata date +%F)"
-          live="$(curl --fail --silent --show-error --max-time 20 https://devpulse.tatsatpandey.com/latest.json | jq -r '.date // empty' || true)"
+          live="$(curl --fail --silent --show-error --max-time 20 https://diffbrief.tatsatpandey.com/latest.json | jq -r '.date // empty' || true)"
           echo "today=$today live=${live:-none}"
           echo "live=${live:-none}" >> "$GITHUB_OUTPUT"
           [[ "$live" == "$today" ]]
       - name: Open an issue when the site is stale
         if: failure()
         run: |
-          title="DevPulse is stale: live edition ${LIVE}, expected $(TZ=Asia/Kolkata date +%F)"
-          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "DevPulse is stale in:title" --json number --jq 'length')"
+          title="Diffbrief is stale: live edition ${LIVE}, expected $(TZ=Asia/Kolkata date +%F)"
+          existing="$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "Diffbrief is stale in:title" --json number --jq 'length')"
           [[ "$existing" != "0" ]] || gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "Check the latest Daily digest run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/workflows/daily-digest.yml. If it passed, check the EC2 puller with journalctl -u devpulse-pull.service."
         env:
           GH_TOKEN: ${{ github.token }}

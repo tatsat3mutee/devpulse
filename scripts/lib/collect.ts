@@ -154,7 +154,7 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
   const fetcher = options.fetcher ?? safeFetch;
   const limit = createLimiter(options.concurrency ?? 8);
   const get = (url: string, headers: HeadersInit = {}) => limit(async () => {
-    const response = await fetcher(url, { headers: { "User-Agent": "DevPulse/3.0 (+https://devpulse.tatsatpandey.com)", ...headers }, signal: AbortSignal.timeout(15_000) });
+    const response = await fetcher(url, { headers: { "User-Agent": "Diffbrief/3.0 (+https://diffbrief.tatsatpandey.com)", ...headers }, signal: AbortSignal.timeout(15_000) });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return readBoundedText(response, 3_000_000);
   });
@@ -314,7 +314,7 @@ export async function enrichSnippets(items: RawItem[], options: { fetcher?: Fetc
   await Promise.all(items.map((item) => limit(async () => {
     if (item.source === "github" || item.source === "papers") return;
     try {
-      const response = await fetcher(item.url, { signal: AbortSignal.timeout(10_000), headers: { "User-Agent": "DevPulse/3.0 (+https://devpulse.tatsatpandey.com)", Accept: "text/html" } });
+      const response = await fetcher(item.url, { signal: AbortSignal.timeout(10_000), headers: { "User-Agent": "Diffbrief/3.0 (+https://diffbrief.tatsatpandey.com)", Accept: "text/html" } });
       if (!response.ok || !(response.headers.get("content-type") ?? "").includes("html")) { await response.body?.cancel(); return; }
       const html = await readBoundedText(response, 1_500_000);
       item.imageUrl = extractPreviewImage(html, response.url || item.url);

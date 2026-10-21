@@ -5,7 +5,7 @@ import { allDigests } from "../lib/digests";
 export const GET: APIRoute = async (context) => {
   const digests = await allDigests();
   return rss({
-    title: "DevPulse",
+    title: "Diffbrief",
     description: "Engineering stories worth reading, every day.",
     site: context.site!,
     items: digests.slice(0, 30).map((digest) => ({

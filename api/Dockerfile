@@ -1,4 +1,4 @@
-# DevPulse account API. Build from the repository root: docker build -f api/Dockerfile .
+# Diffbrief account API. Build from the repository root: docker build -f api/Dockerfile .
 FROM oven/bun:1.3.13-slim
 WORKDIR /app
 COPY package.json bun.lock ./

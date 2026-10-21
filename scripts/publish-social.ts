@@ -12,7 +12,7 @@ if (!enabled) {
   process.exit(0);
 }
 
-const siteUrl = process.env.SITE_URL || "https://devpulse.tatsatpandey.com";
+const siteUrl = process.env.SITE_URL || "https://diffbrief.tatsatpandey.com";
 const receiptPath = process.env.SOCIAL_RECEIPT_PATH || join("data", "social-posts.json");
 const digestDir = process.env.DIGEST_DIR || join("data", "digests");
 

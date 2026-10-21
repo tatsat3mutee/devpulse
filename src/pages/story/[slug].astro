@@ -32,14 +32,14 @@ const tags: string[] = [section];
 if (item.kind) tags.push(KINDS[item.kind]);
 ---
 <BaseLayout
-  title={`${item.headline} · DevPulse`}
+  title={`${item.headline} · Diffbrief`}
   description={item.whyRead}
   canonicalPath={`/story/${date}--${item.id}/`}
   ogType="article"
   image={`/og/${date}.png`}
   article={{ publishedTime: item.publishedAt, section, tags, author: item.author }}
   breadcrumbs={[
-    { name: "DevPulse", path: "/" },
+    { name: "Diffbrief", path: "/" },
     { name: dateLabel, path: `/edition/${date}/` },
     { name: item.headline, path: `/story/${date}--${item.id}/` },
   ]}

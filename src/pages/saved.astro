@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { TOPICS } from "../lib/digest";
 const apiConfigured = Boolean(import.meta.env.PUBLIC_API_URL);
 ---
-<BaseLayout title="Your library · DevPulse" description="Your saved stories, private notes and followed topics." preview>
+<BaseLayout title="Your library · Diffbrief" description="Your saved stories, private notes and followed topics." preview>
   <div class="library shell">
     <header>
       <p class="eyebrow">Your library</p>
@@ -133,13 +133,13 @@ const apiConfigured = Boolean(import.meta.env.PUBLIC_API_URL);
     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
   };
   const stamp = () => new Date().toISOString().slice(0, 10);
-  $("#export-md")!.addEventListener("click", () => download(`devpulse-library-${stamp()}.md`, "text/markdown", lib.exportMarkdown()));
-  $("#export-json")!.addEventListener("click", () => download(`devpulse-library-${stamp()}.json`, "application/json", lib.exportJson()));
+  $("#export-md")!.addEventListener("click", () => download(`diffbrief-library-${stamp()}.md`, "text/markdown", lib.exportMarkdown()));
+  $("#export-json")!.addEventListener("click", () => download(`diffbrief-library-${stamp()}.json`, "application/json", lib.exportJson()));
   $<HTMLInputElement>("#import")!.addEventListener("change", async (event) => {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
     try { alert(`Imported ${lib.importJson(await file.text())} stories.`); }
-    catch { alert("That file is not a DevPulse library export."); }
+    catch { alert("That file is not a Diffbrief library export."); }
     (event.target as HTMLInputElement).value = "";
   });
 
@@ -174,7 +174,7 @@ const apiConfigured = Boolean(import.meta.env.PUBLIC_API_URL);
   });
   $("#sign-out")?.addEventListener("click", async () => { await lib.signOut(); void renderAccount(); });
   $("#delete-account")?.addEventListener("click", async () => {
-    if (!confirm("Delete your DevPulse account and everything synced to it? Your library stays in this browser.")) return;
+    if (!confirm("Delete your Diffbrief account and everything synced to it? Your library stays in this browser.")) return;
     alert((await lib.deleteAccount()) ? "Your account and synced data were deleted." : "Could not delete the account. Try again.");
     void renderAccount();
   });

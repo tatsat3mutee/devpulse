@@ -19,7 +19,7 @@ const range = `${day(start)} – ${day(end, { month: "short", day: "numeric", ye
 const compact = new Intl.NumberFormat("en-US", { notation: "compact" });
 const number = week.split("-W")[1].replace(/^0/, "");
 ---
-<BaseLayout title={`Week ${number} · DevPulse`} description={`The week in AI and systems engineering, ${range}: the ${summary.top.length} stories that mattered most.`} canonicalPath={`/week/${week}`} feed={{ title: "DevPulse weekly", path: "/week/rss.xml" }} image={`/og/${digests[0].date}.png`}>
+<BaseLayout title={`Week ${number} · Diffbrief`} description={`The week in AI and systems engineering, ${range}: the ${summary.top.length} stories that mattered most.`} canonicalPath={`/week/${week}`} feed={{ title: "Diffbrief weekly", path: "/week/rss.xml" }} image={`/og/${digests[0].date}.png`}>
   <div class="weekly shell">
     <div class="edition-bar">
       {previous ? <a href={`/week/${previous.week}`} rel="prev">&larr; Week {previous.week.split("-W")[1].replace(/^0/, "")}</a> : <span></span>}

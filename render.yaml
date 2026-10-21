@@ -1,4 +1,4 @@
-# Render Blueprint for DevPulse. In Render: New > Blueprint > this repository.
+# Render Blueprint for Diffbrief. In Render: New > Blueprint > this repository.
 # Secrets marked sync: false are entered once in the Render dashboard.
 services:
   # Accounts and sync: Google/GitHub sign-in, saved stories and notes, on Neon Postgres.
@@ -14,7 +14,7 @@ services:
     buildFilter:
       paths: ["api/**", "package.json", "bun.lock"]
     domains:
-      - api.devpulse.tatsatpandey.com
+      - api.diffbrief.tatsatpandey.com
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -27,9 +27,9 @@ services:
       - key: GITHUB_CLIENT_SECRET
         sync: false
       - key: SITE_ORIGIN
-        value: https://devpulse.tatsatpandey.com
+        value: https://diffbrief.tatsatpandey.com
       - key: API_ORIGIN
-        value: https://api.devpulse.tatsatpandey.com
+        value: https://api.diffbrief.tatsatpandey.com
 
   # The site: the built edition the GitHub workflows push to the `site` branch. No build on Render.
   - type: web
@@ -40,7 +40,7 @@ services:
     buildCommand: "true"
     staticPublishPath: .
     domains:
-      - devpulse.tatsatpandey.com
+      - diffbrief.tatsatpandey.com
     headers:
       - path: /json
         name: Content-Type

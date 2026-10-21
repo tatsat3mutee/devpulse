@@ -4,9 +4,9 @@ import { authorizeUrl, exchangeCode, type Fetcher, type Provider, type ProviderK
 import type { Store, User } from "./store";
 
 export type Config = {
-  /** The static site, e.g. https://devpulse.tatsatpandey.com. The only origin allowed to call the API. */
+  /** The static site, e.g. https://diffbrief.tatsatpandey.com. The only origin allowed to call the API. */
   siteOrigin: string;
-  /** This API's public origin, used for OAuth callbacks, e.g. https://api.devpulse.tatsatpandey.com. */
+  /** This API's public origin, used for OAuth callbacks, e.g. https://api.diffbrief.tatsatpandey.com. */
   apiOrigin: string;
   providers: Partial<Record<Provider, ProviderKeys>>;
   /** Secure cookies everywhere except local http tests. */

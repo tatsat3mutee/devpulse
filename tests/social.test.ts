@@ -38,10 +38,10 @@ describe("social publishing", () => {
 
   test("uses internal story URLs and keeps X copy within 280 characters", () => {
     const story = item("long", { headline: "H".repeat(140), whyRead: "W".repeat(420) });
-    const url = storyUrl("https://devpulse.tatsatpandey.com", "2026-10-01", story);
-    expect(url).toBe("https://devpulse.tatsatpandey.com/story/2026-10-01--long/");
+    const url = storyUrl("https://diffbrief.tatsatpandey.com", "2026-10-01", story);
+    expect(url).toBe("https://diffbrief.tatsatpandey.com/story/2026-10-01--long/");
     expect(xPost(story, url).length).toBeLessThanOrEqual(280);
     expect(xPost(story, url)).toEndWith(url);
-    expect(linkedInPost(story, url)).toContain("Read the DevPulse brief:");
+    expect(linkedInPost(story, url)).toContain("Read the Diffbrief brief:");
   });
 });

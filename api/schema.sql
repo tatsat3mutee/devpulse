@@ -1,4 +1,4 @@
--- DevPulse accounts and library. Prefixed dp_ so it can share a Neon database with older tables.
+-- Diffbrief accounts and library. Prefixed dp_ so it can share a Neon database with older tables.
 CREATE TABLE IF NOT EXISTS dp_users (
   id BIGSERIAL PRIMARY KEY,
   email TEXT,

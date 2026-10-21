@@ -10,7 +10,8 @@ const script = resolve(import.meta.dir, "../deploy/ec2/release.sh");
 const sha = "a".repeat(40);
 const priorSha = "b".repeat(40);
 const date = "2026-09-24";
-const domain = "devpulse.tatsatpandey.com";
+const domain = "diffbrief.tatsatpandey.com";
+const oldDomain = "devpulse.tatsatpandey.com";
 const git = process.platform === "win32"
   ? spawnSync("where.exe", ["git"], { encoding: "utf8" }).stdout.trim().split(/\r?\n/)[0]
   : "";
@@ -61,11 +62,11 @@ function sandbox(mode = "success") {
     mkdirSync(dirname(join(directory, path)), { recursive: true });
     writeFileSync(join(directory, path), content);
   };
-  write("Caddyfile", `${domain} {\n    reverse_proxy localhost:3000\n}\n`);
-  write("payload/index.html", `<!doctype html><html><head><title>DevPulse</title></head><body><a href="/edition/${date}/">${date}</a></body></html>`);
+  write("Caddyfile", `${oldDomain} {\n    reverse_proxy localhost:3000\n}\n`);
+  write("payload/index.html", `<!doctype html><html><head><title>Diffbrief</title></head><body><a href="/edition/${date}/">${date}</a></body></html>`);
   write("payload/latest.json", JSON.stringify({ date, status: "published", storyCount: 3 }));
-  write("payload/rss.xml", `<rss version="2.0"><channel><title>DevPulse</title><item><link>https://${domain}/edition/${date}/</link></item></channel></rss>`);
-  write(`payload/edition/${date}/index.html`, `<!doctype html><html><head><title>DevPulse ${date}</title></head><body>${date}</body></html>`);
+  write("payload/rss.xml", `<rss version="2.0"><channel><title>Diffbrief</title><item><link>https://${domain}/edition/${date}/</link></item></channel></rss>`);
+  write(`payload/edition/${date}/index.html`, `<!doctype html><html><head><title>Diffbrief ${date}</title></head><body>${date}</body></html>`);
   write("payload/release-sha.txt", `${sha}\n`);
   write(`site/releases/${priorSha}/sentinel`, "previous release must survive");
   write("unrelated-service/sentinel", "unrelated service must survive");
@@ -128,6 +129,34 @@ describe("EC2 release transaction (sandbox only)", () => {
       } finally { host.clean(); }
     }, 30_000);
   }
+
+  test("moves the DevPulse static block to the new name and redirects the old one", () => {
+    const host = sandbox();
+    const root = host.root;
+    const devpulseBlock = `# Managed by DevPulse static release\n${oldDomain} {\n    root * ${root}/current\n    encode zstd gzip\n    @json path /json\n    header @json Content-Type "application/json; charset=utf-8"\n    file_server\n}\n`;
+    const otherSite = '\nrca.tatsatpandey.com {\n    respond "Existing application" 200\n}\n';
+    try {
+      host.write("Caddyfile", `${devpulseBlock}${otherSite}`);
+      const result = host.execute();
+      expect(result.status, result.stderr).toBe(0);
+      const config = readFileSync(join(host.directory, "Caddyfile"), "utf8");
+      expect(config).toBe(`# Managed by Diffbrief static release\n${domain} {\n    root * ${root}/current\n    encode zstd gzip\n    @json path /json\n    header @json Content-Type "application/json; charset=utf-8"\n    file_server\n}\n${oldDomain} {\n    redir https://${domain}{uri} permanent\n}\n${otherSite}`);
+      expect(readFileSync(join(host.directory, "commands"), "utf8")).toContain(`https://${domain}/release-sha.txt`);
+      host.preserved();
+    } finally { host.clean(); }
+  }, 30_000);
+
+  test("refuses to move when another block already claims the new name", () => {
+    const host = sandbox();
+    try {
+      host.write("Caddyfile", `${host.original}${domain} {\n    respond "someone else" 200\n}\n`);
+      const before = readFileSync(join(host.directory, "Caddyfile"), "utf8");
+      const result = host.execute();
+      expect(result.status).not.toBe(0);
+      expect(readFileSync(join(host.directory, "Caddyfile"), "utf8")).toBe(before);
+      expect(host.target()).toBe(`${host.root}/releases/${priorSha}`);
+    } finally { host.clean(); }
+  }, 30_000);
 
   test("activates the exact artifact and preserves the previous release", () => {
     const host = sandbox();
@@ -219,7 +248,7 @@ describe("EC2 release transaction (sandbox only)", () => {
 describe("Public release probe (mock HTTP)", () => {
   const now = new Date("2026-09-25T10:00:00Z");
   const origin = `https://${domain}`;
-  const html = `<html><head><title>DevPulse ${date}</title></head><body>${date}</body></html>`;
+  const html = `<html><head><title>Diffbrief ${date}</title></head><body>${date}</body></html>`;
   const responses: Record<string, [string, string]> = {
     "/": [html, "text/html"],
     "/latest.json": [JSON.stringify({ date, status: "published", storyCount: 3 }), "application/json"],
@@ -255,7 +284,7 @@ describe("Public release probe (mock HTTP)", () => {
     ["string count", "/latest.json", { body: JSON.stringify({ date, status: "published", storyCount: "3" }) }],
     ["fractional count", "/latest.json", { body: JSON.stringify({ date, status: "published", storyCount: 3.5 }) }],
     ["stale home", "/", { body: html.replaceAll(date, "2026-09-23") }],
-    ["error page", `/edition/${date}/`, { body: `DevPulse ${date}` }],
+    ["error page", `/edition/${date}/`, { body: `Diffbrief ${date}` }],
     ["RSS substring only", "/rss.xml", { body: `<link>${origin}/edition/${date}</link>` }],
     ["malformed RSS", "/rss.xml", { body: `<rss><channel><item>${date}` }],
     ["foreign RSS origin", "/rss.xml", { body: responses["/rss.xml"][0].replace(origin, "https://other.example") }],

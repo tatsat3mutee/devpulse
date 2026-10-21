@@ -1,8 +1,8 @@
-# DevPulse
+# Diffbrief
 
-**The engineering stories worth your time, every day.** https://devpulse.tatsatpandey.com
+**The engineering stories worth your time, every day.** https://diffbrief.tatsatpandey.com
 
-Every morning DevPulse collects a few hundred fresh candidates for engineers who build AI and large-scale systems. Sources: the Hacker News front page, best list and keyword searches, Lobsters, fast-rising new GitHub repositories, release notes from inference and agent frameworks, Hugging Face daily papers and trending models, and about 70 engineering and AI blogs. A model scores each candidate for quality (1–10) and for fit with the beat (0–3), and writes a plain headline and a reason to read it from that source's own text; picked stories also get a short What / How / Why-it-matters brief and, where the article describes one, an architecture diagram. Up to 50 are published, with most of the edition reserved for AI and systems, caps on general security and launches, and nothing already published in the last week.
+Every morning Diffbrief collects a few hundred fresh candidates for engineers who build AI and large-scale systems. Sources: the Hacker News front page, best list and keyword searches, Lobsters, fast-rising new GitHub repositories, release notes from inference and agent frameworks, Hugging Face daily papers and trending models, and about 70 engineering and AI blogs. A model scores each candidate for quality (1–10) and for fit with the beat (0–3), and writes a plain headline and a reason to read it from that source's own text; picked stories also get a short What / How / Why-it-matters brief and, where the article describes one, an architecture diagram. Up to 50 are published, with most of the edition reserved for AI and systems, caps on general security and launches, and nothing already published in the last week.
 
 ## Run locally
 
@@ -27,18 +27,22 @@ bun run test:e2e
 ## How it ships
 
 1. **[Daily digest](.github/workflows/daily-digest.yml)** runs at 07:00 IST. It builds the digest and commits it to `main`. Then it builds and verifies the site and force-pushes the static files to the `site` branch. Required: secret `OPENROUTER_API_KEY`. Optional: variable `EDITORIAL_MODEL` (default `openai/gpt-6-luna`).
-2. **The existing EC2 instance pulls.** A systemd timer runs [deploy/ec2/pull-release.sh](deploy/ec2/pull-release.sh) every 15 minutes. When the `site` branch changes, it hands the build to [deploy/ec2/release.sh](deploy/ec2/release.sh). That script switches only the DevPulse Caddy site block, checks the live pages, and rolls back automatically on failure. No inbound SSH is needed.
+2. **The existing EC2 instance pulls.** A systemd timer runs [deploy/ec2/pull-release.sh](deploy/ec2/pull-release.sh) every 15 minutes. When the `site` branch changes, it hands the build to [deploy/ec2/release.sh](deploy/ec2/release.sh). That script switches only the Diffbrief Caddy site block, checks the live pages, and rolls back automatically on failure. No inbound SSH is needed.
 3. **[CI](.github/workflows/ci.yml)** runs unit, build and browser tests on pull requests.
+
+## Name and address
+
+The site was called DevPulse at `devpulse.tatsatpandey.com`. On EC2, `release.sh` moves the managed Caddy block to `diffbrief.tatsatpandey.com` on the first release after the rename, and turns the old address into a permanent (301) redirect, so old links and search rankings carry over. Add the DNS record for `diffbrief.tatsatpandey.com` (the same address as the old name) before that release: the release checks the new address and rolls back if it can't reach it. Readers' saved stories and notes live in their browser for each address, so anything saved on the old address stays there; Export on `/saved` there and Import on the new address moves it.
 
 ## Social publishing (optional)
 
-[`Publish social posts`](.github/workflows/social-publish.yml) runs after a successful daily digest, waits for the new story pages to become live, and publishes the top two stories with links to their DevPulse story pages. Successful post IDs are committed to `data/social-posts.json`, so retries do not create duplicates. The workflow remains inert until the repository variable `SOCIAL_POSTING_ENABLED` is set to `true`.
+[`Publish social posts`](.github/workflows/social-publish.yml) runs after a successful daily digest, waits for the new story pages to become live, and publishes the top two stories with links to their Diffbrief story pages. Successful post IDs are committed to `data/social-posts.json`, so retries do not create duplicates. The workflow remains inert until the repository variable `SOCIAL_POSTING_ENABLED` is set to `true`.
 
 For LinkedIn, add the Actions secrets `LINKEDIN_ACCESS_TOKEN` and `LINKEDIN_AUTHOR_URN` (for example `urn:li:person:...`) plus the `LINKEDIN_VERSION` repository variable. The app needs the `w_member_social` scope for a personal profile or approved organization publishing access for a company page. For X, add the `X_USER_ACCESS_TOKEN` secret with permission to create posts. Either platform can be configured independently.
 
 ## Search engine registration
 
-Add the repository variables `PUBLIC_GOOGLE_SITE_VERIFICATION` and `PUBLIC_BING_SITE_VERIFICATION` from Google Search Console and Bing Webmaster Tools. After the next publish, submit `https://devpulse.tatsatpandey.com/sitemap-index.xml` in both dashboards.
+Add the repository variables `PUBLIC_GOOGLE_SITE_VERIFICATION` and `PUBLIC_BING_SITE_VERIFICATION` from Google Search Console and Bing Webmaster Tools. After the next publish, submit `https://diffbrief.tatsatpandey.com/sitemap-index.xml` in both dashboards.
 
 Install or update the puller on the server:
 
@@ -60,13 +64,13 @@ Every reader feature (save, notes, follow topics, For you, export) works without
 **1. Database.** Create a Neon Postgres database and copy its connection string. The API creates its own `dp_*` tables on start.
 
 **2. OAuth apps.**
-- Google Cloud Console → Credentials → OAuth client (Web). Authorized redirect URI: `https://api.devpulse.tatsatpandey.com/auth/google/callback`.
-- GitHub → Settings → Developer settings → OAuth Apps. Callback URL: `https://api.devpulse.tatsatpandey.com/auth/github/callback`.
+- Google Cloud Console → Credentials → OAuth client (Web). Authorized redirect URI: `https://api.diffbrief.tatsatpandey.com/auth/google/callback`.
+- GitHub → Settings → Developer settings → OAuth Apps. Callback URL: `https://api.diffbrief.tatsatpandey.com/auth/github/callback`.
 
 **3. Render.** New → Blueprint → this repository (`render.yaml`). It creates `devpulse-api` (Docker, `api/`) and `devpulse-site` (static, `site` branch). Fill in `DATABASE_URL`, `GOOGLE_CLIENT_ID/SECRET` and `GITHUB_CLIENT_ID/SECRET` on the API service.
 
-**4. DNS.** Point `devpulse.tatsatpandey.com` and `api.devpulse.tatsatpandey.com` at the CNAMEs Render shows for each service.
+**4. DNS.** Point `diffbrief.tatsatpandey.com` and `api.diffbrief.tatsatpandey.com` at the CNAMEs Render shows for each service.
 
-**5. Site settings.** In GitHub → Settings → Secrets and variables → Actions → Variables, add `PUBLIC_API_URL=https://api.devpulse.tatsatpandey.com`. For discussion, enable Discussions on the repository, install the Giscus app, and add `PUBLIC_GISCUS_REPO`, `PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY` and `PUBLIC_GISCUS_CATEGORY_ID` from giscus.app. The next publish picks them up.
+**5. Site settings.** In GitHub → Settings → Secrets and variables → Actions → Variables, add `PUBLIC_API_URL=https://api.diffbrief.tatsatpandey.com`. For discussion, enable Discussions on the repository, install the Giscus app, and add `PUBLIC_GISCUS_REPO`, `PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY` and `PUBLIC_GISCUS_CATEGORY_ID` from giscus.app. The next publish picks them up.
 
 Run the API locally with `DATABASE_URL=… SITE_ORIGIN=http://localhost:4321 API_ORIGIN=http://localhost:3000 bun run api/src/main.ts`.

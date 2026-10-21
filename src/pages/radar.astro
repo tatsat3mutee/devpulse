@@ -10,7 +10,7 @@ const previous = current ? digests.slice(digests.indexOf(current) + 1).find((dig
 const radar = current?.radar ? radarWithChanges(current.radar, previous?.radar) : undefined;
 const date = current ? new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${current.date}T12:00:00Z`)) : "";
 ---
-<BaseLayout title="AI Radar · DevPulse" description="Trending open models and fast-rising AI repositories, with day-over-day movement." image={current ? `/og/${current.date}.png` : undefined}>
+<BaseLayout title="AI Radar · Diffbrief" description="Trending open models and fast-rising AI repositories, with day-over-day movement." image={current ? `/og/${current.date}.png` : undefined}>
   <div class="radar-page shell">
     <header>
       <p class="eyebrow">AI Radar</p>
