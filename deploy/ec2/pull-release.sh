@@ -20,8 +20,12 @@ build="$(find "${work}/x" -mindepth 1 -maxdepth 1 -type d | head -1)"
 sha="$(tr -d '[:space:]' < "${build}/release-sha.txt")"
 [[ "$sha" =~ ^[0-9a-f]{40}$ ]] || { echo 'Site build has no valid release SHA' >&2; exit 1; }
 if [[ -d "${root}/releases/${sha}" ]]; then
-  printf '%s\n' "$commit" > "${root}/.last-site-commit"
-  exit 0
+  if [[ "$(readlink "${root}/current" 2>/dev/null || true)" == "${root}/releases/${sha}" ]]; then
+    printf '%s\n' "$commit" > "${root}/.last-site-commit"
+    exit 0
+  fi
+  # Left behind by a release that failed its live check and rolled back: clear it and try again.
+  rm -rf -- "${root}/releases/${sha}"
 fi
 edition_date="$(grep -oE '"date":"[0-9]{4}-[0-9]{2}-[0-9]{2}"' "${build}/latest.json" | head -1 | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')"
 tar -czf "/tmp/devpulse-${sha}.tar.gz" -C "$build" .
