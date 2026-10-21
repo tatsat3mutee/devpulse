@@ -13,7 +13,9 @@ fi
 archive="/tmp/devpulse-${sha}.tar.gz"
 root=/srv/devpulse-static
 config=/etc/caddy/Caddyfile
-domain=devpulse.tatsatpandey.com
+domain=diffbrief.tatsatpandey.com
+# The site was DevPulse at this address; it now permanently redirects to the new name.
+old_domain=devpulse.tatsatpandey.com
 if [[ -n "${DEVPULSE_SANDBOX:-}" ]]; then
   [[ "$DEVPULSE_SANDBOX" == /* && -d "$DEVPULSE_SANDBOX" && ! -L "$DEVPULSE_SANDBOX" ]] || exit 1
   sandbox="$(realpath "$DEVPULSE_SANDBOX")"
@@ -72,25 +74,36 @@ trap 'exit 129' HUP
 trap 'exit 130' INT
 trap 'exit 143' TERM
 
-printf '%s\n' "${domain} {" '    reverse_proxy localhost:3000' '}' > "${transaction}/legacy"
-printf '%s\n' '# Managed by DevPulse static release' "${domain} {" "    root * ${root}/current" '    encode zstd gzip' '    @json path /json' '    header @json Content-Type "application/json; charset=utf-8"' '    file_server' '}' > "${transaction}/static-site"
+# The blocks this script may replace: the original app proxy, then the DevPulse-era static block.
+printf '%s\n' "${old_domain} {" '    reverse_proxy localhost:3000' '}' > "${transaction}/legacy"
+printf '%s\n' '# Managed by DevPulse static release' "${old_domain} {" "    root * ${root}/current" '    encode zstd gzip' '    @json path /json' '    header @json Content-Type "application/json; charset=utf-8"' '    file_server' '}' > "${transaction}/devpulse-site"
+printf '%s\n' '# Managed by Diffbrief static release' "${domain} {" "    root * ${root}/current" '    encode zstd gzip' '    @json path /json' '    header @json Content-Type "application/json; charset=utf-8"' '    file_server' '}' "${old_domain} {" "    redir https://${domain}{uri} permanent" '}' > "${transaction}/static-site"
 original="$(cat "$config"; printf '.')"
 original="${original%.}"
 legacy="$(cat "${transaction}/legacy"; printf '.')"
 legacy="${legacy%.}"
+devpulse_site="$(cat "${transaction}/devpulse-site"; printf '.')"
+devpulse_site="${devpulse_site%.}"
 static_site="$(cat "${transaction}/static-site"; printf '.')"
 static_site="${static_site%.}"
-if [[ "$(grep -Fxc "${domain} {" "$config")" != 1 ]]; then
+if [[ "$(grep -Fxc "${old_domain} {" "$config")" != 1 ]]; then
   echo 'Unfamiliar or duplicate DevPulse site block' >&2
   exit 1
 fi
 if [[ "$original" == *"$static_site"* ]]; then
+  [[ "$(grep -Fxc "${domain} {" "$config")" == 1 ]] || { echo 'Duplicate Diffbrief site block' >&2; exit 1; }
   printf '%s' "$original" > "$candidate"
-elif [[ "$original" == *"$legacy"* ]]; then
-  printf '%s' "${original/"$legacy"/"$static_site"}" > "$candidate"
 else
-  echo 'Unfamiliar DevPulse site block: inspect it before switching the existing site' >&2
-  exit 1
+  # Moving to the new name: no other block may already claim it.
+  [[ "$(grep -Fxc "${domain} {" "$config")" == 0 ]] || { echo 'Unfamiliar Diffbrief site block: inspect it before switching' >&2; exit 1; }
+  if [[ "$original" == *"$devpulse_site"* ]]; then
+    printf '%s' "${original/"$devpulse_site"/"$static_site"}" > "$candidate"
+  elif [[ "$original" == *"$legacy"* ]]; then
+    printf '%s' "${original/"$legacy"/"$static_site"}" > "$candidate"
+  else
+    echo 'Unfamiliar DevPulse site block: inspect it before switching the existing site' >&2
+    exit 1
+  fi
 fi
 cp -p "$config" "$backup"
 cp "$archive" "${transaction}/archive.tar.gz"

@@ -6,7 +6,7 @@ import { groupByWeek, weekRange, weeklySummary } from "../../lib/weekly";
 export const GET: APIRoute = async (context) => {
   const weeks = groupByWeek(await allDigests()).slice(0, 12);
   return rss({
-    title: "DevPulse weekly",
+    title: "Diffbrief weekly",
     description: "The week in AI and systems engineering: the stories that mattered most across the daily editions.",
     site: context.site!,
     items: weeks.map(({ week, digests }, index) => {

@@ -1,7 +1,7 @@
 import { domainOf, groupByTopic, type Digest } from "./digest";
 
 export function digestMarkdown(digest: Digest): string {
-  const lines = [`# DevPulse — ${digest.date}`, "", `${digest.items.length} engineering stories worth reading, picked from ${digest.candidateCount} candidates.`, ""];
+  const lines = [`# Diffbrief — ${digest.date}`, "", `${digest.items.length} engineering stories worth reading, picked from ${digest.candidateCount} candidates.`, ""];
   if (digest.lede) lines.push(`> **${digest.lede.quiet ? "A quiet day, in one minute" : "Today in one minute"}:** ${digest.lede.text}`, "");
   for (const group of groupByTopic(digest.items)) {
     lines.push(`## ${group.label}`, "");
@@ -17,11 +17,11 @@ export function digestMarkdown(digest: Digest): string {
 export function llmsIndex(digests: Digest[], origin: string): string {
   const latest = digests[0];
   return [
-    "# DevPulse",
+    "# Diffbrief",
     "",
     "> A daily engineering newspaper: the stories worth a senior engineer's time, picked from hundreds of candidates and grouped by topic.",
     "",
-    "Each story has a plain factual headline, a one-line reason to read it, and a link to the original source and its discussion. Headlines and summaries are model-written from the source's own text; cite the original source, not DevPulse, for technical claims.",
+    "Each story has a plain factual headline, a one-line reason to read it, and a link to the original source and its discussion. Headlines and summaries are model-written from the source's own text; cite the original source, not Diffbrief, for technical claims.",
     "",
     "## Latest",
     latest ? `- [${latest.date}: ${latest.items.length} stories](${origin}/digest/${latest.date}.md)` : "- No digest yet.",

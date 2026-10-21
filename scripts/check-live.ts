@@ -35,7 +35,7 @@ export async function probeSite(siteUrl: string, expectedDate: string, fetcher: 
   if (latest?.date !== expectedDate || !["published", "corrected"].includes(latest.status ?? "") || !Number.isInteger(latest.storyCount) || latest.storyCount! < 3 || latest.storyCount! > 100) {
     throw new Error("Wrong or unapproved live edition");
   }
-  if ([home, edition].some((html) => !/<html[\s>]/i.test(html) || !/<title[^>]*>[^<]*DevPulse/i.test(html) || !html.includes(expectedDate))) {
+  if ([home, edition].some((html) => !/<html[\s>]/i.test(html) || !/<title[^>]*>[^<]*Diffbrief/i.test(html) || !html.includes(expectedDate))) {
     throw new Error("Homepage or edition HTML is missing the approved edition");
   }
   if (/<!DOCTYPE|<!ENTITY/i.test(rss) || XMLValidator.validate(rss) !== true) throw new Error("Invalid RSS document");

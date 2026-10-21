@@ -34,7 +34,7 @@ jobs:
         run: bun run social:publish
         env:
           SOCIAL_POSTING_ENABLED: ${{ vars.SOCIAL_POSTING_ENABLED }}
-          SITE_URL: https://devpulse.tatsatpandey.com
+          SITE_URL: https://diffbrief.tatsatpandey.com
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
           LINKEDIN_VERSION: ${{ vars.LINKEDIN_VERSION }}

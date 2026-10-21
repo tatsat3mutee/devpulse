@@ -42,7 +42,7 @@ export function editionCardSvg(digest: Digest): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
 <rect width="1200" height="630" fill="#f9f8f4"/>
 <rect x="60" y="52" width="44" height="44" fill="#111110"/><path d="M69 62h10c8 0 13 3 13 10s-5 10-13 10H69V62Zm8 5v10h2c4 0 7-1 7-5s-3-5-7-5h-2Z" fill="#f9f8f4"/><path d="M96 58 91 92" stroke="#be2d23" stroke-width="3.5"/>
-<text x="120" y="88" font-family="${SERIF}" font-size="40" font-weight="700" fill="#111110">DevPulse</text>
+<text x="120" y="88" font-family="${SERIF}" font-size="40" font-weight="700" fill="#111110">Diffbrief</text>
 <text x="1140" y="70" text-anchor="end" font-family="${MONO}" font-size="18" fill="#be2d23" letter-spacing="2">${escapeXml(date.toUpperCase())}</text>
 <text x="1140" y="96" text-anchor="end" font-family="${SANS}" font-size="20" fill="#413e39">${digest.items.length} stories kept from ${digest.candidateCount} scored</text>
 <path d="M60 124H1140M60 130H1140" stroke="#111110" stroke-width="1.5"/>

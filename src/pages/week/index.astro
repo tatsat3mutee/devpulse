@@ -6,7 +6,7 @@ import { groupByWeek, weekRange, weeklySummary } from "../../lib/weekly";
 const weeks = groupByWeek(await allDigests()).map(({ week, digests }, index, all) => ({ week, range: weekRange(week), summary: weeklySummary(digests, all[index + 1]?.digests) }));
 const day = (date: string) => new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
 ---
-<BaseLayout title="The weekly · DevPulse" description="Every DevPulse weekly edition: the stories that mattered most each week." feed={{ title: "DevPulse weekly", path: "/week/rss.xml" }}>
+<BaseLayout title="The weekly · Diffbrief" description="Every Diffbrief weekly edition: the stories that mattered most each week." feed={{ title: "Diffbrief weekly", path: "/week/rss.xml" }}>
   <div class="weeks shell">
     <header><p class="eyebrow">The weekly</p><h1>Every week</h1><p class="dek">The ten stories that mattered most each week, with what moved and what is new on the AI Radar. <a href="/week/rss.xml">Subscribe by RSS</a>.</p></header>
     <ol>

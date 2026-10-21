@@ -17,7 +17,7 @@ const judgementSchema = z.object({
 });
 const judgementJsonSchema = z.toJSONSchema(judgementSchema);
 
-const SYSTEM = `You are the editor of DevPulse, a daily digest for senior engineers who build AI systems and large-scale software. Its beat, in priority order: AI agents and automation, model inference and serving, applied ML and ML research with engineering consequences, system design and architecture, and the infrastructure, data and performance work underneath them.
+const SYSTEM = `You are the editor of Diffbrief, a daily digest for senior engineers who build AI systems and large-scale software. Its beat, in priority order: AI agents and automation, model inference and serving, applied ML and ML research with engineering consequences, system design and architecture, and the infrastructure, data and performance work underneath them.
 For every candidate, judge how worth reading it is FOR THIS READER and write a factual card.
 
 relevance 0-3 (mission fit, judged independently of quality):
@@ -62,7 +62,7 @@ async function callOpenRouter<T>(apiKey: string, model: string, system: string, 
   for (let attempt = 1; ; attempt++) {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://devpulse.tatsatpandey.com", "X-Title": "DevPulse" },
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", "HTTP-Referer": "https://diffbrief.tatsatpandey.com", "X-Title": "Diffbrief" },
       body: JSON.stringify({
         model,
         temperature: 0,
@@ -306,7 +306,7 @@ const ledeSchema = z.object({ text: z.string(), refs: z.array(z.string()) });
 const ledeJsonSchema = z.toJSONSchema(ledeSchema);
 export type LedeWriter = (input: { quiet: boolean; stories: { id: string; topic: string; headline: string; summary: string }[] }) => Promise<z.infer<typeof ledeSchema>>;
 
-const LEDE = `You write "Today in one minute", the opening note of DevPulse, a daily digest for senior engineers who build AI systems and large-scale software.
+const LEDE = `You write "Today in one minute", the opening note of Diffbrief, a daily digest for senior engineers who build AI systems and large-scale software.
 
 Write 3 or 4 plain sentences (at most 650 characters) that tell the reader what mattered today and how the stories connect: a shared theme, a tension, or what changed. Mention at most four stories, by what they are about, not by publication name. Use ONLY the headlines and summaries given; never add numbers, names or claims they do not state. No URLs, no hype words, no questions, no greetings.
 If "quiet" is true, say plainly in the first sentence that it is a quiet day, then point to the one or two stories still worth the time.

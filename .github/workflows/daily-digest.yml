@@ -58,7 +58,7 @@ jobs:
           RELEASE_ARTIFACT_DIR=dist bun run release:probe
         env:
           RELEASE_SHA: ${{ steps.commit.outputs.sha }}
-          PUBLIC_SITE_URL: https://devpulse.tatsatpandey.com
+          PUBLIC_SITE_URL: https://diffbrief.tatsatpandey.com
       - name: Publish built site to the site branch
         run: |
           cd dist

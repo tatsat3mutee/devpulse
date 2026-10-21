@@ -11,7 +11,7 @@ export const GET: APIRoute = async (context) => {
   const topic = context.params.topic as TopicSlug;
   const items = (await allDigests()).slice(0, 14).flatMap((digest) => digest.items.filter((item) => item.topic === topic).map((item) => ({ item, digest })));
   return rss({
-    title: `DevPulse · ${topicLabel(topic)}`,
+    title: `Diffbrief · ${topicLabel(topic)}`,
     description: `Daily ${topicLabel(topic).toLowerCase()} stories worth an engineer's time.`,
     site: context.site!,
     items: items.slice(0, 100).map(({ item, digest }) => ({

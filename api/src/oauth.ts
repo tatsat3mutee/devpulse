@@ -46,7 +46,7 @@ export async function exchangeCode(provider: Provider, keys: ProviderKeys, code:
   }));
   const access = text(token.access_token);
   if (!access) throw new Error("GitHub returned no access token");
-  const headers = { Authorization: `Bearer ${access}`, Accept: "application/vnd.github+json", "User-Agent": "DevPulse" };
+  const headers = { Authorization: `Bearer ${access}`, Accept: "application/vnd.github+json", "User-Agent": "Diffbrief" };
   const user = await json(await fetcher("https://api.github.com/user", { headers }));
   if (typeof user.id !== "number") throw new Error("GitHub returned no user id");
   const emails = await fetcher("https://api.github.com/user/emails", { headers }).then((response) => response.ok ? response.json() as Promise<unknown> : []).catch(() => []);

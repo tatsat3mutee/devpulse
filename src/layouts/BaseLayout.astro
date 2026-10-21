@@ -22,7 +22,7 @@ interface Props {
 }
 
 const {
-  title = "DevPulse",
+  title = "Diffbrief",
   description = "The engineering stories worth your time, every day.",
   canonicalPath = Astro.url.pathname,
   ogType = "website",
@@ -44,14 +44,14 @@ const schemaGraph: Record<string, unknown>[] = [
   {
     "@type": "Organization",
     "@id": organizationId,
-    name: "DevPulse",
+    name: "Diffbrief",
     url: siteUrl,
     logo: { "@type": "ImageObject", url: new URL("/icon-192.png", Astro.site).toString(), width: 192, height: 192 },
   },
   {
     "@type": "WebSite",
     "@id": websiteId,
-    name: "DevPulse",
+    name: "Diffbrief",
     url: siteUrl,
     description: "The engineering stories worth your time, every day.",
     publisher: { "@id": organizationId },
@@ -65,7 +65,7 @@ const schemaGraph: Record<string, unknown>[] = [
 if (article) {
   schemaGraph.push({
     "@type": "NewsArticle",
-    headline: title.replace(/ · DevPulse$/, ""),
+    headline: title.replace(/ · Diffbrief$/, ""),
     description,
     mainEntityOfPage: canonical.toString(),
     url: canonical.toString(),
@@ -106,7 +106,7 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
     {preview && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#f9f8f4" />
     <meta property="og:type" content={ogType} />
-    <meta property="og:site_name" content="DevPulse" />
+    <meta property="og:site_name" content="Diffbrief" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -122,7 +122,7 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
     <meta name="twitter:description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/mark.svg" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" type="application/rss+xml" title="DevPulse" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Diffbrief" href="/rss.xml" />
     {feed && <link rel="alternate" type="application/rss+xml" title={feed.title} href={feed.path} />}
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icon-180.png" />
@@ -145,7 +145,7 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
       <div class="masthead shell">
         <a href="/" class="brand">
           <img src="/mark.svg" alt="" width="40" height="40" />
-          <span class="brand-name">DevPulse</span>
+          <span class="brand-name">Diffbrief</span>
           <span class="brand-tag">Engineering daily</span>
         </a>
         <nav class="site-nav" aria-label="Site">
@@ -168,7 +168,7 @@ const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWit
     <Library />
     <footer class="site-footer shell">
       <div>
-        <strong>DevPulse</strong>
+        <strong>Diffbrief</strong>
         <p>Hundreds of candidates in, the best few dozen out.</p>
       </div>
       <nav aria-label="Footer navigation">

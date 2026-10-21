@@ -1,4 +1,4 @@
-// DevPulse offline reading.
+// Diffbrief offline reading.
 // Pages are network-first so readers always get today's edition; the caches only serve offline reads.
 // Install (and every new edition) saves the latest edition, Pulse, the offline page and their assets,
 // so an installed app works offline even before the reader has opened anything.

@@ -32,7 +32,7 @@ const sourceRows = sourceIds.map((id) => {
 }).sort((a, b) => b.errors - a.errors || b.total - a.total || a.label.localeCompare(b.label));
 const statusMark = { ok: "✓", empty: "–", error: "!" } as const;
 ---
-<BaseLayout title="Pulse · DevPulse" description="What engineering is talking about: topic mix, recurring sites and source health across DevPulse editions." image={digests[0] ? `/og/${digests[0].date}.png` : undefined}>
+<BaseLayout title="Pulse · Diffbrief" description="What engineering is talking about: topic mix, recurring sites and source health across Diffbrief editions." image={digests[0] ? `/og/${digests[0].date}.png` : undefined}>
   <div class="pulse-page shell">
     <header class="page-head">
       <p class="eyebrow">Pulse</p>

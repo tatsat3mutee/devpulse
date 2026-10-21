@@ -11,7 +11,7 @@ const steps = [
   ["Illustrate", "Lead stories carry the source's own preview image, downloaded once and re-encoded so your browser never contacts a third party. Stories without one get cover art generated from their kind and topic. The pulse line and topic mix are drawn from the day's scores."],
 ];
 ---
-<BaseLayout title="How we pick · DevPulse" description="How DevPulse picks the daily engineering stories.">
+<BaseLayout title="How we pick · Diffbrief" description="How Diffbrief picks the daily engineering stories.">
   <article class="policy shell">
     <header><p class="eyebrow">How we pick</p><h1>Hundreds of candidates in.<br />The best few dozen out.</h1></header>
     <ol>{steps.map(([name, text], index) => <li><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{name}</h2><p>{text}</p></div></li>)}</ol>

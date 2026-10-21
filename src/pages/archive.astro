@@ -6,7 +6,7 @@ const digests = await allDigests();
 const weeks = groupByWeek(digests).slice(0, 8);
 const format = new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 ---
-<BaseLayout title="Archive · DevPulse" description="Every past DevPulse daily edition.">
+<BaseLayout title="Archive · Diffbrief" description="Every past Diffbrief daily edition.">
   <div class="archive shell">
     <header><p class="eyebrow">Archive</p><h1>Previous days</h1>
       {weeks.length > 0 && <p class="weeks">Weekly: {weeks.map(({ week }) => <a href={`/week/${week}`}>Week {week.split("-W")[1].replace(/^0/, "")} <span>from {weekRange(week).start}</span></a>)} <a href="/week/">All weeks</a></p>}

@@ -22,7 +22,7 @@ describe("library", () => {
   });
 
   test("Markdown export links each story and quotes its note", () => {
-    expect(toMarkdown([entry({ headline: "Agents [draft]", note: "try this\nat work" })])).toBe("# DevPulse library\n\n- [Agents draft](https://example.com/a) — 2026-09-26 · saved\n  > try this\n  > at work\n");
+    expect(toMarkdown([entry({ headline: "Agents [draft]", note: "try this\nat work" })])).toBe("# Diffbrief library\n\n- [Agents draft](https://example.com/a) — 2026-09-26 · saved\n  > try this\n  > at work\n");
   });
 
   test("imports keep only well-formed entries", () => {
