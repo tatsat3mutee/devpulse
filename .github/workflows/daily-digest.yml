@@ -2,8 +2,10 @@ name: Daily digest
 
 on:
   schedule:
-    - cron: '0 7 * * *'
-      timezone: 'Asia/Kolkata'
+    # 05:53 IST, with a backup at 07:17 IST that runs only if today's edition is missing.
+    # GitHub delays runs scheduled on the hour by hours; odd minutes start much closer to time.
+    - cron: '23 0 * * *'
+    - cron: '47 1 * * *'
   workflow_dispatch:
 
 permissions:
@@ -15,7 +17,27 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  due:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          persist-credentials: false
+      - id: check
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == schedule && -f "data/digests/$(date -u +%F).json" ]]; then
+            echo "Today's edition already exists; nothing to do."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
   digest:
+    needs: due
+    if: needs.due.outputs.run == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
@@ -41,7 +63,12 @@ jobs:
           mkdir -p public/covers
           git add -A -- data/digests public/covers
           git diff --cached --quiet || git commit -m "content(digest): $(date -u +%F)"
-          git push origin HEAD:main
+          # The hourly Security Watch may have committed to main during this run; rebase onto it.
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && break
+            [[ "$attempt" == 5 ]] && exit 1
+            sleep $((attempt * 5))
+          done
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - run: bun run build
         env:

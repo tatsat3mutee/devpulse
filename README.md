@@ -26,7 +26,8 @@ bun run test:e2e
 
 ## How it ships
 
-1. **[Daily digest](.github/workflows/daily-digest.yml)** runs at 07:00 IST. It builds the digest and commits it to `main`. Then it builds and verifies the site and force-pushes the static files to the `site` branch. Required: secret `OPENROUTER_API_KEY`. Optional: variable `EDITORIAL_MODEL` (default `openai/gpt-6-luna`).
+1. **[Daily digest](.github/workflows/daily-digest.yml)** runs at 05:53 IST, with a backup run at 07:17 IST that does nothing if the day's edition already exists. It builds the digest and commits it to `main`. Then it builds and verifies the site and force-pushes the static files to the `site` branch. Required: secret `OPENROUTER_API_KEY`. Optional: variable `EDITORIAL_MODEL` (default `openai/gpt-6-luna`).
+   **Security Watch** refreshes every hour in [Publish site](.github/workflows/publish.yml) from CISA's Known Exploited Vulnerabilities list and GitHub's reviewed critical advisories. It commits `data/security-watch.json` and republishes only when an entry changes.
 2. **The existing EC2 instance pulls.** A systemd timer runs [deploy/ec2/pull-release.sh](deploy/ec2/pull-release.sh) every 15 minutes. When the `site` branch changes, it hands the build to [deploy/ec2/release.sh](deploy/ec2/release.sh). That script switches only the Diffbrief Caddy site block, checks the live pages, and rolls back automatically on failure. No inbound SSH is needed.
 3. **[CI](.github/workflows/ci.yml)** runs unit, build and browser tests on pull requests.
 

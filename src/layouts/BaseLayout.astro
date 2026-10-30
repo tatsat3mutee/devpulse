@@ -92,7 +92,7 @@ if (breadcrumbs.length) {
 const structuredData = JSON.stringify({ "@context": "https://schema.org", "@graph": schemaGraph }).replaceAll("<", "\\u003c");
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const weekHref = edition ? `/week/${isoWeek(edition)}` : "/week/";
-const nav = [["/", "Today"], [weekHref, "Weekly"], ["/radar", "Radar"], ["/papers", "Papers"], ["/pulse", "Pulse"], ["/archive", "Archive"], ["/search", "Search"]] as const;
+const nav = [["/", "Today"], [weekHref, "Weekly"], ["/radar", "Radar"], ["/security", "Security"], ["/papers", "Papers"], ["/pulse", "Pulse"], ["/archive", "Archive"], ["/search", "Search"]] as const;
 const isCurrent = (href: string) => href === "/" ? path === "/" : href.startsWith("/week/") ? path.startsWith("/week") : path === href;
 ---
 <!doctype html>

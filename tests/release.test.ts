@@ -37,7 +37,8 @@ test("Daily workflow scores, commits, verifies, then publishes the built site br
     concurrency: { "cancel-in-progress": boolean };
     jobs: { digest: { steps: Array<{ name?: string; run?: string; id?: string; env?: Record<string, string> }> } };
   };
-  expect(workflow.on.schedule[0].cron).toBe("0 7 * * *");
+  // Odd minutes: GitHub delays runs scheduled on the hour. The second is a backup that skips when today's edition exists.
+  expect(workflow.on.schedule.map((entry) => entry.cron)).toEqual(["23 0 * * *", "47 1 * * *"]);
   expect(workflow.concurrency["cancel-in-progress"]).toBe(false);
   const steps = workflow.jobs.digest.steps;
   const index = (name: string) => steps.findIndex((step) => step.name === name);
