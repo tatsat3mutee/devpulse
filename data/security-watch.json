@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-30T18:12:46.497Z",
+  "updatedAt": "2026-10-30T22:39:13.965Z",
   "kev": [
     {
       "cve": "CVE-2026-118527",
@@ -364,6 +364,14 @@
   ],
   "advisories": [
     {
+      "id": "GHSA-5xjx-3w67-w9x9",
+      "summary": "pypi-publish action revocation of CA in the chain that Sigstore uses in Trusted Publishing and Digital Attestations for PyPI",
+      "ecosystem": "actions",
+      "packageName": "pypa/gh-action-pypi-publish",
+      "publishedAt": "2026-10-30T20:24:24.000Z",
+      "url": "https://github.com/advisories/GHSA-5xjx-3w67-w9x9"
+    },
+    {
       "id": "GHSA-6jp4-8v48-cc5v",
       "cve": "CVE-2026-117601",
       "summary": "Electrum: Malicious server can replace a just-broadcast tx and try to trick user into RBF-ing it",
@@ -434,51 +442,6 @@
       "packageName": "monai",
       "publishedAt": "2026-10-27T13:30:10.000Z",
       "url": "https://github.com/advisories/GHSA-6hp3-vr39-rqw8"
-    },
-    {
-      "id": "GHSA-897f-g5gm-fmxm",
-      "cve": "CVE-2026-115889",
-      "summary": "Wasmtime: Bit-packing in Cranelift compiler causes silent overflow and miscompilation",
-      "ecosystem": "rust",
-      "packageName": "wasmtime",
-      "publishedAt": "2026-10-23T22:02:20.000Z",
-      "url": "https://github.com/advisories/GHSA-897f-g5gm-fmxm"
-    },
-    {
-      "id": "GHSA-5x8w-8jj5-q52h",
-      "cve": "CVE-2026-112398",
-      "summary": "Pillow: Heap buffer overflow in FlashPix (FPX) JPEG decoding leads to code execution",
-      "ecosystem": "pip",
-      "packageName": "pillow",
-      "publishedAt": "2026-10-23T21:55:21.000Z",
-      "url": "https://github.com/advisories/GHSA-5x8w-8jj5-q52h"
-    },
-    {
-      "id": "GHSA-f9x3-7vq9-cph6",
-      "cve": "CVE-2026-114509",
-      "summary": "Laravel TokenGuard authentication bypass through non-string API credentials",
-      "ecosystem": "composer",
-      "packageName": "laravel/framework",
-      "publishedAt": "2026-10-23T21:50:27.000Z",
-      "url": "https://github.com/advisories/GHSA-f9x3-7vq9-cph6"
-    },
-    {
-      "id": "GHSA-cxf3-9h37-7rr8",
-      "cve": "CVE-2026-118264",
-      "summary": "Echo: Rejected WebSocket upgrades can bypass Echo route-level access controls",
-      "ecosystem": "go",
-      "packageName": "github.com/labstack/echo/v4",
-      "publishedAt": "2026-10-23T20:49:37.000Z",
-      "url": "https://github.com/advisories/GHSA-cxf3-9h37-7rr8"
-    },
-    {
-      "id": "GHSA-pqh8-4pj7-32xx",
-      "cve": "CVE-2026-77363",
-      "summary": "obsidian-tc HTTP transport lacks Origin/DNS-rebinding protection, enabling drive-by vault access on loopback",
-      "ecosystem": "npm",
-      "packageName": "obsidian-tc",
-      "publishedAt": "2026-10-23T18:29:02.000Z",
-      "url": "https://github.com/advisories/GHSA-pqh8-4pj7-32xx"
     }
   ]
 }
