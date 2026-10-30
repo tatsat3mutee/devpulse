@@ -19,6 +19,7 @@ bun run digest            # needs OPENROUTER_API_KEY; --dry-run collects only; -
 - `scripts/lib/score.ts`: batched model judging (score, relevance, topic, headline, whyRead), mission-weighted selection (desk floors and caps in `SELECT_DEFAULTS`), then a write pass (brief, diagram) for picked stories and the day's lede ("Today in one minute", referring to picked stories by id only)
 - `scripts/build-search.ts`: story search index (one Pagefind document per story, headline as h1, topic/kind/desk/month filters, date/score sorts); runs after `astro build`
 - `src/lib/radar.ts`, `src/lib/weekly.ts`, `src/lib/editorial.ts`: AI Radar movement, the weekly roll-up, tool of the day and reading-time buckets (pure, unit-tested)
+- `scripts/lib/security-watch.ts` (`bun run security:watch`, hourly in `publish.yml`): Security Watch, from CISA's Known Exploited Vulnerabilities and GitHub's reviewed critical advisories, into `data/security-watch.json` (written only when entries change; a failed source keeps its previous entries). Shown on today's page and `/security`. Security news and research feeds are `SECURITY_FEEDS` in `collect.ts`, capped per feed.
 - `scripts/lib/media.ts`: source preview-image extraction and re-encoding into `public/covers/<date>/`
 - `scripts/lib/net.ts`: SSRF-safe fetch, bounded reads, text helpers
 - `src/lib/digest.ts`: Zod schema, topics and desks; digests live in `data/digests/`
@@ -30,7 +31,7 @@ bun run digest            # needs OPENROUTER_API_KEY; --dry-run collects only; -
 - `src/pages/story/[slug].astro`: one page per story with brief, diagram, notes and a click-to-load Giscus thread (enabled by `PUBLIC_GISCUS_*`).
 - `scripts/publish-social.ts` (`social-publish.yml`, after each daily digest, off unless `SOCIAL_POSTING_ENABLED`): posts the top two stories to LinkedIn/X, linking to their story pages once live; receipts in `data/social-posts.json` stop duplicate posts.
 - Story card headlines open the story page; the source is the "Original" link in the card's meta row.
-- Daily GitHub Action commits the digest and pushes the built site to the `site` branch; `publish.yml` does the same on every push to main. `render.yaml` serves `site` as a Render static site and runs the API; `deploy/ec2/` is the older EC2 path.
+- Daily GitHub Action (05:53 IST, backup 07:17 IST that skips when today's edition exists) commits the digest and pushes the built site to the `site` branch; `publish.yml` does the same on every push to main. `render.yaml` serves `site` as a Render static site and runs the API; `deploy/ec2/` is the older EC2 path.
 
 The site itself is static; accounts and sync are the only server-side part, and every reader feature works without them.
 

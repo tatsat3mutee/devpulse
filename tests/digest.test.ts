@@ -64,7 +64,7 @@ describe("scoring", () => {
       ...Array.from({ length: 10 }, (_, i) => item(`show${i}`, { topic: "languages", score: 8, originalTitle: `Show HN: tool ${i}`, headline: `Launch tool${i} lambda${i} sigma${i} omega${i}` })),
     ];
     const picked = selectItems(judged, { now: new Date("2026-09-26T12:00:00Z") });
-    expect(picked.filter((entry) => entry.topic === "security")).toHaveLength(6);
+    expect(picked.filter((entry) => entry.topic === "security")).toHaveLength(10);
     expect(picked.filter((entry) => ["agents", "inference", "ai", "research"].includes(entry.topic)).length).toBeGreaterThanOrEqual(23);
     expect(picked.find((entry) => entry.id === "bio")).toBeUndefined();
     expect(picked.filter((entry) => entry.id.startsWith("show")).length).toBeLessThanOrEqual(6);

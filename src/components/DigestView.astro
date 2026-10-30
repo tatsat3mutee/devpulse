@@ -2,8 +2,10 @@
 import { TOPICS, groupByTopic, topicLabel, type Digest } from "../lib/digest";
 import { toolOfTheDay } from "../lib/editorial";
 import { radarWithChanges } from "../lib/radar";
+import type { Advisory, KevEntry } from "../lib/security";
 import PulseStrip from "./PulseStrip.astro";
 import RadarTable from "./RadarTable.astro";
+import SecurityWatch from "./SecurityWatch.astro";
 import StoryCard from "./StoryCard.astro";
 
 interface Props {
@@ -15,8 +17,11 @@ interface Props {
   issue?: number;
   /** The edition before this one, for radar movement. */
   previous?: Digest;
+  /** The last week of Security Watch, shown on today's page only. */
+  watch?: { kev: KevEntry[]; advisories: Advisory[] };
 }
-const { digest, topic, latest = false, prev, next, issue, previous } = Astro.props;
+const { digest, topic, latest = false, prev, next, issue, previous, watch } = Astro.props;
+const showWatch = latest && !topic && watch && (watch.kev.length > 0 || watch.advisories.length > 0);
 const VISIBLE_PER_TOPIC = 7;
 const items = topic ? digest.items.filter((item) => item.topic === topic) : digest.items;
 const mustRead = topic ? [] : items.filter((item) => item.mustRead);
@@ -105,6 +110,13 @@ const top = items.filter((item) => item.score >= 9).length;
         <StoryCard date={digest.date} item={lead} variant="lead" />
         {side.length > 0 && <div class="must-side">{side.map((item) => <StoryCard date={digest.date} item={item} variant="side" />)}</div>}
       </div>
+    </section>
+  )}
+
+  {showWatch && (
+    <section class="watch-strip" aria-labelledby="watch-h">
+      <h2 id="watch-h" class="section-label">Security watch · this week <a href="/security">All alerts &rarr;</a></h2>
+      <SecurityWatch kev={watch!.kev} advisories={watch!.advisories} compact />
     </section>
   )}
 
@@ -278,6 +290,7 @@ const top = items.filter((item) => item.score >= 9).length;
   .section-label { margin: 0 0 14px; color: rgb(var(--muted)); font: 500 11px/1.3 "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
   .must { padding-top: 30px; }
   .must-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 32px; }
+  .watch-strip { margin-top: 40px; padding-top: 22px; border-top: 1px solid rgb(var(--line)); }
   .extras { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 32px; margin-top: 40px; padding-top: 22px; border-top: 1px solid rgb(var(--line)); }
   .extras:has(> :only-child) { grid-template-columns: 1fr; }
   .tool-of-day { padding: 16px 18px; border: 1px solid rgb(var(--ink)); background: rgb(var(--surface)); align-self: start; }

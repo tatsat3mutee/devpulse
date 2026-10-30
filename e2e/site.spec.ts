@@ -71,7 +71,7 @@ test("keyboard users can skip to content and reach stories", async ({ page }) =>
 
 test("pages fit narrow screens without horizontal scrolling", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 800 });
-  for (const path of ["/", `/topic/${latest.items[0].topic}`, `/edition/${latest.date}`, "/archive", "/methodology", "/pulse", "/radar", "/papers", "/week/", "/search", "/saved", `/story/${latest.date}--${latest.items[0].id}/`]) {
+  for (const path of ["/", `/topic/${latest.items[0].topic}`, `/edition/${latest.date}`, "/archive", "/methodology", "/pulse", "/radar", "/security", "/papers", "/week/", "/search", "/saved", `/story/${latest.date}--${latest.items[0].id}/`]) {
     await page.goto(path);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), path).toBe(true);
   }

@@ -110,6 +110,21 @@ export const BLOGS = [
   ["lobsters-tags", "Lobsters (AI, distributed, performance)", "https://lobste.rs/t/ai,distributed,performance,databases.rss"],
 ] as const;
 
+// Security research and incident reporting. News sites publish many items a day, so they are capped and kept to two days.
+export const SECURITY_FEEDS: ReadonlyArray<readonly [string, string, string, { max?: number; days?: number }?]> = [
+  ["projectzero", "Google Project Zero", "https://googleprojectzero.blogspot.com/feeds/posts/default"],
+  ["portswigger", "PortSwigger Research", "https://portswigger.net/research/rss"],
+  ["unit42", "Unit 42", "https://unit42.paloaltonetworks.com/feed/"],
+  ["msrc", "Microsoft Security Response Center", "https://msrc.microsoft.com/blog/feed"],
+  ["github-security", "GitHub Security", "https://github.blog/security/feed/"],
+  ["wiz", "Wiz", "https://www.wiz.io/feed/rss.xml", { max: 8 }],
+  ["socket", "Socket", "https://socket.dev/api/blog/feed.atom", { max: 8 }],
+  ["krebs", "Krebs on Security", "https://krebsonsecurity.com/feed/"],
+  ["lobsters-security", "Lobsters (security)", "https://lobste.rs/t/security.rss"],
+  ["therecord", "The Record", "https://therecord.media/feed", { max: 12, days: 2 }],
+  ["bleepingcomputer", "BleepingComputer", "https://www.bleepingcomputer.com/feed/", { max: 12, days: 2 }],
+];
+
 // Releases of the frameworks AI engineers run in production; only major and minor versions are kept.
 export const RELEASES = [
   ["vllm", "vLLM", "vllm-project/vllm"],
@@ -254,11 +269,12 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
   });
 
   const parser = new XMLParser({ ignoreAttributes: false, removeNSPrefix: true, parseTagValue: false, processEntities: true });
-  const blogs = BLOGS.map(([id, label, url]) => run(`blog-${id}`, label, async () => {
+  const feeds: ReadonlyArray<readonly [string, string, string, { max?: number; days?: number }?]> = [...BLOGS, ...SECURITY_FEEDS];
+  const blogs = feeds.map(([id, label, url, limits]) => run(`blog-${id}`, label, async () => {
     const xml = await get(url, { Accept: "application/rss+xml, application/atom+xml, application/xml, text/xml" });
     if (/<!ENTITY/i.test(xml)) throw new Error("Entity declarations are not supported");
     const doc = parser.parse(xml) as Record<string, any>;
-    const entries = list(doc.feed ? doc.feed.entry : doc.rss?.channel?.item).slice(0, 30) as Array<Record<string, unknown>>;
+    const entries = list(doc.feed ? doc.feed.entry : doc.rss?.channel?.item).slice(0, limits?.max ?? 30) as Array<Record<string, unknown>>;
     return entries.flatMap((entry) => {
       const title = htmlToText(text(entry.title));
       const link = doc.feed ? (list(entry.link) as Array<Record<string, string>>).find((l) => !l["@_rel"] || l["@_rel"] === "alternate")?.["@_href"] : text(entry.link);
@@ -266,7 +282,7 @@ export async function collectAll(options: { now?: Date; fetcher?: Fetcher; githu
       if (!title || !isWebUrl(link) || !date) return [];
       const publishedAt = new Date(date).toISOString();
       // Blogs post rarely; a week-long window is safe because already-published stories are excluded before scoring.
-      if (!within(publishedAt, 7)) return [];
+      if (!within(publishedAt, limits?.days ?? 7)) return [];
       const summary = htmlToText(text(entry.summary ?? entry.description ?? entry.content ?? "")).slice(0, 1200);
       const authorNames = list(entry.creator ?? entry.author).map((author) => htmlToText(typeof author === "object" && author ? text((author as Record<string, unknown>).name) : text(author)));
       return [{ id: `blog-${id}-${slug(link.split("/").filter(Boolean).pop() ?? title)}`, title, url: link, source: "blog" as const, sourceLabel: label, publishedAt, snippet: summary || undefined, author: byline(authorNames) }];

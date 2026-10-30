@@ -22,12 +22,12 @@ For every candidate, judge how worth reading it is FOR THIS READER and write a f
 
 relevance 0-3 (mission fit, judged independently of quality):
 - 3 core: agents, agent harnesses and evals, tool use, inference engines, GPUs and serving cost, model training and fine-tuning practice, ML papers with systems or product implications, system design and architecture case studies, distributed systems at scale.
-- 2 adjacent: databases, cloud and infrastructure, performance engineering, compilers, developer tools used to build AI or large systems, AI and agent security, isolation failures in multi-tenant platforms, engineering leadership of AI teams.
-- 1 peripheral: general vulnerabilities in specific products, frontend and web platform, niche languages, OS hobby projects, one-off libraries.
+- 2 adjacent: databases, cloud and infrastructure, performance engineering, compilers, developer tools used to build AI or large systems, AI and agent security, isolation failures in multi-tenant platforms, engineering leadership of AI teams, vulnerabilities being exploited in the wild or affecting widely deployed software (browsers, operating systems, cloud platforms, CI/CD, popular open-source libraries, package registries), supply-chain attacks, and major breaches with engineering lessons.
+- 1 peripheral: vulnerabilities in niche or consumer products with no wider lesson, frontend and web platform, niche languages, OS hobby projects, one-off libraries.
 - 0 off-mission: biology, medicine, health, physics, space, climate, politics and policy, law, business, funding, earnings, consumer gadgets, retrocomputing and hardware mods, games, anything not about building software.
 
 score 1-10 (quality and depth for a senior engineer; do not raise it for relevance):
-- 9-10: rare. A novel technique with evidence, a major postmortem, a landmark release or paper engineers will discuss for weeks. A vulnerability scores 9-10 only if it introduces a new bug class, breaks a major cloud or AI platform's isolation, or involves AI agents; single-product CVE write-ups score 7 at most.
+- 9-10: rare. A novel technique with evidence, a major postmortem, a landmark release or paper engineers will discuss for weeks. A vulnerability scores 9-10 only if it introduces a new bug class, breaks a major cloud or AI platform's isolation, or involves AI agents. A vulnerability being exploited in the wild, or one in widely deployed software or a popular package, scores up to 8 when the excerpt says what is affected and what to do; other single-product CVE write-ups score 7 at most.
 - 7-8: clearly worth an engineer's time: a solid deep dive, a notable release, research with practical impact, hard-won production lessons.
 - 5-6: decent but narrow, incremental, or thin.
 - 1-4: not engineering reading: business news, drama, marketing, generic AI hype or opinion, listicles, job posts.
@@ -166,12 +166,12 @@ export type SelectOptions = {
 export const SELECT_DEFAULTS = {
   minScore: 6, floorScore: 7, max: 50, mustRead: 3, topicCap: 10, papersCap: 6, launchCap: 6,
   deskMin: { ai: 23, systems: 12 } as Partial<Record<Desk, number>>,
-  deskMax: { security: 6, software: 8 } as Partial<Record<Desk, number>>,
+  deskMax: { security: 10, software: 8 } as Partial<Record<Desk, number>>,
   topicMin: { agents: 4, inference: 3, design: 3, research: 3 } as Partial<Record<TopicSlug, number>>,
 };
 
 // Judgements saved before relevance existed fall back to a desk default, so --reselect keeps working.
-const DESK_RELEVANCE: Record<Desk, number> = { ai: 3, systems: 2, security: 1, software: 1 };
+const DESK_RELEVANCE: Record<Desk, number> = { ai: 3, systems: 2, security: 2, software: 1 };
 const relevanceOf = (item: DigestItem) => item.relevance ?? DESK_RELEVANCE[topicDesk(item.topic)];
 const isLaunch = (item: DigestItem) => item.source === "github" || /^show hn\b/i.test(item.originalTitle);
 const engagementOf = (item: DigestItem) => Math.log2(1 + (item.points ?? 0) + (item.comments ?? 0) + (item.stars ?? 0) / 10);

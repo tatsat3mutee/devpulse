@@ -2,12 +2,15 @@ name: Publish site
 
 # Merged code reaches readers without waiting for the next daily digest: rebuild the current
 # edition from main, verify the artifact, and push it to the site branch the server pulls.
-# Digest commits made by the daily workflow use GITHUB_TOKEN, so they do not trigger this.
+# Every hour it also refreshes Security Watch and republishes only when the watch changed.
+# Commits made with GITHUB_TOKEN (digests, watch updates) do not trigger this workflow.
 on:
   push:
     branches: [main]
     paths-ignore:
       - data/social-posts.json
+  schedule:
+    - cron: '41 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -15,15 +18,53 @@ permissions:
 
 concurrency:
   group: publish-site
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
+  watch:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      changed: ${{ steps.refresh.outputs.changed }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.3.13
+      - run: bun install --frozen-lockfile
+      - name: Refresh Security Watch
+        id: refresh
+        run: |
+          bun run security:watch | tee watch.log
+          echo "changed=$(sed -n 's/^changed=//p' watch.log | tail -1)" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Commit the watch to main
+        if: steps.refresh.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/security-watch.json
+          git commit -m "content(security): refresh Security Watch"
+          for attempt in 1 2 3 4 5; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((attempt * 5))
+          done
+          exit 1
+
   publish:
+    needs: watch
+    # Pushes and manual runs always publish; hourly runs publish only when the watch changed.
+    if: ${{ !cancelled() && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || needs.watch.outputs.changed == 'true') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
+          ref: main
           persist-credentials: false
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
@@ -39,15 +80,18 @@ jobs:
           PUBLIC_GISCUS_CATEGORY_ID: ${{ vars.PUBLIC_GISCUS_CATEGORY_ID }}
           PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.PUBLIC_GOOGLE_SITE_VERIFICATION }}
           PUBLIC_BING_SITE_VERIFICATION: ${{ vars.PUBLIC_BING_SITE_VERIFICATION }}
+      # The release name is the commit actually built (main may be ahead of the triggering commit), so the
+      # server never mistakes a new build for one it already has.
       - name: Verify built site
         run: |
+          RELEASE_SHA="$(git rev-parse HEAD)"
           printf '%s\n' "$RELEASE_SHA" > dist/release-sha.txt
-          RELEASE_ARTIFACT_DIR=dist bun run release:probe
+          RELEASE_ARTIFACT_DIR=dist RELEASE_SHA="$RELEASE_SHA" bun run release:probe
         env:
-          RELEASE_SHA: ${{ github.sha }}
           PUBLIC_SITE_URL: https://diffbrief.tatsatpandey.com
       - name: Publish built site to the site branch
         run: |
+          RELEASE_SHA="$(git rev-parse HEAD)"
           cd dist
           git init -q
           git checkout -q -b site
@@ -56,4 +100,3 @@ jobs:
           git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_SHA: ${{ github.sha }}

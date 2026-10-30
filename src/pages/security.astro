@@ -1,0 +1,28 @@
+---
+import SecurityWatch from "../components/SecurityWatch.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadSecurityWatch, recentWatch } from "../lib/security";
+
+const watch = loadSecurityWatch();
+const recent = recentWatch(watch, new Date(), 30);
+const updated = watch ? new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Kolkata" }).format(new Date(watch.updatedAt)) : "";
+---
+<BaseLayout title="Security Watch · Diffbrief" description="Vulnerabilities attackers are exploiting now and critical package advisories, checked every hour.">
+  <div class="security-page shell">
+    <header>
+      <p class="eyebrow">Security Watch</p>
+      <h1>What to patch, and what's under attack</h1>
+      <p class="dek">Vulnerabilities CISA has confirmed are being exploited in the wild (last 30 days), and critical advisories for npm, PyPI, Go, Maven, crates.io and other packages from GitHub's reviewed Advisory Database (last 7 days). Checked every hour. Every entry is the source's own; nothing here is written by a model. Security stories with analysis are in the daily edition under Security.</p>
+      {watch && <p class="asof">Last changed {updated} IST</p>}
+    </header>
+    {watch ? <SecurityWatch kev={recent.kev} advisories={recent.advisories} /> : <p class="empty">Security Watch fills in after its first hourly check.</p>}
+  </div>
+</BaseLayout>
+<style>
+  .security-page { max-width: 1040px; padding-top: 44px; }
+  header { padding-bottom: 20px; margin-bottom: 28px; border-bottom: 2px solid rgb(var(--ink)); }
+  h1 { margin: 8px 0 10px; font: 700 clamp(34px, 5vw, 52px)/1.05 "Newsreader", serif; }
+  .dek { margin: 0; max-width: 72ch; color: rgb(var(--soft)); line-height: 1.6; }
+  .asof { margin: 12px 0 0; color: rgb(var(--muted)); font: 500 11px/1.4 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  .empty { color: rgb(var(--soft)); }
+</style>
