@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-30T22:39:13.965Z",
+  "updatedAt": "2026-10-31T01:50:39.937Z",
   "kev": [
     {
       "cve": "CVE-2026-118527",
@@ -350,19 +350,25 @@
       "dueDate": "2026-10-05",
       "ransomware": false,
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102489"
-    },
-    {
-      "cve": "CVE-2026-104286",
-      "vendor": "Fortinet",
-      "product": "FortiMail",
-      "name": "Fortinet FortiMail Path Traversal Vulnerability",
-      "dateAdded": "2026-10-01",
-      "dueDate": "2026-10-04",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104286"
     }
   ],
   "advisories": [
+    {
+      "id": "GHSA-4xm8-rg9h-jhq2",
+      "summary": "Signal K resources API path traversal can disclose the JWT signing secret and enable remote code execution",
+      "ecosystem": "npm",
+      "packageName": "signalk-server",
+      "publishedAt": "2026-10-30T22:57:22.000Z",
+      "url": "https://github.com/advisories/GHSA-4xm8-rg9h-jhq2"
+    },
+    {
+      "id": "GHSA-hff9-5pqw-6w9f",
+      "summary": "imgproxy has integer overflow in imgproxy ICO loader that causes denial of service and may permit remote code execution",
+      "ecosystem": "go",
+      "packageName": "github.com/imgproxy/imgproxy/v3",
+      "publishedAt": "2026-10-30T22:57:00.000Z",
+      "url": "https://github.com/advisories/GHSA-hff9-5pqw-6w9f"
+    },
     {
       "id": "GHSA-5xjx-3w67-w9x9",
       "summary": "pypi-publish action revocation of CA in the chain that Sigstore uses in Trusted Publishing and Digital Attestations for PyPI",
