@@ -54,6 +54,13 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           EDITORIAL_MODEL: ${{ vars.EDITORIAL_MODEL || 'openai/gpt-6-luna' }}
           GITHUB_TOKEN: ${{ github.token }}
+      # Security Watch also refreshes hourly in publish.yml; GitHub can delay or skip hourly schedules,
+      # so the daily run refreshes it too. A failure here never blocks the edition.
+      - name: Refresh Security Watch
+        continue-on-error: true
+        run: bun run security:watch
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
       - run: bun test ./tests
       - name: Commit digest to main
         id: commit
@@ -62,6 +69,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           mkdir -p public/covers
           git add -A -- data/digests public/covers
+          if [[ -f data/security-watch.json ]]; then git add data/security-watch.json; fi
           git diff --cached --quiet || git commit -m "content(digest): $(date -u +%F)"
           # The hourly Security Watch may have committed to main during this run; rebase onto it.
           for attempt in 1 2 3 4 5; do
