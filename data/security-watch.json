@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-03T01:46:28.724Z",
+  "updatedAt": "2026-11-03T18:02:25.692Z",
   "kev": [
     {
       "cve": "CVE-2026-118527",
@@ -324,6 +324,24 @@
   ],
   "advisories": [
     {
+      "id": "GHSA-33r5-xmm8-v6x5",
+      "cve": "CVE-2026-44267",
+      "summary": "Elo JavaScript emitter has sandbox escape to arbitrary Node.js / browser code execution via unfiltered `.constructor` member access",
+      "ecosystem": "npm",
+      "packageName": "@enspirit/elo",
+      "publishedAt": "2026-11-03T17:53:42.000Z",
+      "url": "https://github.com/advisories/GHSA-33r5-xmm8-v6x5"
+    },
+    {
+      "id": "GHSA-7w38-ggh5-v542",
+      "cve": "CVE-2026-44266",
+      "summary": "Elo Ruby backend has Remote Code Execution via unescaped `#{...}` interpolation in emitted string literals and subtype-constraint labels",
+      "ecosystem": "npm",
+      "packageName": "@enspirit/elo",
+      "publishedAt": "2026-11-03T17:51:30.000Z",
+      "url": "https://github.com/advisories/GHSA-7w38-ggh5-v542"
+    },
+    {
       "id": "GHSA-4xm8-rg9h-jhq2",
       "summary": "Signal K resources API path traversal can disclose the JWT signing secret and enable remote code execution",
       "ecosystem": "npm",
@@ -382,42 +400,6 @@
       "packageName": "mlflow",
       "publishedAt": "2026-10-27T21:26:32.000Z",
       "url": "https://github.com/advisories/GHSA-26p8-2jq9-3vq9"
-    },
-    {
-      "id": "GHSA-965c-763c-88jm",
-      "cve": "CVE-2026-114607",
-      "summary": "better-auth: OAuth state can be used as a Magic Link to sign in as another user",
-      "ecosystem": "npm",
-      "packageName": "better-auth",
-      "publishedAt": "2026-10-27T15:32:05.000Z",
-      "url": "https://github.com/advisories/GHSA-965c-763c-88jm"
-    },
-    {
-      "id": "GHSA-6v38-4h7w-rj9h",
-      "cve": "CVE-2026-96760",
-      "summary": "Authlib: empty signatures validation in JWS JSON deserialization",
-      "ecosystem": "pip",
-      "packageName": "authlib",
-      "publishedAt": "2026-10-27T14:50:18.000Z",
-      "url": "https://github.com/advisories/GHSA-6v38-4h7w-rj9h"
-    },
-    {
-      "id": "GHSA-m4w4-3r8h-jw98",
-      "cve": "CVE-2026-35002",
-      "summary": "Agno: Arbitrary code execution via `eval()` on `field_type` in `FunctionCall`",
-      "ecosystem": "pip",
-      "packageName": "agno",
-      "publishedAt": "2026-10-27T13:30:41.000Z",
-      "url": "https://github.com/advisories/GHSA-m4w4-3r8h-jw98"
-    },
-    {
-      "id": "GHSA-6hp3-vr39-rqw8",
-      "cve": "CVE-2026-48705",
-      "summary": "MONAILabel Server Crash and Silent Inference Corruption via Crafted DICOM (pydicom DS/IS Validation Bypass)",
-      "ecosystem": "pip",
-      "packageName": "monai",
-      "publishedAt": "2026-10-27T13:30:10.000Z",
-      "url": "https://github.com/advisories/GHSA-6hp3-vr39-rqw8"
     }
   ]
 }
