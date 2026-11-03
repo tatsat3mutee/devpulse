@@ -1,6 +1,16 @@
 {
-  "updatedAt": "2026-11-03T18:02:25.692Z",
+  "updatedAt": "2026-11-03T23:40:23.412Z",
   "kev": [
+    {
+      "cve": "CVE-2026-119977",
+      "vendor": "WordPress",
+      "product": "WordPress Core",
+      "name": "WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability",
+      "dateAdded": "2026-11-03",
+      "dueDate": "2026-11-06",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-119977"
+    },
     {
       "cve": "CVE-2026-118527",
       "vendor": "Ivanti",
@@ -391,15 +401,6 @@
       "packageName": "zip",
       "publishedAt": "2026-10-28T21:09:50.000Z",
       "url": "https://github.com/advisories/GHSA-m665-v7pm-7grj"
-    },
-    {
-      "id": "GHSA-26p8-2jq9-3vq9",
-      "cve": "CVE-2026-116692",
-      "summary": "MLflow vulnerable to remote code execution on unauthenticated servers via third-party scorer deserialization importing caller-placed artifact modules",
-      "ecosystem": "pip",
-      "packageName": "mlflow",
-      "publishedAt": "2026-10-27T21:26:32.000Z",
-      "url": "https://github.com/advisories/GHSA-26p8-2jq9-3vq9"
     }
   ]
 }
