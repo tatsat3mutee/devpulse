@@ -1,0 +1,3187 @@
+{
+  "date": "2026-11-04",
+  "generatedAt": "2026-11-04T06:54:17.092Z",
+  "model": "openai/gpt-6-luna",
+  "candidateCount": 320,
+  "collectedCount": 531,
+  "radar": {
+    "models": [
+      {
+        "id": "LiquidAI/LFM3-1.7B",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 1423,
+        "downloads": 47817,
+        "createdAt": "2026-10-23T21:35:42.000Z"
+      },
+      {
+        "id": "nvidia/NVIDIA-Nemotron-3.5-Transcribe-30B-A4B",
+        "task": "automatic-speech-recognition",
+        "library": "nemo",
+        "likes": 744,
+        "downloads": 38942,
+        "createdAt": "2026-10-07T22:50:21.000Z"
+      },
+      {
+        "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 4878,
+        "downloads": 187260,
+        "createdAt": "2026-10-17T02:40:38.000Z"
+      },
+      {
+        "id": "mistralai/Mistral-Large-4-1T-A52B",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 1555,
+        "downloads": 6556,
+        "createdAt": "2026-09-30T18:35:13.000Z"
+      },
+      {
+        "id": "Qwen/Qwen3.8-27B",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 19094,
+        "downloads": 8014877,
+        "createdAt": "2026-08-05T08:22:59.000Z"
+      },
+      {
+        "id": "baidu/Unlimited-OCR-2",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 593,
+        "downloads": 189897,
+        "createdAt": "2026-10-26T03:57:46.000Z"
+      },
+      {
+        "id": "AtomicChat/DeepSeek-V4.1-Flash-1017-Uncensored-GSQ-RCO-GGUF",
+        "task": "text-generation",
+        "library": "gguf",
+        "likes": 269,
+        "downloads": 53913,
+        "createdAt": "2026-10-28T04:48:45.000Z"
+      },
+      {
+        "id": "Edge0/Audio8-TTS-Realistic-Air",
+        "task": "text-to-speech",
+        "library": "transformers",
+        "likes": 277,
+        "downloads": 8090,
+        "createdAt": "2026-10-14T03:02:49.000Z"
+      },
+      {
+        "id": "Nanbeige/Nanbeige4.3-33B",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 1028,
+        "downloads": 17839,
+        "createdAt": "2026-10-24T02:49:18.000Z"
+      },
+      {
+        "id": "LiquidAI/LFM3-Omni-2B",
+        "task": "any-to-any",
+        "library": "transformers",
+        "likes": 337,
+        "downloads": 11662,
+        "createdAt": "2026-10-21T16:58:40.000Z"
+      },
+      {
+        "id": "sensenova/SenseNova-Loop-9B-Preview",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 215,
+        "downloads": 2221,
+        "createdAt": "2026-10-28T15:34:40.000Z"
+      },
+      {
+        "id": "Diffuspace/Clover-35B-A3B-Preview",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 236,
+        "downloads": 3017,
+        "createdAt": "2026-10-24T03:46:30.000Z"
+      },
+      {
+        "id": "OBLITERATUS/DeepSeek-V4.1-Flash-1017-obliterated",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 236,
+        "downloads": 1643,
+        "createdAt": "2026-10-23T08:59:53.000Z"
+      },
+      {
+        "id": "xiaomi-research/Xiaomi-OCR-0",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 263,
+        "downloads": 20802,
+        "createdAt": "2026-09-29T16:41:40.000Z"
+      },
+      {
+        "id": "AtomicChat/LFM3-1.7B-Uncensored-GGUF",
+        "task": "text-generation",
+        "library": "gguf",
+        "likes": 240,
+        "downloads": 72919,
+        "createdAt": "2026-10-27T18:33:25.000Z"
+      },
+      {
+        "id": "unsloth/DeepSeek-V4.1-Flash-1017-GGUF",
+        "task": "image-text-to-text",
+        "likes": 332,
+        "downloads": 596039,
+        "createdAt": "2026-10-17T20:36:06.000Z"
+      },
+      {
+        "id": "RecursiveSI/flint",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 1320,
+        "downloads": 32677,
+        "createdAt": "2026-10-21T14:20:58.000Z"
+      },
+      {
+        "id": "DavidAU/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NEO-CODER-MAX-MTP-GGUF",
+        "task": "image-text-to-text",
+        "likes": 2391,
+        "downloads": 1371484,
+        "createdAt": "2026-09-01T07:01:09.000Z"
+      },
+      {
+        "id": "divagr1925/Qwen3.5-4B-Qwenputer",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 156,
+        "downloads": 1229,
+        "createdAt": "2026-10-19T18:51:39.000Z"
+      },
+      {
+        "id": "SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF",
+        "task": "image-text-to-text",
+        "library": "gguf",
+        "likes": 660,
+        "downloads": 3487734,
+        "createdAt": "2026-10-02T03:42:33.000Z"
+      }
+    ],
+    "repos": [
+      {
+        "name": "deepseek-ai/dsh-superagent-prototype",
+        "description": "Towards a More Autonomous Agent System",
+        "language": "TypeScript",
+        "stars": 17531,
+        "createdAt": "2026-10-31T09:32:46.000Z"
+      },
+      {
+        "name": "storytold/craft-anything",
+        "description": "Craft Anything: understand how any software works, and craft your own.",
+        "language": "Rust",
+        "stars": 9204,
+        "createdAt": "2026-10-31T14:50:00.000Z"
+      },
+      {
+        "name": "heydamir/unslop",
+        "description": "A Claude skill that turns vibecoded, AI-looking UI into a designed interface",
+        "language": "JavaScript",
+        "stars": 7741,
+        "createdAt": "2026-10-29T15:41:21.000Z"
+      },
+      {
+        "name": "wangzan101/Mika",
+        "description": "An on-device AI agent for Android that operates apps and the web to get things done for you.",
+        "language": "Kotlin",
+        "stars": 6202,
+        "createdAt": "2026-10-29T14:34:07.000Z"
+      },
+      {
+        "name": "valentderah/totk-pc-recomp",
+        "description": "Static recompilation of The Legend of Zelda: Tears of the Kingdom to native Windows and Linux x86-64, with a Vulkan renderer. Game files not included.",
+        "language": "C",
+        "stars": 4604,
+        "createdAt": "2026-10-29T12:32:46.000Z"
+      },
+      {
+        "name": "patch-gg/pixelfx",
+        "description": "244 pixel art effects, every one a small piece of code. Plus a Claude Code skill to make your own.",
+        "language": "JavaScript",
+        "stars": 4289,
+        "createdAt": "2026-10-30T06:43:25.000Z"
+      },
+      {
+        "name": "BryceYuuu/RUN",
+        "description": "RUN · 润：海外移居手册（欧洲 36 国 · 110 条路线 · 主要移民地区）",
+        "language": "Python",
+        "stars": 3291,
+        "createdAt": "2026-10-29T11:28:43.000Z"
+      },
+      {
+        "name": "Djihads80/Eglantine",
+        "description": "VERY experimental Nintendo Switch 2 emulator",
+        "language": "C++",
+        "stars": 3161,
+        "createdAt": "2026-10-29T00:25:18.000Z"
+      },
+      {
+        "name": "paipiange/nvzhuang",
+        "description": "1407 张 AI 女装参考图集与虚拟试穿网站，支持中英检索、OpenAI Images / Gemini / 豆包及自定义 Base URL、API Key、模型。https://github.com/paipiange/nvzhuang",
+        "language": "Go",
+        "stars": 2149,
+        "createdAt": "2026-10-29T06:08:00.000Z"
+      },
+      {
+        "name": "Verlintas/NOIR",
+        "description": "手机隐私审计：用 adb 扫出 Android 应用的权限、上报端点与数据流向，并给出可回滚的处置。Desktop Android leak audit: permissions, endpoints, data flows, reversible fixes.",
+        "language": "Kotlin",
+        "stars": 1831,
+        "createdAt": "2026-10-31T21:34:39.000Z"
+      },
+      {
+        "name": "elvarofficial/teardown",
+        "description": "A Claude Code skill that turns any machine into a 3D simulator you can take apart",
+        "language": "JavaScript",
+        "stars": 1732,
+        "createdAt": "2026-10-30T09:29:01.000Z"
+      },
+      {
+        "name": "caru-ini/stack-diagram",
+        "description": "Agent skill: describe your stack in a sentence, get an architecture diagram with official logos",
+        "language": "TypeScript",
+        "stars": 1629,
+        "createdAt": "2026-11-01T05:35:12.000Z"
+      },
+      {
+        "name": "Arjun-Ingole/hop",
+        "description": "Install Linux next to Windows without a USB stick",
+        "language": "PowerShell",
+        "stars": 1471,
+        "createdAt": "2026-10-30T19:40:45.000Z"
+      },
+      {
+        "name": "Pika-Labs/Pika-H3-Flex",
+        "description": "Pika H3 Flex: video and audio generation inference",
+        "language": "Python",
+        "stars": 1429,
+        "createdAt": "2026-10-29T17:08:59.000Z"
+      },
+      {
+        "name": "kevinraymond/florilegium",
+        "description": "Procedurally generated Delft-blue floral page margins for LuaLaTeX, drawn in Lua",
+        "language": "Lua",
+        "stars": 1416,
+        "createdAt": "2026-10-30T07:49:05.000Z"
+      },
+      {
+        "name": "mromidev/claude-animated-shorts",
+        "description": "Free Claude skill: viral animated story shorts (2D characters in a 3D world) with three.js + Remotion",
+        "language": "TypeScript",
+        "stars": 1300,
+        "createdAt": "2026-11-01T05:50:38.000Z"
+      },
+      {
+        "name": "KKKKhazix/agent-autoloop",
+        "description": "让你的命令行 Agent 在后台自己接活、自己跟进到底；平时不烦你，遇到拿不准的事才发卡片找你拍板。",
+        "language": "TypeScript",
+        "stars": 1268,
+        "createdAt": "2026-11-03T08:02:11.000Z"
+      },
+      {
+        "name": "NiazMorshed2007/reanimate",
+        "description": "A Claude Code skill that reverse-engineers any animation frame by frame, then proves the copy moves the same.",
+        "language": "JavaScript",
+        "stars": 1122,
+        "createdAt": "2026-10-29T06:20:59.000Z"
+      },
+      {
+        "name": "RikiyaT/lm_understand-logs",
+        "description": "Complete logs of the experiments in the blog post 'LLMs can understand and write neural network weights'",
+        "language": "Python",
+        "stars": 792,
+        "createdAt": "2026-10-29T04:17:30.000Z"
+      },
+      {
+        "name": "hyz317/HairDeck",
+        "description": "HairDeck: Animation-Ready Stylized Hair Cards from a Single Image",
+        "language": "Python",
+        "stars": 788,
+        "createdAt": "2026-10-29T17:16:13.000Z"
+      },
+      {
+        "name": "wquguru/cicada",
+        "description": "知了 Cicada · 任意会议与直播的实时字幕、同声传译、AI 会议纪要（macOS）。Live subtitles, interpreting and meeting notes for any call or stream on your Mac.",
+        "language": "Swift",
+        "stars": 770,
+        "createdAt": "2026-11-01T05:41:23.000Z"
+      },
+      {
+        "name": "joeblau/subvox",
+        "language": "Swift",
+        "stars": 715,
+        "createdAt": "2026-10-31T01:48:19.000Z"
+      },
+      {
+        "name": "AssassinCreator/steam-stash-value-report-card",
+        "description": "Value your Steam stash in the terminal and print it as a share card: per game, per market, what sold and what sits. One Windows portable build, no account.",
+        "language": "Python",
+        "stars": 714,
+        "createdAt": "2026-11-02T00:40:47.000Z"
+      },
+      {
+        "name": "sleepy-zone/ai-ref-library-cn",
+        "description": "AI 作图素材库 · 中文版（脸 / 姿势 / 服装）",
+        "language": "JavaScript",
+        "stars": 706,
+        "createdAt": "2026-10-29T15:28:16.000Z"
+      },
+      {
+        "name": "ramenvr/autopilot",
+        "description": "Play any game",
+        "language": "Python",
+        "stars": 695,
+        "createdAt": "2026-10-30T03:47:28.000Z"
+      },
+      {
+        "name": "N1nEmAn/sapper-v2",
+        "description": "Autonomous pentest legion — AI commander + worker swarm + layered fact-intent graph. 3rd Tencent Intelligent Attack-Defense online champion (634 teams · 8h unattended · 1B tokens beat 4.5B). The Nüwa Test: give AIs Create/Language/History, let a civilization grow.",
+        "language": "Python",
+        "stars": 675,
+        "createdAt": "2026-10-30T15:12:35.000Z"
+      },
+      {
+        "name": "alchaincyf/huashu-bird-sticker",
+        "description": "花叔开源的全球鸟类贴纸库 · Stickers for all 11,064 living bird species, with names in 43 languages and structured data",
+        "stars": 633,
+        "createdAt": "2026-10-30T05:19:33.000Z"
+      },
+      {
+        "name": "zortos293/Lichii",
+        "description": "VERY experimental Nintendo Switch 2 emulator",
+        "language": "C++",
+        "stars": 630,
+        "createdAt": "2026-10-31T14:17:26.000Z"
+      },
+      {
+        "name": "govijr/terminal-mac",
+        "description": "Entire MacOS running in your terminal.",
+        "language": "Swift",
+        "stars": 607,
+        "createdAt": "2026-11-03T03:22:56.000Z"
+      },
+      {
+        "name": "rerun-build/rerun",
+        "description": "AI coworkers that run your work. Self-hostable, AGPL-3.0.",
+        "language": "TypeScript",
+        "stars": 607,
+        "createdAt": "2026-10-29T16:09:54.000Z"
+      }
+    ]
+  },
+  "lede": {
+    "text": "Agent safeguards are becoming more concrete: LeanGuard checks tool calls against verified policies, while Caper tests command effects before committing them. But a reported AI-agent attack gave an intruder access to some GitBook infrastructure credentials, showing that controls must extend beyond individual actions to operational recovery. Together, these stories put enforcement and response plans at the center of agent deployment.",
+    "refs": [
+      "paper-2611-02332",
+      "paper-2610-40753",
+      "hn-50354336"
+    ],
+    "quiet": false
+  },
+  "items": [
+    {
+      "id": "paper-2611-02332",
+      "headline": "LeanGuard blocks forbidden tool calls with Lean-verified policies",
+      "originalTitle": "LEANGUARD: Lean-Verified Guardrails for Tool-Using Agents",
+      "url": "https://huggingface.co/papers/2611.02332",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 9,
+      "topic": "agents",
+      "score": 9,
+      "relevance": 3,
+      "whyRead": "LeanGuard checks each tool call against a Lean4 policy and reduces prompt-injection success on DTap from 57.9% to 5.9%, with no forbidden calls observed in the reported Tau-Bench tests. Its fail-closed enforcement and proof-guided repair offer a rigorous approach to agent safeguards.",
+      "publishedAt": "2026-11-01T19:00:00.000Z",
+      "mustRead": true,
+      "author": "Sreehari Sankar et al.",
+      "codeUrl": "https://github.com/DebarghaG/LeanGuard",
+      "codeStars": 8,
+      "brief": [
+        "- LeanGuard checks each proposed tool call against a policy written in Lean4 before it reaches the environment.",
+        "- It fails closed, with decisions proved equivalent to LeanLTL semantics; denied calls can get feedback or proof-guided repair.",
+        "- Verified, fail-closed checks give agent builders a policy boundary; DTap prompt-injection success falls from 57.9% to 5.9%."
+      ],
+      "diagram": {
+        "caption": "LeanGuard checks an agent's proposed call against a Lean4 policy before forwarding it.",
+        "nodes": [
+          {
+            "id": "agents",
+            "label": "language-model agents"
+          },
+          {
+            "id": "guard",
+            "label": "LeanGuard"
+          },
+          {
+            "id": "lean4",
+            "label": "Lean4"
+          },
+          {
+            "id": "environment",
+            "label": "environment"
+          }
+        ],
+        "edges": [
+          {
+            "from": "agents",
+            "to": "guard",
+            "label": "proposed call"
+          },
+          {
+            "from": "lean4",
+            "to": "guard",
+            "label": "policy"
+          },
+          {
+            "from": "guard",
+            "to": "environment",
+            "label": "allowed call"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2611-02497",
+      "headline": "RoboColosseum evaluates robot policies across 124 real-world sites",
+      "originalTitle": "RoboColosseum: Evaluating Physical Intelligence at Scale In-The-Wild",
+      "url": "https://huggingface.co/papers/2611.02497",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "benchmark",
+      "points": 23,
+      "topic": "design",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "The distributed framework runs matched policy evaluations across locally operated robots; 5,699 pairwise comparisons found frontier agents rival specialized policies, with rankings varying sharply by embodiment. It shows how to structure reproducible, large-scale evaluation across heterogeneous deployments.",
+      "publishedAt": "2026-11-01T19:00:00.000Z",
+      "mustRead": true,
+      "author": "Tan Sang Nguyen et al.",
+      "codeUrl": "https://github.com/RoboColosseum/robocolosseum-client",
+      "codeStars": 0,
+      "brief": [
+        "- RoboColosseum is a distributed evaluation framework combining unified policy serving and standardized protocols across locally operated robots.",
+        "- It evaluated five VLA policies and three frontier agents across four embodiments, with 5,699 Open Track comparisons at 124 sites.",
+        "- Rankings agreed weakly across embodiment-specific suites, and Open Track rankings poorly predicted fine-tuned performance."
+      ],
+      "diagram": {
+        "caption": "RoboColosseum's policy serving and standardized protocols connect evaluations to locally operated robots.",
+        "nodes": [
+          {
+            "id": "serving",
+            "label": "unified policy serving"
+          },
+          {
+            "id": "protocols",
+            "label": "standardized protocols"
+          },
+          {
+            "id": "robots",
+            "label": "locally operated robots"
+          }
+        ],
+        "edges": [
+          {
+            "from": "serving",
+            "to": "protocols",
+            "label": "policy requests"
+          },
+          {
+            "from": "protocols",
+            "to": "robots",
+            "label": "evaluation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2611-03634",
+      "headline": "WebHarbor provides 153 deterministic environments for GUI web agents",
+      "originalTitle": "WebHarbor: Docking Real Websites for Evolving GUI Agent Environments",
+      "url": "https://huggingface.co/papers/2611.03634",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 10,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "WebHarbor reconstructs real website interfaces and workflows as 153 Dockerized environments with 3,518 tasks, including authenticated and multi-step flows; the authors also report generalization from RL training. Stable, realistic environments can make GUI-agent evaluation and training more reproducible.",
+      "publishedAt": "2026-11-01T19:00:00.000Z",
+      "mustRead": true,
+      "author": "Zhaoyang Wang et al.",
+      "codeUrl": "https://github.com/aiming-lab/WebHarbor",
+      "codeStars": 44,
+      "brief": [
+        "- WebHarbor is a suite of 153 executable, dockerized website environments that reproduce real services under deterministic control.",
+        "- Tasks expand environment scope, coding agents implement changes, and human contributors audit fidelity, correctness, and validity.",
+        "- Its 3,518 tasks include multi-step and post-authentication workflows; RL training in WebHarbor generalized to unseen tasks."
+      ],
+      "diagram": {
+        "caption": "Tasks drive environment changes that coding agents implement and human contributors audit.",
+        "nodes": [
+          {
+            "id": "tasks",
+            "label": "tasks"
+          },
+          {
+            "id": "agents",
+            "label": "coding agents"
+          },
+          {
+            "id": "environments",
+            "label": "environments"
+          },
+          {
+            "id": "contributors",
+            "label": "human contributors"
+          }
+        ],
+        "edges": [
+          {
+            "from": "tasks",
+            "to": "agents",
+            "label": "required changes"
+          },
+          {
+            "from": "agents",
+            "to": "environments",
+            "label": "implement"
+          },
+          {
+            "from": "environments",
+            "to": "contributors",
+            "label": "audit"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2611-04035",
+      "headline": "Recursa improves domain-task success through recursive self-improvement",
+      "originalTitle": "Recursa: Toward Recursively Self-Improving Foundation Model Systems",
+      "url": "https://huggingface.co/papers/2611.04035",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 9,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Recursa stores skills, instructions and task memories, then uses parallel learners to propose, validate and merge repository improvements; held-out all-pass rates rise from 30% to 55% and 35% to 46% on a legal benchmark. It provides measured evidence for a self-improving agent system without expert supervision.",
+      "publishedAt": "2026-11-01T19:00:00.000Z",
+      "mustRead": false,
+      "author": "Erkang Zhu et al.",
+      "brief": [
+        "- Recursa adapts foundation models to new domains by learning from experience without human experts or a stronger teacher model.",
+        "- It bootstraps a knowledge repository from domain materials, then uses parallel learners to synthesize improvements that are validated and merged.",
+        "- On Harvey LAB's Firm Knowledge benchmark, held-out all-pass rates rose from 30.0% to 55.0% with DeepSeek-V4.1-Flash and 35.0% to 46.0% with Qwen3.8-Flash."
+      ],
+      "diagram": {
+        "caption": "Recursa bootstraps a knowledge repository and updates it with validated learner improvements.",
+        "nodes": [
+          {
+            "id": "materials",
+            "label": "domain materials"
+          },
+          {
+            "id": "repository",
+            "label": "knowledge repository"
+          },
+          {
+            "id": "learners",
+            "label": "parallel learners"
+          }
+        ],
+        "edges": [
+          {
+            "from": "materials",
+            "to": "repository",
+            "label": "bootstrap"
+          },
+          {
+            "from": "learners",
+            "to": "repository",
+            "label": "improvements"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2610-40753",
+      "headline": "Caper tests shell commands in a sandbox before approving them",
+      "originalTitle": "\"Shall We Approve?\" Consequence-Aware Approval for Autonomous Coding Agents",
+      "url": "https://huggingface.co/papers/2610.40753",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 5,
+      "topic": "agents",
+      "score": 9,
+      "relevance": 3,
+      "whyRead": "Caper snapshots a workspace, pre-executes each command, and lets an independent approver inspect observed effects before committing or rolling back; it reports harmful-outcome rates of 6.7% and 7.8% on two benchmarks. This consequence-aware design gives coding-agent systems a measurable way to reduce command risk.",
+      "publishedAt": "2026-10-28T20:00:00.000Z",
+      "mustRead": false,
+      "author": "Weiheng Wu et al.",
+      "codeUrl": "https://github.com/wudaoz/Caper",
+      "codeStars": 4,
+      "brief": [
+        "- Caper pre-executes proposed shell commands in a snapshotted sandbox before approval.",
+        "- An independent approver gets a bounded report of observed effects; allowed commands are committed and blocked ones rolled back with a reason.",
+        "- Assessing workspace and tool consequences, rather than command text alone, reduced harmful outcomes on SABER and YoloFS-Ext."
+      ],
+      "diagram": {
+        "caption": "Caper runs commands in a sandbox, reports observed effects, and returns decisions to coding agents.",
+        "nodes": [
+          {
+            "id": "agents",
+            "label": "Coding agents"
+          },
+          {
+            "id": "caper",
+            "label": "Caper"
+          },
+          {
+            "id": "sandbox",
+            "label": "snapshotted sandbox"
+          },
+          {
+            "id": "approver",
+            "label": "independent approver"
+          }
+        ],
+        "edges": [
+          {
+            "from": "agents",
+            "to": "caper",
+            "label": "proposed command"
+          },
+          {
+            "from": "caper",
+            "to": "sandbox",
+            "label": "pre-execute"
+          },
+          {
+            "from": "sandbox",
+            "to": "approver",
+            "label": "effects report"
+          },
+          {
+            "from": "approver",
+            "to": "caper",
+            "label": "decision"
+          },
+          {
+            "from": "caper",
+            "to": "agents",
+            "label": "reason"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-gcloud-evaluate-agent-skills-before-they-bloat-your-context-window",
+      "headline": "Evaluate agent skills for trigger collisions and security before spending tokens",
+      "originalTitle": "Five rules for evaluating agent skills before they bloat your context window",
+      "url": "https://cloud.google.com/blog/topics/developers-practitioners/evaluate-agent-skills-before-they-bloat-your-context-window/",
+      "source": "blog",
+      "sourceLabel": "Google Cloud",
+      "kind": "guide",
+      "readMinutes": 6,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "The playbook draws on dozens of agent scenarios and recommends checking trigger collisions and security risks before container-based evaluations. Teams building skills can use its evaluation-first approach to avoid adding context that confuses models without improving results.",
+      "publishedAt": "2026-11-03T08:00:00.000Z",
+      "mustRead": false,
+      "author": "Karl Weinmeister, Alan Blount",
+      "brief": [
+        "- Agent-skill evaluations should check frontmatter routing collisions and security risks before launching container runs.",
+        "- Routers inspect short names and descriptions in YAML frontmatter; broad sibling descriptions can hijack prompts, while skill bodies may never load.",
+        "- Isolated evaluation avoids workstation credentials and other ambient state masking failures, making skill tests more reliable."
+      ]
+    },
+    {
+      "id": "hn-50348962",
+      "headline": "NVIDIA Auto-Ontology gives agents reviewed definitions for enterprise data",
+      "originalTitle": "Nvidia – open-source auto-ontology",
+      "url": "https://github.com/NVIDIA/auto-ontology",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50348962",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50348962",
+          "comments": 132,
+          "points": 272
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 11,
+      "points": 272,
+      "comments": 132,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Auto-Ontology compiles database metadata into business terms, reviewed SQL measures and table relationships, with people able to certify definitions. It also lets agents check whether a question is answerable before querying, addressing a key reliability problem in agentic analytics.",
+      "publishedAt": "2026-11-03T07:04:50.000Z",
+      "mustRead": false,
+      "brief": [
+        "- Auto-Ontology is a service beside databases that compiles metadata into business terms mapped to columns, reviewed SQL, and table relationships.",
+        "- Agents query through the ontology; people review definitions in a web UI, and answerability checks can return SQL and the agent's steps.",
+        "- It provides grounded definitions and question-relevant context instead of full schemas, aiming to reduce wrong answers on enterprise data."
+      ],
+      "diagram": {
+        "caption": "Auto-Ontology compiles database metadata into context agents use, with people reviewing definitions.",
+        "nodes": [
+          {
+            "id": "databases",
+            "label": "databases"
+          },
+          {
+            "id": "ontology",
+            "label": "Auto-Ontology"
+          },
+          {
+            "id": "agents",
+            "label": "agents"
+          },
+          {
+            "id": "ui",
+            "label": "web UI"
+          }
+        ],
+        "edges": [
+          {
+            "from": "databases",
+            "to": "ontology",
+            "label": "metadata"
+          },
+          {
+            "from": "agents",
+            "to": "ontology",
+            "label": "questions"
+          },
+          {
+            "from": "ontology",
+            "to": "agents",
+            "label": "context and answers"
+          },
+          {
+            "from": "ui",
+            "to": "ontology",
+            "label": "review"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50350004",
+      "headline": "Revolut moves 2,000 engineers to self-hosted GLM for coding",
+      "originalTitle": "Revolut moves to self-hosted GLM",
+      "url": "https://twitter.com/guilleflorvs/status/2117379073785696395",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50350004",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50350004",
+          "comments": 159,
+          "points": 189
+        }
+      ],
+      "kind": "case-study",
+      "points": 189,
+      "comments": 159,
+      "topic": "design",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "A post says Revolut moved about 2,000 engineers to self-hosted GLM on 56 Nvidia B200s, at a blended $0.30 per million tokens, and reports 70% better engineering lead time. The migration offers a concrete look at how lower model costs can change usage across an engineering team.",
+      "publishedAt": "2026-11-03T09:53:59.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-04/hn-50350004.webp",
+      "brief": [
+        "- Revolut reportedly moved about 2,000 engineers to self-hosted GLM for coding, with Claude Code and Codex on an exception list.",
+        "- The setup uses 56 Nvidia B200s at a blended 30 cents per million tokens; engineering lead time improved 70%.",
+        "- The post says cheaper tokens led engineers to use AI on more work, illustrating how inference cost can shape adoption at scale."
+      ]
+    },
+    {
+      "id": "hn-50336138",
+      "headline": "An AI agent chose a gene therapy and operated a mouse-brain surgery rig",
+      "originalTitle": "Last night an AI agent performed brain surgery on a mouse",
+      "url": "https://twitter.com/OcanaSantero/status/2115442964574908902",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50336138",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50336138",
+          "comments": 116,
+          "points": 142
+        }
+      ],
+      "kind": "case-study",
+      "points": 142,
+      "comments": 116,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The agent selected a therapy and brain region, derived coordinates from papers, and injected 250 nanolitres while a licensed vet gated irreversible steps and held a kill switch. The human controls are relevant to anyone designing agents for consequential actions.",
+      "publishedAt": "2026-11-02T12:50:59.000Z",
+      "mustRead": false,
+      "brief": [
+        "An AI agent selected a gene therapy vector and brain region for a mouse epilepsy model, with the goal of reducing seizures.",
+        "It derived coordinates from three papers, operated stereotaxic arms and injected while monitoring the site through a camera.",
+        "For engineers, it illustrates autonomous control of physical systems paired with human gates and a kill switch for irreversible actions."
+      ],
+      "diagram": {
+        "caption": "The agent combines candidate vectors, research and camera feedback to perform a vet-gated procedure.",
+        "nodes": [
+          {
+            "id": "spreadsheet",
+            "label": "spreadsheet"
+          },
+          {
+            "id": "papers",
+            "label": "three papers"
+          },
+          {
+            "id": "agent",
+            "label": "AI agent"
+          },
+          {
+            "id": "arms",
+            "label": "stereotaxic arms"
+          },
+          {
+            "id": "camera",
+            "label": "rig camera"
+          },
+          {
+            "id": "vet",
+            "label": "licensed vet"
+          }
+        ],
+        "edges": [
+          {
+            "from": "spreadsheet",
+            "to": "agent",
+            "label": "vectors, goal"
+          },
+          {
+            "from": "papers",
+            "to": "agent",
+            "label": "coordinates"
+          },
+          {
+            "from": "agent",
+            "to": "arms",
+            "label": "injection"
+          },
+          {
+            "from": "camera",
+            "to": "agent",
+            "label": "site feedback"
+          },
+          {
+            "from": "vet",
+            "to": "agent",
+            "label": "gates steps"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50354336",
+      "headline": "AI-agent attack gives an intruder access to GitBook infrastructure credentials",
+      "originalTitle": "Gitbook Breached",
+      "url": "https://news.ycombinator.com/item?id=50354336",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50354336",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50354336",
+          "comments": 36,
+          "points": 152
+        }
+      ],
+      "kind": "postmortem",
+      "readMinutes": 8,
+      "points": 152,
+      "comments": 36,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "GitBook says an attack using AI agents gave an intruder access to some infrastructure credentials, prompting it to take services offline and replace its secrets. The incident highlights the operational impact of agent-enabled attacks and the importance of credential rotation and recovery plans.",
+      "publishedAt": "2026-11-03T16:45:49.000Z",
+      "mustRead": false,
+      "brief": [
+        "GitBook reported that an attacker using AI agents gained unauthorized access to some infrastructure credentials.",
+        "The company took services offline, replaced infrastructure credentials and secrets, invalidated customer API tokens, and found no evidence of modified content.",
+        "The incident may have exposed Git Sync secrets, API tokens and Assistant questions, so users were told to rotate credentials and re-authenticate MCP."
+      ]
+    },
+    {
+      "id": "hn-50352898",
+      "headline": "Octomind coding harness reports 24 wins on 25 pull-request tasks",
+      "originalTitle": "Octomind – open-source AI harness that saves your tokens, static rust",
+      "url": "https://github.com/Muvon/octomind",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50352898",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50352898",
+          "comments": 36,
+          "points": 53
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 10,
+      "points": 53,
+      "comments": 36,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Octomind combines TOML guardrails with a supervising model and reports solving 24 of 25 tasks, versus OpenCode’s 19 with the same model at about twice the cost. The small, project-reported benchmark makes its unattended agent workflow worth examining, but needs independent validation.",
+      "publishedAt": "2026-11-03T15:02:58.000Z",
+      "mustRead": false,
+      "brief": [
+        "Octomind is an open-source Rust harness that gives LLMs repository tools and runs as a CLI, daemon, WebSocket server or editor agent.",
+        "TOML guardrails run deterministically, while a supervising model plans and checks work; on 25 merged-PR tasks, it solved 24.",
+        "For engineers, policy-as-code and supervised tool use let coding-agent sessions run in CI or unattended, rather than stopping for approval prompts."
+      ],
+      "diagram": {
+        "caption": "Octomind combines model supervision and guardrails with tool calls and results.",
+        "nodes": [
+          {
+            "id": "user-message",
+            "label": "user message"
+          },
+          {
+            "id": "llm",
+            "label": "LLM"
+          },
+          {
+            "id": "guardrails",
+            "label": "guardrails"
+          },
+          {
+            "id": "tool-bundles",
+            "label": "tool bundles"
+          },
+          {
+            "id": "supervising-model",
+            "label": "supervising model"
+          }
+        ],
+        "edges": [
+          {
+            "from": "user-message",
+            "to": "llm",
+            "label": "prompt"
+          },
+          {
+            "from": "llm",
+            "to": "guardrails",
+            "label": "tool call"
+          },
+          {
+            "from": "guardrails",
+            "to": "tool-bundles",
+            "label": "allowed call"
+          },
+          {
+            "from": "tool-bundles",
+            "to": "llm",
+            "label": "tool result"
+          },
+          {
+            "from": "supervising-model",
+            "to": "llm",
+            "label": "plan and checks"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50352767",
+      "headline": "Index handles can replace pointers in large C++ object graphs",
+      "originalTitle": "Handles are the better pointers (2018)",
+      "url": "https://floooh.github.io/2018/06/17/handles-vs-pointers.html",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50352767",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50352767",
+          "comments": 27,
+          "points": 62
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 13,
+      "points": 62,
+      "comments": 27,
+      "topic": "systems",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "Drawing on 15 years in large C++ codebases, the author argues that index handles avoid heap-allocation overhead, fragmentation and cache misses; a per-slot generation counter can prevent handle collisions. The trade-offs are useful for engineers optimizing object-heavy systems.",
+      "publishedAt": "2026-11-03T14:54:30.000Z",
+      "mustRead": false,
+      "brief": [
+        "Index-handles replace most raw and smart pointers in a design that centralizes memory management and groups same-type items into arrays.",
+        "Systems return an index-handle instead of an item pointer; code converts the handle to a pointer only when needed and does not store it.",
+        "For large, frequently changing object collections, this data-oriented approach aims to reduce cache misses, fragmentation and fake leaks."
+      ],
+      "diagram": {
+        "caption": "Central systems own arrays and expose index-handles to user-level code.",
+        "nodes": [
+          {
+            "id": "central-systems",
+            "label": "central systems"
+          },
+          {
+            "id": "arrays",
+            "label": "arrays"
+          },
+          {
+            "id": "index-handles",
+            "label": "index-handles"
+          },
+          {
+            "id": "user-code",
+            "label": "user-level code"
+          }
+        ],
+        "edges": [
+          {
+            "from": "central-systems",
+            "to": "arrays",
+            "label": "manage items"
+          },
+          {
+            "from": "central-systems",
+            "to": "user-code",
+            "label": "return handle"
+          },
+          {
+            "from": "user-code",
+            "to": "index-handles",
+            "label": "store handle"
+          },
+          {
+            "from": "index-handles",
+            "to": "central-systems",
+            "label": "resolve"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50352641",
+      "headline": "Posttraining lacks the public data commons that supported pretraining",
+      "originalTitle": "There is no posttraining data commons",
+      "url": "https://openathena.ai/blog/there-is-no-posttraining-data-commons/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50352641",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50352641",
+          "comments": 17,
+          "points": 56
+        }
+      ],
+      "kind": "essay",
+      "readMinutes": 10,
+      "points": 56,
+      "comments": 17,
+      "topic": "ai",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The piece contrasts pretraining’s abundant public sources—such as Wikipedia, open-source code and scientific papers—with the lack of a comparable posttraining data commons. ML engineers should consider how data availability shapes future training practice.",
+      "publishedAt": "2026-11-03T14:45:47.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-04/hn-50352641.webp",
+      "brief": [
+        "Pretraining drew on a public data commons built from sources such as Wikipedia, Common Crawl, ArXiv and open-source code; the excerpt says posttraining lacks an equivalent.",
+        "The key distinction is that pretraining consumes documents, while posttraining consumes tasks that are situated, change as people act, and cannot be repeated identically.",
+        "For AI engineers, the lack of a reusable task commons makes posttraining data collection and creation a distinct challenge."
+      ]
+    },
+    {
+      "id": "paper-2611-02501",
+      "headline": "SpecPilot uses autonomous search to optimize speculative decoding per deployment",
+      "originalTitle": "SpecPilot: Autonomous Algorithm Discovery and Systems Optimization for Speculative Decoding",
+      "url": "https://huggingface.co/papers/2611.02501",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 14,
+      "topic": "inference",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "SpecPilot uses a cost model to identify gaps in speculative-decoding systems, then has parallel agents test and integrate optimizations; token forcing checks outputs against the stock system. The deployment-specific approach reflects the trade-offs involved in tuning inference systems.",
+      "publishedAt": "2026-11-01T19:00:00.000Z",
+      "mustRead": false,
+      "author": "Kunjun Li et al.",
+      "codeUrl": "https://github.com/StargazerX0/SpecPilot",
+      "codeStars": 29,
+      "brief": [
+        "SpecPilot is an autonomous agent loop that searches for deployment-specific algorithm and systems optimizations for speculative decoding.",
+        "A cost model finds gaps, parallel agents explore them, token forcing checks outputs against stock, and structured memory carries validated mechanisms forward.",
+        "For serving engineers, its approach targets different deployment regimes rather than assuming one speculative-decoding optimization fits all."
+      ],
+      "diagram": {
+        "caption": "SpecPilot uses measured gaps to guide optimization and carries validated mechanisms into later rounds.",
+        "nodes": [
+          {
+            "id": "current-system",
+            "label": "current system"
+          },
+          {
+            "id": "cost-model",
+            "label": "cost model"
+          },
+          {
+            "id": "parallel-agents",
+            "label": "parallel agents"
+          },
+          {
+            "id": "token-forcing",
+            "label": "Token forcing"
+          },
+          {
+            "id": "structured-memory",
+            "label": "structured memory"
+          }
+        ],
+        "edges": [
+          {
+            "from": "current-system",
+            "to": "cost-model",
+            "label": "measure gaps"
+          },
+          {
+            "from": "cost-model",
+            "to": "parallel-agents",
+            "label": "exploration directions"
+          },
+          {
+            "from": "parallel-agents",
+            "to": "token-forcing",
+            "label": "candidate outputs"
+          },
+          {
+            "from": "token-forcing",
+            "to": "structured-memory",
+            "label": "validated mechanisms"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-aws-ml-building-ultra-low-latency-voice-ai-applications-on-aws",
+      "headline": "Cartesia uses state-space models and AWS infrastructure for sub-100ms voice AI",
+      "originalTitle": "Building ultra-low-latency voice AI applications on AWS",
+      "url": "https://aws.amazon.com/blogs/machine-learning/building-ultra-low-latency-voice-ai-applications-on-aws/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "case-study",
+      "readMinutes": 10,
+      "topic": "inference",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The post says Cartesia uses purpose-built state-space models and AWS infrastructure for text-to-speech and speech-to-text under 100 milliseconds at global scale. The latency target and serving approach matter for engineers building real-time voice systems.",
+      "publishedAt": "2026-11-03T16:40:54.000Z",
+      "mustRead": false,
+      "author": "Nolan Chen",
+      "brief": [
+        "Cartesia uses State Space Models and AWS infrastructure for real-time voice AI, with the post describing sub-100ms text-to-speech and speech-to-text.",
+        "SSMs process sequences step by step while carrying a compact internal state, unlike transformers that compare sequence elements through attention.",
+        "For engineers building streaming audio systems, the fixed-size state and native streaming support can reduce memory and latency pressure."
+      ]
+    },
+    {
+      "id": "blog-aws-ml-introducing-india-based-inference-for-kimi-k3-on-amazon-bedrock",
+      "headline": "Amazon Bedrock adds India-based inference for Kimi K3",
+      "originalTitle": "Introducing India-based inference for Kimi K3 on Amazon Bedrock",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-india-based-inference-for-kimi-k3-on-amazon-bedrock/",
+      "source": "blog",
+      "sourceLabel": "AWS Machine Learning",
+      "kind": "release",
+      "readMinutes": 8,
+      "topic": "inference",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Bedrock now offers in-country Kimi K3 inference in India for data-residency needs; one customer reports 80% lower costs with prompt caching and 85% faster multi-turn chats. The release illustrates how regional serving and caching can affect production AI workloads.",
+      "publishedAt": "2026-11-03T16:32:54.000Z",
+      "mustRead": false,
+      "author": "Naomi Teng",
+      "brief": [
+        "Amazon Bedrock now offers India in-country inference for the Kimi K3 model through a geographic inference profile.",
+        "The profile limits processing to Mumbai and Hyderabad; cross-Region requests travel encrypted over the AWS network, not the public internet.",
+        "Engineers with data-residency requirements can route inference in India without setting up multi-Region VPC infrastructure."
+      ],
+      "diagram": {
+        "caption": "The geographic inference profile determines the eligible destination Regions for Kimi K3 requests.",
+        "nodes": [
+          {
+            "id": "source-region",
+            "label": "source Region"
+          },
+          {
+            "id": "profile",
+            "label": "inference profile ID"
+          },
+          {
+            "id": "aws-network",
+            "label": "AWS network"
+          },
+          {
+            "id": "destination-regions",
+            "label": "destination Regions"
+          },
+          {
+            "id": "kimi-k3",
+            "label": "Kimi K3"
+          }
+        ],
+        "edges": [
+          {
+            "from": "source-region",
+            "to": "aws-network",
+            "label": "request"
+          },
+          {
+            "from": "aws-network",
+            "to": "destination-regions",
+            "label": "encrypted transit"
+          },
+          {
+            "from": "profile",
+            "to": "destination-regions",
+            "label": "selects eligible"
+          },
+          {
+            "from": "destination-regions",
+            "to": "kimi-k3",
+            "label": "process"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-meta-eng-f3-lightning-how-meta-accelerates-ads-ml-features-to-production",
+      "headline": "Meta F3 merges ads features into one graph for requests needing 20,000-plus features",
+      "originalTitle": "F3 Lightning: How Meta Accelerates Ads ML Features to Production at Scale",
+      "url": "https://engineering.fb.com/2026/11/03/ml-applications/f3-lightning-how-meta-accelerates-ads-ml-features-to-production/",
+      "source": "blog",
+      "sourceLabel": "Engineering at Meta",
+      "kind": "case-study",
+      "readMinutes": 10,
+      "topic": "design",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Meta’s feature framework compiles ads features into one merged graph, reducing execution compute for requests that can require more than 20,000 features. The design offers lessons for serving high-volume ML features efficiently.",
+      "publishedAt": "2026-11-03T17:00:35.000Z",
+      "mustRead": false,
+      "brief": [
+        "F3 Lightning decouples ads-feature releases from shared execution in Meta’s F3 feature-serving framework.",
+        "It compiles, validates, deploys and rolls back each feature independently while retaining a shared execution plan and memory buffer.",
+        "Comparable extraction features reach production about 3.6x faster with no increase in infrastructure compute cost, enabling more model iterations."
+      ],
+      "diagram": {
+        "caption": "F3 compiles feature definitions into a merged graph that runtime traverses to produce feature values.",
+        "nodes": [
+          {
+            "id": "compiler",
+            "label": "F3 compiler"
+          },
+          {
+            "id": "small-graph",
+            "label": "small graph"
+          },
+          {
+            "id": "merged-graph",
+            "label": "merged graph"
+          },
+          {
+            "id": "runtime",
+            "label": "runtime"
+          },
+          {
+            "id": "feature-values",
+            "label": "feature values"
+          }
+        ],
+        "edges": [
+          {
+            "from": "compiler",
+            "to": "small-graph",
+            "label": "compile"
+          },
+          {
+            "from": "small-graph",
+            "to": "merged-graph",
+            "label": "merge"
+          },
+          {
+            "from": "merged-graph",
+            "to": "runtime",
+            "label": "traverse"
+          },
+          {
+            "from": "runtime",
+            "to": "feature-values",
+            "label": "outputs"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-gcloud-introducing-physical-engineerings-last-exam-for-agents",
+      "headline": "Physical-Engineering’s Last Exam releases 29 tasks with grading tools",
+      "originalTitle": "Introducing Physical-Engineering’s Last Exam for agents",
+      "url": "https://cloud.google.com/blog/products/ai-machine-learning/introducing-physical-engineerings-last-exam-for-agents/",
+      "source": "blog",
+      "sourceLabel": "Google Cloud",
+      "kind": "benchmark",
+      "readMinutes": 4,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The new benchmark and competition provides 29 public engineering tasks, grading tools, and a leaderboard for testing agents on mechanical, electrical, civil, and structural work. It gives teams a concrete evaluation resource for agent capabilities beyond digital office tasks.",
+      "publishedAt": "2026-11-03T08:00:00.000Z",
+      "mustRead": false,
+      "author": "Google AI & Infrastructure",
+      "brief": [
+        "Physical-Engineering’s Last Exam is a benchmark and open competition for evaluating agents on mechanical, electrical, civil and structural engineering work.",
+        "Agents work through containerized project folders containing varied engineering files, then produce deliverables for licensed review.",
+        "Its long-horizon tasks test professional engineering work beyond textbook questions and small, self-contained design problems."
+      ],
+      "diagram": {
+        "caption": "Practicing engineers and an agent pipeline assemble and validate PLE task environments and graders.",
+        "nodes": [
+          {
+            "id": "engineers",
+            "label": "practicing engineers"
+          },
+          {
+            "id": "agent-pipeline",
+            "label": "agent pipeline"
+          },
+          {
+            "id": "environment",
+            "label": "task's environment"
+          },
+          {
+            "id": "grader",
+            "label": "grader"
+          }
+        ],
+        "edges": [
+          {
+            "from": "engineers",
+            "to": "agent-pipeline",
+            "label": "initial task"
+          },
+          {
+            "from": "agent-pipeline",
+            "to": "environment",
+            "label": "assemble"
+          },
+          {
+            "from": "agent-pipeline",
+            "to": "grader",
+            "label": "assemble"
+          },
+          {
+            "from": "environment",
+            "to": "engineers",
+            "label": "validate"
+          },
+          {
+            "from": "grader",
+            "to": "engineers",
+            "label": "validate"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-aws-arch-validating-your-dr-commitment-from-controlled-test-to-real-world-readiness",
+      "headline": "Progressive disaster-recovery tests expose gaps that scheduled failovers miss",
+      "originalTitle": "Validating your DR commitment: From controlled test to real-world readiness",
+      "url": "https://aws.amazon.com/blogs/architecture/validating-your-dr-commitment-from-controlled-test-to-real-world-readiness/",
+      "source": "blog",
+      "sourceLabel": "AWS Architecture",
+      "kind": "guide",
+      "readMinutes": 6,
+      "topic": "design",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Scheduled exercises can verify traffic shifts and data consistency but may not test team coordination or who declares a failover; the article lays out progressive validation. This is useful for designing recovery commitments that hold up beyond rehearsed conditions.",
+      "publishedAt": "2026-11-02T17:26:33.000Z",
+      "mustRead": false,
+      "author": "Peter Garnepudi",
+      "brief": [
+        "Progressive disaster-recovery validation deepens testing from low-cost awareness exercises toward higher-fidelity checks.",
+        "Tabletops expose ownership and scope gaps; other checks must verify recovery-region capacity, account quotas and pre-provisioned resources.",
+        "Engineers can use test findings to strengthen recovery commitments and prepare failover environments before an incident."
+      ]
+    },
+    {
+      "id": "blog-aws-arch-three-business-decisions-that-define-your-dr-success",
+      "headline": "Three recovery decisions shape disaster-recovery targets before architecture",
+      "originalTitle": "Three business decisions that define your DR success",
+      "url": "https://aws.amazon.com/blogs/architecture/three-business-decisions-that-define-your-dr-success/",
+      "source": "blog",
+      "sourceLabel": "AWS Architecture",
+      "kind": "guide",
+      "readMinutes": 6,
+      "topic": "design",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The guide focuses on what to recover, what recovery the business needs, and what dependencies make a commitment feasible; revisiting these decisions helped turn a missed target into a successful test. Teams can use the framework before selecting a DR architecture.",
+      "publishedAt": "2026-11-02T17:26:26.000Z",
+      "mustRead": false,
+      "author": "Peter Garnepudi",
+      "brief": [
+        "A disaster-recovery strategy starts with decisions about the recovery boundary, business target and dependencies before choosing an architecture.",
+        "In one exercise, a shared authentication platform outside the recovery scope left failed-over applications unable to authenticate users.",
+        "Defining recovery around business functions and their dependencies helps engineers set meaningful targets and avoid false signs of recovery."
+      ]
+    },
+    {
+      "id": "blog-lwn-1104847",
+      "headline": "Google and partners dismantle XCPE botnet built into 1.3 million set-top boxes",
+      "originalTitle": "Shutting the Door on the XCPE Botnet (Threat Intelligence)",
+      "url": "https://lwn.net/Articles/1104847/",
+      "source": "blog",
+      "sourceLabel": "LWN.net",
+      "kind": "news",
+      "readMinutes": 4,
+      "topic": "security",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "The XCPE backdoor enrolled more than 1.3 million set-top boxes, and operators sold access for ad fraud, residential proxies and malware deployment. The takedown highlights the risks of compromised devices shipped through an OEM supply chain.",
+      "publishedAt": "2026-11-02T14:29:37.000Z",
+      "mustRead": false,
+      "author": "corbet",
+      "brief": [
+        "Google and industry partners dismantled the XCPE backdoor, which had enrolled more than 1.3 million set-top boxes into a botnet.",
+        "The operators sold access to criminal affiliates, whose modules conducted ad fraud, enrolled devices in residential proxy networks and loaded malware.",
+        "The case highlights how compromised device fleets and OEM supply chains can become infrastructure for criminal activity."
+      ]
+    },
+    {
+      "id": "hn-50355251",
+      "headline": "Qwen 3.8 27B on a laptop can interpret model weights, author reports",
+      "originalTitle": "Qwen 3.8 27B on my laptop can interpret model weights, too",
+      "url": "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50355251",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50355251",
+          "comments": 172,
+          "points": 565
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 6,
+      "points": 565,
+      "comments": 172,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The author says a local Qwen model can reproduce an example from research on models interpreting and modifying raw neural-network weights. Testing whether this capability works beyond frontier models could matter for model analysis and editing.",
+      "publishedAt": "2026-11-03T17:40:00.000Z",
+      "mustRead": false,
+      "brief": [
+        "Simon Willison reports that Qwen 3.8 27B running on his laptop can interpret model weights.",
+        "The cited study gives an LLM raw floating-point weights from a game-playing network and asks it to identify the game, without tools.",
+        "For AI engineers, this probes whether model behavior can be inferred from weights without executing code or using tools."
+      ]
+    },
+    {
+      "id": "hn-50352758",
+      "headline": "Namespace builds Mac racks to launch macOS instances in seconds",
+      "originalTitle": "Mac at any scale",
+      "url": "https://namespace.so/blog/mac-at-any-scale",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50352758",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50352758",
+          "comments": 202,
+          "points": 359
+        },
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/j1twhe/mac_at_any_scale",
+          "comments": 0,
+          "points": 1
+        }
+      ],
+      "kind": "case-study",
+      "readMinutes": 13,
+      "points": 359,
+      "comments": 202,
+      "topic": "design",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Namespace describes custom Mac racks for starting macOS instances from scratch in seconds and delivering new Xcode versions within hours of release. It is a practical infrastructure case study for teams that need Macs to build and test iOS apps, including coding-agent workflows.",
+      "publishedAt": "2026-11-03T14:53:42.000Z",
+      "mustRead": false,
+      "brief": [
+        "Namespace builds custom datacenter racks from MacBooks to start macOS instances quickly and deliver new Xcode versions soon after release.",
+        "Each MacBook connects to an IP KVM and external 10G Ethernet NIC; custom holders wick heat away from hotspots.",
+        "The setup serves iOS build and test workloads when Mac Mini supply delays and model availability make those systems less suitable."
+      ]
+    },
+    {
+      "id": "hn-50358582",
+      "headline": "Generative AI primer derives connections across major model families",
+      "originalTitle": "The Little Book of Generative AI Foundations: An Intuitive Mathematical Primer",
+      "url": "https://arxiv.org/abs/2605.29713",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50358582",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50358582",
+          "comments": 49,
+          "points": 302
+        }
+      ],
+      "kind": "paper",
+      "points": 302,
+      "comments": 49,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The primer develops mathematical links among PCA, VAEs, diffusion, normalizing flows, autoregressive models, GANs and energy-based models. It can help practitioners build conceptual foundations, though the abstract reports no implementation results.",
+      "publishedAt": "2026-11-03T21:40:53.000Z",
+      "mustRead": false,
+      "brief": [
+        "The Little Book of Generative AI Foundations is a derivation-oriented mathematical primer on modern generative AI.",
+        "It traces connections among PCA, VAEs, diffusion models, normalising flows, autoregressive models, GANs and energy-based models.",
+        "Its connected mathematical treatment can help AI practitioners understand how generative model families are derived and related."
+      ]
+    },
+    {
+      "id": "hn-50355767",
+      "headline": "An AI research engineer’s workflows and personal policy for using AI",
+      "originalTitle": "How I use AI (Oct 2026)",
+      "url": "https://ben.stolovitz.com/posts/how-use-ai-oct-2026/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50355767",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50355767",
+          "comments": 115,
+          "points": 134
+        }
+      ],
+      "kind": "essay",
+      "readMinutes": 21,
+      "points": 134,
+      "comments": 115,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The author describes using AI for coding, research, search, transcription, writing, and creative work, spending about $3,000 a month on tokens, and drafting a personal AI policy. The concrete workflow and cost offer a practitioner’s perspective on everyday AI use.",
+      "publishedAt": "2026-11-03T18:11:11.000Z",
+      "mustRead": false,
+      "brief": [
+        "• A research engineer describes a personal policy for day-to-day AI use and workflows spanning coding, research, writing, and media.",
+        "• They manage about 5–6 coding agents, each with its own Git worktree; agents write code, run tests, and create and review PRs.",
+        "• Agents let the engineer prototype quickly, test risky ideas, and delegate drudge work while supporting scientists and building prototypes."
+      ],
+      "diagram": {
+        "caption": "Coding agents work in separate worktrees, run tests, and produce pull requests.",
+        "nodes": [
+          {
+            "id": "claude-code",
+            "label": "Claude Code"
+          },
+          {
+            "id": "git-worktree",
+            "label": "Git worktree"
+          },
+          {
+            "id": "tests",
+            "label": "tests"
+          },
+          {
+            "id": "prs",
+            "label": "PRs"
+          }
+        ],
+        "edges": [
+          {
+            "from": "claude-code",
+            "to": "git-worktree",
+            "label": "writes code"
+          },
+          {
+            "from": "git-worktree",
+            "to": "tests",
+            "label": "run"
+          },
+          {
+            "from": "tests",
+            "to": "prs",
+            "label": "create and review"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-gwyv50",
+      "headline": "kitty 0.50 adds docked windows and session restoration",
+      "originalTitle": "kitty 0.50.0",
+      "url": "https://sw.kovidgoyal.net/kitty/changelog/#id1",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/gwyv50/kitty_0_50_0",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/gwyv50/kitty_0_50_0",
+          "comments": 0,
+          "points": 27
+        }
+      ],
+      "kind": "release",
+      "readMinutes": 120,
+      "points": 27,
+      "comments": 0,
+      "topic": "languages",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "kitty 0.50 adds docked windows that follow their parent across tabs, plus session restoration that preserves windows, tabs and scrollback. These features can improve terminal workflows for engineers who keep editors, shells and status panes together.",
+      "publishedAt": "2026-11-03T17:43:09.945Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-04/lobsters-gwyv50.webp",
+      "brief": [
+        "• kitty 0.50 adds docked windows that attach to another window or tab, suitable for status bars, file trees, or a nearby shell.",
+        "• Docks follow attached windows across tabs and close with them; session restoration saves windows, tabs, and scrollback across logout or restart.",
+        "• Persistent terminal layouts and docked tools help engineers keep workspaces intact and organize supporting views beside editors."
+      ]
+    },
+    {
+      "id": "lobsters-ihvhfk",
+      "headline": "A second Futamura projection specializes the specializer itself",
+      "originalTitle": "A Second Futamura Projection",
+      "url": "https://blog.veitheller.de/A_Second_Futamura_Projection.html",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/ihvhfk/second_futamura_projection",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/ihvhfk/second_futamura_projection",
+          "comments": 2,
+          "points": 8
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 16,
+      "points": 8,
+      "comments": 2,
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The author applies the second Futamura projection to specialize a program specializer, aiming to avoid repeatedly walking the interpreter for each Brainfuck program. The technique offers a concrete look at how specialization can produce compiled programs without hand-written instruction translations.",
+      "publishedAt": "2026-11-03T16:14:27.370Z",
+      "mustRead": false,
+      "brief": [
+        "• The second Futamura projection specializes a specializer using an interpreter as fixed input, producing a compiler.",
+        "• The resulting compiler takes a Brainfuck program and produces residual code without executing the interpreter.",
+        "• This avoids rerunning the specializer over the interpreter for every program and yields a compiler resembling a hand-written one."
+      ],
+      "diagram": {
+        "caption": "Specializing the specializer with an interpreter produces a compiler for Brainfuck programs.",
+        "nodes": [
+          {
+            "id": "specializer",
+            "label": "specializer"
+          },
+          {
+            "id": "interpreter",
+            "label": "interpreter"
+          },
+          {
+            "id": "compiler",
+            "label": "compiler"
+          },
+          {
+            "id": "brainfuck-program",
+            "label": "Brainfuck program"
+          },
+          {
+            "id": "residual-code",
+            "label": "residual code"
+          }
+        ],
+        "edges": [
+          {
+            "from": "specializer",
+            "to": "compiler",
+            "label": "specialize"
+          },
+          {
+            "from": "interpreter",
+            "to": "compiler",
+            "label": "known input"
+          },
+          {
+            "from": "brainfuck-program",
+            "to": "compiler",
+            "label": "input"
+          },
+          {
+            "from": "compiler",
+            "to": "residual-code",
+            "label": "produces"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-in86vn",
+      "headline": "Webhook integrations need deduplication, buffering and reconciliation",
+      "originalTitle": "The valley of webhooks",
+      "url": "https://weli.dev/blog/the-valley-of-webhooks/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/in86vn/valley_webhooks",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/in86vn/valley_webhooks",
+          "comments": 2,
+          "points": 3
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 10,
+      "points": 3,
+      "comments": 2,
+      "topic": "design",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The author traces webhook integrations from signature checks and duplicate-delivery handling to out-of-order events, bootstrap races and reconciliation. These recurring design problems matter whenever local systems mirror customer data held by third parties.",
+      "publishedAt": "2026-11-04T02:10:26.147Z",
+      "mustRead": false,
+      "brief": [
+        "• Webhook integrations copy customer and account data from a provider into a local database using event notifications.",
+        "• Deliveries can be duplicated, out of order, or missing, so the integration may need signature checks, deduplication, buffering, importing, and reconciliation.",
+        "• Reconciliation compares local tables with provider APIs to detect and repair drift that webhook delivery logs may not reveal."
+      ],
+      "diagram": {
+        "caption": "The provider turns its ordered log into webhook requests sent to a local endpoint and database.",
+        "nodes": [
+          {
+            "id": "provider",
+            "label": "provider"
+          },
+          {
+            "id": "ordered-log",
+            "label": "ordered log"
+          },
+          {
+            "id": "http-posts",
+            "label": "HTTP POSTs"
+          },
+          {
+            "id": "endpoint",
+            "label": "endpoint"
+          },
+          {
+            "id": "database",
+            "label": "database"
+          }
+        ],
+        "edges": [
+          {
+            "from": "provider",
+            "to": "ordered-log",
+            "label": "holds"
+          },
+          {
+            "from": "ordered-log",
+            "to": "http-posts",
+            "label": "shreds into"
+          },
+          {
+            "from": "http-posts",
+            "to": "endpoint",
+            "label": "sends"
+          },
+          {
+            "from": "endpoint",
+            "to": "database",
+            "label": "updates"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-uutnr5",
+      "headline": "Postgres 19 adds built-in online table bloat cleanup",
+      "originalTitle": "Postgres 19 REPACK: Built-In Online Table Bloat Cleanup",
+      "url": "https://www.snowflake.com/en/blog/engineering/postgres-19-repack-table-bloat/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/uutnr5/postgres_19_repack_built_online_table",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/uutnr5/postgres_19_repack_built_online_table",
+          "comments": 0,
+          "points": 4
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 10,
+      "points": 4,
+      "comments": 0,
+      "topic": "data",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The piece describes REPACK as an online way to reclaim table space, unlike VACUUM FULL's read/write lock for the operation or a third-party pg_repack extension. Production Postgres operators should understand how the feature could change bloat maintenance.",
+      "publishedAt": "2026-11-03T22:44:48.698Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-04/lobsters-uutnr5.webp",
+      "brief": [
+        "• Postgres 19 REPACK CONCURRENTLY reclaims bloated table space without an extension while keeping the table readable and writable.",
+        "• Updates and deletes leave dead tuples; vacuum can mark their space reusable, but rebuilding the table is needed to return space to the OS.",
+        "• Online cleanup with only a brief lock at the end gives production database operators a built-in way to reclaim table space."
+      ]
+    },
+    {
+      "id": "blog-planetscale-the-hidden-latency-inside-your-database",
+      "headline": "Network-attached database storage adds latency between compute and disk",
+      "originalTitle": "The hidden latency inside your database",
+      "url": "https://planetscale.com/blog/the-hidden-latency-inside-your-database",
+      "source": "blog",
+      "sourceLabel": "PlanetScale",
+      "kind": "deep-dive",
+      "readMinutes": 8,
+      "topic": "data",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The piece contrasts network-attached storage with disks connected directly to the database machine, explaining why storage can add latency inside a database cluster. Engineers evaluating database performance or storage trade-offs should account for this often-overlooked distance.",
+      "publishedAt": "2026-11-03T00:00:00.000Z",
+      "mustRead": false,
+      "author": "Simeon Griggs",
+      "brief": [
+        "• Network-attached database storage puts a disk on a separate server, connected to compute over a network; local storage sits with the machine's CPU.",
+        "• Network-attached storage offers flexibility and durability, but its measurable network latency is an additional step between compute and disk.",
+        "• Database architects must weigh storage flexibility and durability against the latency cost of moving reads and writes across the network."
+      ]
+    },
+    {
+      "id": "hn-50360164",
+      "headline": "C++26 fails its ISO approval vote after a 12-week ballot",
+      "originalTitle": "C++26 Disapproved",
+      "url": "https://andreasfertig.com/blog/2026/11/cpp26-dis-failed-how-does-cpp-survive/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50360164",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50360164",
+          "comments": 111,
+          "points": 214
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 6,
+      "points": 214,
+      "comments": 111,
+      "topic": "languages",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "ISO national bodies rejected the C++26 draft in a vote the author describes as the first failed C++ DIS ballot, while noting limits in their search of ISO records. The outcome matters to engineers tracking the standard's path, though the excerpt does not explain the objections.",
+      "publishedAt": "2026-11-04T00:33:22.000Z",
+      "mustRead": false,
+      "brief": [
+        "• The ISO National Bodies disapproved the C++26 draft after a twelve-week ballot, failing to reach the required two-thirds majority.",
+        "• Comments identified contracts as the reason for rejection; some National Bodies said the feature was not ready for release.",
+        "• Teams tracking C++26 must account for the failed approval over contracts, a feature included in the draft."
+      ]
+    },
+    {
+      "id": "hn-50356944",
+      "headline": "macOS 27 leaves encrypted HFS+ CoreStorage volumes unusable",
+      "originalTitle": "macOS 27 does not support CoreStorage volumes",
+      "url": "https://wadetregaskis.com/macos-27-golden-gate-does-not-actually-support-corestorage-or-hfs-volumes/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50356944",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50356944",
+          "comments": 92,
+          "points": 127
+        },
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/1zetje/macos_27_golden_gate_does_not_actually",
+          "comments": 0,
+          "points": 4
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 5,
+      "points": 127,
+      "comments": 92,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The author says macOS 27 cannot mount, convert, or erase CoreStorage and encrypted HFS+ volumes, leaving affected storage inaccessible. It’s a concrete compatibility failure with implications for OS upgrades and data migration.",
+      "publishedAt": "2026-11-03T19:27:53.000Z",
+      "mustRead": false,
+      "brief": [
+        "• macOS 27 does not support CoreStorage or encrypted HFS+ volumes through normal mounting and disk-management tools.",
+        "• Disk Utility and diskutil fail to mount the volumes, but the excerpt reports that direct read-only use of mount_hfs works.",
+        "• The change can block normal access to legacy encrypted storage during a macOS upgrade, despite the lower-level workaround."
+      ]
+    },
+    {
+      "id": "hn-50358314",
+      "headline": "Kairos combines language-based fraud checks with conventional ML models",
+      "originalTitle": "Show HN: Kairos – Open-source risk and fraud decisioning platform",
+      "url": "https://github.com/finic-ai/kairos",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50358314",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50358314",
+          "comments": 17,
+          "points": 83
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 6,
+      "points": 83,
+      "comments": 17,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Kairos pairs plain-language fraud questions with models such as XGBoost and logistic regression to address sparse labels and changing tactics. The approach is relevant to applied ML decision systems, though the excerpt gives no performance evidence.",
+      "publishedAt": "2026-11-03T21:16:48.000Z",
+      "mustRead": false,
+      "brief": [
+        "Kairos is an open-source, real-time fraud and risk decisioning platform for sign-ups, logins, orders, payments and payouts.",
+        "It returns approve, step up, review or block with a risk score; agents can design model experiments that Kairos trains and tests on labeled data.",
+        "Combining Grayson's plain-language answers with logistic regression or gradient-boosted trees helps teams build decision models before labels are plentiful."
+      ],
+      "diagram": {
+        "caption": "Agents send requests and receive decisioning results through Kairos's MCP interface.",
+        "nodes": [
+          {
+            "id": "agent",
+            "label": "Agent"
+          },
+          {
+            "id": "mcp-server",
+            "label": "MCP server"
+          },
+          {
+            "id": "kairos",
+            "label": "Kairos"
+          }
+        ],
+        "edges": [
+          {
+            "from": "agent",
+            "to": "mcp-server",
+            "label": "requests"
+          },
+          {
+            "from": "mcp-server",
+            "to": "kairos",
+            "label": "workflow actions"
+          },
+          {
+            "from": "kairos",
+            "to": "mcp-server",
+            "label": "decisions"
+          },
+          {
+            "from": "mcp-server",
+            "to": "agent",
+            "label": "results"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50347464",
+      "headline": "Study compares open-source 5G RAN platforms across test conditions",
+      "originalTitle": "Open-Source 5G Ran Platforms: A Dual Perspective on Performance and Capabilities",
+      "url": "https://arxiv.org/abs/2608.25820",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50347464",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50347464",
+          "comments": 5,
+          "points": 51
+        }
+      ],
+      "kind": "paper",
+      "readMinutes": 3,
+      "points": 51,
+      "comments": 5,
+      "topic": "infra",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The paper compares OpenAirInterface and srsRAN across software-defined radios, RAN configurations, user applications and numbers of real devices. A broader comparison can help engineers assess open-source options for private 5G, but the excerpt gives no results.",
+      "publishedAt": "2026-11-03T02:58:44.000Z",
+      "mustRead": false,
+      "brief": [
+        "The study compares the open-source 5G RAN platforms OpenAirInterface (OAI) and srsRAN.",
+        "It assesses supported features and deployment flexibility, then measures RRC setup, data rates and VoD, live-streaming and cloud-gaming workloads.",
+        "Comparisons across radios, configurations, applications and real UEs can help engineers evaluate platforms against varied deployment conditions."
+      ]
+    },
+    {
+      "id": "lobsters-siqsg7",
+      "headline": "NetBSD 11.1 focuses on security and bug fixes",
+      "originalTitle": "Announcing NetBSD 11.1",
+      "url": "https://www.netbsd.org/releases/formal-11/NetBSD-11.1.html",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/siqsg7/announcing_netbsd_11_1",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/siqsg7/announcing_netbsd_11_1",
+          "comments": 1,
+          "points": 23
+        }
+      ],
+      "kind": "release",
+      "readMinutes": 8,
+      "points": 23,
+      "comments": 1,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "NetBSD 11.1 is the first point release in the 11 stable branch, with a stated focus on security and bug fixes. Engineers maintaining NetBSD systems can check the upgrade path and supported platforms.",
+      "publishedAt": "2026-11-03T22:00:17.275Z",
+      "mustRead": false,
+      "brief": [
+        "NetBSD 11.1 is the first point release of the NetBSD 11 stable branch, focused primarily on security and bug fixes.",
+        "Fixes include an ipfilter NULL pointer dereference that could cause denial of service and a race condition in the page daemon.",
+        "The release addresses security and stability issues across supported architectures, kernels and device drivers."
+      ]
+    },
+    {
+      "id": "lobsters-erkjnx",
+      "headline": "An interactive book teaches Go concurrency through practical exercises",
+      "originalTitle": "Gist of Go: Concurrency",
+      "url": "https://antonz.org/go-concurrency/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/erkjnx/gist_go_concurrency",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/erkjnx/gist_go_concurrency",
+          "comments": 0,
+          "points": 6
+        }
+      ],
+      "kind": "guide",
+      "points": 6,
+      "comments": 0,
+      "topic": "languages",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The book teaches goroutines, channels and other concurrency tools through exercises aimed at programmers already familiar with Go. Engineers looking to build practical fluency may find its exercise-first approach useful.",
+      "publishedAt": "2026-11-03T23:05:03.142Z",
+      "mustRead": false,
+      "brief": [
+        "Gist of Go: Concurrency is an interactive book for programmers who already know Go but are new to goroutines and channels.",
+        "It teaches concurrency through browser-based exercises with automated tests, reference solutions and explanations.",
+        "Practical exercises help Go programmers learn to apply concurrency primitives to real-world scenarios."
+      ]
+    },
+    {
+      "id": "blog-cloudflare-zero-wire",
+      "headline": "Cloudflare launches Zero Wire vulnerability intelligence feed",
+      "originalTitle": "Introducing Zero Wire, a hub for investigating critical Internet vulnerabilities",
+      "url": "https://blog.cloudflare.com/zero-wire/",
+      "source": "blog",
+      "sourceLabel": "Cloudflare Blog",
+      "kind": "tool",
+      "readMinutes": 6,
+      "topic": "security",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Zero Wire is a public feed on Cloudflare Radar that briefs teams on critical vulnerabilities and helps them assess impact and response. It targets the triage burden that grows as AI speeds up vulnerability discovery.",
+      "publishedAt": "2026-11-03T14:00:00.000Z",
+      "mustRead": false,
+      "author": "Daniele Molteni, Celso Martinho",
+      "brief": [
+        "Zero Wire is a public vulnerability intelligence feed inside Cloudflare Radar for significant Internet-facing vulnerabilities.",
+        "Each briefing explains the issue, who should investigate it, recommended actions and links to evidence and vendor guidance.",
+        "Engineers can use issue-specific guidance to investigate exposure and remediation, plus a pre-compiled prompt to assess infrastructure impact."
+      ]
+    },
+    {
+      "id": "blog-lwn-1105131",
+      "headline": "openSUSE Leap 16.1 adds immutable images across supported platforms",
+      "originalTitle": "OpenSUSE Leap 16.1",
+      "url": "https://lwn.net/Articles/1105131/",
+      "source": "blog",
+      "sourceLabel": "LWN.net",
+      "kind": "release",
+      "topic": "infra",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Leap 16.1 adds immutable images with transactional updates across its supported platforms, alongside traditional installations. That gives infrastructure teams another deployment mode with the same release lifecycle and maintenance updates.",
+      "publishedAt": "2026-11-03T17:09:48.000Z",
+      "mustRead": false,
+      "author": "daroc",
+      "brief": [
+        "openSUSE Leap 16.1 offers both traditional installations and immutable images with transactional updates.",
+        "Immutable images are available across Leap-supported platforms, including servers, desktops and virtual machines.",
+        "Teams can choose an installation and update mode suited to a workload while sharing Leap's release, lifecycle and maintenance updates."
+      ]
+    },
+    {
+      "id": "blog-lwn-1103674",
+      "headline": "Debian package reviewers begin using LLMs, prompting debate over their role",
+      "originalTitle": "[$] LLM reviews for Debian's new queue spark debate",
+      "url": "https://lwn.net/Articles/1103674/",
+      "source": "blog",
+      "sourceLabel": "LWN.net",
+      "kind": "news",
+      "topic": "craft",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Debian's DFSG team has started using LLMs to review packages entering the new queue, following a vote in favor of responsible generative AI use. The case offers a concrete example of AI entering software review and the questions that raises.",
+      "publishedAt": "2026-11-03T16:28:40.000Z",
+      "mustRead": false,
+      "author": "jzb",
+      "brief": [
+        "Debian's DFSG, Licensing & New Packages Team has begun using LLMs to review packages entering Debian's new queue.",
+        "The practice follows Debian's vote for the general-resolution option called “Responsible Use of Generative AI.”",
+        "The debate raises practical questions for engineers about where LLM-generated output belongs in software package review."
+      ]
+    },
+    {
+      "id": "blog-duckdb-bringing-local-analytics-to-the-quants-desktop-html",
+      "headline": "DuckDB brings local analytics to quant workflows without specialized infrastructure",
+      "originalTitle": "Bringing Local Analytics to the Quant's Desktop",
+      "url": "https://duckdb.org/2026/11/03/bringing-local-analytics-to-the-quants-desktop.html",
+      "source": "blog",
+      "sourceLabel": "DuckDB",
+      "kind": "case-study",
+      "readMinutes": 5,
+      "topic": "data",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "A quant-platform builder uses embedded DuckDB in QStudio and Pulse and is building an open-source project around it. It offers a concrete example of using a lightweight analytical engine for smaller teams accustomed to heavyweight market-data platforms.",
+      "publishedAt": "2026-11-03T00:00:00.000Z",
+      "mustRead": false,
+      "author": "Ryan Hamilton et al.",
+      "brief": [
+        "DuckDB is an embedded analytical engine used to bring local analytics into QStudio and Pulse without requiring a server.",
+        "In QStudio, analysts run a query on a remote database, save its result locally as Parquet through DuckDB, then query that result later.",
+        "Local analytics can spare smaller teams specialized infrastructure and let analysts reuse query results without rerunning remote workloads."
+      ],
+      "diagram": {
+        "caption": "QStudio uses DuckDB to save remote query results as Parquet for later local analysis.",
+        "nodes": [
+          {
+            "id": "analyst",
+            "label": "analyst"
+          },
+          {
+            "id": "remote-database",
+            "label": "remote database"
+          },
+          {
+            "id": "qstudio",
+            "label": "QStudio"
+          },
+          {
+            "id": "duckdb",
+            "label": "DuckDB"
+          },
+          {
+            "id": "parquet",
+            "label": "Parquet"
+          }
+        ],
+        "edges": [
+          {
+            "from": "analyst",
+            "to": "remote-database",
+            "label": "runs query"
+          },
+          {
+            "from": "remote-database",
+            "to": "qstudio",
+            "label": "query result"
+          },
+          {
+            "from": "qstudio",
+            "to": "duckdb",
+            "label": "save result"
+          },
+          {
+            "from": "duckdb",
+            "to": "parquet",
+            "label": "writes"
+          },
+          {
+            "from": "analyst",
+            "to": "parquet",
+            "label": "queries later"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50358562",
+      "headline": "Safari 27.3 beta adds user-triggered dark mode for sites without one",
+      "originalTitle": "Safari introduces Adaptive Dark Mode in 27.3",
+      "url": "https://webkit.org/blog/18541/introducing-adaptive-dark-mode/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50358562",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50358562",
+          "comments": 211,
+          "points": 385
+        }
+      ],
+      "kind": "release",
+      "readMinutes": 5,
+      "points": 385,
+      "comments": 211,
+      "topic": "web",
+      "score": 6,
+      "relevance": 1,
+      "whyRead": "Safari can preview an adapted dark appearance on light websites, while leaving pages that declare dark-mode support unchanged. The browser behavior is useful web-platform context but peripheral to AI and large-scale systems work.",
+      "publishedAt": "2026-11-03T21:39:05.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-04/hn-50358562.webp",
+      "brief": [
+        "Adaptive Dark Mode is a Safari 27.3 beta feature that lets users view websites without a dark version in dark mode.",
+        "Safari analyzes page colors, then transforms light backgrounds and text while preserving contrast; it also handles gradients and some images.",
+        "Web engineers need to account for browser-side color changes, especially for contrast, icons, and effects such as masks or mix-blend-mode."
+      ]
+    },
+    {
+      "id": "hn-50346849",
+      "headline": "Disc Image Studio encodes visible artwork into CD, DVD and Blu-ray data",
+      "originalTitle": "DiscImageStudio: burn visible artwork onto CDs, DVDs and Blu-ray discs",
+      "url": "https://github.com/JiaFeiMiao-K-Cat/DiscImageStudio",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50346849",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50346849",
+          "comments": 77,
+          "points": 346
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 3,
+      "points": 346,
+      "comments": 77,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 1,
+      "whyRead": "The tool converts images into disc data within CD, DVD and single-layer Blu-ray physical constraints, with ISO, RAW and WAV+CUE export. Its calibration workflow targets more precise disc-parameter estimates, though the use case is niche.",
+      "publishedAt": "2026-11-03T01:33:43.000Z",
+      "mustRead": false,
+      "brief": [
+        "Disc Image Studio converts images into data for creating visible artwork on CDs, DVDs, and single-layer Blu-ray discs.",
+        "It generates ISO, RAW, or WAV+CUE output, or can stream data directly to a blank disc; its calibration workflow can refine disc geometry.",
+        "Engineers working with physical media can use one tool to design, calibrate, generate, and burn disc artwork across several formats."
+      ],
+      "diagram": {
+        "caption": "An image can be converted to disc data, then burned with suitable software.",
+        "nodes": [
+          {
+            "id": "image",
+            "label": "图片"
+          },
+          {
+            "id": "studio",
+            "label": "Disc Image Studio"
+          },
+          {
+            "id": "formats",
+            "label": "ISO / RAW / WAV+CUE"
+          },
+          {
+            "id": "software",
+            "label": "刻录软件"
+          },
+          {
+            "id": "disc",
+            "label": "空白盘片"
+          }
+        ],
+        "edges": [
+          {
+            "from": "image",
+            "to": "studio",
+            "label": "import"
+          },
+          {
+            "from": "studio",
+            "to": "formats",
+            "label": "generate"
+          },
+          {
+            "from": "formats",
+            "to": "software",
+            "label": "burn"
+          },
+          {
+            "from": "software",
+            "to": "disc",
+            "label": "write"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50357782",
+      "headline": "Apple’s dictionary flags vulgar words and tracks usage by app and recipient",
+      "originalTitle": "I dumped Apple’s word list",
+      "url": "https://helgesver.re/articles/macos-vulgar-word-flags",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50357782",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50357782",
+          "comments": 82,
+          "points": 146
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 16,
+      "points": 146,
+      "comments": 82,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 1,
+      "whyRead": "Apple’s private Lexicon.framework functions expose dictionary flags, while a usage database is meant to record swear words per app and recipient. It’s a useful look at undocumented macOS behavior, though the findings are platform-specific.",
+      "publishedAt": "2026-11-03T20:33:23.000Z",
+      "mustRead": false,
+      "brief": [
+        "Apple’s VulgarWordUsage.db records swear-word use by app and recipient, and the author found the database empty on their Mac.",
+        "Apple’s dictionary assigns words vulgar, offensive, or sensitive tiers and topic flags; private Lexicon.framework functions expose the flags, with no public API.",
+        "Per-app and per-recipient usage tracking is a privacy-sensitive design detail for keyboard and personalization systems."
+      ]
+    },
+    {
+      "id": "hn-50334363",
+      "headline": "Antimony models CAD designs with scriptable nodes and a dependency graph",
+      "originalTitle": "Antimony: CAD Software Evolved from Lisp Machines and Not Drafting Tables (2015)",
+      "url": "https://www.mattkeeter.com/projects/antimony/3/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50334363",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50334363",
+          "comments": 62,
+          "points": 118
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 4,
+      "points": 118,
+      "comments": 62,
+      "topic": "languages",
+      "score": 6,
+      "relevance": 1,
+      "whyRead": "Antimony combines a directed acyclic graph for information flow, a geometry engine for constructive solid geometry, and Python-based scripts for editable nodes. The design is a useful example of a specialized visual programming tool, though its application is narrow.",
+      "publishedAt": "2026-11-02T08:29:40.000Z",
+      "mustRead": false,
+      "brief": [
+        "Antimony is a CAD tool that models solids by connecting scripted nodes in a graph.",
+        "Its graph tracks links and propagates changes; a geometry engine uses functional representations, renders shapes as bitmaps, and supports STL and heightmap export.",
+        "Dependency graphs and functional geometry let engineers build editable, complex models from reusable shapes and transforms."
+      ],
+      "diagram": {
+        "caption": "Antimony moves node-defined geometry through its modeling and viewport pipeline.",
+        "nodes": [
+          {
+            "id": "library",
+            "label": "standard library"
+          },
+          {
+            "id": "graph",
+            "label": "graph engine"
+          },
+          {
+            "id": "geometry",
+            "label": "geometry engine"
+          },
+          {
+            "id": "viewport",
+            "label": "3D viewport"
+          }
+        ],
+        "edges": [
+          {
+            "from": "library",
+            "to": "graph",
+            "label": "shapes and transforms"
+          },
+          {
+            "from": "graph",
+            "to": "geometry",
+            "label": "solid models"
+          },
+          {
+            "from": "geometry",
+            "to": "viewport",
+            "label": "shaded bitmaps"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50349155",
+      "headline": "uBlock Origin rules stop TechCrunch autoplay videos from loading",
+      "originalTitle": "uBlock Origin filter to block autoplay videos in TechCrunch",
+      "url": "https://cornfieldlabs.github.io/posts/ublock-stop-techcrunch-autoplay-video/post.html",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50349155",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50349155",
+          "comments": 42,
+          "points": 133
+        }
+      ],
+      "kind": "guide",
+      "points": 133,
+      "comments": 42,
+      "topic": "web",
+      "score": 6,
+      "relevance": 1,
+      "whyRead": "The filter blocks JW Player and Connatix scripts and hides the resulting empty player box; it also notes that a vendor change may require a new network rule. It’s a directly usable fix for a specific web annoyance.",
+      "publishedAt": "2026-11-03T07:36:47.000Z",
+      "mustRead": false,
+      "brief": [
+        "A uBlock Origin filter set stops TechCrunch autoplay videos from loading and hides the leftover player boxes.",
+        "Network rules block JW Player and Connatix scripts; cosmetic rules hide the empty embed and promo elements.",
+        "Separating network blocking from cosmetic hiding helps diagnose failures: a video vendor change may require a new network rule."
+      ]
+    },
+    {
+      "id": "hn-50347552",
+      "headline": "Browser game gives guided practice with Vim commands",
+      "originalTitle": "Show HN: I built a little browser game to practice Vim commands",
+      "url": "https://hjkl.duy.run",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50347552",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50347552",
+          "comments": 49,
+          "points": 68
+        }
+      ],
+      "kind": "tool",
+      "points": 68,
+      "comments": 49,
+      "topic": "languages",
+      "score": 6,
+      "relevance": 1,
+      "whyRead": "The game has learners make guided, prompted and independent edits using commands for navigation, text objects, search and more. It offers a low-friction way to practice Vim, though it requires a desktop browser and physical keyboard.",
+      "publishedAt": "2026-11-03T03:10:04.000Z",
+      "mustRead": false,
+      "brief": [
+        "A browser game teaches Vim commands through small editing tasks in a browser-based Vim editor.",
+        "Each skill has two guided, two prompted, and two independent edits; any valid edit that reaches the target text passes.",
+        "The staged practice and target-based checking offer a lightweight way to test keyboard-driven editing workflows without storing user data."
+      ]
+    },
+    {
+      "id": "hn-50357683",
+      "headline": "Apple Watch features use ambient audio for transcripts and summaries",
+      "originalTitle": "Apple opens the door to a nightmare world of always-listening tech",
+      "url": "https://this.weekinsecurity.com/watch-what-you-say-apple-opens-the-door-to-a-nightmare-world-of-always-listening-tech/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50357683",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50357683",
+          "comments": 26,
+          "points": 60
+        }
+      ],
+      "kind": "essay",
+      "readMinutes": 4,
+      "points": 60,
+      "comments": 26,
+      "topic": "security",
+      "score": 6,
+      "relevance": 1,
+      "whyRead": "Live Rewind transcribes the previous 15 seconds of ambient audio, while Siri Recap summarizes conversations; Apple says audio is not stored and recaps are end-to-end encrypted. Engineers working on privacy-sensitive features should examine the stated safeguards and trade-offs.",
+      "publishedAt": "2026-11-03T20:25:05.000Z",
+      "mustRead": false,
+      "brief": [
+        "Apple announced Live Rewind and Siri Recap features for newer Apple Watches that use ambient audio.",
+        "Live Rewind turns the most recent 15 seconds into a transcript; Siri Recap listens through the day and summarizes conversations into iPhone notes.",
+        "Always-listening systems raise consent and privacy questions; the excerpt says recaps are end-to-end encrypted and audio is not recorded or stored."
+      ]
+    },
+    {
+      "id": "hn-50353073",
+      "headline": "Tiny Basic runs an editable BASIC interpreter on Arduino boards",
+      "originalTitle": "Tiny Basic for Arduino",
+      "url": "https://dilshan.github.io/tiny-basic/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50353073",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50353073",
+          "comments": 19,
+          "points": 66
+        }
+      ],
+      "kind": "tool",
+      "points": 66,
+      "comments": 19,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 1,
+      "whyRead": "The interpreter includes an on-device editor and built-ins for hardware I/O, math and bit manipulation, and is designed for mid-range MCUs. Embedded developers can assess whether its lightweight approach fits constrained projects.",
+      "publishedAt": "2026-11-03T15:17:07.000Z",
+      "mustRead": false,
+      "brief": [
+        "Tiny Basic for Arduino is a lightweight BASIC interpreter for mid-range Arduino boards and MCUs.",
+        "It lets users write, edit, and run programs on the hardware, with built-in functions for hardware I/O, math, and bit manipulation.",
+        "Its low hardware dependency and in-device editor can make embedded programming portable without a connected PC IDE."
+      ]
+    },
+    {
+      "id": "hn-50357236",
+      "headline": "Tests find smart-TV opt-out behavior varies by platform",
+      "originalTitle": "$20M in Fines and Vizio Smart TVs Opt Out of Spying Option Does Nothing",
+      "url": "https://pcper.com/2026/11/20-million-in-fines-and-still-vizio-smart-tvs-opt-out-of-spying-option-does-nothing/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50357236",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50357236",
+          "comments": 1,
+          "points": 56
+        }
+      ],
+      "kind": "benchmark",
+      "points": 56,
+      "comments": 1,
+      "topic": "security",
+      "score": 6,
+      "relevance": 1,
+      "whyRead": "Researchers ran 5,943 experiments across 12 TVs and found that opt-out behavior differed: some platforms stopped sending traffic, while only 60% of tested Samsung Tizen TVs showed a decrease or stop. The measurement is useful for evaluating privacy controls, though the findings concern consumer devices.",
+      "publishedAt": "2026-11-03T19:52:07.000Z",
+      "mustRead": false,
+      "brief": [
+        "Researchers tested whether opting out of automatic content recognition (ACR) reduced traffic on 12 commercial smart-TV platforms.",
+        "They monitored traffic volume and destinations across 5,943 experiments; opt-out behavior varied, and Vizio traffic did not change.",
+        "Engineers should verify that privacy controls change actual network behavior, rather than relying on a device’s opt-out setting."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "blog-airbnb",
+      "label": "Airbnb Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-aws-arch",
+      "label": "AWS Architecture",
+      "status": "ok",
+      "count": 8
+    },
+    {
+      "id": "blog-aws-ml",
+      "label": "AWS Machine Learning",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-bair",
+      "label": "Berkeley AI Research",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-bleepingcomputer",
+      "label": "BleepingComputer",
+      "status": "ok",
+      "count": 12
+    },
+    {
+      "id": "blog-brendangregg",
+      "label": "Brendan Gregg",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-brooker",
+      "label": "Marc Brooker",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-bytebytego",
+      "label": "ByteByteGo",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-chip-huyen",
+      "label": "Chip Huyen",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-chipsandcheese",
+      "label": "Chips and Cheese",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-cloudflare",
+      "label": "Cloudflare Blog",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-deepmind",
+      "label": "Google DeepMind",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-discord",
+      "label": "Discord Engineering",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-dropbox",
+      "label": "Dropbox Tech",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-duckdb",
+      "label": "DuckDB",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-eugene-yan",
+      "label": "Eugene Yan",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-figma",
+      "label": "Figma Engineering",
+      "status": "ok",
+      "count": 6
+    },
+    {
+      "id": "blog-fly",
+      "label": "Fly.io",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-gcloud",
+      "label": "Google Cloud",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-github-eng",
+      "label": "GitHub Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-github-security",
+      "label": "GitHub Security",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-go-blog",
+      "label": "Go Blog",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-google-research",
+      "label": "Google Research",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-hamel",
+      "label": "Hamel Husain",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-highscalability",
+      "label": "High Scalability",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-huggingface",
+      "label": "Hugging Face",
+      "status": "ok",
+      "count": 9
+    },
+    {
+      "id": "blog-import-ai",
+      "label": "Import AI",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-infoq",
+      "label": "InfoQ",
+      "status": "ok",
+      "count": 15
+    },
+    {
+      "id": "blog-interconnects",
+      "label": "Interconnects",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-janestreet",
+      "label": "Jane Street Tech",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-jvns",
+      "label": "Julia Evans",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-karpathy",
+      "label": "Andrej Karpathy",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-krebs",
+      "label": "Krebs on Security",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-kubernetes",
+      "label": "Kubernetes",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-latent-space",
+      "label": "Latent Space",
+      "status": "ok",
+      "count": 10
+    },
+    {
+      "id": "blog-lethain",
+      "label": "Will Larson",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-lilianweng",
+      "label": "Lilian Weng",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-lobsters-security",
+      "label": "Lobsters (security)",
+      "status": "ok",
+      "count": 25
+    },
+    {
+      "id": "blog-lobsters-tags",
+      "label": "Lobsters (AI, distributed, performance)",
+      "status": "ok",
+      "count": 18
+    },
+    {
+      "id": "blog-lucumr",
+      "label": "Armin Ronacher",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-lwn",
+      "label": "LWN.net",
+      "status": "ok",
+      "count": 15
+    },
+    {
+      "id": "blog-martinfowler",
+      "label": "Martin Fowler",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-meta-eng",
+      "label": "Engineering at Meta",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-mozilla-hacks",
+      "label": "Mozilla Hacks",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-msr",
+      "label": "Microsoft Research",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-msrc",
+      "label": "Microsoft Security Response Center",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-murat",
+      "label": "Metadata (Murat Demirbas)",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-netflix",
+      "label": "Netflix TechBlog",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-nvidia-dev",
+      "label": "NVIDIA Technical Blog",
+      "status": "ok",
+      "count": 10
+    },
+    {
+      "id": "blog-oldnewthing",
+      "label": "The Old New Thing",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-openai",
+      "label": "OpenAI",
+      "status": "ok",
+      "count": 22
+    },
+    {
+      "id": "blog-pinterest-eng",
+      "label": "Pinterest Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-planetscale",
+      "label": "PlanetScale",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-portswigger",
+      "label": "PortSwigger Research",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-postgres-weekly",
+      "label": "Postgres Weekly",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-pragmatic",
+      "label": "The Pragmatic Engineer",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-projectzero",
+      "label": "Google Project Zero",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-pytorch",
+      "label": "PyTorch",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-raschka",
+      "label": "Sebastian Raschka",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-rust-blog",
+      "label": "Rust Blog",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-semianalysis",
+      "label": "SemiAnalysis",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-shopify-eng",
+      "label": "Shopify Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-simonwillison",
+      "label": "Simon Willison",
+      "status": "ok",
+      "count": 17
+    },
+    {
+      "id": "blog-slack-eng",
+      "label": "Slack Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-socket",
+      "label": "Socket",
+      "status": "error",
+      "count": 0
+    },
+    {
+      "id": "blog-stripe",
+      "label": "Stripe Engineering",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-therecord",
+      "label": "The Record",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-trailofbits",
+      "label": "Trail of Bits",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-unit42",
+      "label": "Unit 42",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-v8",
+      "label": "V8",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-webkit",
+      "label": "WebKit",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-wiz",
+      "label": "Wiz",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "github",
+      "label": "GitHub (new repositories)",
+      "status": "ok",
+      "count": 30
+    },
+    {
+      "id": "hf-models",
+      "label": "Hugging Face trending models",
+      "status": "ok",
+      "count": 21
+    },
+    {
+      "id": "hf-papers",
+      "label": "Hugging Face Daily Papers",
+      "status": "ok",
+      "count": 35
+    },
+    {
+      "id": "hn",
+      "label": "Hacker News",
+      "status": "ok",
+      "count": 149
+    },
+    {
+      "id": "hn-search",
+      "label": "Hacker News (AI and systems search)",
+      "status": "ok",
+      "count": 85
+    },
+    {
+      "id": "lobsters",
+      "label": "Lobsters",
+      "status": "ok",
+      "count": 25
+    },
+    {
+      "id": "release-claude-code",
+      "label": "Claude Code releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-langgraph",
+      "label": "LangGraph releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-llama-cpp",
+      "label": "llama.cpp releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-mcp-spec",
+      "label": "Model Context Protocol releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-ollama",
+      "label": "Ollama releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-openai-agents",
+      "label": "OpenAI Agents SDK releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-sglang",
+      "label": "SGLang releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-tensorrt-llm",
+      "label": "TensorRT-LLM releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-transformers",
+      "label": "Transformers releases",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "release-vllm",
+      "label": "vLLM releases",
+      "status": "ok",
+      "count": 2
+    }
+  ]
+}
