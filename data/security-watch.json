@@ -1,6 +1,16 @@
 {
-  "updatedAt": "2026-11-03T23:40:23.412Z",
+  "updatedAt": "2026-11-05T00:31:42.185Z",
   "kev": [
+    {
+      "cve": "CVE-2024-27834",
+      "vendor": "Apple",
+      "product": "Multiple Products",
+      "name": "Apple Multiple Products Improper Authentication Vulnerability",
+      "dateAdded": "2026-11-04",
+      "dueDate": "2026-11-18",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-27834"
+    },
     {
       "cve": "CVE-2026-119977",
       "vendor": "WordPress",
@@ -374,33 +384,6 @@
       "packageName": "pypa/gh-action-pypi-publish",
       "publishedAt": "2026-10-30T20:24:24.000Z",
       "url": "https://github.com/advisories/GHSA-5xjx-3w67-w9x9"
-    },
-    {
-      "id": "GHSA-6jp4-8v48-cc5v",
-      "cve": "CVE-2026-117601",
-      "summary": "Electrum: Malicious server can replace a just-broadcast tx and try to trick user into RBF-ing it",
-      "ecosystem": "pip",
-      "packageName": "electrum",
-      "publishedAt": "2026-10-28T21:23:44.000Z",
-      "url": "https://github.com/advisories/GHSA-6jp4-8v48-cc5v"
-    },
-    {
-      "id": "GHSA-mghf-wjfp-p5xm",
-      "cve": "CVE-2026-115893",
-      "summary": "Wasmtime: Cranelift backend on aarch64 can jump to incorrect target on large Wasm `br_table` instruction",
-      "ecosystem": "rust",
-      "packageName": "wasmtime",
-      "publishedAt": "2026-10-28T21:14:14.000Z",
-      "url": "https://github.com/advisories/GHSA-mghf-wjfp-p5xm"
-    },
-    {
-      "id": "GHSA-m665-v7pm-7grj",
-      "cve": "CVE-2026-115905",
-      "summary": "zip: Critical Parser Differential & Security Control Bypass via Dual-Header Inconsistencies (Zip Cloaking) Leading to Arbitrary File Overwrite & RCE",
-      "ecosystem": "rust",
-      "packageName": "zip",
-      "publishedAt": "2026-10-28T21:09:50.000Z",
-      "url": "https://github.com/advisories/GHSA-m665-v7pm-7grj"
     }
   ]
 }
