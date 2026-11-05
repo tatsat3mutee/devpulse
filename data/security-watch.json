@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-05T00:31:42.185Z",
+  "updatedAt": "2026-11-05T22:17:00.901Z",
   "kev": [
     {
       "cve": "CVE-2024-27834",
@@ -343,6 +343,15 @@
     }
   ],
   "advisories": [
+    {
+      "id": "GHSA-5q7h-w9jf-cx97",
+      "cve": "CVE-2026-105769",
+      "summary": "kaniko can send the build's Azure (Entra ID) access token to lookalike ACR registry hosts",
+      "ecosystem": "go",
+      "packageName": "github.com/chainguard-dev/kaniko",
+      "publishedAt": "2026-11-05T17:48:54.000Z",
+      "url": "https://github.com/advisories/GHSA-5q7h-w9jf-cx97"
+    },
     {
       "id": "GHSA-33r5-xmm8-v6x5",
       "cve": "CVE-2026-44267",
