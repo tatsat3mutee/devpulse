@@ -1,6 +1,16 @@
 {
-  "updatedAt": "2026-11-05T22:17:00.901Z",
+  "updatedAt": "2026-11-06T23:30:21.701Z",
   "kev": [
+    {
+      "cve": "CVE-2026-19868",
+      "vendor": "SonicWall",
+      "product": "SonicOS SSLVPN",
+      "name": "SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability",
+      "dateAdded": "2026-11-06",
+      "dueDate": "2026-11-20",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19868"
+    },
     {
       "cve": "CVE-2024-27834",
       "vendor": "Apple",
@@ -344,6 +354,54 @@
   ],
   "advisories": [
     {
+      "id": "GHSA-47w9-6r3f-938g",
+      "summary": "LXD has restricted project bypass leading to arbitrary command execution",
+      "ecosystem": "go",
+      "packageName": "github.com/canonical/lxd",
+      "publishedAt": "2026-11-06T19:51:26.000Z",
+      "url": "https://github.com/advisories/GHSA-47w9-6r3f-938g"
+    },
+    {
+      "id": "GHSA-pjff-c2wc-f6jm",
+      "summary": "LXD has arbitrary file write on client due to trusted image hash",
+      "ecosystem": "go",
+      "packageName": "github.com/canonical/lxd",
+      "publishedAt": "2026-11-06T19:36:55.000Z",
+      "url": "https://github.com/advisories/GHSA-pjff-c2wc-f6jm"
+    },
+    {
+      "id": "GHSA-fmc8-p6q7-75cc",
+      "summary": "LXD has argument injection in backup compression algorithm leading to AFW and ACE",
+      "ecosystem": "go",
+      "packageName": "github.com/canonical/lxd",
+      "publishedAt": "2026-11-06T19:36:37.000Z",
+      "url": "https://github.com/advisories/GHSA-fmc8-p6q7-75cc"
+    },
+    {
+      "id": "GHSA-vghh-5rfx-xhq8",
+      "summary": "LXD has arbitrary file read+write on host via rootfs/ symlink in malicious image",
+      "ecosystem": "go",
+      "packageName": "github.com/canonical/lxd",
+      "publishedAt": "2026-11-06T19:36:07.000Z",
+      "url": "https://github.com/advisories/GHSA-vghh-5rfx-xhq8"
+    },
+    {
+      "id": "GHSA-jpf8-86f3-wp38",
+      "summary": "LXD has arbitrary file read+write on host via templates/ symlink in malicious image",
+      "ecosystem": "go",
+      "packageName": "github.com/canonical/lxd",
+      "publishedAt": "2026-11-06T18:53:57.000Z",
+      "url": "https://github.com/advisories/GHSA-jpf8-86f3-wp38"
+    },
+    {
+      "id": "GHSA-9j25-mm2h-2f76",
+      "summary": "LXD has arbitrary file write on host via `exec-output` symlink in crafted image",
+      "ecosystem": "go",
+      "packageName": "github.com/canonical/lxd",
+      "publishedAt": "2026-11-06T18:45:51.000Z",
+      "url": "https://github.com/advisories/GHSA-9j25-mm2h-2f76"
+    },
+    {
       "id": "GHSA-5q7h-w9jf-cx97",
       "cve": "CVE-2026-105769",
       "summary": "kaniko can send the build's Azure (Entra ID) access token to lookalike ACR registry hosts",
@@ -369,30 +427,6 @@
       "packageName": "@enspirit/elo",
       "publishedAt": "2026-11-03T17:51:30.000Z",
       "url": "https://github.com/advisories/GHSA-7w38-ggh5-v542"
-    },
-    {
-      "id": "GHSA-4xm8-rg9h-jhq2",
-      "summary": "Signal K resources API path traversal can disclose the JWT signing secret and enable remote code execution",
-      "ecosystem": "npm",
-      "packageName": "signalk-server",
-      "publishedAt": "2026-10-30T22:57:22.000Z",
-      "url": "https://github.com/advisories/GHSA-4xm8-rg9h-jhq2"
-    },
-    {
-      "id": "GHSA-hff9-5pqw-6w9f",
-      "summary": "imgproxy has integer overflow in imgproxy ICO loader that causes denial of service and may permit remote code execution",
-      "ecosystem": "go",
-      "packageName": "github.com/imgproxy/imgproxy/v3",
-      "publishedAt": "2026-10-30T22:57:00.000Z",
-      "url": "https://github.com/advisories/GHSA-hff9-5pqw-6w9f"
-    },
-    {
-      "id": "GHSA-5xjx-3w67-w9x9",
-      "summary": "pypi-publish action revocation of CA in the chain that Sigstore uses in Trusted Publishing and Digital Attestations for PyPI",
-      "ecosystem": "actions",
-      "packageName": "pypa/gh-action-pypi-publish",
-      "publishedAt": "2026-10-30T20:24:24.000Z",
-      "url": "https://github.com/advisories/GHSA-5xjx-3w67-w9x9"
     }
   ]
 }
