@@ -1,6 +1,46 @@
 {
-  "updatedAt": "2026-11-07T03:12:17.672Z",
+  "updatedAt": "2026-11-09T22:41:50.054Z",
   "kev": [
+    {
+      "cve": "CVE-2026-123218",
+      "vendor": "IBM",
+      "product": "Aspera Faspex",
+      "name": "IBM Aspera Faspex Incorrect Authorization Vulnerability",
+      "dateAdded": "2026-11-09",
+      "dueDate": "2026-11-12",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123218"
+    },
+    {
+      "cve": "CVE-2026-123158",
+      "vendor": "OpenBSD",
+      "product": "OpenSSH",
+      "name": "OpenBSD OpenSSH Unexpected Status Code or Return Value Vulnerability",
+      "dateAdded": "2026-11-09",
+      "dueDate": "2026-11-12",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123158"
+    },
+    {
+      "cve": "CVE-2026-116779",
+      "vendor": "SignalWire",
+      "product": "FreeSwitch",
+      "name": "SignalWire FreeSwitch Code Injection Vulnerability",
+      "dateAdded": "2026-11-09",
+      "dueDate": "2026-11-12",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-116779"
+    },
+    {
+      "cve": "CVE-2026-102895",
+      "vendor": "GPUStack",
+      "product": "GPUStack",
+      "name": "GPUStack Improper Authentication Vulnerability",
+      "dateAdded": "2026-11-09",
+      "dueDate": "2026-11-12",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102895"
+    },
     {
       "cve": "CVE-2026-19868",
       "vendor": "SonicWall",
@@ -303,6 +343,60 @@
     }
   ],
   "advisories": [
+    {
+      "id": "GHSA-rjr3-43j3-4q8g",
+      "cve": "CVE-2026-77596",
+      "summary": "Kubeflow Pipelines API server lacks authorization for shared pipeline uploads",
+      "ecosystem": "go",
+      "packageName": "github.com/kubeflow/pipelines",
+      "publishedAt": "2026-11-09T22:22:41.000Z",
+      "url": "https://github.com/advisories/GHSA-rjr3-43j3-4q8g"
+    },
+    {
+      "id": "GHSA-gj9m-f8ph-pmhr",
+      "cve": "CVE-2026-102895",
+      "summary": "GPUStack: Authentication bypass via trusted loopback source (reverse-proxy TCP peer or X-GPUStack-Real-IP header) grants unauthenticated admin",
+      "ecosystem": "pip",
+      "packageName": "gpustack",
+      "publishedAt": "2026-11-09T22:15:27.000Z",
+      "url": "https://github.com/advisories/GHSA-gj9m-f8ph-pmhr"
+    },
+    {
+      "id": "GHSA-rm8c-2cv8-jwf6",
+      "cve": "CVE-2026-115770",
+      "summary": "Pocket ID: Email verification token remains valid after address change, enabling arbitrary verified-email spoofing",
+      "ecosystem": "go",
+      "packageName": "github.com/pocket-id/pocket-id/backend",
+      "publishedAt": "2026-11-09T22:12:21.000Z",
+      "url": "https://github.com/advisories/GHSA-rm8c-2cv8-jwf6"
+    },
+    {
+      "id": "GHSA-p2mm-64f6-gmpp",
+      "cve": "CVE-2026-63471",
+      "summary": "fastapi-code-generator: Import-time RCE via route path -> unescaped @app.get('...') decorator",
+      "ecosystem": "pip",
+      "packageName": "fastapi-code-generator",
+      "publishedAt": "2026-11-09T19:48:08.000Z",
+      "url": "https://github.com/advisories/GHSA-p2mm-64f6-gmpp"
+    },
+    {
+      "id": "GHSA-6xmv-cjr5-w3q8",
+      "cve": "CVE-2026-63469",
+      "summary": "fastapi-code-generator: Import-time RCE via response status-code key -> unescaped @app.get(..., responses={...}) dict",
+      "ecosystem": "pip",
+      "packageName": "fastapi-code-generator",
+      "publishedAt": "2026-11-09T19:46:27.000Z",
+      "url": "https://github.com/advisories/GHSA-6xmv-cjr5-w3q8"
+    },
+    {
+      "id": "GHSA-h667-4jj2-cgv4",
+      "cve": "CVE-2026-63470",
+      "summary": "fastapi-code-generator: Call-time RCE via operation summary -> unescaped route-handler docstring",
+      "ecosystem": "pip",
+      "packageName": "fastapi-code-generator",
+      "publishedAt": "2026-11-09T18:50:00.000Z",
+      "url": "https://github.com/advisories/GHSA-h667-4jj2-cgv4"
+    },
     {
       "id": "GHSA-47w9-6r3f-938g",
       "summary": "LXD has restricted project bypass leading to arbitrary command execution",
