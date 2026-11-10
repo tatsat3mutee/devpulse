@@ -1,6 +1,66 @@
 {
-  "updatedAt": "2026-11-09T22:41:50.054Z",
+  "updatedAt": "2026-11-10T21:00:05.527Z",
   "kev": [
+    {
+      "cve": "CVE-2026-20320",
+      "vendor": "Cisco",
+      "product": "BroadWorks",
+      "name": "Cisco BroadWorks Improper Restriction of XML External Entity Reference Vulnerability",
+      "dateAdded": "2026-11-10",
+      "dueDate": "2026-11-24",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-20320"
+    },
+    {
+      "cve": "CVE-2026-125350",
+      "vendor": "Google",
+      "product": "Chromium",
+      "name": "Google Chromium Use-After-Free Vulnerability",
+      "dateAdded": "2026-11-10",
+      "dueDate": "2026-11-24",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-125350"
+    },
+    {
+      "cve": "CVE-2026-124194",
+      "vendor": "Microsoft",
+      "product": "Office",
+      "name": "Microsoft Office Outlook Missing User Interaction for Potentially Unsafe Action Vulnerability",
+      "dateAdded": "2026-11-10",
+      "dueDate": "2026-11-24",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-124194"
+    },
+    {
+      "cve": "CVE-2026-116606",
+      "vendor": "Barracuda Networks",
+      "product": "Barracuda Email Security Gateway (ESG)",
+      "name": "Barracuda Networks Email Security Gateway (ESG) Authentication Bypass Using an Alternate Path or Channel Vulnerability",
+      "dateAdded": "2026-11-10",
+      "dueDate": "2026-11-13",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-116606"
+    },
+    {
+      "cve": "CVE-2026-111793",
+      "vendor": "Openwave Messaging Limited",
+      "product": "Webtop Media Transcoder",
+      "name": "Openwave Messaging Limited Webtop Media Transcoder Incorrect Resource Transfer Between Spheres Vulnerability",
+      "dateAdded": "2026-11-10",
+      "dueDate": "2026-11-24",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111793"
+    },
+    {
+      "cve": "CVE-2026-111560",
+      "vendor": "Barracuda Networks",
+      "product": "Multiple Products",
+      "name": "Barracuda Networks Multiple Products OS Command Injection Vulnerability",
+      "dateAdded": "2026-11-10",
+      "dueDate": "2026-11-13",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111560"
+    },
     {
       "cve": "CVE-2026-123218",
       "vendor": "IBM",
@@ -344,6 +404,42 @@
   ],
   "advisories": [
     {
+      "id": "GHSA-pcrw-h46h-c93h",
+      "cve": "CVE-2026-125120",
+      "summary": "Mongoose: sanitizeFilter not applied on countDocuments",
+      "ecosystem": "npm",
+      "packageName": "mongoose",
+      "publishedAt": "2026-11-10T19:37:32.000Z",
+      "url": "https://github.com/advisories/GHSA-pcrw-h46h-c93h"
+    },
+    {
+      "id": "GHSA-8vv3-6qpc-gpw6",
+      "cve": "CVE-2026-107846",
+      "summary": "bitcoinjs-lib: Undetected merkle node duplication in block root computation validates a forged transaction list",
+      "ecosystem": "npm",
+      "packageName": "bitcoinjs-lib",
+      "publishedAt": "2026-11-10T15:57:25.000Z",
+      "url": "https://github.com/advisories/GHSA-8vv3-6qpc-gpw6"
+    },
+    {
+      "id": "GHSA-62m9-f875-rqw6",
+      "cve": "CVE-2026-102894",
+      "summary": "GPUStack: SAML callback trusts an unverified SAMLResponse, allowing authentication bypass and account takeover",
+      "ecosystem": "pip",
+      "packageName": "gpustack",
+      "publishedAt": "2026-11-10T15:57:15.000Z",
+      "url": "https://github.com/advisories/GHSA-62m9-f875-rqw6"
+    },
+    {
+      "id": "GHSA-xggf-m53x-jc3f",
+      "cve": "CVE-2026-95860",
+      "summary": "node-opcua: Namespace-Level RBAC Fail-Open - Anonymous Write/Call Bypass via Unbound `DefaultRolePermissions",
+      "ecosystem": "npm",
+      "packageName": "node-opcua",
+      "publishedAt": "2026-11-10T15:56:52.000Z",
+      "url": "https://github.com/advisories/GHSA-xggf-m53x-jc3f"
+    },
+    {
       "id": "GHSA-rjr3-43j3-4q8g",
       "cve": "CVE-2026-77596",
       "summary": "Kubeflow Pipelines API server lacks authorization for shared pipeline uploads",
@@ -453,24 +549,6 @@
       "packageName": "github.com/chainguard-dev/kaniko",
       "publishedAt": "2026-11-05T17:48:54.000Z",
       "url": "https://github.com/advisories/GHSA-5q7h-w9jf-cx97"
-    },
-    {
-      "id": "GHSA-33r5-xmm8-v6x5",
-      "cve": "CVE-2026-44267",
-      "summary": "Elo JavaScript emitter has sandbox escape to arbitrary Node.js / browser code execution via unfiltered `.constructor` member access",
-      "ecosystem": "npm",
-      "packageName": "@enspirit/elo",
-      "publishedAt": "2026-11-03T17:53:42.000Z",
-      "url": "https://github.com/advisories/GHSA-33r5-xmm8-v6x5"
-    },
-    {
-      "id": "GHSA-7w38-ggh5-v542",
-      "cve": "CVE-2026-44266",
-      "summary": "Elo Ruby backend has Remote Code Execution via unescaped `#{...}` interpolation in emitted string literals and subtype-constraint labels",
-      "ecosystem": "npm",
-      "packageName": "@enspirit/elo",
-      "publishedAt": "2026-11-03T17:51:30.000Z",
-      "url": "https://github.com/advisories/GHSA-7w38-ggh5-v542"
     }
   ]
 }
