@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-12T04:14:09.567Z",
+  "updatedAt": "2026-11-12T21:05:59.492Z",
   "kev": [
     {
       "cve": "CVE-2026-20320",
@@ -384,6 +384,15 @@
   ],
   "advisories": [
     {
+      "id": "GHSA-4g86-54fm-h9h8",
+      "cve": "CVE-2026-118740",
+      "summary": "Microsoft Security Advisory CVE-2026-118740 - Aspire Security Feature Bypass Vulnerability",
+      "ecosystem": "nuget",
+      "packageName": "Aspire.Dashboard.Sdk.linux-x64",
+      "publishedAt": "2026-11-12T17:17:48.000Z",
+      "url": "https://github.com/advisories/GHSA-4g86-54fm-h9h8"
+    },
+    {
       "id": "GHSA-xqc2-xf4c-x3h3",
       "cve": "CVE-2026-126187",
       "summary": "React: Unauthenticated Remote Code Execution in React Server Components",
@@ -391,6 +400,14 @@
       "packageName": "react-server-dom-parcel",
       "publishedAt": "2026-11-10T22:44:12.000Z",
       "url": "https://github.com/advisories/GHSA-xqc2-xf4c-x3h3"
+    },
+    {
+      "id": "GHSA-2f3w-v7f5-vpgx",
+      "summary": "Duplicate Advisory: Microsoft Security Advisory CVE-2026-118740 - Aspire Security Feature Bypass Vulnerability",
+      "ecosystem": "nuget",
+      "packageName": "Aspire.Dashboard.Sdk.linux-x64",
+      "publishedAt": "2026-11-10T21:33:09.000Z",
+      "url": "https://github.com/advisories/GHSA-2f3w-v7f5-vpgx"
     },
     {
       "id": "GHSA-pcrw-h46h-c93h",
@@ -529,15 +546,6 @@
       "packageName": "github.com/canonical/lxd",
       "publishedAt": "2026-11-06T18:45:51.000Z",
       "url": "https://github.com/advisories/GHSA-9j25-mm2h-2f76"
-    },
-    {
-      "id": "GHSA-5q7h-w9jf-cx97",
-      "cve": "CVE-2026-105769",
-      "summary": "kaniko can send the build's Azure (Entra ID) access token to lookalike ACR registry hosts",
-      "ecosystem": "go",
-      "packageName": "github.com/chainguard-dev/kaniko",
-      "publishedAt": "2026-11-05T17:48:54.000Z",
-      "url": "https://github.com/advisories/GHSA-5q7h-w9jf-cx97"
     }
   ]
 }
