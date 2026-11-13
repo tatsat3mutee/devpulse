@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-12T21:05:59.492Z",
+  "updatedAt": "2026-11-13T02:08:02.449Z",
   "kev": [
     {
       "cve": "CVE-2026-20320",
@@ -340,49 +340,27 @@
       "dueDate": "2026-10-18",
       "ransomware": false,
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21589"
-    },
-    {
-      "cve": "CVE-2026-76519",
-      "vendor": "Cisco",
-      "product": "Secure Email Gateway",
-      "name": "Cisco Secure Email Gateway Relative Path Traversal Vulnerability",
-      "dateAdded": "2026-10-14",
-      "dueDate": "2026-10-17",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76519"
-    },
-    {
-      "cve": "CVE-2026-105134",
-      "vendor": "Ahsay",
-      "product": "AhsayCBS",
-      "name": "Ahsay AhsayCBS Command Injection Vulnerability",
-      "dateAdded": "2026-10-14",
-      "dueDate": "2026-10-17",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-105134"
-    },
-    {
-      "cve": "CVE-2026-105133",
-      "vendor": "Ahsay",
-      "product": "AhsayCBS",
-      "name": "Ahsay AhsayCBS Improper Authentication Vulnerability",
-      "dateAdded": "2026-10-14",
-      "dueDate": "2026-10-17",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-105133"
-    },
-    {
-      "cve": "CVE-2026-0322",
-      "vendor": "Palo Alto Networks",
-      "product": "PAN-OS",
-      "name": "Palo Alto Networks PAN-OS Code Injection Vulnerability",
-      "dateAdded": "2026-10-14",
-      "dueDate": "2026-10-17",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-0322"
     }
   ],
   "advisories": [
+    {
+      "id": "GHSA-x585-4vv8-2mh2",
+      "cve": "CVE-2026-100397",
+      "summary": "Rucio: Unauthenticated administrator impersonation through SSH challenge tokens",
+      "ecosystem": "pip",
+      "packageName": "rucio",
+      "publishedAt": "2026-11-13T01:09:54.000Z",
+      "url": "https://github.com/advisories/GHSA-x585-4vv8-2mh2"
+    },
+    {
+      "id": "GHSA-f3w6-w445-fwh9",
+      "cve": "CVE-2026-122006",
+      "summary": "Active Storage: Possible arbitrary file write and read in image analysis",
+      "ecosystem": "rubygems",
+      "packageName": "activestorage",
+      "publishedAt": "2026-11-12T23:46:51.000Z",
+      "url": "https://github.com/advisories/GHSA-f3w6-w445-fwh9"
+    },
     {
       "id": "GHSA-4g86-54fm-h9h8",
       "cve": "CVE-2026-118740",
