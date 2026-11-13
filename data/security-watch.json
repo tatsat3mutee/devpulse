@@ -1,6 +1,26 @@
 {
-  "updatedAt": "2026-11-13T02:08:02.449Z",
+  "updatedAt": "2026-11-13T23:52:19.587Z",
   "kev": [
+    {
+      "cve": "CVE-2026-123039",
+      "vendor": "Check Point",
+      "product": "Multiple Products",
+      "name": "Check Point Multiple Products Incorrect Permission Assignment for Critical Resource Vulnerability",
+      "dateAdded": "2026-11-13",
+      "dueDate": "2026-11-16",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123039"
+    },
+    {
+      "cve": "CVE-2026-114713",
+      "vendor": "UnrealIRCd",
+      "product": "UnrealIRCd",
+      "name": "UnrealIRCd Improper Neutralization of Delimiters Vulnerability",
+      "dateAdded": "2026-11-13",
+      "dueDate": "2026-11-16",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114713"
+    },
     {
       "cve": "CVE-2026-20320",
       "vendor": "Cisco",
@@ -476,54 +496,6 @@
       "packageName": "fastapi-code-generator",
       "publishedAt": "2026-11-09T18:50:00.000Z",
       "url": "https://github.com/advisories/GHSA-h667-4jj2-cgv4"
-    },
-    {
-      "id": "GHSA-47w9-6r3f-938g",
-      "summary": "LXD has restricted project bypass leading to arbitrary command execution",
-      "ecosystem": "go",
-      "packageName": "github.com/canonical/lxd",
-      "publishedAt": "2026-11-06T19:51:26.000Z",
-      "url": "https://github.com/advisories/GHSA-47w9-6r3f-938g"
-    },
-    {
-      "id": "GHSA-pjff-c2wc-f6jm",
-      "summary": "LXD has arbitrary file write on client due to trusted image hash",
-      "ecosystem": "go",
-      "packageName": "github.com/canonical/lxd",
-      "publishedAt": "2026-11-06T19:36:55.000Z",
-      "url": "https://github.com/advisories/GHSA-pjff-c2wc-f6jm"
-    },
-    {
-      "id": "GHSA-fmc8-p6q7-75cc",
-      "summary": "LXD has argument injection in backup compression algorithm leading to AFW and ACE",
-      "ecosystem": "go",
-      "packageName": "github.com/canonical/lxd",
-      "publishedAt": "2026-11-06T19:36:37.000Z",
-      "url": "https://github.com/advisories/GHSA-fmc8-p6q7-75cc"
-    },
-    {
-      "id": "GHSA-vghh-5rfx-xhq8",
-      "summary": "LXD has arbitrary file read+write on host via rootfs/ symlink in malicious image",
-      "ecosystem": "go",
-      "packageName": "github.com/canonical/lxd",
-      "publishedAt": "2026-11-06T19:36:07.000Z",
-      "url": "https://github.com/advisories/GHSA-vghh-5rfx-xhq8"
-    },
-    {
-      "id": "GHSA-jpf8-86f3-wp38",
-      "summary": "LXD has arbitrary file read+write on host via templates/ symlink in malicious image",
-      "ecosystem": "go",
-      "packageName": "github.com/canonical/lxd",
-      "publishedAt": "2026-11-06T18:53:57.000Z",
-      "url": "https://github.com/advisories/GHSA-jpf8-86f3-wp38"
-    },
-    {
-      "id": "GHSA-9j25-mm2h-2f76",
-      "summary": "LXD has arbitrary file write on host via `exec-output` symlink in crafted image",
-      "ecosystem": "go",
-      "packageName": "github.com/canonical/lxd",
-      "publishedAt": "2026-11-06T18:45:51.000Z",
-      "url": "https://github.com/advisories/GHSA-9j25-mm2h-2f76"
     }
   ]
 }
