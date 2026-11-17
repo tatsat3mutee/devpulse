@@ -1,6 +1,16 @@
 {
-  "updatedAt": "2026-11-16T22:30:17.810Z",
+  "updatedAt": "2026-11-17T23:09:36.032Z",
   "kev": [
+    {
+      "cve": "CVE-2026-115731",
+      "vendor": "Perforce",
+      "product": "Puppet Enterprise",
+      "name": "Perforce Puppet Enterprise Deserialization of Untrusted Data Vulnerability",
+      "dateAdded": "2026-11-17",
+      "dueDate": "2026-12-01",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-115731"
+    },
     {
       "cve": "CVE-2026-123039",
       "vendor": "Check Point",
@@ -334,6 +344,15 @@
   ],
   "advisories": [
     {
+      "id": "GHSA-gfv3-m769-5xm3",
+      "cve": "CVE-2026-53998",
+      "summary": "Phoenix: Format String Injection in applyChatTemplate",
+      "ecosystem": "pip",
+      "packageName": "arize-phoenix",
+      "publishedAt": "2026-11-17T20:02:29.000Z",
+      "url": "https://github.com/advisories/GHSA-gfv3-m769-5xm3"
+    },
+    {
       "id": "GHSA-x585-4vv8-2mh2",
       "cve": "CVE-2026-100397",
       "summary": "Rucio: Unauthenticated administrator impersonation through SSH challenge tokens",
@@ -359,59 +378,6 @@
       "packageName": "Aspire.Dashboard.Sdk.linux-x64",
       "publishedAt": "2026-11-12T17:17:48.000Z",
       "url": "https://github.com/advisories/GHSA-4g86-54fm-h9h8"
-    },
-    {
-      "id": "GHSA-xqc2-xf4c-x3h3",
-      "cve": "CVE-2026-126187",
-      "summary": "React: Unauthenticated Remote Code Execution in React Server Components",
-      "ecosystem": "npm",
-      "packageName": "react-server-dom-parcel",
-      "publishedAt": "2026-11-10T22:44:12.000Z",
-      "url": "https://github.com/advisories/GHSA-xqc2-xf4c-x3h3"
-    },
-    {
-      "id": "GHSA-2f3w-v7f5-vpgx",
-      "summary": "Duplicate Advisory: Microsoft Security Advisory CVE-2026-118740 - Aspire Security Feature Bypass Vulnerability",
-      "ecosystem": "nuget",
-      "packageName": "Aspire.Dashboard.Sdk.linux-x64",
-      "publishedAt": "2026-11-10T21:33:09.000Z",
-      "url": "https://github.com/advisories/GHSA-2f3w-v7f5-vpgx"
-    },
-    {
-      "id": "GHSA-pcrw-h46h-c93h",
-      "cve": "CVE-2026-125120",
-      "summary": "Mongoose: sanitizeFilter not applied on countDocuments",
-      "ecosystem": "npm",
-      "packageName": "mongoose",
-      "publishedAt": "2026-11-10T19:37:32.000Z",
-      "url": "https://github.com/advisories/GHSA-pcrw-h46h-c93h"
-    },
-    {
-      "id": "GHSA-8vv3-6qpc-gpw6",
-      "cve": "CVE-2026-107846",
-      "summary": "bitcoinjs-lib: Undetected merkle node duplication in block root computation validates a forged transaction list",
-      "ecosystem": "npm",
-      "packageName": "bitcoinjs-lib",
-      "publishedAt": "2026-11-10T15:57:25.000Z",
-      "url": "https://github.com/advisories/GHSA-8vv3-6qpc-gpw6"
-    },
-    {
-      "id": "GHSA-62m9-f875-rqw6",
-      "cve": "CVE-2026-102894",
-      "summary": "GPUStack: SAML callback trusts an unverified SAMLResponse, allowing authentication bypass and account takeover",
-      "ecosystem": "pip",
-      "packageName": "gpustack",
-      "publishedAt": "2026-11-10T15:57:15.000Z",
-      "url": "https://github.com/advisories/GHSA-62m9-f875-rqw6"
-    },
-    {
-      "id": "GHSA-xggf-m53x-jc3f",
-      "cve": "CVE-2026-95860",
-      "summary": "node-opcua: Namespace-Level RBAC Fail-Open - Anonymous Write/Call Bypass via Unbound `DefaultRolePermissions",
-      "ecosystem": "npm",
-      "packageName": "node-opcua",
-      "publishedAt": "2026-11-10T15:56:52.000Z",
-      "url": "https://github.com/advisories/GHSA-xggf-m53x-jc3f"
     }
   ]
 }
