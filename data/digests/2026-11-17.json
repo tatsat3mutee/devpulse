@@ -1,0 +1,3266 @@
+{
+  "date": "2026-11-17",
+  "generatedAt": "2026-11-17T08:24:52.124Z",
+  "model": "openai/gpt-6-luna",
+  "candidateCount": 320,
+  "collectedCount": 517,
+  "radar": {
+    "models": [
+      {
+        "id": "xtools-at/DeepSeek-V4-Pro-Qwen3.5-9B-UNCENSORED-heretic",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 9384,
+        "downloads": 29567,
+        "createdAt": "2026-10-30T10:21:29.000Z"
+      },
+      {
+        "id": "Qwen/Qwen3.8-27B",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 20314,
+        "downloads": 6763402,
+        "createdAt": "2026-08-05T08:22:59.000Z"
+      },
+      {
+        "id": "Zyphra/ZONOS3-Mini",
+        "task": "text-to-speech",
+        "library": "zonos3",
+        "likes": 497,
+        "downloads": 69946,
+        "createdAt": "2026-11-09T05:03:57.000Z"
+      },
+      {
+        "id": "thinkingmachines/Inkling-2-Small",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 429,
+        "downloads": 16918,
+        "createdAt": "2026-11-04T19:51:05.000Z"
+      },
+      {
+        "id": "moonshotai/Kimi-K3.1-Pro",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 2179,
+        "downloads": 49428,
+        "createdAt": "2026-11-02T04:13:51.000Z"
+      },
+      {
+        "id": "NousResearch/Arete-27B",
+        "task": "text-generation",
+        "likes": 676,
+        "downloads": 9187,
+        "createdAt": "2026-11-06T19:31:28.000Z"
+      },
+      {
+        "id": "DavidAU/Qwen3.8-27B-TURBO-Fable-Cold-Fusion-735-882-Heretic-Uncensored-NEO-CODER-MAX-MTP-GGUF",
+        "task": "image-text-to-text",
+        "likes": 3254,
+        "downloads": 1746935,
+        "createdAt": "2026-09-01T07:01:09.000Z"
+      },
+      {
+        "id": "Cactus-Compute/mirage",
+        "task": "image-text-to-text",
+        "library": "cactus-compute",
+        "likes": 398,
+        "downloads": 32031,
+        "createdAt": "2026-11-05T19:01:53.000Z"
+      },
+      {
+        "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 5828,
+        "downloads": 467224,
+        "createdAt": "2026-10-17T02:40:38.000Z"
+      },
+      {
+        "id": "DavidAU/Qwen3.5-9B-The-Defiant-Fable-Uncensored-Heretic-NEO-IMATRIX-MAX-MTP-GGUF",
+        "task": "image-text-to-text",
+        "likes": 1865,
+        "downloads": 2178238,
+        "createdAt": "2026-07-19T04:33:55.000Z"
+      },
+      {
+        "id": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 2261,
+        "downloads": 4253987,
+        "createdAt": "2026-08-16T13:18:55.000Z"
+      },
+      {
+        "id": "n4ze3m/tiny-voca",
+        "task": "text-to-speech",
+        "likes": 202,
+        "downloads": 860,
+        "createdAt": "2026-11-14T15:46:27.000Z"
+      },
+      {
+        "id": "Edge0/Edge0-145B-NVFP4",
+        "task": "text-generation",
+        "library": "edge0",
+        "likes": 461,
+        "downloads": 55335,
+        "createdAt": "2026-11-11T05:22:51.000Z"
+      },
+      {
+        "id": "HauhauCS/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-MTP-GGUF",
+        "task": "image-text-to-text",
+        "likes": 2652,
+        "downloads": 1718332,
+        "createdAt": "2026-08-17T15:15:19.000Z"
+      },
+      {
+        "id": "AtomicChat/DeepSeek-V4.1-Flash-1017-Uncensored-GSQ-RCO-GGUF",
+        "task": "text-generation",
+        "library": "gguf",
+        "likes": 723,
+        "downloads": 207466,
+        "createdAt": "2026-10-28T04:48:45.000Z"
+      },
+      {
+        "id": "SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF",
+        "task": "image-text-to-text",
+        "library": "gguf",
+        "likes": 1090,
+        "downloads": 4164878,
+        "createdAt": "2026-10-02T03:42:33.000Z"
+      },
+      {
+        "id": "meituan-longcat/LongCat-2.5",
+        "task": "image-text-to-text",
+        "likes": 352,
+        "downloads": 1850,
+        "createdAt": "2026-11-04T11:48:50.000Z"
+      },
+      {
+        "id": "pyannote/speaker-diarization-community-1",
+        "task": "automatic-speech-recognition",
+        "library": "pyannote-audio",
+        "likes": 4584,
+        "downloads": 4871288,
+        "createdAt": "2025-04-15T21:31:35.000Z"
+      },
+      {
+        "id": "Qwen/Qwen3.8-Flash-Next",
+        "task": "image-text-to-text",
+        "library": "transformers",
+        "likes": 7245,
+        "downloads": 2975526,
+        "createdAt": "2026-08-24T08:24:59.000Z"
+      },
+      {
+        "id": "LiquidAI/LFM3-1.7B",
+        "task": "text-generation",
+        "library": "transformers",
+        "likes": 1897,
+        "downloads": 106961,
+        "createdAt": "2026-10-23T21:35:42.000Z"
+      }
+    ],
+    "repos": [
+      {
+        "name": "deepseek-ai/chat-demo",
+        "description": "Chat Demo",
+        "language": "TypeScript",
+        "stars": 4296,
+        "createdAt": "2026-11-12T08:08:19.000Z"
+      },
+      {
+        "name": "apex-compute/ANR",
+        "description": "Apex Neural Rendering (ANR) by Apex Compute",
+        "language": "C++",
+        "stars": 2512,
+        "createdAt": "2026-11-11T04:27:17.000Z"
+      },
+      {
+        "name": "hitkeeen/blender-ai-mcp-addon",
+        "description": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with ChatGPT/GPT, Claude, Gemini, Ollama, OpenCode. Blender AI addon, copilot for 3D, bpy Python scripting, MCP integration.",
+        "stars": 2322,
+        "createdAt": "2026-11-12T14:32:15.000Z"
+      },
+      {
+        "name": "Noniv/abyssal-garden",
+        "description": "A dreamy underwater world you can swim through in your browser: swaying kelp forests, sunbeams, a sunken ship and manta rays. Everything is generated by code with WebGPU (no images, models or sound files), all in a single 97 KB HTML file.",
+        "language": "JavaScript",
+        "stars": 1883,
+        "createdAt": "2026-11-12T13:57:34.000Z"
+      },
+      {
+        "name": "duwqijlk/muse-protocol",
+        "description": "muse.ai 注册与邀请码兑换协议研究（纯 HTTP Python 实现）",
+        "language": "Python",
+        "stars": 1517,
+        "createdAt": "2026-11-14T01:24:58.000Z"
+      },
+      {
+        "name": "Eynnzerr/TelemetryCleaner",
+        "description": "基于 Shizuku 免 Root 清除国产安卓 SystemHelper、RegService 等系统预装隐私数据收集模块",
+        "language": "Kotlin",
+        "stars": 1391,
+        "createdAt": "2026-11-11T06:25:10.000Z"
+      },
+      {
+        "name": "ZiChuanLan/freebie-radar",
+        "description": "白嫖与资讯资源聚合雷达：100+个源定时采集 + AI 二审过滤假福利 + 获取方式分级隔离抽奖/试用/推广 + Telegram 即时推送",
+        "language": "TypeScript",
+        "stars": 1264,
+        "createdAt": "2026-11-12T09:08:11.000Z"
+      },
+      {
+        "name": "Immortal-Protocols/lastbook",
+        "description": "Offline knowledge AI, maps and videos for survival and rebuilding",
+        "language": "Python",
+        "stars": 922,
+        "createdAt": "2026-11-12T23:49:03.000Z"
+      },
+      {
+        "name": "opencoredev/islandcn",
+        "description": "The open-source Dynamic Island for React, installed with shadcn.",
+        "language": "TypeScript",
+        "stars": 787,
+        "createdAt": "2026-11-13T11:50:50.000Z"
+      },
+      {
+        "name": "AIRzZ90/study-materials-fork",
+        "description": "A cross-platform Tauri 2 interface and interaction practice project",
+        "language": "TypeScript",
+        "stars": 747,
+        "createdAt": "2026-11-12T10:52:32.000Z"
+      },
+      {
+        "name": "haziqahmedqasmi/PeakCut",
+        "description": "AI clipping for long videos and live streams. Self-hosted, bring your own AI key.",
+        "language": "Python",
+        "stars": 710,
+        "createdAt": "2026-11-14T07:38:20.000Z"
+      },
+      {
+        "name": "linknimiball1974/ai-texture-forge",
+        "description": "An AI-powered texture forge for Blender — turn text prompts into seamless PBR materials, concept art and scene-wide projections with local or cloud diffusion models, straight inside the 3D viewport on Windows. · dream textures · dream textures blender · dream textures addon · dream textures ai · dre",
+        "stars": 685,
+        "createdAt": "2026-11-11T19:09:18.000Z"
+      },
+      {
+        "name": "n4ze3m/tiny-voca",
+        "description": "A 4.5M-parameter two-voice English text-to-speech model, trained from scratch",
+        "language": "Python",
+        "stars": 644,
+        "createdAt": "2026-11-14T16:02:56.000Z"
+      },
+      {
+        "name": "rivet-dev/open-orange",
+        "description": "Run Cloudflare Workers and Durable Objects unchanged on AWS, GCP, Azure or your own servers.",
+        "language": "TypeScript",
+        "stars": 641,
+        "createdAt": "2026-11-12T00:44:12.000Z"
+      },
+      {
+        "name": "CzzzzzzJ/mdldm-maitian",
+        "description": "麦田：自媒体多平台发布中控与数据监控（B站/抖音/小红书/视频号/YouTube/X），飞书卡片通知 + 数据大屏",
+        "language": "JavaScript",
+        "stars": 626,
+        "createdAt": "2026-11-14T03:59:22.000Z"
+      },
+      {
+        "name": "yetanotherbrowser/yab",
+        "description": "Yab, yet another browser: a fast native macOS browser with an iPhone and Android companion",
+        "language": "Swift",
+        "stars": 617,
+        "createdAt": "2026-11-14T23:56:32.000Z"
+      },
+      {
+        "name": "makepad/relax",
+        "description": "Relax Rust JIT",
+        "language": "Rust",
+        "stars": 585,
+        "createdAt": "2026-11-11T19:12:58.000Z"
+      },
+      {
+        "name": "krisgfx9/Wireless-Device-Battery-Monitor",
+        "description": "Show the battery level of wireless mice, headsets, keyboards and controllers on the Windows 10/11 taskbar. Lightweight tray app, no vendor software needed. Supports Logitech, Razer, SteelSeries, Corsair, HyperX, Glorious, PS4/PS5 DualSense, Xbox and Bluetooth devices.",
+        "language": "C++",
+        "stars": 573,
+        "createdAt": "2026-11-16T19:28:29.000Z"
+      },
+      {
+        "name": "BigPizzaV3/ClaudeMom",
+        "description": "不用 Claude 账号！把 API Key 变成登录模式，Claude 桌面版全功能解锁（汉化 / 语音 / 电脑控制）",
+        "language": "Rust",
+        "stars": 569,
+        "createdAt": "2026-11-12T07:06:59.000Z"
+      },
+      {
+        "name": "mit-han-lab/pear",
+        "description": "Training Reasoning Models in Simulation to Natively Use Real Robots",
+        "language": "Python",
+        "stars": 558,
+        "createdAt": "2026-11-13T17:43:06.000Z"
+      },
+      {
+        "name": "faizfahmi77/ScanDot",
+        "description": "Experimental Android 3D scanning and point-cloud viewer",
+        "language": "Kotlin",
+        "stars": 542,
+        "createdAt": "2026-11-13T04:07:57.000Z"
+      },
+      {
+        "name": "higurashi-ai/Haru",
+        "description": "Haru: a low-latency, multilingual, full-duplex spoken dialogue model",
+        "language": "Python",
+        "stars": 540,
+        "createdAt": "2026-11-12T11:15:42.000Z"
+      },
+      {
+        "name": "joshpuckett/allo",
+        "description": "Allo is your friendly neighborhood typeface, free and open source",
+        "language": "Python",
+        "stars": 529,
+        "createdAt": "2026-11-15T17:33:42.000Z"
+      },
+      {
+        "name": "credoksopho1984/blender-ai-copilot-studio",
+        "description": "An AI copilot and MCP server for Blender that turns plain-language briefs into scene operations—inside a visual chat studio with multi-agent teams, your choice of AI models, and 27 built-in scene tools. · blender-ai-copilot-studio · blender ai · ai for blender · blender copilot · blender ai copilot ",
+        "stars": 516,
+        "createdAt": "2026-11-12T19:30:32.000Z"
+      },
+      {
+        "name": "racdeufindurch198812/Blender-AI-MCP-Studio",
+        "description": "Blender AI MCP Studio is an AI assistant and built-in Model Context Protocol MCP server for Blender that turns plain-language briefs into inspected, approved and reversible 3D scene operations — with a visual chat workspace, multi-agent teams and your choice of AI models. · blender ai mcp studio · m",
+        "stars": 514,
+        "createdAt": "2026-11-12T19:28:20.000Z"
+      },
+      {
+        "name": "tiobeharxi1987/blender-ai-copilot-flow",
+        "description": "A controlled AI workflow for Blender: every copilot edit is a supervised tool call—proposed, approved, executed in sequence, cancellable after the current step and undoable by name—inside a visual studio with a built-in MCP server. · blender-ai-copilot-flow · blender · blender 3d · blender addon · b",
+        "stars": 514,
+        "createdAt": "2026-11-12T19:38:53.000Z"
+      },
+      {
+        "name": "zovulrira1974/blender-ai-copilot-assets",
+        "description": "An asset-savvy AI copilot for Blender—search Poly Haven, Sketchfab and Poly Pizza mid-conversation, check what fits, import after your confirmation, with 27 scene tools and a built-in MCP server alongside. · blender-ai-copilot-assets · blender · blender 3d · blender addon · blender plugin · blender ",
+        "stars": 510,
+        "createdAt": "2026-11-12T19:39:54.000Z"
+      },
+      {
+        "name": "Doug-218/blender-ai-copilot-forge",
+        "description": "A scene-forging AI copilot for Blender—describe the layout and watch primitives, cameras, lights, materials and parenting assemble in ordered steps, with approvals, named undo and a built-in MCP server. · blender-ai-copilot-forge · blender · blender 3d · blender addon · blender plugin · blender exte",
+        "stars": 509,
+        "createdAt": "2026-11-12T19:35:10.000Z"
+      },
+      {
+        "name": "berkantay/gpucanvas",
+        "description": "Put thousands of live DOM nodes on an infinite canvas: the GPU draws them, an editor selects, moves and resizes them, shaders and transitions run on them, and an AI agent can read them and point at them.",
+        "language": "TypeScript",
+        "stars": 508,
+        "createdAt": "2026-11-12T23:19:42.000Z"
+      },
+      {
+        "name": "precygtrucqui1981/blender-ai-copilot-lab",
+        "description": "An AI lab for Blender where manager–worker–reviewer agent teams run multi-step scene briefs as supervised experiments—a live task board, review findings, one correction attempt per blocked task, named undo, and a built-in MCP server. · blender-ai-copilot-lab · blender · blender 3d · blender addon · ",
+        "stars": 507,
+        "createdAt": "2026-11-12T19:33:16.000Z"
+      }
+    ]
+  },
+  "lede": {
+    "text": "Agent benchmarks underline a gap between passing tests and delivering complete work: leading models pass about 63% of fail-to-pass tests but finish fewer than 8% of organization-level assignments, while optimization results shift sharply with build and runtime settings. Meanwhile, tools that let agents use real browser sessions or request laptop credentials make access boundaries part of the design. Together, the stories point to a practical bar for agents: measure end-to-end outcomes and control what they can reach.",
+    "refs": [
+      "paper-2611-20218",
+      "paper-2611-20882",
+      "hn-50523459",
+      "hn-50526152"
+    ],
+    "quiet": false
+  },
+  "items": [
+    {
+      "id": "paper-2611-21003",
+      "headline": "K2-Horizon releases six open models and lossless decoding adapters",
+      "originalTitle": "K2-Horizon: A Frontier Fleet of Open Source Language Models",
+      "url": "https://huggingface.co/papers/2611.21003",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 31,
+      "topic": "ai",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "The six-model release ranges from 0.9B to 375B-A23B parameters; its Uno diffusion adapters speed decoding by up to 2.2x without a separate draft model. The reported technique and released training artifacts make this relevant to teams building and evaluating open-model stacks.",
+      "publishedAt": "2026-11-15T19:00:00.000Z",
+      "mustRead": true,
+      "author": "K2 Team et al.",
+      "brief": [
+        "K2-Horizon is a six-model open language-model fleet, from a 0.9B dense model to a 375B-A23B MoE, for reasoning and agentic work.",
+        "MoVA applies MoE to attention value projections; Uno lossless diffusion adapters speed decoding by up to 2.2x without a draft model.",
+        "The release includes training history, data, logs, code, and data-building pipelines, supporting reproducibility and inspection of model development."
+      ]
+    },
+    {
+      "id": "hn-50517321",
+      "headline": "A July gateway defect and reduced capacity triggered Microsoft's email outage",
+      "originalTitle": "Microsoft blames monster email outage on software defect introduced in July fix",
+      "url": "https://www.theregister.com/saas/2026/11/16/microsoft-blames-monster-email-outage-on-software-defect-introduced-in-july-fix/5310026",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50517321",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50517321",
+          "comments": 208,
+          "points": 302
+        }
+      ],
+      "kind": "postmortem",
+      "readMinutes": 4,
+      "points": 302,
+      "comments": 208,
+      "topic": "design",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Microsoft says a July change in network gateway servers failed when load rose and capacity fell, and engineers had to patch the patch rather than roll back. The incident offers hard-won reliability lessons for systems serving users at global scale.",
+      "publishedAt": "2026-11-16T13:18:22.000Z",
+      "mustRead": true,
+      "image": "/covers/2026-11-17/hn-50517321.webp",
+      "brief": [
+        "A July 2026 defect in Microsoft 365 network gateway servers contributed to an email outage when load surged as capacity fell.",
+        "Lock contention exhausted CPU and memory; failover traffic cascaded across endpoints, leaving more than 80% of servers unresponsive at the low point.",
+        "Load tests focused on weaker hardware with fewer cores, showing why testing across hardware conditions matters for reliable large-scale services."
+      ],
+      "diagram": {
+        "caption": "The outage account traces failover traffic from Teams into gateway endpoint rerouting.",
+        "nodes": [
+          {
+            "id": "teams",
+            "label": "Teams"
+          },
+          {
+            "id": "primary-gateway",
+            "label": "\"primary\" gateway"
+          },
+          {
+            "id": "next-endpoint",
+            "label": "next healthy endpoint"
+          }
+        ],
+        "edges": [
+          {
+            "from": "teams",
+            "to": "primary-gateway",
+            "label": "fails over"
+          },
+          {
+            "from": "primary-gateway",
+            "to": "next-endpoint",
+            "label": "reroutes traffic"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2611-20882",
+      "headline": "Accelerate Bench measures coding agents on whole-program optimization",
+      "originalTitle": "Accelerate Bench: Evaluating Agents for Application-Level Program Optimization",
+      "url": "https://huggingface.co/papers/2611.20882",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "benchmark",
+      "points": 10,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Across 32 CPU tasks, agents' Score@1 ranges from 25.5% to 67.4%; identical source runs from 0.29x to 2.12x depending only on build and runtime settings. The results show why agent optimization needs correctness checks and controlled performance measurement across the full application.",
+      "publishedAt": "2026-11-15T19:00:00.000Z",
+      "mustRead": true,
+      "author": "Bowen Liu et al.",
+      "codeUrl": "https://github.com/AdAstraAbyssoque/accelerate-bench",
+      "brief": [
+        "Accelerate Bench is a benchmark of 32 CPU optimization tasks adapted from scientific applications and supercomputing competitions.",
+        "On version 1.1, 16 coding agents scored 25.5% to 67.4%; replays found identical code ran from 0.29x to 2.12x with different build and runtime settings.",
+        "The benchmark tests optimization across whole applications, where build settings and interactions between code changes can alter performance."
+      ]
+    },
+    {
+      "id": "paper-2611-20218",
+      "headline": "SWE-CoWork tests coding agents on organization-level software assignments",
+      "originalTitle": "SWE-CoWork: Benchmarking Coding Agents as Digital Employees in Organizations",
+      "url": "https://huggingface.co/papers/2611.20218",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "benchmark",
+      "points": 5,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "The benchmark spans 101 assignments in 101 repositories and finds that leading models pass about 63% of fail-to-pass tests but complete fewer than 8% of assignments; supplying full requirements does not improve complete-task success. It exposes how much agent performance depends on coordination and end-to-end delivery, not just implementation.",
+      "publishedAt": "2026-11-14T19:00:00.000Z",
+      "mustRead": false,
+      "author": "Xinping Lei et al.",
+      "codeUrl": "https://github.com/TokenWave-AI/swe-cowork-bench",
+      "brief": [
+        "SWE-CoWork benchmarks coding agents on 101 development assignments across real repositories, programming languages, and application domains.",
+        "The two leading models passed about 63% of fail-to-pass tests but completed fewer than 8% of assignments; supplying full requirements improved partial test results without raising task completion.",
+        "Its organization simulation tests requirements discovery and delivery, showing that passing some executable tests is not equivalent to completing an engineering assignment."
+      ],
+      "diagram": {
+        "caption": "The benchmark routes requirements from colleagues and records through an agent to executable tests.",
+        "nodes": [
+          {
+            "id": "agent",
+            "label": "agent"
+          },
+          {
+            "id": "colleagues",
+            "label": "colleagues"
+          },
+          {
+            "id": "workplace-records",
+            "label": "workplace records"
+          },
+          {
+            "id": "private-tests",
+            "label": "private executable tests"
+          }
+        ],
+        "edges": [
+          {
+            "from": "colleagues",
+            "to": "agent",
+            "label": "requirements"
+          },
+          {
+            "from": "workplace-records",
+            "to": "agent",
+            "label": "requirements"
+          },
+          {
+            "from": "agent",
+            "to": "private-tests",
+            "label": "implementation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2611-21339",
+      "headline": "MovieRoll compresses video-generation KV cache by up to 78%",
+      "originalTitle": "MovieRoll: A Systematic Framework for Rolling Out Long-Form Videos",
+      "url": "https://huggingface.co/papers/2611.21339",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 5,
+      "topic": "inference",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "MovieRoll combines streaming fine-tuning, long-rollout distillation and hierarchical KV-cache compression; the cache method reduces memory by up to 78% while improving generation quality. The work addresses a concrete memory bottleneck in long-horizon generative inference.",
+      "publishedAt": "2026-11-15T19:00:00.000Z",
+      "mustRead": false,
+      "author": "Yunyang Ge et al.",
+      "codeUrl": "https://github.com/Tencent-Hunyuan/MovieRoll",
+      "codeStars": 22,
+      "brief": [
+        "MovieRoll connects streaming fine-tuning, long-rollout distillation, and long-horizon inference for streaming video generation.",
+        "WinTF builds a multi-step base; HieraKV keeps full history in shallow layers and sink–recent history in deeper layers, cutting cache memory by up to 78%.",
+        "CuLT-DMD averages local gradients across temporal positions while retaining one computation graph, enabling efficient long-rollout training."
+      ],
+      "diagram": {
+        "caption": "The diagram shows MovieRoll's named training and inference techniques in sequence.",
+        "nodes": [
+          {
+            "id": "wintf",
+            "label": "WinTF"
+          },
+          {
+            "id": "cult-dmd",
+            "label": "CuLT-DMD"
+          },
+          {
+            "id": "kv-recomputation",
+            "label": "KV recomputation"
+          },
+          {
+            "id": "annealcfg",
+            "label": "AnnealCFG"
+          }
+        ],
+        "edges": [
+          {
+            "from": "wintf",
+            "to": "cult-dmd",
+            "label": "builds on base"
+          },
+          {
+            "from": "cult-dmd",
+            "to": "kv-recomputation",
+            "label": "long-horizon inference"
+          },
+          {
+            "from": "kv-recomputation",
+            "to": "annealcfg",
+            "label": "inference"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-nvidia-dev-nvidia-vera-rubin-nvl72-leads-agentic-inference-performance-on-mlperf-endpoints-",
+      "headline": "Vera Rubin reports 5–10× higher agentic-inference throughput per watt than GB300",
+      "originalTitle": "NVIDIA Vera Rubin NVL72 Leads Agentic Inference Performance on MLPerf Endpoints v1.0",
+      "url": "https://developer.nvidia.com/blog/nvidia-vera-rubin-nvl72-leads-agentic-inference-performance-on-mlperf-endpoints-v1-0/",
+      "source": "blog",
+      "sourceLabel": "NVIDIA Technical Blog",
+      "kind": "benchmark",
+      "readMinutes": 8,
+      "topic": "inference",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "Provisional MLPerf Endpoints results report 5×–10× higher throughput per watt and 3×–5× greater interactivity at matched concurrency, with prefix caching, state reuse and routing among the techniques cited. Serving teams can use the results to assess how hardware and workload-aware optimizations affect agent inference.",
+      "publishedAt": "2026-11-16T16:00:00.000Z",
+      "mustRead": false,
+      "author": "Zhihan Jiang",
+      "brief": [
+        "MLPerf Endpoints v1.0 evaluates serving capacity and responsiveness for coding and enterprise workflows through API endpoints.",
+        "Vera Rubin NVL72 reports 5–10x higher throughput per kilowatt than GB300 NVL72 at a shared minimum of 50 tokens per second per user.",
+        "Prefix caching, state reuse, and Dynamo routing reduce repeated computation and balance serving load across agentic workloads."
+      ]
+    },
+    {
+      "id": "blog-nvidia-dev-post-training-nvidia-nemotron-to-increase-accuracy-in-your-scientific-domain",
+      "headline": "Nemotron post-training combines supervised fine-tuning and RL for scientific tasks",
+      "originalTitle": "Post-Training NVIDIA Nemotron to Increase Accuracy in Your Scientific Domain",
+      "url": "https://developer.nvidia.com/blog/post-training-nvidia-nemotron-to-increase-accuracy-in-your-scientific-domain/",
+      "source": "blog",
+      "sourceLabel": "NVIDIA Technical Blog",
+      "kind": "guide",
+      "readMinutes": 13,
+      "topic": "ai",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "A recipe builds a reinforcement-learning environment from experimental data; in a drug-metabolism example, supervised fine-tuning raised accuracy 12% and RL added 17% at a 16,384-token output budget. The method and measured gains offer a practical starting point for domain-specific post-training.",
+      "publishedAt": "2026-11-16T16:00:00.000Z",
+      "mustRead": false,
+      "author": "Gautham Dharuman",
+      "image": "/covers/2026-11-17/blog-nvidia-dev-post-training-nvidia-nemotron-to-increase-accuracy-in-your-scientific-domain.webp",
+      "brief": [
+        "The post describes a recipe for post-training Nemotron 3.5 Super VL for scientific tasks using a custom reinforcement-learning environment.",
+        "For drug-metabolism prediction, supervised fine-tuning improved accuracy by 12%, and RL post-training added 17% at a 16,384-token output budget.",
+        "Building an RL environment from experimental data lets engineers adapt and evaluate models for a specific scientific domain."
+      ],
+      "diagram": {
+        "caption": "Experimental data feeds an environment and RL framework to post-train Nemotron for a scientific task.",
+        "nodes": [
+          {
+            "id": "experimental-data",
+            "label": "raw experimental dataset"
+          },
+          {
+            "id": "neomo-gym",
+            "label": "NeMo Gym"
+          },
+          {
+            "id": "neomo-rl",
+            "label": "NVIDIA NeMo RL"
+          },
+          {
+            "id": "nemotron",
+            "label": "Nemotron 3.5 Super VL"
+          }
+        ],
+        "edges": [
+          {
+            "from": "experimental-data",
+            "to": "neomo-gym",
+            "label": "builds environment"
+          },
+          {
+            "from": "neomo-gym",
+            "to": "neomo-rl",
+            "label": "RL environment"
+          },
+          {
+            "from": "neomo-rl",
+            "to": "nemotron",
+            "label": "post-trains"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-nvidia-dev-nvidia-vera-rubin-nvl72-achieves-up-to-2x-blackwell-ultra-performance-in-mlperf-",
+      "headline": "Vera Rubin halves GB300’s DeepSeek-V3 training time in MLPerf results",
+      "originalTitle": "NVIDIA Vera Rubin NVL72 Achieves up to 2x Blackwell Ultra Performance in MLPerf Training v6.1",
+      "url": "https://developer.nvidia.com/blog/nvidia-vera-rubin-nvl72-achieves-up-to-2x-blackwell-ultra-performance-in-mlperf-training-v6-1/",
+      "source": "blog",
+      "sourceLabel": "NVIDIA Technical Blog",
+      "kind": "benchmark",
+      "readMinutes": 12,
+      "topic": "ai",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "In MLPerf Training v6.1, Vera Rubin trained DeepSeek-V3 in 4.14 minutes on 1,024 GPUs, versus 8.03 minutes for GB300, and reported over 97% scaling efficiency from 256 to 1,024 GPUs. The results offer concrete data on large-scale training performance and scaling.",
+      "publishedAt": "2026-11-16T16:00:00.000Z",
+      "mustRead": false,
+      "author": "Farshad Ghodsian",
+      "brief": [
+        "Vera Rubin NVL72 debuted in MLPerf Training v6.1, with results across large-scale training and reinforcement-learning post-training benchmarks.",
+        "On DeepSeek-V3 671B, Vera Rubin NVL72 trained the model in 4.14 minutes using 1,024 GPUs, versus 8.03 minutes for GB300 at the same scale.",
+        "The platform maintained above 97% scaling efficiency from 256 to 1,024 GPUs, illustrating the importance of interconnect and system scaling for large training runs."
+      ],
+      "diagram": {
+        "caption": "The diagram shows the named Vera Rubin interconnect components and network options.",
+        "nodes": [
+          {
+            "id": "rubin-nvl72",
+            "label": "Vera Rubin NVL72"
+          },
+          {
+            "id": "nvlink-spine",
+            "label": "NVLink 6 spine"
+          },
+          {
+            "id": "connectx",
+            "label": "ConnectX-9 SuperNICs"
+          },
+          {
+            "id": "quantum",
+            "label": "Quantum-X800 InfiniBand"
+          },
+          {
+            "id": "spectrum",
+            "label": "Spectrum-X Ethernet"
+          }
+        ],
+        "edges": [
+          {
+            "from": "rubin-nvl72",
+            "to": "nvlink-spine",
+            "label": "interconnect"
+          },
+          {
+            "from": "nvlink-spine",
+            "to": "connectx",
+            "label": "connects"
+          },
+          {
+            "from": "connectx",
+            "to": "quantum",
+            "label": "network"
+          },
+          {
+            "from": "connectx",
+            "to": "spectrum",
+            "label": "network"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50524767",
+      "headline": "Compromised Optimizely JavaScript served malware to visitors at 178 organizations",
+      "originalTitle": "Optimizely compromised, served malware on Zoom, GitLab",
+      "url": "https://blog.report-uri.com/worlds-largest-brands-infected-with-malware-via-optimizely/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50524767",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50524767",
+          "comments": 128,
+          "points": 295
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 14,
+      "points": 295,
+      "comments": 128,
+      "topic": "security",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "Malicious scripts delivered credential and payment theft, crypto-wallet swapping, and iOS exploit kits through Optimizely; the excerpt says CSP enforcement could have blocked key parts. Teams relying on third-party JavaScript should examine their supply-chain controls.",
+      "publishedAt": "2026-11-16T23:00:34.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-17/hn-50524767.webp",
+      "brief": [
+        "Optimizely Web served malicious JavaScript to visitors of 178 organizations through customer snippets hosted on its CDN.",
+        "Attackers added code to customer Project JavaScript fields, which loaded malware that skimmed cards, stole cookies and screenshots, and swapped crypto addresses.",
+        "A trusted third-party script can compromise visitors even when an organization’s own code and infrastructure remain untouched."
+      ],
+      "diagram": {
+        "caption": "A modified Optimizely snippet loads the attacker’s external script.",
+        "nodes": [
+          {
+            "id": "optimizely-cdn",
+            "label": "Optimizely CDN"
+          },
+          {
+            "id": "snippet",
+            "label": "snippet"
+          },
+          {
+            "id": "project-js",
+            "label": "Project JavaScript"
+          },
+          {
+            "id": "track-js",
+            "label": "track.js"
+          }
+        ],
+        "edges": [
+          {
+            "from": "optimizely-cdn",
+            "to": "snippet",
+            "label": "serves"
+          },
+          {
+            "from": "snippet",
+            "to": "project-js",
+            "label": "contains"
+          },
+          {
+            "from": "project-js",
+            "to": "track-js",
+            "label": "loads"
+          }
+        ]
+      }
+    },
+    {
+      "id": "paper-2611-17955",
+      "headline": "WebArena-Pro tests web agents across 300 multimodal tasks and 20 applications",
+      "originalTitle": "WebArena-Pro: A Heterogeneous, Multimodal, Reproducible Benchmark for Web Agents",
+      "url": "https://huggingface.co/papers/2611.17955",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 12,
+      "topic": "agents",
+      "score": 8,
+      "relevance": 3,
+      "whyRead": "WebArena-Pro uses self-hosted apps to keep 300 tasks reproducible while spanning six domains and audio, video, text and vision; leading agents score 62.3%. Its coverage and reproducibility address practical gaps in evaluating browser agents.",
+      "publishedAt": "2026-11-12T19:00:00.000Z",
+      "mustRead": false,
+      "author": "Imene Kerboua et al.",
+      "codeUrl": "https://github.com/McGill-NLP/webarena-pro",
+      "codeStars": 1,
+      "brief": [
+        "WebArena-Pro is a reproducible benchmark of 300 web-agent tasks across 20 self-hosted applications in six domain categories.",
+        "It treats audio and video as core observations alongside text and vision, across varied interfaces, workflows and data models.",
+        "Its broader, multimodal task coverage lets engineers evaluate web agents on more realistic browser work."
+      ]
+    },
+    {
+      "id": "hn-50523459",
+      "headline": "OpenCode Browse lets agents operate in a user's real browser",
+      "originalTitle": "OpenCode Browse",
+      "url": "https://opencode.ai/product/browse",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50523459",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50523459",
+          "comments": 123,
+          "points": 224
+        }
+      ],
+      "kind": "tool",
+      "points": 224,
+      "comments": 123,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "An MCP server and browser extension let agents use existing tabs, logins, and extensions, with human handoffs for login, 2FA, and payment steps. This is a practical agent-tooling design that also makes browser access and site restrictions worth scrutinizing.",
+      "publishedAt": "2026-11-16T21:20:37.000Z",
+      "mustRead": false,
+      "brief": [
+        "OpenCode Browse combines an MCP server and Chromium extension to let agents operate in a user’s real browser.",
+        "Agents can read pages, click, type and capture tabs; users take over for logins, 2FA or payments, then resume the task.",
+        "Agents can use existing browser logins without being handed separate site credentials, with site access restricted to allowed sites."
+      ],
+      "diagram": {
+        "caption": "Agents use the browser through OpenCode Browse, with the user able to take over a tab.",
+        "nodes": [
+          {
+            "id": "mcp-client",
+            "label": "MCP client"
+          },
+          {
+            "id": "mcp-server",
+            "label": "MCP server"
+          },
+          {
+            "id": "chromium-extension",
+            "label": "Chromium extension"
+          },
+          {
+            "id": "real-browser",
+            "label": "real browser"
+          }
+        ],
+        "edges": [
+          {
+            "from": "mcp-client",
+            "to": "mcp-server",
+            "label": "agent requests"
+          },
+          {
+            "from": "mcp-server",
+            "to": "chromium-extension",
+            "label": "controls"
+          },
+          {
+            "from": "chromium-extension",
+            "to": "real-browser",
+            "label": "operates tabs"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50498945",
+      "headline": "Orbital data centers face questions about cost, cooling and scaling",
+      "originalTitle": "Will we put data centers in space?",
+      "url": "https://www.forethought.org/research/will-we-really-put-data-centers-in-space",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50498945",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50498945",
+          "comments": 226,
+          "points": 73
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 46,
+      "points": 73,
+      "comments": 226,
+      "topic": "infra",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The report examines orbital data-center economics, launch timelines, thermal management, radiation, bandwidth and security, with appendices on degradation and cost assumptions. Its analysis bears on the infrastructure and operating constraints behind proposed AI capacity.",
+      "publishedAt": "2026-11-14T17:35:33.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-17/hn-50498945.webp",
+      "brief": [
+        "An assessment of orbital data centers examines their technical and economic feasibility for AI compute.",
+        "The cost case depends heavily on launch costs: the analysis estimates solar reaches parity with present-day off-grid power at about $250/kg to orbit.",
+        "Chip failures that cannot be repaired and inter-satellite bandwidth limits could constrain hardware needs and workloads, especially early on."
+      ]
+    },
+    {
+      "id": "hn-50523300",
+      "headline": "Injected Optimizely scripts skim cards and replace crypto addresses on major sites",
+      "originalTitle": "CNN, Zoom, Fox News Served Visitors a Crypto-Stealing Skimmer – OPTIMJACK",
+      "url": "https://amirulcyber.com/2026/11/16/optimjack-optimizely-skimmer/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50523300",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50523300",
+          "comments": 2,
+          "points": 187
+        }
+      ],
+      "kind": "vulnerability",
+      "readMinutes": 4,
+      "points": 187,
+      "comments": 2,
+      "topic": "security",
+      "score": 8,
+      "relevance": 2,
+      "whyRead": "Malicious JavaScript in Optimizely bundles reportedly skims card forms, swaps pasted crypto addresses, and exfiltrates page data from visitors to named sites. Teams using Optimizely should inspect their bundles and assess visitor exposure.",
+      "publishedAt": "2026-11-16T21:08:38.000Z",
+      "mustRead": false,
+      "brief": [
+        "Injected JavaScript in Optimizely bundles exposed visitors to 15 household-name websites, among millions of potential visitors, to a crypto-stealer and card skimmer.",
+        "The payload replaced crypto addresses, skimmed payment details, and exfiltrated page URLs, cookies and screenshots; it also had an iOS second stage.",
+        "A compromised tag layer can put visitors at risk even when a site’s own origin remains clean."
+      ],
+      "diagram": {
+        "caption": "An injected loader fetches the payload, which sends collected data to the listed endpoints.",
+        "nodes": [
+          {
+            "id": "optimizely-bundle",
+            "label": "Optimizely bundle"
+          },
+          {
+            "id": "loader",
+            "label": "loader"
+          },
+          {
+            "id": "track-js",
+            "label": "track.js"
+          },
+          {
+            "id": "hit-php",
+            "label": "/hit.php"
+          },
+          {
+            "id": "card-php",
+            "label": "/card.php"
+          }
+        ],
+        "edges": [
+          {
+            "from": "optimizely-bundle",
+            "to": "loader",
+            "label": "contains"
+          },
+          {
+            "from": "loader",
+            "to": "track-js",
+            "label": "loads"
+          },
+          {
+            "from": "track-js",
+            "to": "hit-php",
+            "label": "exfiltrates data"
+          },
+          {
+            "from": "track-js",
+            "to": "card-php",
+            "label": "exfiltrates cards"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50526152",
+      "headline": "Lend lets coding agents use laptop credentials only with approval",
+      "originalTitle": "Running coding agents without handing them my credentials",
+      "url": "https://blog.antonio.cx/running-agents-with-lend",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50526152",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50526152",
+          "comments": 57,
+          "points": 101
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 11,
+      "points": 101,
+      "comments": 57,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The author runs agents on disposable VMs and built lend to let them request approved access to tools on a laptop without seeing its secrets. The approach addresses a practical credential boundary for agent workflows.",
+      "publishedAt": "2026-11-17T01:18:56.000Z",
+      "mustRead": false,
+      "brief": [
+        "Lend lets remote coding agents use tools on a user’s laptop with the user’s approval.",
+        "The design keeps credentials on the laptop and runs commands that need them there; the user approves an agent’s request before it gets the output.",
+        "This lets engineers run agents on disposable VMs without copying credentials onto them or granting unchecked access to an SSH agent."
+      ],
+      "diagram": {
+        "caption": "A remote agent requests a laptop-side action, which runs after user approval and returns output.",
+        "nodes": [
+          {
+            "id": "agent",
+            "label": "agents"
+          },
+          {
+            "id": "vm",
+            "label": "VM"
+          },
+          {
+            "id": "lend",
+            "label": "lend"
+          },
+          {
+            "id": "laptop",
+            "label": "laptop"
+          }
+        ],
+        "edges": [
+          {
+            "from": "agent",
+            "to": "vm",
+            "label": "runs on"
+          },
+          {
+            "from": "vm",
+            "to": "lend",
+            "label": "requests action"
+          },
+          {
+            "from": "lend",
+            "to": "laptop",
+            "label": "approval and command"
+          },
+          {
+            "from": "laptop",
+            "to": "lend",
+            "label": "output"
+          },
+          {
+            "from": "lend",
+            "to": "vm",
+            "label": "returns output"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50517803",
+      "headline": "Coral lets agents turn successful workflows into reusable TypeScript tools",
+      "originalTitle": "Show HN: Coral – Open-source gateway where agents write their own tools",
+      "url": "https://github.com/withcoral/coral",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50517803",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50517803",
+          "comments": 24,
+          "points": 52
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 7,
+      "points": 52,
+      "comments": 24,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Agents can save successful workflows as TypeScript tools, reuse them alongside provider tools, and share them across groups with more precise permissions. This offers a practical pattern for reducing repeated work and limiting agent access in complex systems.",
+      "publishedAt": "2026-11-16T14:14:51.000Z",
+      "mustRead": false,
+      "brief": [
+        "Coral is a self-hosted gateway where agents write TypeScript programs as tools and save successful ones for reuse.",
+        "It checks provider calls against policy before adding credentials and forwarding them; non-read operations require approval by default.",
+        "Reusable tools can encode narrower rules than broad provider permissions, reducing repeated agent work while retaining policy checks."
+      ],
+      "diagram": {
+        "caption": "Coral checks agent tool calls against policy before forwarding them to a provider.",
+        "nodes": [
+          {
+            "id": "agent",
+            "label": "agents"
+          },
+          {
+            "id": "coral",
+            "label": "Coral"
+          },
+          {
+            "id": "provider",
+            "label": "provider"
+          }
+        ],
+        "edges": [
+          {
+            "from": "agent",
+            "to": "coral",
+            "label": "tool call"
+          },
+          {
+            "from": "coral",
+            "to": "provider",
+            "label": "policy-checked call"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50520796",
+      "headline": "FBI says autonomous AI hacking tools are being used in network intrusions",
+      "originalTitle": "FBI says Artex AI open-source hacking tool used to breach networks",
+      "url": "https://techcrunch.com/2026/11/16/fbi-says-artex-ai-open-source-hacking-tool-used-to-breach-networks-in-under-three-hours/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50520796",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50520796",
+          "comments": 9,
+          "points": 45
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 4,
+      "points": 45,
+      "comments": 9,
+      "topic": "agents",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "The FBI says attackers use tools such as Artex with hosted or open-source models, targeting sectors including finance, government, and technology; the resulting traffic can be noisy. Security teams need to account for AI-assisted attacks that can move faster than human defenders.",
+      "publishedAt": "2026-11-16T18:12:21.000Z",
+      "mustRead": false,
+      "brief": [
+        "The FBI says hackers are using Artex, an open-source AI penetration-testing platform, in intrusions across multiple industries.",
+        "Artex can scan networks for weaknesses, exploit simple security flaws and spread to databases and mailboxes; hackers can connect it to hosted LLMs.",
+        "Automated scans and intrusion steps can move faster than human defenders can respond, raising the value of strong protections and detailed logs."
+      ],
+      "diagram": {
+        "caption": "Artex uses connected models and scans victim networks to reach sensitive data stores.",
+        "nodes": [
+          {
+            "id": "artex",
+            "label": "Artex"
+          },
+          {
+            "id": "frontier-llms",
+            "label": "frontier LLMs"
+          },
+          {
+            "id": "victim-network",
+            "label": "victim’s network"
+          },
+          {
+            "id": "databases",
+            "label": "databases"
+          },
+          {
+            "id": "mailboxes",
+            "label": "mailboxes"
+          }
+        ],
+        "edges": [
+          {
+            "from": "artex",
+            "to": "frontier-llms",
+            "label": "connects to"
+          },
+          {
+            "from": "artex",
+            "to": "victim-network",
+            "label": "scans and exploits"
+          },
+          {
+            "from": "victim-network",
+            "to": "databases",
+            "label": "spreads to"
+          },
+          {
+            "from": "victim-network",
+            "to": "mailboxes",
+            "label": "spreads to"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-huggingface-openrouter",
+      "headline": "Hugging Face routes Inference Providers through OpenRouter for live provider selection",
+      "originalTitle": "Hugging Face and OpenRouter join forces to make open-weight models easy to run",
+      "url": "https://huggingface.co/blog/openrouter",
+      "source": "blog",
+      "sourceLabel": "Hugging Face",
+      "kind": "release",
+      "readMinutes": 5,
+      "topic": "inference",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Hugging Face now sends language-model requests through OpenRouter, which selects among providers using live price, speed, and reliability measurements and retries after failures. This offers a practical look at multi-provider inference routing with an unchanged client API.",
+      "publishedAt": "2026-11-16T00:00:00.000Z",
+      "mustRead": false,
+      "brief": [
+        "Hugging Face Inference Providers now routes language-model requests through OpenRouter instead of its custom router.",
+        "OpenRouter selects a provider using live price, speed and reliability measurements, and retries another provider after a failure.",
+        "Engineers keep the same code and API while requests can shift away from slow or failing providers."
+      ],
+      "diagram": {
+        "caption": "Requests pass from Hugging Face through OpenRouter to a selected provider.",
+        "nodes": [
+          {
+            "id": "hugging-face",
+            "label": "Hugging Face"
+          },
+          {
+            "id": "openrouter",
+            "label": "OpenRouter"
+          },
+          {
+            "id": "providers",
+            "label": "providers"
+          }
+        ],
+        "edges": [
+          {
+            "from": "hugging-face",
+            "to": "openrouter",
+            "label": "requests"
+          },
+          {
+            "from": "openrouter",
+            "to": "providers",
+            "label": "routes to"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-duckdb-duckdb-user-group-workshop-ai-powered-review-analysis-html",
+      "headline": "DuckDB and an LLM analyzed 2.1 million Amazon reviews with a laptop-built pipeline",
+      "originalTitle": "DuckDB User Group Workshop on AI-Powered Review Analysis with Hugging Face",
+      "url": "https://duckdb.org/2026/11/17/duckdb-user-group-workshop-ai-powered-review-analysis.html",
+      "source": "blog",
+      "sourceLabel": "DuckDB",
+      "kind": "guide",
+      "readMinutes": 4,
+      "topic": "data",
+      "score": 7,
+      "relevance": 3,
+      "whyRead": "Attendees built a DuckDB pipeline to find products with falling ratings in 2.1 million reviews and used an LLM to summarize complaints; they tested locally on a small sample before running the same files on Hugging Face. The workflow shows how to scale a practical data-and-LLM prototype.",
+      "publishedAt": "2026-11-17T00:00:00.000Z",
+      "mustRead": false,
+      "author": "Geertjan Wielenga",
+      "image": "/covers/2026-11-17/blog-duckdb-duckdb-user-group-workshop-ai-powered-review-analysis-html.webp",
+      "brief": [
+        "A laptop-built pipeline analyzes appliances data from 2.1 million Amazon reviews to find products with falling ratings and explain why.",
+        "DuckDB filters and ranks products; only 40 helpful recent complaints for a selected product go to an LLM for themed summaries.",
+        "The same ingest script runs as a Hugging Face Job on the full data, while a deployed Space exposes workflow steps as APIs."
+      ],
+      "diagram": {
+        "caption": "The review pipeline writes Parquet data to a bucket, then analyzes and serves results.",
+        "nodes": [
+          {
+            "id": "job",
+            "label": "Hugging Face Job"
+          },
+          {
+            "id": "bucket",
+            "label": "Storage Bucket"
+          },
+          {
+            "id": "duckdb",
+            "label": "DuckDB"
+          },
+          {
+            "id": "llm",
+            "label": "LLM"
+          },
+          {
+            "id": "space",
+            "label": "Hugging Face Space"
+          }
+        ],
+        "edges": [
+          {
+            "from": "job",
+            "to": "bucket",
+            "label": "writes Parquet"
+          },
+          {
+            "from": "bucket",
+            "to": "duckdb",
+            "label": "review data"
+          },
+          {
+            "from": "duckdb",
+            "to": "llm",
+            "label": "40 complaints"
+          },
+          {
+            "from": "llm",
+            "to": "space",
+            "label": "summaries"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50524736",
+      "headline": "Windows 11 reports coding-agent and developer-tool usage in diagnostics",
+      "originalTitle": "Windows 11 Is Collecting Data on Which Coding Agents and Developer Tools You Use",
+      "url": "https://xusheng.dev/posts/windows-coding-agent-telemetry/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50524736",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50524736",
+          "comments": 379,
+          "points": 539
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 7,
+      "points": 539,
+      "comments": 379,
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Reverse engineering found that a Windows component records use of coding agents and developer tools, stores the data locally and uploads it with optional diagnostics enabled by default. The investigation is relevant to engineers assessing OS telemetry and developer privacy.",
+      "publishedAt": "2026-11-16T22:58:20.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-17/hn-50524736.webp",
+      "brief": [
+        "Windows' MissionControlAggregator.dll checks for coding agents and developer tools, then reports detected usage to Windows Diagnostics.",
+        "It consumes existing Windows and WSL events, parses application identities, and matches executable names instead of scanning running processes.",
+        "Optional diagnostic data is enabled by default; unless users opt out, usage data is uploaded to Microsoft."
+      ],
+      "diagram": {
+        "caption": "Detected application usage is reported to Windows Diagnostics and uploaded to Microsoft.",
+        "nodes": [
+          {
+            "id": "aggregator",
+            "label": "MissionControlAggregator.dll"
+          },
+          {
+            "id": "diagnostics",
+            "label": "Windows Diagnostics"
+          },
+          {
+            "id": "microsoft",
+            "label": "Microsoft"
+          }
+        ],
+        "edges": [
+          {
+            "from": "aggregator",
+            "to": "diagnostics",
+            "label": "reports usage"
+          },
+          {
+            "from": "diagnostics",
+            "to": "microsoft",
+            "label": "uploads data"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50509411",
+      "headline": "Microsoft 365 outage leaves Phantasialand unaware of a chlorine alarm",
+      "originalTitle": "Microsoft 365 outage leads to chlorine gas poisoning of 15 hotel guests",
+      "url": "https://www1.wdr.de/nrw/rheinland/rhein-erft-kreis/technischer-defekt-chlor-phantasialand-100.html",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50509411",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50509411",
+          "comments": 274,
+          "points": 628
+        }
+      ],
+      "kind": "news",
+      "points": 628,
+      "comments": 274,
+      "topic": "design",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "A Microsoft outage blocked email delivery of an alarm after an automatic system overdosed a pool with chlorine, injuring 15 guests. The incident shows why safety-critical alerts need a path that does not rely solely on email.",
+      "publishedAt": "2026-11-15T18:36:10.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-17/hn-50509411.webp",
+      "brief": [
+        "A Microsoft outage blocked incoming email at Phantasialand, so staff missed an email alert about excessive pool chlorine.",
+        "A faulty automatic dosing system put too much chlorine in the pool; 15 hotel guests were injured.",
+        "A cybersecurity architect said a safety alarm should not depend solely on an email inbox, suggesting an additional audible signal."
+      ]
+    },
+    {
+      "id": "hn-50515058",
+      "headline": "Lean-checked AI-generated proofs still need scrutiny",
+      "originalTitle": "Interpreting claims that a theorem is correct because it was checked in Lean",
+      "url": "https://xenaproject.wordpress.com/2026/11/12/and-the-proof-is-checked-in-lean/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50515058",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50515058",
+          "comments": 134,
+          "points": 297
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 12,
+      "points": 297,
+      "comments": 134,
+      "topic": "ai",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The post explains that Lean code is a meaningful signal of correctness, but AI-generated proofs need additional tests; it notes that such tests have not been systematically done for many cases. This is useful context for evaluating AI-generated formal proofs.",
+      "publishedAt": "2026-11-16T07:38:19.000Z",
+      "mustRead": false,
+      "brief": [
+        "Lean-checked code does not by itself establish that a paper's theorem is correct; four questions should be answered, especially for AI-generated code.",
+        "A compiling Lean statement can differ from the informal theorem, as a Fermat-like statement that fails when all variables are zero illustrates.",
+        "Engineers evaluating generated proofs must check the formalized statement as well as proof compilation; some OpenAI theorem-dump repositories have not answered all the tests."
+      ]
+    },
+    {
+      "id": "hn-50497621",
+      "headline": "AI is bringing formal verification into mainstream software work",
+      "originalTitle": "Formal Verification Is Not Verifiable",
+      "url": "https://alperenkeles.com/posts/formal-verification-is-not-verifiable/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50497621",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50497621",
+          "comments": 36,
+          "points": 107
+        }
+      ],
+      "kind": "essay",
+      "readMinutes": 7,
+      "points": 107,
+      "comments": 36,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The piece points to AI-driven growth in formal verification and examples of work on software and hardware, then asks what can and cannot be proved. Engineers adopting AI for software assurance will find the limits question relevant.",
+      "publishedAt": "2026-11-14T15:07:48.000Z",
+      "mustRead": false,
+      "brief": [
+        "AI has brought formal verification into broader software work, with startups and major developers pursuing it.",
+        "Formal verification depends on definitions, models and provers as well as proofs; errors in trusted parts can undermine conclusions.",
+        "Binary verification can reduce trusted components by proving facts about compiled binaries instead of modeling high-level language semantics."
+      ]
+    },
+    {
+      "id": "hn-50521870",
+      "headline": "Intercept HTTP/3 by relaying QUIC and decoding QPACK streams",
+      "originalTitle": "How to Intercept HTTP/3 Traffic: QUIC and Qpack",
+      "url": "https://interceptsuite.com/blog/intercept-http3-traffic-quic-qpack-explained/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50521870",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50521870",
+          "comments": 9,
+          "points": 70
+        }
+      ],
+      "kind": "guide",
+      "readMinutes": 19,
+      "points": 70,
+      "comments": 9,
+      "topic": "infra",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The guide explains why TCP-based HTTP proxies miss HTTP/3, then walks through intercepting QUIC traffic and handling QPACK's dynamic table in browsers. It gives engineers a practical path to inspect and replay traffic when debugging modern web protocols.",
+      "publishedAt": "2026-11-16T19:29:17.000Z",
+      "mustRead": false,
+      "brief": [
+        "HTTP/3 runs over QUIC, which carries packets inside UDP datagrams, so ordinary HTTP-over-TCP proxies do not see it.",
+        "Interception requires relaying UDP and acting as a QUIC man-in-the-middle; requests arrive as QUIC-stream bytes with QPACK-compressed headers.",
+        "Browser QPACK dynamic-table references complicate editing, while forwarding, dropping and replaying streams remain possible."
+      ],
+      "diagram": {
+        "caption": "HTTP/3 uses QUIC over UDP, with QPACK compressing headers.",
+        "nodes": [
+          {
+            "id": "http3",
+            "label": "HTTP/3"
+          },
+          {
+            "id": "quic",
+            "label": "QUIC"
+          },
+          {
+            "id": "udp",
+            "label": "UDP"
+          },
+          {
+            "id": "qpack",
+            "label": "QPACK"
+          }
+        ],
+        "edges": [
+          {
+            "from": "http3",
+            "to": "quic",
+            "label": "carried over"
+          },
+          {
+            "from": "quic",
+            "to": "udp",
+            "label": "inside datagrams"
+          },
+          {
+            "from": "http3",
+            "to": "qpack",
+            "label": "headers compressed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50518690",
+      "headline": "Psychic ranks frequently used files with a lightweight local model",
+      "originalTitle": "Psychic: Like fzf but learns from your actions",
+      "url": "https://klauria.tech/psychic/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50518690",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50518690",
+          "comments": 12,
+          "points": 50
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 6,
+      "points": 50,
+      "comments": 12,
+      "topic": "languages",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Psychic learns from opened files and visited directories, ranking results with a lightweight ML model while targeting UI updates under 16 ms. It shows how personalization can fit into an interactive developer tool without sacrificing responsiveness.",
+      "publishedAt": "2026-11-16T15:33:34.000Z",
+      "mustRead": false,
+      "image": "/covers/2026-11-17/hn-50518690.webp",
+      "brief": [
+        "Psychic is a terminal file browser that learns from files and directories a user opens and ranks search results with a local model.",
+        "Searches and clicks are stored in SQLite; a LightGBM model trains on that history and reranks results after each keypress.",
+        "Keeping inference local avoids network latency and lets results update within one frame after a keypress."
+      ],
+      "diagram": {
+        "caption": "Psychic stores activity, trains LightGBM, and uses the model to rank results.",
+        "nodes": [
+          {
+            "id": "psychic",
+            "label": "psychic"
+          },
+          {
+            "id": "sqlite",
+            "label": "sqlite db"
+          },
+          {
+            "id": "lightgbm",
+            "label": "LightGBM"
+          }
+        ],
+        "edges": [
+          {
+            "from": "psychic",
+            "to": "sqlite",
+            "label": "searches and clicks"
+          },
+          {
+            "from": "sqlite",
+            "to": "lightgbm",
+            "label": "training data"
+          },
+          {
+            "from": "lightgbm",
+            "to": "psychic",
+            "label": "ranking"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-8eivbk",
+      "headline": "Rust enables its parallel compiler frontend by default on nightly",
+      "originalTitle": "Enabling the parallel frontend on nightly",
+      "url": "https://blog.rust-lang.org/2026/11/16/enabling-parallel-frontend-on-nightly/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/8eivbk/enabling_parallel_frontend_on_nightly",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/8eivbk/enabling_parallel_frontend_on_nightly",
+          "comments": 0,
+          "points": 26
+        }
+      ],
+      "kind": "release",
+      "readMinutes": 6,
+      "points": 26,
+      "comments": 0,
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Rust is enabling the parallel frontend—which includes type checking and borrow checking—by default on nightly to expose remaining issues before stabilization. Compiler teams can follow the rollout of concurrency in a performance-critical developer tool.",
+      "publishedAt": "2026-11-16T15:22:38.857Z",
+      "mustRead": false,
+      "brief": [
+        "Rust is enabling its parallel compiler frontend by default on the nightly channel to find remaining issues before stabilization.",
+        "The frontend includes type and borrow checking, which had run sequentially; parallel builds showed varied gains, with some cargo check builds nearly twice as fast using 8 threads.",
+        "Parallelizing frontend work can reduce compilation time, though incremental rebuild gains were more modest and varied."
+      ]
+    },
+    {
+      "id": "lobsters-gm4vao",
+      "headline": "Aerogramme treats fine-grained IMAP retrieval as a database problem",
+      "originalTitle": "Quality IMAP, Part 1: Your Mailbox Is A Database",
+      "url": "https://aerogramme.deuxfleurs.fr/blog/2026-quality-imap-part-1/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/gm4vao/quality_imap_part_1_your_mailbox_is",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/gm4vao/quality_imap_part_1_your_mailbox_is",
+          "comments": 6,
+          "points": 17
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 16,
+      "points": 17,
+      "comments": 6,
+      "topic": "data",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The first part of a series examines fine-grained email retrieval and querying in Aerogramme, an experimental geo-distributed IMAP server designed to tolerate network and hardware failures. Its correctness challenges and database framing are relevant to engineers building reliable data services.",
+      "publishedAt": "2026-11-16T16:25:38.928Z",
+      "mustRead": false,
+      "brief": [
+        "Aerogramme treats an IMAP mailbox as a database that clients query for email contents.",
+        "SEARCH applies criteria and returns email identifiers; FETCH retrieves content for a given identifier.",
+        "Fine-grained retrieval lets mobile clients fetch new-message subjects without downloading attachments or syncing the entire mailbox."
+      ],
+      "diagram": {
+        "caption": "SEARCH finds matching email identifiers, which FETCH uses to retrieve selected message contents.",
+        "nodes": [
+          {
+            "id": "mailbox",
+            "label": "mailbox"
+          },
+          {
+            "id": "search",
+            "label": "SEARCH"
+          },
+          {
+            "id": "fetch",
+            "label": "FETCH"
+          }
+        ],
+        "edges": [
+          {
+            "from": "mailbox",
+            "to": "search",
+            "label": "search criteria"
+          },
+          {
+            "from": "search",
+            "to": "fetch",
+            "label": "identifiers"
+          },
+          {
+            "from": "mailbox",
+            "to": "fetch",
+            "label": "email contents"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-aavjsr",
+      "headline": "A tutorial series builds a language from source representation to typed AST",
+      "originalTitle": "Programming a language",
+      "url": "https://nrinaudo.github.io/articles/pl.html",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/aavjsr/programming_language",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/aavjsr/programming_language",
+          "comments": 0,
+          "points": 17
+        }
+      ],
+      "kind": "guide",
+      "points": 17,
+      "comments": 0,
+      "topic": "languages",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "The series covers source representation, naming, code reuse, control flow, type inference, typing rules, and interpretation of a typed AST. Engineers building small languages or domain-specific tools can use the progression as a practical roadmap.",
+      "publishedAt": "2026-11-16T11:24:12.119Z",
+      "mustRead": false,
+      "brief": [
+        "“Programming a language” is a tutorial series based on informal live-coding sessions about implementing simple programming languages.",
+        "Its outline moves from representing source code through type inference and enforcement to producing and interpreting a typed AST.",
+        "The progression from source representation to a typed AST offers engineers a concrete path for implementing language-processing tools."
+      ],
+      "diagram": {
+        "caption": "The tutorial outline moves from source representation through type inference to a typed AST and its interpretation.",
+        "nodes": [
+          {
+            "id": "represent-source",
+            "label": "Representing source code"
+          },
+          {
+            "id": "infer-types",
+            "label": "Inferring types"
+          },
+          {
+            "id": "produce-typed-ast",
+            "label": "Producing a typed AST"
+          },
+          {
+            "id": "interpret-typed-ast",
+            "label": "Interpreting a typed AST"
+          }
+        ],
+        "edges": [
+          {
+            "from": "represent-source",
+            "to": "infer-types"
+          },
+          {
+            "from": "infer-types",
+            "to": "produce-typed-ast"
+          },
+          {
+            "from": "produce-typed-ast",
+            "to": "interpret-typed-ast"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-kubernetes-ipvs-removal",
+      "headline": "Kubernetes plans to remove kube-proxy’s IPVS backend in 1.40",
+      "originalTitle": "Scheduling the removal of the kube-proxy IPVS backend",
+      "url": "https://kubernetes.io/blog/2026/11/16/ipvs-removal/",
+      "source": "blog",
+      "sourceLabel": "Kubernetes",
+      "kind": "news",
+      "readMinutes": 7,
+      "topic": "infra",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "Kubernetes plans to remove IPVS because it is complex to maintain and cannot correctly implement every Kubernetes Service edge case; users should migrate to nftables or iptables. The rationale and migration options matter to teams operating Kubernetes networking.",
+      "publishedAt": "2026-11-16T18:35:00.000Z",
+      "mustRead": false,
+      "brief": [
+        "Kubernetes plans to remove kube-proxy’s IPVS backend in version 1.40; users should plan to migrate to nftables or iptables.",
+        "IPVS improved on iptables scaling, but its kernel API did not match Kubernetes Services well enough to handle every edge case correctly.",
+        "The migration affects service-proxy behavior and maintenance; the excerpt names nftables and iptables as alternatives."
+      ]
+    },
+    {
+      "id": "blog-lwn-1102988",
+      "headline": "Futex PING adds a third class for next-generation priority inheritance",
+      "originalTitle": "[$] A new generation of futexes",
+      "url": "https://lwn.net/Articles/1102988/",
+      "source": "blog",
+      "sourceLabel": "LWN.net",
+      "kind": "deep-dive",
+      "topic": "systems",
+      "score": 7,
+      "relevance": 2,
+      "whyRead": "A proposed kernel patch series introduces futex PING, a third futex class intended to make user-space mutexes faster. The design matters to engineers working on synchronization performance and kernel interfaces.",
+      "publishedAt": "2026-11-16T15:06:04.000Z",
+      "mustRead": false,
+      "author": "corbet",
+      "brief": [
+        "Futex PING is a proposed third futex class, named for “priority inheritance next generation.”",
+        "Futexes support fast mutexes in user space, but their implementation has grown complex and existing variants are not fast enough for some users.",
+        "The proposal targets users seeking faster mutexes while adding another option to an increasingly complex kernel subsystem."
+      ]
+    },
+    {
+      "id": "blog-gcloud-agentic-threat-activity-crosses-a-significant-threshold",
+      "headline": "Threat actors are adopting autonomous multi-agent intrusion workflows",
+      "originalTitle": "GTIG AI Threat Tracker: Agentic Threat Activity Crosses a Significant Threshold",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/agentic-threat-activity-crosses-a-significant-threshold/",
+      "source": "blog",
+      "sourceLabel": "Google Cloud",
+      "kind": "deep-dive",
+      "readMinutes": 26,
+      "topic": "agents",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "Google's threat update describes adversaries using multi-agent frameworks and automated vulnerability research and exploitation pipelines. The shift matters to teams assessing how autonomous agents could accelerate attacks and change defensive priorities.",
+      "publishedAt": "2026-11-16T14:00:00.000Z",
+      "mustRead": false,
+      "author": "Google Threat Intelligence Group",
+      "brief": [
+        "GTIG reports that threat actors are using autonomous multi-agent frameworks and other AI tools in cybercrime, espionage, and information operations.",
+        "Reported activity includes automating vulnerability exploitation, stealing LLM credentials for resale, and manipulating coding-assistant configurations to introduce backdoors.",
+        "AI systems and infrastructure need defenses against automated attacks, credential theft, and malicious changes to local coding workflows."
+      ]
+    },
+    {
+      "id": "blog-import-ai-import-ai-481-ai-sub-contractors-a-wet-lab-for-ai-and-subterfuge-during-developm",
+      "headline": "FrontierML tests whether agents can spend money to improve model performance",
+      "originalTitle": "Import AI 481: AI sub-contractors; a wet lab for AI; and subterfuge during development",
+      "url": "https://jack-clark.net/2026/11/16/import-ai-481-ai-sub-contractors-a-wet-lab-for-ai-and-subterfuge-during-development/",
+      "source": "blog",
+      "sourceLabel": "Import AI",
+      "kind": "benchmark",
+      "readMinutes": 12,
+      "topic": "agents",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "FrontierML gives agents budgets of $10, $50 or $200 and 12-hour CPU sandboxes for 21 end-to-end ML tasks. It offers a concrete way to assess agents’ ability to use resources to improve models.",
+      "publishedAt": "2026-11-16T14:01:15.000Z",
+      "mustRead": false,
+      "author": "Jack Clark",
+      "brief": [
+        "FrontierML is a benchmark measuring how well agents turn capital into model performance across end-to-end machine-learning tasks.",
+        "Agents receive a CPU sandbox, a wallet, validation samples, and a task; they can choose architectures, source data, train models, and optimize inference.",
+        "The benchmark probes agents’ ability to manage compute and data resources while carrying out machine-learning work."
+      ]
+    },
+    {
+      "id": "hn-50514180",
+      "headline": "Debian kernel 6.1.0-55 freezes systems; a later 6.1.192 package fixes the bug",
+      "originalTitle": "Debian Becomes Unresponsive after 6.1.0-55 Kernel Update",
+      "url": "https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1154101",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50514180",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50514180",
+          "comments": 81,
+          "points": 173
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 106,
+      "points": 173,
+      "comments": 81,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "A Debian bug report records system freezes after a kernel update and lists linux/6.1.192-2 as the fixed version. Engineers managing Debian systems should check whether the affected package applies to their deployments.",
+      "publishedAt": "2026-11-16T04:53:06.000Z",
+      "mustRead": false,
+      "brief": [
+        "A Debian bug report says systems became unresponsive after booting the 6.1.0-55 kernel package.",
+        "The report identifies linux/6.1.192-1 as affected and linux/6.1.192-2 as the fixed version; booting the previous 6.1.0-54 kernel avoided the reported crash.",
+        "Kernel upgrades can cause severe service outages, so operators need to track affected versions and use the fixed package."
+      ]
+    },
+    {
+      "id": "hn-50517815",
+      "headline": "Active Directory’s identity model strains against modern cloud scale",
+      "originalTitle": "The Active Directory Era Is Finally Over",
+      "url": "https://infisical.com/blog/active-directory-machine-identity",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50517815",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50517815",
+          "comments": 78,
+          "points": 122
+        }
+      ],
+      "kind": "essay",
+      "readMinutes": 7,
+      "points": 122,
+      "comments": 78,
+      "topic": "design",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The essay frames Active Directory around a directory of identities, domain-controller approval, and domains that define where identities are valid. That model offers useful context for engineers evaluating identity architecture in cloud environments.",
+      "publishedAt": "2026-11-16T14:15:31.000Z",
+      "mustRead": false,
+      "brief": [
+        "- Active Directory combines an LDAP identity directory with Kerberos authentication and domain architecture that defines where identities are valid.",
+        "- Domain controllers approve authentication; accurate identity records support downstream services such as Certificate Services and Group Policies.",
+        "- Cloud-scale machine identities are difficult to unify in AD, making visibility and attestation harder for organizations running modern software."
+      ]
+    },
+    {
+      "id": "hn-50523291",
+      "headline": "Three.js’s path to game-engine-quality graphics spans probes, lightmaps, and SSR",
+      "originalTitle": "My Quest to push native Three.js quality match AAA Game Engines",
+      "url": "https://ben3d.ca/blog/building-the-aaa-lighting-pipeline-in-threejs",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50523291",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50523291",
+          "comments": 55,
+          "points": 134
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 16,
+      "points": 134,
+      "comments": 55,
+      "topic": "web",
+      "score": 7,
+      "relevance": 1,
+      "whyRead": "The write-up lays out a rendering pipeline using lightmaps, light and reflection probes, and screen-space effects, and reports 8× faster bakes for one component. Its stage-by-stage gaps and workarounds offer useful performance and roadmap lessons for graphics engineers.",
+      "publishedAt": "2026-11-16T21:07:43.000Z",
+      "mustRead": false,
+      "brief": [
+        "- The proposed Three.js indoor-rendering pipeline combines cached lighting data with screen-space effects each frame.",
+        "- Setup fills lightmaps, a light probe grid, and reflection probes; each frame reads those caches and adds screen-space work.",
+        "- Engineers can use the stage-by-stage comparison to see which rendering pieces are available, under review, or still missing in Three.js."
+      ],
+      "diagram": {
+        "caption": "The setup creates three lighting caches that feed screen-space work each frame.",
+        "nodes": [
+          {
+            "id": "lightmaps",
+            "label": "lightmaps"
+          },
+          {
+            "id": "light-probe-grid",
+            "label": "light probe grid"
+          },
+          {
+            "id": "reflection-probes",
+            "label": "reflection probes"
+          },
+          {
+            "id": "screen-space-work",
+            "label": "screen-space work"
+          }
+        ],
+        "edges": [
+          {
+            "from": "lightmaps",
+            "to": "screen-space-work",
+            "label": "read each frame"
+          },
+          {
+            "from": "light-probe-grid",
+            "to": "screen-space-work",
+            "label": "read each frame"
+          },
+          {
+            "from": "reflection-probes",
+            "to": "screen-space-work",
+            "label": "read each frame"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50520697",
+      "headline": "400 US hyperscale data centers used as much electricity as Michigan",
+      "originalTitle": "Just 400 US Data Centers Use More Electricity Than Michigan",
+      "url": "https://www.wired.com/story/data-centers-use-more-electricity-than-michigan/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50520697",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50520697",
+          "comments": 92,
+          "points": 91
+        }
+      ],
+      "kind": "news",
+      "readMinutes": 3,
+      "points": 91,
+      "comments": 92,
+      "topic": "infra",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "A Harvard study reported that 400 US hyperscale data centers used as much electricity as Michigan in a year, with emissions three times higher than before the AI boom. Power demand is an important constraint on scaling AI infrastructure.",
+      "publishedAt": "2026-11-16T18:04:55.000Z",
+      "mustRead": false,
+      "brief": [
+        "- A Harvard study estimates that 400 US hyperscale data centers used as much electricity as Michigan in one year.",
+        "- Researchers assembled a list of 403 facilities and modeled their energy use and emissions using regional grid mixes.",
+        "- Regional power mix and concentrated demand make electricity and emissions important constraints when engineers plan data-center capacity."
+      ]
+    },
+    {
+      "id": "hn-50520270",
+      "headline": "Aristotle adds Rust support for formal verification, including unsafe blocks",
+      "originalTitle": "Aristotle Expands into Rust",
+      "url": "https://www.harmonic.fun/news/aristotle-rust-verification/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50520270",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50520270",
+          "comments": 61,
+          "points": 113
+        }
+      ],
+      "kind": "release",
+      "points": 113,
+      "comments": 61,
+      "topic": "languages",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Aristotle says it can prove Rust code follows its specification and has no undefined behavior, including within unsafe blocks. Engineers evaluating verification tools for Rust can note the new language support, though the excerpt provides no evidence or benchmarks.",
+      "publishedAt": "2026-11-16T17:34:41.000Z",
+      "mustRead": false,
+      "brief": [
+        "- Aristotle adds formal verification for Rust, including code inside unsafe blocks.",
+        "- It can prove code has no undefined behavior and matches its specification; on Manifest, it found a rounding bug that was fixed.",
+        "- Verifying code changes can help engineers catch critical flaws before deploying software that handles money or infrastructure."
+      ]
+    },
+    {
+      "id": "hn-50526560",
+      "headline": "macOS 27.3 lets users limit apps to selected protected folders",
+      "originalTitle": "If an App Asks for Full Disk Access or System and App Protection Override",
+      "url": "https://support.apple.com/en-us/149699",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50526560",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50526560",
+          "comments": 54,
+          "points": 101
+        }
+      ],
+      "kind": "guide",
+      "readMinutes": 4,
+      "points": 101,
+      "comments": 54,
+      "topic": "security",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Starting in macOS 27.3, users can grant access to specific protected folders or apps instead of Full Disk Access or System & App Protection Override. Granular permissions are a useful security design pattern for desktop software.",
+      "publishedAt": "2026-11-17T02:17:04.000Z",
+      "mustRead": false,
+      "brief": [
+        "- Starting in macOS 27.3, some apps requesting broad permissions can be granted access to selected protected folders or apps instead.",
+        "- Users choose the folders or apps an application may access, while system protections remain in place for the rest.",
+        "- Scoped permissions let engineers and users limit an app's access to sensitive data and control capabilities."
+      ]
+    },
+    {
+      "id": "hn-50509416",
+      "headline": "Eclipse Mosquitto provides an MQTT broker and client utilities",
+      "originalTitle": "Eclipse Mosquitto – An open source MQTT broker",
+      "url": "https://github.com/eclipse-mosquitto/mosquitto",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50509416",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50509416",
+          "comments": 42,
+          "points": 111
+        }
+      ],
+      "kind": "tool",
+      "readMinutes": 3,
+      "points": 111,
+      "comments": 42,
+      "topic": "infra",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Mosquitto implements MQTT 5.0, 3.1.1 and 3.1, with C and C++ client libraries and command-line publishing, subscribing and administration tools. It is a useful building block for systems that exchange messages over a standard protocol.",
+      "publishedAt": "2026-11-15T18:36:40.000Z",
+      "mustRead": false,
+      "brief": [
+        "- Eclipse Mosquitto is an open-source MQTT broker for protocol versions 5.0, 3.1.1, and 3.1.",
+        "- It includes C and C++ client libraries and utilities such as mosquitto_pub and mosquitto_sub for publishing and subscribing.",
+        "- Engineers can use it for MQTT messaging; remote broker access requires configuration and appropriate authentication."
+      ],
+      "diagram": {
+        "caption": "A publisher sends messages through the Mosquitto broker to subscribers.",
+        "nodes": [
+          {
+            "id": "publisher",
+            "label": "mosquitto_pub"
+          },
+          {
+            "id": "broker",
+            "label": "broker"
+          },
+          {
+            "id": "subscriber",
+            "label": "mosquitto_sub"
+          }
+        ],
+        "edges": [
+          {
+            "from": "publisher",
+            "to": "broker",
+            "label": "publish"
+          },
+          {
+            "from": "broker",
+            "to": "subscriber",
+            "label": "deliver"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50519345",
+      "headline": "Jolt brings Clojure to Scheme with native C bindings and standalone binaries",
+      "originalTitle": "Jolt – Clojure that speaks C",
+      "url": "https://jolt-lang.net/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50519345",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50519345",
+          "comments": 36,
+          "points": 106
+        }
+      ],
+      "kind": "tool",
+      "points": 106,
+      "comments": 36,
+      "topic": "languages",
+      "score": 7,
+      "relevance": 1,
+      "whyRead": "Jolt compiles Clojure through a host-neutral IR, supports C FFI and OS-thread concurrency, and can build self-contained binaries. Its design is a detailed look at an alternative implementation of a niche language.",
+      "publishedAt": "2026-11-16T16:23:01.000Z",
+      "mustRead": false,
+      "brief": [
+        "- Jolt runs Clojure on Scheme and can compile projects ahead of time into self-contained executables.",
+        "- Its self-hosted compiler analyzes Clojure into a host-neutral IR, emits Scheme, and runs on Chez or Gambit compiled to JavaScript.",
+        "- Native C bindings and standalone binaries give engineers a way to use Clojure semantics without requiring a JVM at runtime."
+      ],
+      "diagram": {
+        "caption": "Jolt's compiler turns Clojure into Scheme for execution on Chez or Gambit.",
+        "nodes": [
+          {
+            "id": "clojure",
+            "label": "Clojure"
+          },
+          {
+            "id": "ir",
+            "label": "host-neutral IR"
+          },
+          {
+            "id": "scheme",
+            "label": "Scheme"
+          },
+          {
+            "id": "chez",
+            "label": "Chez"
+          },
+          {
+            "id": "gambit",
+            "label": "Gambit"
+          }
+        ],
+        "edges": [
+          {
+            "from": "clojure",
+            "to": "ir",
+            "label": "analyze"
+          },
+          {
+            "from": "ir",
+            "to": "scheme",
+            "label": "emit"
+          },
+          {
+            "from": "scheme",
+            "to": "chez",
+            "label": "run"
+          },
+          {
+            "from": "scheme",
+            "to": "gambit",
+            "label": "compile"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50510799",
+      "headline": "Open firmware could make consumer devices more attractive to AI agents",
+      "originalTitle": "Your Agent Will Pick the Hackable One",
+      "url": "https://geoffstearns.com/blog/your-agent-will-pick-the-hackable-one/",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50510799",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50510799",
+          "comments": 65,
+          "points": 76
+        }
+      ],
+      "kind": "essay",
+      "readMinutes": 6,
+      "points": 76,
+      "comments": 65,
+      "topic": "agents",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The FM-1 synth has community firmware, and its maker released GPLv3 firmware, a development kit and a browser emulator. The piece argues that agents may favor devices owners can reprogram, a possible product-design consequence of agent-mediated purchasing.",
+      "publishedAt": "2026-11-15T21:10:39.000Z",
+      "mustRead": false,
+      "brief": [
+        "- M-VAVE published its FM-1 firmware as open source under GPLv3, with a development kit and browser emulator for custom builds.",
+        "- Owners have created alternate firmware with AI coding tools, and the emulator lets them test builds before flashing the device.",
+        "- Writable, replaceable firmware can turn consumer devices into platforms for customization that AI agents may install or adapt."
+      ]
+    },
+    {
+      "id": "hn-50515616",
+      "headline": "Unlimited customer namespaces led S2 to consider running authoritative DNS",
+      "originalTitle": "It's always DNS, so why are we running our own?",
+      "url": "https://s2.dev/blog/dns-server",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50515616",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50515616",
+          "comments": 49,
+          "points": 64
+        }
+      ],
+      "kind": "case-study",
+      "readMinutes": 6,
+      "points": 64,
+      "comments": 49,
+      "topic": "infra",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "S2 needed unlimited basin subdomains, each routed by CNAME, with strong consistency so new addresses would not be blocked by cached NXDOMAIN responses. The case illustrates the operational tradeoffs behind replacing a managed DNS service.",
+      "publishedAt": "2026-11-16T09:19:38.000Z",
+      "mustRead": false,
+      "brief": [
+        "S2 wanted unlimited customer basins; each basin gets a subdomain whose CNAME routes clients to the correct cell.",
+        "Route53’s API limits blocked instant record updates, so S2 planned an authoritative DNS service querying basin data in Cloud Spanner.",
+        "Reading DNS mappings from the strongly consistent account database avoids a separate sync system and stale answers."
+      ],
+      "diagram": {
+        "caption": "DNS requests query S2’s account database, which supplies responses to clients.",
+        "nodes": [
+          {
+            "id": "dns-request",
+            "label": "DNS request"
+          },
+          {
+            "id": "account-db",
+            "label": "account database"
+          },
+          {
+            "id": "client",
+            "label": "client"
+          }
+        ],
+        "edges": [
+          {
+            "from": "dns-request",
+            "to": "account-db",
+            "label": "live SELECT"
+          },
+          {
+            "from": "account-db",
+            "to": "client",
+            "label": "response"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hn-50498073",
+      "headline": "Federation offers a decentralized foundation for messenger protocols",
+      "originalTitle": "How to Create Your Own Decentralized Messenger Protocol",
+      "url": "https://karboosx.net/post/5j7jdDM3/how-to-create-your-own-decentralized-messenger-protocol",
+      "source": "hn",
+      "sourceLabel": "Hacker News",
+      "discussionUrl": "https://news.ycombinator.com/item?id=50498073",
+      "discussions": [
+        {
+          "label": "Hacker News",
+          "url": "https://news.ycombinator.com/item?id=50498073",
+          "comments": 18,
+          "points": 89
+        }
+      ],
+      "kind": "guide",
+      "readMinutes": 13,
+      "points": 89,
+      "comments": 18,
+      "topic": "design",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The guide introduces federation through email, where independently operated servers exchange information using a shared protocol and domain-based identities. Those concepts are useful when designing systems without a central coordinator.",
+      "publishedAt": "2026-11-14T16:01:04.000Z",
+      "mustRead": false,
+      "brief": [
+        "Federation lets independently run servers exchange information directly without a central orchestrator.",
+        "In the email example, a sending server looks up the recipient domain’s MX records, connects to its mail server, and exchanges messages.",
+        "Domain-based discovery gives decentralized protocols a way to locate peers and route server-to-server traffic."
+      ],
+      "diagram": {
+        "caption": "Email federation uses DNS MX discovery to route messages between mail servers.",
+        "nodes": [
+          {
+            "id": "sending-server",
+            "label": "sending mail server"
+          },
+          {
+            "id": "dns-lookup",
+            "label": "DNS lookup"
+          },
+          {
+            "id": "mx-records",
+            "label": "MX records"
+          },
+          {
+            "id": "mail-server",
+            "label": "mail server"
+          }
+        ],
+        "edges": [
+          {
+            "from": "sending-server",
+            "to": "dns-lookup",
+            "label": "discover"
+          },
+          {
+            "from": "dns-lookup",
+            "to": "mx-records",
+            "label": "find"
+          },
+          {
+            "from": "mx-records",
+            "to": "mail-server",
+            "label": "connect"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-md0vco",
+      "headline": "Nix recursive deriver lookup returns unknown-deriver for a dynamic derivation",
+      "originalTitle": "beer.drv.drv.drv",
+      "url": "https://fzakaria.com/2026/11/14/beer-drv-drv-drv",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/md0vco/beer_drv_drv_drv",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/md0vco/beer_drv_drv_drv",
+          "comments": 6,
+          "points": 26
+        }
+      ],
+      "kind": "deep-dive",
+      "readMinutes": 7,
+      "points": 26,
+      "comments": 6,
+      "topic": "languages",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "A query that follows a dynamic derivation's output back to its originating derivation returns unknown-deriver, despite build outputs carrying deriver metadata. Nix users and build-system engineers may find the investigation useful for understanding dynamic build graphs.",
+      "publishedAt": "2026-11-16T00:47:28.450Z",
+      "mustRead": false,
+      "brief": [
+        "Nix dynamic derivations let one derivation produce other derivations, creating a build graph dynamically instead of at evaluation time.",
+        "A content-addressed producer can yield unknown-deriver because its output path is unknown until after the build and Nix leaves existing paths’ derivers unset.",
+        "For build-system engineers, the case shows that content-addressed outputs can lack producer metadata, complicating deriver lookups."
+      ]
+    },
+    {
+      "id": "blog-gcloud-whats-new-google-cloud",
+      "headline": "Google Cloud adds Claude Fable 5.2 and Meta Muse models to Model Garden",
+      "originalTitle": "What’s new with Google Cloud",
+      "url": "https://cloud.google.com/blog/topics/inside-google-cloud/whats-new-google-cloud/",
+      "source": "blog",
+      "sourceLabel": "Google Cloud",
+      "kind": "news",
+      "readMinutes": 49,
+      "topic": "ai",
+      "score": 6,
+      "relevance": 3,
+      "whyRead": "The roundup says Claude Fable 5.2 is generally available and three Meta Muse models are in public preview on Google Cloud. Model availability matters to teams choosing hosted models, though the excerpt offers no comparative evaluation.",
+      "publishedAt": "2026-11-13T17:00:00.000Z",
+      "mustRead": false,
+      "author": "Google Cloud Content & Editorial",
+      "brief": [
+        "Google Cloud added Claude Fable 5.2 to Model Garden and put Meta’s Muse models in public preview.",
+        "An Apigee guide stacks static rules, Model Armor filters, and NeMo Guardrails; the layers intercepted all benchmarked OWASP-mapped attacks without blocking safe prompts.",
+        "Running guardrails from cheapest first is presented as a way to optimize performance and reduce token costs."
+      ],
+      "diagram": {
+        "caption": "Apigee applies three complementary guardrail layers, starting with the cheapest.",
+        "nodes": [
+          {
+            "id": "apigee",
+            "label": "Apigee"
+          },
+          {
+            "id": "static-rules",
+            "label": "static rules"
+          },
+          {
+            "id": "model-armor",
+            "label": "Model Armor"
+          },
+          {
+            "id": "nemo-guardrails",
+            "label": "NeMo Guardrails"
+          }
+        ],
+        "edges": [
+          {
+            "from": "apigee",
+            "to": "static-rules",
+            "label": "first"
+          },
+          {
+            "from": "static-rules",
+            "to": "model-armor",
+            "label": "then"
+          },
+          {
+            "from": "model-armor",
+            "to": "nemo-guardrails",
+            "label": "then"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobsters-ki1l5r",
+      "headline": "A maintainer experiments with requiring proof of use for contributions",
+      "originalTitle": "\"Proof of use\" as a requirement for open source contributions?",
+      "url": "https://lobste.rs/s/ki1l5r/proof_use_as_requirement_for_open_source",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/ki1l5r/proof_use_as_requirement_for_open_source",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/ki1l5r/proof_use_as_requirement_for_open_source",
+          "comments": 6,
+          "points": 17
+        }
+      ],
+      "kind": "essay",
+      "points": 17,
+      "comments": 6,
+      "topic": "craft",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The proposed filter asks contributors to show a real project dependency before a maintainer reviews a pull request, aiming to reduce low-value AI-generated submissions. Teams maintaining popular libraries may find the contribution-policy experiment relevant as coding-tool output grows.",
+      "publishedAt": "2026-11-16T22:25:45.396Z",
+      "mustRead": false,
+      "brief": [
+        "An open source maintainer is experimenting with requiring “proof of use” before reviewing contributions.",
+        "Contributors must show a dependent project’s git history or describe a problem found in a closed-source production project.",
+        "The requirement aims to prioritize issues from real users and filter drive-by AI-generated pull requests."
+      ]
+    },
+    {
+      "id": "lobsters-uegnml",
+      "headline": "NoisyTCP reports pre-authentication remote corruption in the Linux kernel",
+      "originalTitle": "NoisyTCP",
+      "url": "https://www.openwall.com/lists/oss-security/2026/11/15/2",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/uegnml/noisytcp",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/uegnml/noisytcp",
+          "comments": 1,
+          "points": 17
+        }
+      ],
+      "kind": "vulnerability",
+      "readMinutes": 4,
+      "points": 17,
+      "comments": 1,
+      "topic": "security",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "A post on oss-security identifies CVE-2026-99288 as a pre-authentication remote corruption flaw in Linux kernel TCP, but the excerpt gives no affected versions or mitigation. Kernel operators need the full advisory to assess exposure and response.",
+      "publishedAt": "2026-11-16T12:50:29.137Z",
+      "mustRead": false,
+      "brief": [
+        "NoisyTCP is a Linux kernel TCP vulnerability that can cause pre-authentication remote corruption.",
+        "A stale ehash lookup can race with request-socket freeing and reuse, leading to a kernel panic or, in another path, remote use-after-free.",
+        "Because the flaw can be triggered against plain TCP listeners, a remote DoS can take down a host running the affected service in a container."
+      ]
+    },
+    {
+      "id": "lobsters-tebwei",
+      "headline": "A local pkgbase mirror avoids repeated FreeBSD package downloads across jails",
+      "originalTitle": "Local Mirror for FreeBSD pkgbase",
+      "url": "https://blog.feld.me/posts/2026/11/local-mirror-for-freebsd-pkgbase/",
+      "source": "lobsters",
+      "sourceLabel": "Lobsters",
+      "discussionUrl": "https://lobste.rs/s/tebwei/local_mirror_for_freebsd_pkgbase",
+      "discussions": [
+        {
+          "label": "Lobsters",
+          "url": "https://lobste.rs/s/tebwei/local_mirror_for_freebsd_pkgbase",
+          "comments": 2,
+          "points": 7
+        }
+      ],
+      "kind": "guide",
+      "points": 7,
+      "comments": 2,
+      "topic": "infra",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "Converting FreeBSD jails to pkgbase caused the author’s setup to fetch packages from official mirrors 36 times; the guide shows how to mirror them locally with Apache. Operators deploying many systems can apply the bandwidth-saving approach.",
+      "publishedAt": "2026-11-16T14:47:48.457Z",
+      "mustRead": false,
+      "brief": [
+        "A local Apache cache avoids repeated FreeBSD pkgbase downloads when deploying many systems or jails.",
+        "Apache proxies to the CDN and caches only immutable hashed pkgbase blobs; the FreeBSD-base repository is configured to use the local server.",
+        "The mirror reduces repeated upstream downloads while keeping base OS packages aligned with official releases."
+      ],
+      "diagram": {
+        "caption": "FreeBSD jails request packages through Apache, which proxies to and caches from the CDN.",
+        "nodes": [
+          {
+            "id": "freebsd-jails",
+            "label": "FreeBSD jails"
+          },
+          {
+            "id": "apache",
+            "label": "Apache"
+          },
+          {
+            "id": "cdn",
+            "label": "CDN"
+          }
+        ],
+        "edges": [
+          {
+            "from": "freebsd-jails",
+            "to": "apache",
+            "label": "package requests"
+          },
+          {
+            "from": "apache",
+            "to": "cdn",
+            "label": "proxy requests"
+          }
+        ]
+      }
+    },
+    {
+      "id": "blog-simonwillison-datasette-apps",
+      "headline": "Datasette Apps 0.4a0 adds URL-fragment links between data apps",
+      "originalTitle": "datasette-apps 0.4a0",
+      "url": "https://simonwillison.net/2026/Nov/15/datasette-apps/",
+      "source": "blog",
+      "sourceLabel": "Simon Willison",
+      "kind": "release",
+      "topic": "data",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The release lets apps read URL fragments and report supported URL schemes to Datasette Agent, enabling one app to link to a record view in another. This provides a lightweight way to compose data interfaces and agent-generated tools.",
+      "publishedAt": "2026-11-15T04:02:45.000Z",
+      "mustRead": false,
+      "brief": [
+        "Datasette Apps are sandboxed HTML and JavaScript applications inside Datasette that can run SQL queries against data.",
+        "Version 0.4a0 lets apps read URL fragments and reports supported URL schemes to Datasette Agent.",
+        "Separate search and detail apps can link to each other’s records, enabling linked data workflows inside Datasette."
+      ]
+    },
+    {
+      "id": "blog-chipsandcheese-talking-venice-with-mahesh-subramony",
+      "headline": "AMD's Venice EPYC uses 2.5D packaging and split I/O dies",
+      "originalTitle": "Talking Venice with Mahesh Subramony at AMD In-Depth",
+      "url": "https://chipsandcheese.com/p/talking-venice-with-mahesh-subramony",
+      "source": "blog",
+      "sourceLabel": "Chips and Cheese",
+      "kind": "deep-dive",
+      "readMinutes": 9,
+      "topic": "systems",
+      "score": 6,
+      "relevance": 2,
+      "whyRead": "The interview covers Venice's move to 2.5D packaging, a split I/O die, platform differences, and scaling to 32-core CCDs. These trade-offs offer useful context for engineers tracking server hardware architecture.",
+      "publishedAt": "2026-11-16T20:32:28.000Z",
+      "mustRead": false,
+      "author": "George Cozma",
+      "brief": [
+        "Venice is AMD’s first server CPU with 2.5D packaging and two I/O dies.",
+        "Splitting the I/O provides perimeter for CCD connections; short-reach links support 1.6 TB/s.",
+        "At that bandwidth, conventional packaging was estimated to spend 10–15% of SoC power just transporting bits."
+      ]
+    },
+    {
+      "id": "paper-2611-18429",
+      "headline": "Underwater image metrics often disagree with human preferences",
+      "originalTitle": "Do Underwater Image Quality Metrics Agree with Human Perception? A Benchmark with Human Choices, Simple Edits and Generative Drift",
+      "url": "https://huggingface.co/papers/2611.18429",
+      "source": "papers",
+      "sourceLabel": "Hugging Face Papers",
+      "kind": "paper",
+      "points": 12,
+      "topic": "research",
+      "score": 7,
+      "relevance": 1,
+      "whyRead": "Across 73 image-quality metrics, the best worst-case agreement with human choices reaches only 0.23 Cohen’s kappa, versus 0.41 median agreement between study raters; common edits can also fool scores. The evaluation is domain-specific, but the results caution against treating automated image metrics as human proxies.",
+      "publishedAt": "2026-11-12T19:00:00.000Z",
+      "mustRead": false,
+      "author": "Rishii Kumar Singh et al.",
+      "codeUrl": "https://github.com/TrustUIQA/TrustUIQA",
+      "codeStars": 0,
+      "brief": [
+        "TrustUIQA evaluates 73 no-reference image-quality metrics against human preferences on underwater images.",
+        "No metric consistently matched people; Q-Align’s best worst-case kappa was 0.23, while two raters had median kappa 0.41.",
+        "Engineers evaluating underwater image enhancement should not assume metric scores reflect human preferences."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "blog-airbnb",
+      "label": "Airbnb Engineering",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-aws-arch",
+      "label": "AWS Architecture",
+      "status": "ok",
+      "count": 7
+    },
+    {
+      "id": "blog-aws-ml",
+      "label": "AWS Machine Learning",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-bair",
+      "label": "Berkeley AI Research",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-bleepingcomputer",
+      "label": "BleepingComputer",
+      "status": "ok",
+      "count": 12
+    },
+    {
+      "id": "blog-brendangregg",
+      "label": "Brendan Gregg",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-brooker",
+      "label": "Marc Brooker",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-bytebytego",
+      "label": "ByteByteGo",
+      "status": "ok",
+      "count": 8
+    },
+    {
+      "id": "blog-chip-huyen",
+      "label": "Chip Huyen",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-chipsandcheese",
+      "label": "Chips and Cheese",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-cloudflare",
+      "label": "Cloudflare Blog",
+      "status": "ok",
+      "count": 4
+    },
+    {
+      "id": "blog-deepmind",
+      "label": "Google DeepMind",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-discord",
+      "label": "Discord Engineering",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-dropbox",
+      "label": "Dropbox Tech",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-duckdb",
+      "label": "DuckDB",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-eugene-yan",
+      "label": "Eugene Yan",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-figma",
+      "label": "Figma Engineering",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-fly",
+      "label": "Fly.io",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-gcloud",
+      "label": "Google Cloud",
+      "status": "ok",
+      "count": 20
+    },
+    {
+      "id": "blog-github-eng",
+      "label": "GitHub Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-github-security",
+      "label": "GitHub Security",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-go-blog",
+      "label": "Go Blog",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-google-research",
+      "label": "Google Research",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-hamel",
+      "label": "Hamel Husain",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-highscalability",
+      "label": "High Scalability",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-huggingface",
+      "label": "Hugging Face",
+      "status": "ok",
+      "count": 8
+    },
+    {
+      "id": "blog-import-ai",
+      "label": "Import AI",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-infoq",
+      "label": "InfoQ",
+      "status": "ok",
+      "count": 15
+    },
+    {
+      "id": "blog-interconnects",
+      "label": "Interconnects",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-janestreet",
+      "label": "Jane Street Tech",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-jvns",
+      "label": "Julia Evans",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-karpathy",
+      "label": "Andrej Karpathy",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-krebs",
+      "label": "Krebs on Security",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-kubernetes",
+      "label": "Kubernetes",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-latent-space",
+      "label": "Latent Space",
+      "status": "ok",
+      "count": 10
+    },
+    {
+      "id": "blog-lethain",
+      "label": "Will Larson",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-lilianweng",
+      "label": "Lilian Weng",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-lobsters-security",
+      "label": "Lobsters (security)",
+      "status": "ok",
+      "count": 14
+    },
+    {
+      "id": "blog-lobsters-tags",
+      "label": "Lobsters (AI, distributed, performance)",
+      "status": "ok",
+      "count": 21
+    },
+    {
+      "id": "blog-lucumr",
+      "label": "Armin Ronacher",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-lwn",
+      "label": "LWN.net",
+      "status": "ok",
+      "count": 15
+    },
+    {
+      "id": "blog-martinfowler",
+      "label": "Martin Fowler",
+      "status": "ok",
+      "count": 4
+    },
+    {
+      "id": "blog-meta-eng",
+      "label": "Engineering at Meta",
+      "status": "ok",
+      "count": 4
+    },
+    {
+      "id": "blog-mozilla-hacks",
+      "label": "Mozilla Hacks",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-msr",
+      "label": "Microsoft Research",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-msrc",
+      "label": "Microsoft Security Response Center",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-murat",
+      "label": "Metadata (Murat Demirbas)",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-netflix",
+      "label": "Netflix TechBlog",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-nvidia-dev",
+      "label": "NVIDIA Technical Blog",
+      "status": "ok",
+      "count": 14
+    },
+    {
+      "id": "blog-oldnewthing",
+      "label": "The Old New Thing",
+      "status": "ok",
+      "count": 5
+    },
+    {
+      "id": "blog-openai",
+      "label": "OpenAI",
+      "status": "ok",
+      "count": 25
+    },
+    {
+      "id": "blog-pinterest-eng",
+      "label": "Pinterest Engineering",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-planetscale",
+      "label": "PlanetScale",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-portswigger",
+      "label": "PortSwigger Research",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-postgres-weekly",
+      "label": "Postgres Weekly",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-pragmatic",
+      "label": "The Pragmatic Engineer",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-projectzero",
+      "label": "Google Project Zero",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-pytorch",
+      "label": "PyTorch",
+      "status": "ok",
+      "count": 7
+    },
+    {
+      "id": "blog-raschka",
+      "label": "Sebastian Raschka",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "blog-rust-blog",
+      "label": "Rust Blog",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-semianalysis",
+      "label": "SemiAnalysis",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-shopify-eng",
+      "label": "Shopify Engineering",
+      "status": "ok",
+      "count": 3
+    },
+    {
+      "id": "blog-simonwillison",
+      "label": "Simon Willison",
+      "status": "ok",
+      "count": 18
+    },
+    {
+      "id": "blog-slack-eng",
+      "label": "Slack Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-socket",
+      "label": "Socket",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-stripe",
+      "label": "Stripe Engineering",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-therecord",
+      "label": "The Record",
+      "status": "ok",
+      "count": 4
+    },
+    {
+      "id": "blog-trailofbits",
+      "label": "Trail of Bits",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-unit42",
+      "label": "Unit 42",
+      "status": "ok",
+      "count": 4
+    },
+    {
+      "id": "blog-v8",
+      "label": "V8",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "blog-webkit",
+      "label": "WebKit",
+      "status": "ok",
+      "count": 2
+    },
+    {
+      "id": "blog-wiz",
+      "label": "Wiz",
+      "status": "ok",
+      "count": 6
+    },
+    {
+      "id": "github",
+      "label": "GitHub (new repositories)",
+      "status": "ok",
+      "count": 30
+    },
+    {
+      "id": "hf-models",
+      "label": "Hugging Face trending models",
+      "status": "ok",
+      "count": 11
+    },
+    {
+      "id": "hf-papers",
+      "label": "Hugging Face Daily Papers",
+      "status": "ok",
+      "count": 32
+    },
+    {
+      "id": "hn",
+      "label": "Hacker News",
+      "status": "ok",
+      "count": 123
+    },
+    {
+      "id": "hn-search",
+      "label": "Hacker News (AI and systems search)",
+      "status": "ok",
+      "count": 75
+    },
+    {
+      "id": "lobsters",
+      "label": "Lobsters",
+      "status": "ok",
+      "count": 25
+    },
+    {
+      "id": "release-claude-code",
+      "label": "Claude Code releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-langgraph",
+      "label": "LangGraph releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-llama-cpp",
+      "label": "llama.cpp releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-mcp-spec",
+      "label": "Model Context Protocol releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-ollama",
+      "label": "Ollama releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-openai-agents",
+      "label": "OpenAI Agents SDK releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-sglang",
+      "label": "SGLang releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-tensorrt-llm",
+      "label": "TensorRT-LLM releases",
+      "status": "empty",
+      "count": 0
+    },
+    {
+      "id": "release-transformers",
+      "label": "Transformers releases",
+      "status": "ok",
+      "count": 1
+    },
+    {
+      "id": "release-vllm",
+      "label": "vLLM releases",
+      "status": "ok",
+      "count": 1
+    }
+  ]
+}
