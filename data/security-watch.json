@@ -1,6 +1,46 @@
 {
-  "updatedAt": "2026-11-17T23:09:36.032Z",
+  "updatedAt": "2026-11-18T22:20:23.733Z",
   "kev": [
+    {
+      "cve": "CVE-2026-90817",
+      "vendor": "Vanderbilt University",
+      "product": "Research Electronic Data Capture (REDCap)",
+      "name": "Vanderbilt University Research Electronic Data Capture (REDCap) Code Injection Vulnerability",
+      "dateAdded": "2026-11-18",
+      "dueDate": "2026-11-21",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-90817"
+    },
+    {
+      "cve": "CVE-2026-90436",
+      "vendor": "Apache",
+      "product": "Axis",
+      "name": "Apache Axis Unsafe Reflection Vulnerability",
+      "dateAdded": "2026-11-18",
+      "dueDate": "2026-11-21",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-90436"
+    },
+    {
+      "cve": "CVE-2026-40217",
+      "vendor": "BerriAI",
+      "product": "LiteLLM",
+      "name": "BerriAI LiteLLM Unprotected Alternate Channel Vulnerability",
+      "dateAdded": "2026-11-18",
+      "dueDate": "2026-12-02",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40217"
+    },
+    {
+      "cve": "CVE-2024-10441",
+      "vendor": "Synology",
+      "product": "DiskStation Manager (DSM)",
+      "name": "Synology DiskStation Manager (DSM) Improper Encoding or Escaping of Output Vulnerability",
+      "dateAdded": "2026-11-18",
+      "dueDate": "2026-11-21",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-10441"
+    },
     {
       "cve": "CVE-2026-115731",
       "vendor": "Perforce",
@@ -343,6 +383,24 @@
     }
   ],
   "advisories": [
+    {
+      "id": "GHSA-pfwx-xjp4-qxcj",
+      "cve": "CVE-2026-69157",
+      "summary": "Atomic Server: Unauthenticated `/setup` invite grants write access to the entire Drive",
+      "ecosystem": "rust",
+      "packageName": "atomic-server",
+      "publishedAt": "2026-11-18T20:42:33.000Z",
+      "url": "https://github.com/advisories/GHSA-pfwx-xjp4-qxcj"
+    },
+    {
+      "id": "GHSA-5hrj-7fc3-cmx9",
+      "cve": "CVE-2026-130001",
+      "summary": "Mustache for Ruby: RCE using built-in method access",
+      "ecosystem": "rubygems",
+      "packageName": "mustache",
+      "publishedAt": "2026-11-18T16:28:29.000Z",
+      "url": "https://github.com/advisories/GHSA-5hrj-7fc3-cmx9"
+    },
     {
       "id": "GHSA-gfv3-m769-5xm3",
       "cve": "CVE-2026-53998",
