@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18T22:20:23.733Z",
+  "updatedAt": "2026-11-19T03:50:36.460Z",
   "kev": [
     {
       "cve": "CVE-2026-90817",
@@ -320,69 +320,18 @@
       "dueDate": "2026-10-26",
       "ransomware": false,
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110447"
-    },
-    {
-      "cve": "CVE-2026-96656",
-      "vendor": "Plex",
-      "product": "Media Server",
-      "name": "Plex Media Server External Control of File Name or Path Vulnerability",
-      "dateAdded": "2026-10-20",
-      "dueDate": "2026-10-23",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96656"
-    },
-    {
-      "cve": "CVE-2026-96655",
-      "vendor": "Plex",
-      "product": "Media Server",
-      "name": "Plex Media Server Server-Side Request Forgery (SSRF) Vulnerability",
-      "dateAdded": "2026-10-20",
-      "dueDate": "2026-11-03",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96655"
-    },
-    {
-      "cve": "CVE-2026-96654",
-      "vendor": "Plex",
-      "product": "Media Server",
-      "name": "Plex Media Server Improper Neutralization of Encoded URI Schemes in a Web Page Vulnerability",
-      "dateAdded": "2026-10-20",
-      "dueDate": "2026-10-23",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96654"
-    },
-    {
-      "cve": "CVE-2026-96652",
-      "vendor": "Plex",
-      "product": "Media Server",
-      "name": "Plex Media Server Server-Side Request Forgery (SSRF) Vulnerability",
-      "dateAdded": "2026-10-20",
-      "dueDate": "2026-11-03",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96652"
-    },
-    {
-      "cve": "CVE-2026-110936",
-      "vendor": "Siemens",
-      "product": "Software Center",
-      "name": "Siemens Software Center Uncontrolled Search Path Element Vulnerability",
-      "dateAdded": "2026-10-20",
-      "dueDate": "2026-11-03",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110936"
-    },
-    {
-      "cve": "CVE-2026-106931",
-      "vendor": "EG Secure Solutions",
-      "product": "SiteGuard Server Edition",
-      "name": "EG Secure Solutions SiteGuard Server Edition OS Command Injection Vulnerability",
-      "dateAdded": "2026-10-20",
-      "dueDate": "2026-10-23",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-106931"
     }
   ],
   "advisories": [
+    {
+      "id": "GHSA-8fh7-7q4q-cq52",
+      "cve": "CVE-2026-75521",
+      "summary": "Miren Runtime: Authentication bypass in RPC layer: unverified TLS client certificates grant cluster superuser access",
+      "ecosystem": "go",
+      "packageName": "miren.dev/runtime",
+      "publishedAt": "2026-11-19T00:45:46.000Z",
+      "url": "https://github.com/advisories/GHSA-8fh7-7q4q-cq52"
+    },
     {
       "id": "GHSA-pfwx-xjp4-qxcj",
       "cve": "CVE-2026-69157",
