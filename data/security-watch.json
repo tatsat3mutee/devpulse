@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T03:50:36.460Z",
+  "updatedAt": "2026-11-19T22:26:36.872Z",
   "kev": [
     {
       "cve": "CVE-2026-90817",
@@ -324,6 +324,42 @@
   ],
   "advisories": [
     {
+      "id": "GHSA-833v-v58w-294h",
+      "cve": "CVE-2026-76807",
+      "summary": "Todoist MCP Server: Browser DNS rebinding lets websites write and delete Todoist data through local MCP server",
+      "ecosystem": "npm",
+      "packageName": "@doist/todoist-mcp",
+      "publishedAt": "2026-11-19T20:38:35.000Z",
+      "url": "https://github.com/advisories/GHSA-833v-v58w-294h"
+    },
+    {
+      "id": "GHSA-q8v2-3j4h-xg2p",
+      "cve": "CVE-2026-63412",
+      "summary": "Jane: Instantiation RCE via query parameter name -> raw PHPDoc */ breakout (jane-php/open-api-3)",
+      "ecosystem": "composer",
+      "packageName": "jane-php/open-api-3",
+      "publishedAt": "2026-11-19T16:18:45.000Z",
+      "url": "https://github.com/advisories/GHSA-q8v2-3j4h-xg2p"
+    },
+    {
+      "id": "GHSA-x9xr-53qx-9qcf",
+      "cve": "CVE-2026-63413",
+      "summary": "Jane: Instantiation RCE via header parameter name -> raw PHPDoc */ breakout (jane-php/open-api-3)",
+      "ecosystem": "composer",
+      "packageName": "jane-php/open-api-3",
+      "publishedAt": "2026-11-19T16:12:22.000Z",
+      "url": "https://github.com/advisories/GHSA-x9xr-53qx-9qcf"
+    },
+    {
+      "id": "GHSA-xwcw-j52r-34x4",
+      "cve": "CVE-2026-63411",
+      "summary": "Jane: Instantiation RCE via parameter description -> raw PHPDoc */ breakout (jane-php/open-api-3)",
+      "ecosystem": "composer",
+      "packageName": "jane-php/open-api-3",
+      "publishedAt": "2026-11-19T16:12:11.000Z",
+      "url": "https://github.com/advisories/GHSA-xwcw-j52r-34x4"
+    },
+    {
       "id": "GHSA-8fh7-7q4q-cq52",
       "cve": "CVE-2026-75521",
       "summary": "Miren Runtime: Authentication bypass in RPC layer: unverified TLS client certificates grant cluster superuser access",
@@ -376,15 +412,6 @@
       "packageName": "activestorage",
       "publishedAt": "2026-11-12T23:46:51.000Z",
       "url": "https://github.com/advisories/GHSA-f3w6-w445-fwh9"
-    },
-    {
-      "id": "GHSA-4g86-54fm-h9h8",
-      "cve": "CVE-2026-118740",
-      "summary": "Microsoft Security Advisory CVE-2026-118740 - Aspire Security Feature Bypass Vulnerability",
-      "ecosystem": "nuget",
-      "packageName": "Aspire.Dashboard.Sdk.linux-x64",
-      "publishedAt": "2026-11-12T17:17:48.000Z",
-      "url": "https://github.com/advisories/GHSA-4g86-54fm-h9h8"
     }
   ]
 }
