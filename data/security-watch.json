@@ -1,6 +1,46 @@
 {
-  "updatedAt": "2026-11-20T03:43:20.845Z",
+  "updatedAt": "2026-11-20T21:32:02.010Z",
   "kev": [
+    {
+      "cve": "CVE-2026-76466",
+      "vendor": "Cisco",
+      "product": "Expressway Series",
+      "name": "Cisco Expressway Series Use of Hard-coded Credentials Vulnerability",
+      "dateAdded": "2026-11-20",
+      "dueDate": "2026-11-23",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76466"
+    },
+    {
+      "cve": "CVE-2026-129448",
+      "vendor": "Apache",
+      "product": "Roller",
+      "name": "Apache Roller Deserialization of Untrusted Data Vulnerability",
+      "dateAdded": "2026-11-20",
+      "dueDate": "2026-11-23",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129448"
+    },
+    {
+      "cve": "CVE-2026-123890",
+      "vendor": "Broadcom",
+      "product": "VMware vCenter",
+      "name": "VMWare vCenter Authentication Bypass Using an Alternate Path or Channel Vulnerability",
+      "dateAdded": "2026-11-20",
+      "dueDate": "2026-11-23",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123890"
+    },
+    {
+      "cve": "CVE-2025-42884",
+      "vendor": "SAP",
+      "product": "NetWeaver",
+      "name": "SAP NetWeaver Improper Neutralization of Special Elements in Data Query Logic Vulnerability",
+      "dateAdded": "2026-11-20",
+      "dueDate": "2026-11-23",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-42884"
+    },
     {
       "cve": "CVE-2026-90817",
       "vendor": "Vanderbilt University",
@@ -323,6 +363,15 @@
     }
   ],
   "advisories": [
+    {
+      "id": "GHSA-4hrh-34w3-5ww8",
+      "cve": "CVE-2026-104099",
+      "summary": "Fabio: Access-control bypass through unnormalized request paths",
+      "ecosystem": "go",
+      "packageName": "github.com/fabiolb/fabio",
+      "publishedAt": "2026-11-20T14:51:25.000Z",
+      "url": "https://github.com/advisories/GHSA-4hrh-34w3-5ww8"
+    },
     {
       "id": "GHSA-mc8w-wjhw-45x5",
       "cve": "CVE-2026-114516",
