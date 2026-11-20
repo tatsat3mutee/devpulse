@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T22:26:36.872Z",
+  "updatedAt": "2026-11-20T03:43:20.845Z",
   "kev": [
     {
       "cve": "CVE-2026-90817",
@@ -324,6 +324,87 @@
   ],
   "advisories": [
     {
+      "id": "GHSA-mc8w-wjhw-45x5",
+      "cve": "CVE-2026-114516",
+      "summary": "Etherpad: Pre-auth arbitrary file read",
+      "ecosystem": "npm",
+      "packageName": "ep_etherpad-lite",
+      "publishedAt": "2026-11-20T00:23:45.000Z",
+      "url": "https://github.com/advisories/GHSA-mc8w-wjhw-45x5"
+    },
+    {
+      "id": "GHSA-wj7x-58c2-5793",
+      "cve": "CVE-2026-77369",
+      "summary": "Daptin: Broken Access Control (IDOR) in the generic YJS collaboration endpoint",
+      "ecosystem": "go",
+      "packageName": "github.com/daptin/daptin",
+      "publishedAt": "2026-11-20T00:14:14.000Z",
+      "url": "https://github.com/advisories/GHSA-wj7x-58c2-5793"
+    },
+    {
+      "id": "GHSA-hq2p-f2vj-v3cm",
+      "cve": "CVE-2026-77367",
+      "summary": "Daptin: Unauthenticated SQL Injection via the `sort` query parameter on every entity list endpoint",
+      "ecosystem": "go",
+      "packageName": "github.com/daptin/daptin",
+      "publishedAt": "2026-11-20T00:13:19.000Z",
+      "url": "https://github.com/advisories/GHSA-hq2p-f2vj-v3cm"
+    },
+    {
+      "id": "GHSA-9x8x-crjq-g64h",
+      "cve": "CVE-2026-77359",
+      "summary": "Jupyter MCP Server: Browser DNS rebinding can hijack the Jupyter backend through management routes",
+      "ecosystem": "pip",
+      "packageName": "jupyter-mcp-server",
+      "publishedAt": "2026-11-20T00:12:51.000Z",
+      "url": "https://github.com/advisories/GHSA-9x8x-crjq-g64h"
+    },
+    {
+      "id": "GHSA-p34x-fmph-9fjx",
+      "cve": "CVE-2026-77312",
+      "summary": "Flyto2 Core: Arbitrary file write via unguarded data.*/file.* modules (incomplete fix of CVE-2026-67429)",
+      "ecosystem": "pip",
+      "packageName": "flyto-core",
+      "publishedAt": "2026-11-20T00:09:02.000Z",
+      "url": "https://github.com/advisories/GHSA-p34x-fmph-9fjx"
+    },
+    {
+      "id": "GHSA-p32v-8v8j-j534",
+      "cve": "CVE-2026-63344",
+      "summary": "Refitter allows arbitrary code execution through unescaped OpenAPI content-type values",
+      "ecosystem": "nuget",
+      "packageName": "Refitter",
+      "publishedAt": "2026-11-20T00:06:52.000Z",
+      "url": "https://github.com/advisories/GHSA-p32v-8v8j-j534"
+    },
+    {
+      "id": "GHSA-58x9-vjvp-6mx8",
+      "cve": "CVE-2026-63346",
+      "summary": "Refitter allows code execution through unescaped OpenAPI header parameter names",
+      "ecosystem": "nuget",
+      "packageName": "Refitter",
+      "publishedAt": "2026-11-20T00:06:28.000Z",
+      "url": "https://github.com/advisories/GHSA-58x9-vjvp-6mx8"
+    },
+    {
+      "id": "GHSA-3fhm-p725-h3g3",
+      "cve": "CVE-2026-63345",
+      "summary": "Refitter allows arbitrary code execution through unescaped OpenAPI paths",
+      "ecosystem": "nuget",
+      "packageName": "Refitter",
+      "publishedAt": "2026-11-20T00:06:04.000Z",
+      "url": "https://github.com/advisories/GHSA-3fhm-p725-h3g3"
+    },
+    {
+      "id": "GHSA-x8q7-6c7m-52gw",
+      "cve": "CVE-2026-128138",
+      "summary": "NLTK incomplete fix: additional JVM/JAR sandbox bypass through unvalidated launcher tokens in java() command arguments",
+      "ecosystem": "pip",
+      "packageName": "nltk",
+      "publishedAt": "2026-11-19T23:55:54.000Z",
+      "url": "https://github.com/advisories/GHSA-x8q7-6c7m-52gw"
+    },
+    {
       "id": "GHSA-833v-v58w-294h",
       "cve": "CVE-2026-76807",
       "summary": "Todoist MCP Server: Browser DNS rebinding lets websites write and delete Todoist data through local MCP server",
@@ -394,24 +475,6 @@
       "packageName": "arize-phoenix",
       "publishedAt": "2026-11-17T20:02:29.000Z",
       "url": "https://github.com/advisories/GHSA-gfv3-m769-5xm3"
-    },
-    {
-      "id": "GHSA-x585-4vv8-2mh2",
-      "cve": "CVE-2026-100397",
-      "summary": "Rucio: Unauthenticated administrator impersonation through SSH challenge tokens",
-      "ecosystem": "pip",
-      "packageName": "rucio",
-      "publishedAt": "2026-11-13T01:09:54.000Z",
-      "url": "https://github.com/advisories/GHSA-x585-4vv8-2mh2"
-    },
-    {
-      "id": "GHSA-f3w6-w445-fwh9",
-      "cve": "CVE-2026-122006",
-      "summary": "Active Storage: Possible arbitrary file write and read in image analysis",
-      "ecosystem": "rubygems",
-      "packageName": "activestorage",
-      "publishedAt": "2026-11-12T23:46:51.000Z",
-      "url": "https://github.com/advisories/GHSA-f3w6-w445-fwh9"
     }
   ]
 }
