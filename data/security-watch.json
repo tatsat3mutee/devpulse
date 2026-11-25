@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T19:05:43.712Z",
+  "updatedAt": "2026-11-25T03:10:12.447Z",
   "kev": [
     {
       "cve": "CVE-2026-132224",
@@ -370,29 +370,18 @@
       "dueDate": "2026-11-10",
       "ransomware": false,
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111497"
-    },
-    {
-      "cve": "CVE-2026-109619",
-      "vendor": "PHP Group",
-      "product": "PHP",
-      "name": "PHP Stale Internal Request-State Vulnerability",
-      "dateAdded": "2026-10-26",
-      "dueDate": "2026-10-29",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109619"
-    },
-    {
-      "cve": "CVE-2026-109618",
-      "vendor": "PHP Group",
-      "product": "PHP",
-      "name": "PHP Memory Corruption Vulnerability",
-      "dateAdded": "2026-10-26",
-      "dueDate": "2026-10-29",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109618"
     }
   ],
   "advisories": [
+    {
+      "id": "GHSA-c4hm-4h84-2cf3",
+      "cve": "CVE-2026-59726",
+      "summary": "ruflo MCP bridge allows unauthenticated remote code execution in default Docker Compose deployments",
+      "ecosystem": "npm",
+      "packageName": "ruflo",
+      "publishedAt": "2026-11-24T21:01:10.000Z",
+      "url": "https://github.com/advisories/GHSA-c4hm-4h84-2cf3"
+    },
     {
       "id": "GHSA-2r3w-c2vx-fv5g",
       "cve": "CVE-2026-133469",
@@ -554,15 +543,6 @@
       "packageName": "mustache",
       "publishedAt": "2026-11-18T16:28:29.000Z",
       "url": "https://github.com/advisories/GHSA-5hrj-7fc3-cmx9"
-    },
-    {
-      "id": "GHSA-gfv3-m769-5xm3",
-      "cve": "CVE-2026-53998",
-      "summary": "Phoenix: Format String Injection in applyChatTemplate",
-      "ecosystem": "pip",
-      "packageName": "arize-phoenix",
-      "publishedAt": "2026-11-17T20:02:29.000Z",
-      "url": "https://github.com/advisories/GHSA-gfv3-m769-5xm3"
     }
   ]
 }
