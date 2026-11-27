@@ -1,6 +1,36 @@
 {
-  "updatedAt": "2026-11-27T00:48:54.496Z",
+  "updatedAt": "2026-11-27T19:38:52.080Z",
   "kev": [
+    {
+      "cve": "CVE-2026-136716",
+      "vendor": "Drupal",
+      "product": "Core",
+      "name": "Drupal Core Improper Check for Unusual or Exceptional Conditions Vulnerability",
+      "dateAdded": "2026-11-27",
+      "dueDate": "2026-11-30",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-136716"
+    },
+    {
+      "cve": "CVE-2026-129243",
+      "vendor": "OSGeo",
+      "product": "GeoServer",
+      "name": "OSGeo GeoServer Incorrect Authorization Vulnerability",
+      "dateAdded": "2026-11-27",
+      "dueDate": "2026-11-30",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129243"
+    },
+    {
+      "cve": "CVE-2026-120705",
+      "vendor": "OSGeo",
+      "product": "GeoServer",
+      "name": "OSGeo GeoServer XML Injection Vulnerability",
+      "dateAdded": "2026-11-27",
+      "dueDate": "2026-11-30",
+      "ransomware": false,
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-120705"
+    },
     {
       "cve": "CVE-2026-133469",
       "vendor": "Vates",
@@ -370,36 +400,6 @@
       "dueDate": "2026-11-20",
       "ransomware": false,
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19868"
-    },
-    {
-      "cve": "CVE-2024-27834",
-      "vendor": "Apple",
-      "product": "Multiple Products",
-      "name": "Apple Multiple Products Improper Authentication Vulnerability",
-      "dateAdded": "2026-11-04",
-      "dueDate": "2026-11-18",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-27834"
-    },
-    {
-      "cve": "CVE-2026-119977",
-      "vendor": "WordPress",
-      "product": "WordPress Core",
-      "name": "WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability",
-      "dateAdded": "2026-11-03",
-      "dueDate": "2026-11-06",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-119977"
-    },
-    {
-      "cve": "CVE-2026-118527",
-      "vendor": "Ivanti",
-      "product": "Connect Secure",
-      "name": "Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability",
-      "dateAdded": "2026-10-30",
-      "dueDate": "2026-11-13",
-      "ransomware": false,
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118527"
     }
   ],
   "advisories": [
@@ -447,15 +447,6 @@
       "packageName": "xo-server",
       "publishedAt": "2026-11-23T17:29:29.000Z",
       "url": "https://github.com/advisories/GHSA-2r3w-c2vx-fv5g"
-    },
-    {
-      "id": "GHSA-4hrh-34w3-5ww8",
-      "cve": "CVE-2026-104099",
-      "summary": "Fabio: Access-control bypass through unnormalized request paths",
-      "ecosystem": "go",
-      "packageName": "github.com/fabiolb/fabio",
-      "publishedAt": "2026-11-20T14:51:25.000Z",
-      "url": "https://github.com/advisories/GHSA-4hrh-34w3-5ww8"
     }
   ]
 }
